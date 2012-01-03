@@ -1,0 +1,62 @@
+<html><head><title>Java Programming/Statements/if</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Statements/if</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p>The <code><a href="../Keywords/if.html" title="Java Programming/Keywords/if"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">if</font></a></code> ... <code><a href="../Keywords/else.html" title="Java Programming/Keywords/else"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">else</font></a></code> statement is used to conditionally execute one of two statements, depending on the result of a boolean condition.</p>
+<p>Example:</p>
+<pre>
+<code><a href="../Keywords/if.html" title="Java Programming/Keywords/if"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">if</font></a></code> (list == null) {
+  {{Java://|this block of statements executes if the condition is true
+}
+<code><a href="../Keywords/else.html" title="Java Programming/Keywords/else"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">else</font></a></code> {
+  {{Java://|this block of statements executes if the condition is false
+}
+</pre>
+<p>An <code><a href="../Keywords/if.html" title="Java Programming/Keywords/if"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">if</font></a></code> statement has two forms:</p>
+<pre>
+<code><a href="../Keywords/if.html" title="Java Programming/Keywords/if"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">if</font></a></code> (<i><a href="../Types/boolean.html" title="Java Programming/Types/boolean">boolean-condition</a></i>)
+   <i><a href="../Statements.html" title="Java Programming/Statements">statement<sub>1</sub></a></i>
+</pre>
+<p>and</p>
+<pre>
+<code><a href="../Keywords/if.html" title="Java Programming/Keywords/if"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">if</font></a></code> (<i><a href="../Types/boolean.html" title="Java Programming/Types/boolean">boolean-condition</a></i>)
+   <i><a href="../Statements.html" title="Java Programming/Statements">statement<sub>1</sub></a></i>
+<code><a href="../Keywords/else.html" title="Java Programming/Keywords/else"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">else</font></a></code>
+   <i><a href="../Statements.html" title="Java Programming/Statements">statement<sub>2</sub></a></i>
+</pre>
+<p>Use the second form if you have different statements to execute if the <i><a href="../Types/boolean.html" title="Java Programming/Types/boolean">boolean-condition</a></i> is true or if it is false. Use the first if you only wish to execute <i><a href="../Statements.html" title="Java Programming/Statements">statement<sub>1</sub></a></i> if the condition is true and you do not wish to execute alternate statements if the condition is false.</p>
+<p>The following example calls two <code><a href="../Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> methods, <code>f()</code> and <code>f()</code>, stores the results, then uses an <code><a href="../Keywords/if.html" title="Java Programming/Keywords/if"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">if</font></a></code> statement to test if <code>x</code> is less than y and if it is, the <i><a href="../Statements.html" title="Java Programming/Statements">statement<sub>1</sub></a></i> body will swap the values. The end result is x always contains the larger result and y always contains the smaller result.</p>
+<pre>
+<code><a href="../Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> x = f();
+<code><a href="../Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> y = y();
+<code><a href="../Keywords/if.html" title="Java Programming/Keywords/if"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">if</font></a></code> ( x &lt; y ) {
+  <code><a href="../Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> z = x;
+  x = y;
+  y = z;
+}
+</pre>
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

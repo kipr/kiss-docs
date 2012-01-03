@@ -1,0 +1,136 @@
+<html><head><title>Java Programming/Keywords/instanceof</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Keywords/instanceof</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">instanceof</strong></font></code> is a keyword.</p>
+<p>It checks if an object reference is an instance of a type, and returns a boolean value;</p>
+<p>The &lt;object-reference&gt; <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">instanceof</strong></font></code> <code><a href="../API/java.lang.Object.html" title="Java Programming/API/java.lang.Object">Object</a></code> will return true for all non-null object references, since all Java objects are inherited from <code><a href="../API/java.lang.Object.html" title="Java Programming/API/java.lang.Object">Object</a></code>. <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">instanceof</strong></font></code> will always return <code><a href="../Literals/Boolean_Literals/false.html" title="Java Programming/Literals/Boolean Literals/false"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">false</font></a></code> if &lt;object-reference&gt; is <code><a href="../Literals/null.html" title="Java Programming/Literals/null"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">null</font></a></code>.</p>
+<p>Syntax:</p>
+<pre>
+&lt;object-reference&gt; <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">instanceof</strong></font></code> TypeName
+</pre>
+<p>For example:</p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">class</span> Fruit<br>
+&#160;<span class="br0">{</span><br>
+&#160; <span class="co1">//...</span><br>
+&#160;<span class="br0">}</span><br>
+&#160;<span class="kw1">class</span> Apple <span class="kw1">extends</span> Fruit<br>
+&#160;<span class="br0">{</span><br>
+&#160; <span class="co1">//...</span><br>
+&#160;<span class="br0">}</span><br>
+&#160;<span class="kw1">class</span> Orange <span class="kw1">extends</span> Fruit<br>
+&#160;<span class="br0">{</span><br>
+&#160; <span class="co1">//...</span><br>
+&#160;<span class="br0">}</span><br>
+&#160;<span class="kw1">public</span> <span class="kw1">class</span> Test<br>
+&#160;<span class="br0">{</span><br>
+&#160; &#160; <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span><br>
+&#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160;Collection<span class="sy0">&lt;</span>Object<span class="sy0">&gt;</span> coll <span class="sy0">=</span> <span class="kw1">new</span> ArrayList<span class="sy0">&lt;</span>Object<span class="sy0">&gt;</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160;<br>
+&#160; &#160; &#160; &#160;Apple app1 <span class="sy0">=</span> <span class="kw1">new</span> Apple<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160;Apple app2 <span class="sy0">=</span> <span class="kw1">new</span> Apple<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160;coll.<span class="me1">add</span><span class="br0">(</span>app1<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160;coll.<span class="me1">add</span><span class="br0">(</span>app2<span class="br0">)</span><span class="sy0">;</span><br>
+&#160;<br>
+&#160; &#160; &#160; &#160;Orange or1 <span class="sy0">=</span> <span class="kw1">new</span> Orange<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160;Orange or2 <span class="sy0">=</span> <span class="kw1">new</span> Orange<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160;coll.<span class="me1">add</span><span class="br0">(</span>or1<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160;coll.<span class="me1">add</span><span class="br0">(</span>or2<span class="br0">)</span><span class="sy0">;</span><br>
+&#160;<br>
+&#160; &#160; &#160; &#160;printColl<span class="br0">(</span>coll<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; <span class="br0">}</span><br>
+&#160;<br>
+&#160; &#160; <span class="kw1">private</span> <span class="kw1">static</span> <span class="kw3">String</span> printColl<span class="br0">(</span> Collection<span class="sy0">&lt;?&gt;</span> coll <span class="br0">)</span><br>
+&#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160;<span class="kw1">for</span> <span class="br0">(</span><span class="kw3">Object</span> obj <span class="sy0">:</span> coll<span class="br0">)</span><br>
+&#160; &#160; &#160; &#160;<span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; <span class="kw1">if</span> <span class="br0">(</span> obj <span class="kw1">instanceof</span> <span class="kw3">Object</span> <span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160;<span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">print</span><span class="br0">(</span><span class="st0">"It is a Java Object and"</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160; &#160; <span class="kw1">if</span> <span class="br0">(</span> obj <span class="kw1">instanceof</span> Fruit <span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160;<span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">print</span><span class="br0">(</span><span class="st0">"It is a Fruit and"</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160; &#160; <span class="kw1">if</span> <span class="br0">(</span> obj <span class="kw1">instanceof</span> Apple <span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160;<span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"it is an Apple"</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160; &#160; <span class="kw1">if</span> <span class="br0">(</span> obj <span class="kw1">instanceof</span> Orange <span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160;<span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"it is an Orange"</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160;<span class="br0">}</span><br>
+&#160; &#160; <span class="br0">}</span><br>
+&#160;<span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p>Run the program:</p>
+<pre>
+java Test
+</pre>
+<p>The output:</p>
+<pre>
+<code><font style="color:DarkGreen; text-decoration: none; font-weight: bold;">"It is a Java Object and It is a Fruit and it is an Apple"</font></code>
+<code><font style="color:DarkGreen; text-decoration: none; font-weight: bold;">"It is a Java Object and It is a Fruit and it is an Apple"</font></code>
+<code><font style="color:DarkGreen; text-decoration: none; font-weight: bold;">"It is a Java Object and It is a Fruit and it is an Orange"</font></code>
+<code><font style="color:DarkGreen; text-decoration: none; font-weight: bold;">"It is a Java Object and It is a Fruit and it is an Orange"</font></code>
+</pre>
+<p>Note that the <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">instanceof</strong></font></code> operator can also be applied to interfaces. For example, if the example above was enhanced with the interface</p>
+<p><br></p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">interface</span> Edible<br><span class="br0">{</span><br>
+&#160;<span class="co1">//...</span><br><span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p><br>
+and the the classes modified such that they implemented this interface</p>
+<p><br></p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">class</span> Orange <span class="kw1">extends</span> Fruit <span class="kw1">implements</span> Edible<br>
+&#160;<span class="br0">{</span><br>
+&#160; ...<br>
+&#160;<span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p><br>
+we could ask if our object were edible.</p>
+<p><br></p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">if</span> <span class="br0">(</span> obj <span class="kw1">instanceof</span> Edible <span class="br0">)</span><br>
+&#160;<span class="br0">{</span><br>
+&#160; &#160;<span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"it is edible"</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160;<span class="br0">}</span></div>
+</div>
+</td>
+</tr></table></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

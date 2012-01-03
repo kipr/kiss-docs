@@ -1,0 +1,144 @@
+<html><head><title>Java Programming/FirstExamples</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/FirstExamples</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><table class="wikitable" style="float: right;"><tr><td><b>User Interface Topics</b>:
+<ul><li><a href="http://en.wikibooks.org/wiki/Java_Programming/BasicIO" title="Java Programming/BasicIO" class="mw-redirect">Basic I/O</a></li>
+<li><a href="Event_Handling.html" title="Java Programming/Event Handling">Event handling</a></li>
+<li><a href="Swing.html" title="Java Programming/Swing">Intro to Swing</a></li>
+<li><a href="Graphics.html" title="Java Programming/Graphics">Graphics</a></li>
+<li><a href="Applets.html" title="Java Programming/Applets">Applets</a><br><br></li>
+</ul></td>
+</tr></table><table class="wikitable" style="float: right;"><tr><td>Navigate <b><a href="Swing.html" title="Java Programming/Swing">Swing</a></b> topic: 
+<ul><li> <a href="Swing.html" title="Java Programming/Swing">Overview</a></li>
+<li> <strong class="selflink">First Example: Frames and Labels</strong></li>
+<li> <a href="Events_and_Buttons.html" title="Java Programming/Events and Buttons">Events and Buttons</a></li>
+<li> <a href="Responsive_Swing_Application.html" title="Java Programming/Responsive Swing Application">A Responsive Application</a></li>
+<li> <a href="SwingLayouts.html" title="Java Programming/SwingLayouts">Layouts</a></li>
+<li> <a href="SwingLargeExamples.html" title="Java Programming/SwingLargeExamples">Building a Calculator</a></li>
+</ul></td>
+</tr></table><p><br>
+On this page, we'll get started with swing. We'll look at the classes JFrame and JLabel, and build a basic swing "hello world" application.</p>
+<h2> <span class="mw-headline" id="JFrames">JFrames</span></h2>
+<p>JFrames are swing components. A swing component is a part of a graphic user interface (GUI). Frames, windows, text boxes, buttons, switches and many other parts of a GUI application are all components. The root class of all swing components is the JComponent class, and other swing components, including JFrame, are subclasses of JComponent. JComponent is an abstract class, so it cannot be instantiated directly, but can be subclassed, which is useful if you want to write your own custom GUI component.</p>
+<p>A JFrame is a top-level component, meaning that it contains other components, but is not contained itself. It's onscreen appearance is dictated by the platform, but generally it is a window that the user can resize, move, maximize, minimize, and has its own title bar.</p>
+<p>Probably the best way to get familiar with a JFrame, as well as components in general, is to run a short example program that creates one. The following program will do the trick.</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">import</span> <span class="co2">javax.swing.JFrame</span><span class="sy0">;</span>  <span class="co1">//All swing components live</span>
+                            <span class="co1">//in the javax.swing package</span>
+ 
+ 
+<span class="co1">//A simple class to test a JFrame</span>
+<span class="kw1">public</span> <span class="kw1">class</span> JFrameTest <span class="br0">{</span>
+ 
+        <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="br0">{</span>
+ 
+                <span class="co1">//create the frame.  The constructor optionally takes</span>
+                <span class="co1">//a string as an argument that's used as the title.</span>
+                <span class="kw3">JFrame</span> frame <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">JFrame</span><span class="br0">(</span><span class="st0">"This is a test!"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+                <span class="co1">//set the size -- 300 by 300 is good</span>
+                frame.<span class="me1">setSize</span><span class="br0">(</span><span class="nu0">300</span>, <span class="nu0">300</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+                <span class="co1">//this next line is currently commented.  If you</span>
+                <span class="co1">//uncomment it, the user will not be able to resize</span>
+                <span class="co1">//the JFrame</span>
+ 
+                <span class="co1">//frame.setResizable(false);</span>
+ 
+                <span class="co1">//has the application exit when the frame is closed</span>
+                frame.<span class="me1">setDefaultCloseOperation</span><span class="br0">(</span><span class="kw3">JFrame</span>.<span class="me1">EXIT_ON_CLOSE</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+                <span class="co1">//makes the frame visible.  The frame is invisible</span>
+                <span class="co1">//until this method is called.</span>
+                frame.<span class="me1">setVisible</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+                <span class="co1">//these lines are also commented, but you can uncomment</span>
+                <span class="co1">//them to see their effects.  The first will center the</span>
+                <span class="co1">//JFrame in the center of the screen.  The second will</span>
+                <span class="co1">//make it the front, focused window.</span>
+ 
+                <span class="co1">//frame.setLocationRelativeTo(null);</span>
+                <span class="co1">//frame.toFront();</span>
+        <span class="br0">}</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>Here's the output:</p>
+<p><br>
+The code creates an empty JFrame. When you run it, you should see a window appear on your screen. The code also illustrates some methods that can be used with JFrames, some of which are commented out. I would encourage you to experiment a bit with commenting and uncommenting these, and seeing the effect.</p>
+<h2> <span class="mw-headline" id="JLabels">JLabels</span></h2>
+<p>An empty frame is only so exciting, so for this section, we're going to look at JLabels, and put one in a JFrame. A JLabel is a GUI component that can hold an image, some text, or both.</p>
+<p>The following code creates a GUI version of the "Hello World!" application.</p>
+<p><br></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">import</span> <span class="co2">javax.swing.*</span><span class="sy0">;</span>  <span class="co1">//All swing components live</span>
+                       <span class="co1">//in the javax.swing package</span>
+ 
+<span class="co1">//A GUI hello world application</span>
+<span class="kw1">public</span> <span class="kw1">class</span> Hello <span class="br0">{</span>
+ 
+        <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="br0">{</span>
+ 
+                <span class="co1">//creates the label.  The JLabel constructor</span>
+                <span class="co1">//takes an optional argument which sets the text</span>
+                <span class="co1">//of the label.</span>
+                <span class="kw3">JLabel</span> label <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">JLabel</span><span class="br0">(</span><span class="st0">"Hello, World!"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+                <span class="co1">//The next line is commented out.  If it is</span>
+                <span class="co1">//uncommented, the text will be aligned with</span>
+                <span class="co1">//the center of the frame, otherwise it will</span>
+                <span class="co1">//align on the left.</span>
+ 
+                <span class="co1">//label.setHorizontalAlignment(SwingConstants.CENTER);</span>
+ 
+                <span class="kw3">JFrame</span> frame <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">JFrame</span><span class="br0">(</span><span class="st0">"Hello"</span><span class="br0">)</span><span class="sy0">;</span>
+                frame.<span class="me1">add</span><span class="br0">(</span>label<span class="br0">)</span><span class="sy0">;</span>
+ 
+                frame.<span class="me1">setSize</span><span class="br0">(</span><span class="nu0">300</span>, <span class="nu0">300</span><span class="br0">)</span><span class="sy0">;</span>
+                frame.<span class="me1">setDefaultCloseOperation</span><span class="br0">(</span><span class="kw3">JFrame</span>.<span class="me1">EXIT_ON_CLOSE</span><span class="br0">)</span><span class="sy0">;</span>
+                frame.<span class="me1">setVisible</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
+                frame.<span class="me1">setLocationRelativeTo</span><span class="br0">(</span><span class="kw2">null</span><span class="br0">)</span><span class="sy0">;</span>
+                frame.<span class="me1">toFront</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="br0">}</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>This program is pretty much like the previous one, except that it creates a JLabel with the text "Hello, World!" in addition to the JFrame, and uses the JFrame add() method to add it to the frame before making it visible. If you compile and run the program as-is, the "Hello, world" text will be aligned on the left side of the window, like this:</p>
+<p><br>
+By uncommenting the line <code>label.setHorizontalAlignment(SwingConstants.CENTER);</code> you can move the text to the center, and get this output:</p>
+<p><br></p>
+<h2> <span class="mw-headline" id="Summary">Summary</span></h2>
+<p>We've seen how to create a JFrame, a top level container for a swing GUI application, as well as a few JFrame methods that can be used to change its settings. We also looked at the JLabel class, and used the JFrame's add() method to add a JLabel to the frame in order to create a simple application.</p>
+<p>Looking at these examples, you might be wondering what other methods exist for JFrames, JLabels, and other components. Although we'll continue to look at more components and more methods, the present author doesn't claim to be able to hit on every aspect. Fortunately, Sun provides an invaluable online reference to all of the core Java classes, including swing, which can be viewed at the following link:</p>
+<p><a rel="nofollow" class="external free" href="http://java.sun.com/j2se/1.4.2/docs/api/index.html">http://java.sun.com/j2se/1.4.2/docs/api/index.html</a></p>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

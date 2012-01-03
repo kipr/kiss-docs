@@ -1,0 +1,129 @@
+<html><head><title>Java Programming/Data and Variables</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Data and Variables</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><table class="wikitable" style="float: right;"><tr><td>Navigate <b><a href="Language_Fundamentals.html" title="Java Programming/Language Fundamentals">Language Fundamentals</a></b> topic: 
+<ul><li> <a href="Variables.html" title="Java Programming/Variables">Variables</a></li>
+<li> <a href="Flow_control.html" title="Java Programming/Flow control">Flow control</a></li>
+<li> <a href="Arrays.html" title="Java Programming/Arrays">Arrays</a></li>
+<li> <a href="Methods.html" title="Java Programming/Methods">Methods</a></li>
+<li> <a href="Statements.html" title="Java Programming/Statements">Statements</a></li>
+<li> <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Identifiers,_literals_and_expressions&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Identifiers, literals and expressions (does not exist)">Identifiers, literals and expressions</a></li>
+<li> <a href="Types.html" title="Java Programming/Types">Types</a></li>
+<li> <a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></li>
+<li> <a href="Classes,_Objects_and_Types.html" title="Java Programming/Classes, Objects and Types">Classes, Objects and Types</a></li>
+<li> <a href="Syntax.html" title="Java Programming/Syntax">Syntax</a></li>
+<li> <a href="Keywords/assert.html" title="Java Programming/Keywords/assert">Assertions</a></li>
+<li> <a href="Keywords.html" title="Java Programming/Keywords">Keywords</a></li>
+<li> <a href="Packages.html" title="Java Programming/Packages">Packages</a></li>
+<li> <a href="Nested_Classes.html" title="Java Programming/Nested Classes">Nested classes</a></li>
+<li> <a href="Access_Modifiers.html" title="Java Programming/Access Modifiers">Access modifiers</a></li>
+<li> <strong class="selflink">Data and variables</strong></li>
+<li> <a href="Generics.html" title="Java Programming/Generics">Generics</a></li>
+<li> <a href="Java_Security.html" title="Java Programming/Java Security">Java Security</a></li>
+</ul></td>
+</tr></table><p>A variable in Java can store two kinds of variables:</p>
+<ul><li><a href="http://en.wikibooks.org/wiki/Java_Programming/Primitive_Types" title="Java Programming/Primitive Types" class="mw-redirect">Java primitive type values</a></li>
+<li>a reference to a <a href="Creating_Objects.html" title="Java Programming/Creating Objects">Java object</a></li>
+</ul><p>Java's primitive types are</p>
+<ul><li>integers (whole numbers, declared as <code><a href="Keywords/byte.html" title="Java Programming/Keywords/byte"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">byte</font></a></code>, <code><a href="Keywords/short.html" title="Java Programming/Keywords/short"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">short</font></a></code>, <code><a href="Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code>, or <code><a href="Keywords/long.html" title="Java Programming/Keywords/long"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">long</font></a></code>; only int need be of interest to a beginner)</li>
+<li>floating-point numbers (decimal numbers, declared as <code><a href="Keywords/float.html" title="Java Programming/Keywords/float"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">float</font></a></code> or <code><a href="Keywords/double.html" title="Java Programming/Keywords/double"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">double</font></a></code>; only float need be of interest at first)</li>
+<li>characters (declared as <code><a href="Keywords/char.html" title="Java Programming/Keywords/char"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">char</font></a></code>, representing one character like 'A' or ',')</li>
+<li><code><a href="Keywords/boolean.html" title="Java Programming/Keywords/boolean"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">boolean</font></a></code> (holding only <i>true</i> or <i>false</i> as values)</li>
+</ul><p>In addition, the Java language has special features for its String class, and strings can be treated very much like primitives for many purposes.</p>
+<p>As in most languages, a variable is declared to be a particular type of data; the syntax for a declaration is:</p>
+<pre>
+<i>variabletype</i> <i>variablename</i>;
+</pre>
+<p>To store a value in a variable, a program statement like</p>
+<pre>
+<i>variablename</i> = <i>data</i>;
+</pre>
+<p>And can reference the variable (and use the data stored in it) by its name.</p>
+<p>For example, to create an int primitive type value, named <b>year</b> that stores 2007;</p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">year <span class="sy0">=</span> <span class="nu0">2007</span><span class="sy0">;</span></div>
+</div>
+</td>
+</tr></table><p><br>
+To access the data in <i>year</i>, use the variable in place of the number.</p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span>year<span class="br0">)</span><span class="sy0">;</span></div>
+</div>
+</td>
+</tr></table><p>Produces</p>
+<pre>
+2007
+</pre>
+<h2> <span class="mw-headline" id="Strong_Typing">Strong Typing</span></h2>
+<p>Variables in Java are <i>strongly typed</i>, which means that the compiler checks the type of a variable matches the type of data stored in that variable. If you declare a variable to hold a String, for instance, you cannot assign an integer value to that variable. Some languages (such as C) define an interpretation of such a statement and use that interpretation without any warning; others (such as PL/I) define a conversion for almost all such statements and perform the conversion to complete the assignment. Strong typing is intended to prevent mistakes made by unwittingly assigning the wrong kind of value to a variable, and catching those mistakes when the program is compiled rather than waiting to find it when the program is running.</p>
+<h2> <span class="mw-headline" id="Case_Conventions">Case Conventions</span></h2>
+<p>Java is case-sensitive. A method called <code>mymethod</code> is completely separate from a method called <code>myMethod</code>. Be careful!</p>
+<p>By convention, most identifiers that includes more than one word uses <a href="http://en.wikipedia.org/wiki/CamelCase" class="extiw" title="w:CamelCase">camel case</a>. Classes begin with a capital letter; methods and variables do not. (Constructors have to start with a capital, because they must have the same name as the class.) Package names use lowercase, and do not use camel case. Thus:</p>
+<pre>
+<code><a href="Keywords/package.html" title="Java Programming/Keywords/package"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">package</font></a></code> org.wikibooks.samplecode;
+
+<code><a href="Keywords/class.html" title="Java Programming/Keywords/class"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">class</font></a></code> CaseConventions {
+   <code><a href="Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> variable;
+   <code><a href="Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> multipleWordVariable;
+
+   CaseConventions(<code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> id) {
+   }
+
+   <code><a href="Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> method() {
+   }
+
+   <code><a href="Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> longMethodName() {
+   }
+}
+</pre>
+<h2> <span class="mw-headline" id="Scope">Scope</span></h2>
+<p>Java uses <b>block scope</b>, which means that a variable is "un-defined" (and becomes useless) at the end of the block in which it is defined. A <i>block</i> is any section of code within curly braces. Common blocks include class definitions, methods and constructors, if/else blocks, and for, while, and do-while loops.</p>
+<pre>
+<code><a href="Keywords/class.html" title="Java Programming/Keywords/class"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">class</font></a></code> BlockScope {
+    <code><a href="Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> classScope; // valid in all of class BlockScope
+
+    BlockScope(<code><a href="Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> param) { // param is valid only in this constructor
+        <code><a href="Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> localVariable = 0; // valid only in this constructor
+    }
+
+    <code><a href="Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> someMethod() {
+        <code><a href="Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> local = 42; // valid only in this method
+
+        <code><a href="Keywords/if.html" title="Java Programming/Keywords/if"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">if</font></a></code>(local &gt; 0) {
+            <code><a href="Keywords/boolean.html" title="Java Programming/Keywords/boolean"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">boolean</font></a></code> positive = true; // valid only within the if block
+        } <code><a href="Keywords/else.html" title="Java Programming/Keywords/else"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">else</font></a></code> {
+            // positive is not defined here!
+        }
+    }
+}
+</pre>
+<p>There are three basic kinds of scope for variables in Java:</p>
+<ul><li>local variable, declared within a method in a class, valid for (and occupying storage only for) the time that method is executing. Every time the method is called, a new copy of the variable is used.</li>
+</ul><ul><li>instance variable, declared within a class but outside any method. It is valid for and occupies storage for as long as the corresponding object is in memory; a program can instantiate multiple objects of the class, and each one gets its own copy of all instance variables. This is the basic data structure rule of Object-Oriented programming; classes are defined to hold data specific to a "class of objects" in a given system, and each instance holds its own data.</li>
+</ul><ul><li>static variable, declared within a class as <i>static</i>, outside any method. There is only one copy of such a variable no matter how many objects are instantiated from that class.</li>
+</ul></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

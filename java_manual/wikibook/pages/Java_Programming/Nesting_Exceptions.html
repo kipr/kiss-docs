@@ -1,0 +1,95 @@
+<html><head><title>Java Programming/Nesting Exceptions</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Nesting Exceptions</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><table class="wikitable" style="float: right;"><tr><td>Navigate <b><a href="Exceptions.html" title="Java Programming/Exceptions">Exceptions</a></b> topic:
+<ul><li><a href="Throwing_and_Catching_Exceptions.html" title="Java Programming/Throwing and Catching Exceptions">Throwing and catching exceptions</a></li>
+</ul><dl><dd>
+<dl><dd><a href="Throwing_and_Catching_Exceptions.html" title="Java Programming/Throwing and Catching Exceptions">Application exceptions</a></dd>
+<dd><a href="Throwing_and_Catching_Exceptions.html" title="Java Programming/Throwing and Catching Exceptions">Runtime exceptions</a></dd>
+<dd><code><a href="Throwing_and_Catching_Exceptions.html" title="Java Programming/Throwing and Catching Exceptions">NullPointerException</a></code></dd>
+<dd><a href="Throwing_and_Catching_Exceptions.html" title="Java Programming/Throwing and Catching Exceptions">Main Exception classes</a></dd>
+</dl></dd>
+</dl><ul><li><a href="http://en.wikibooks.org/wiki/Java_Programming/StackTrace" title="Java Programming/StackTrace" class="mw-redirect">Stack trace</a></li>
+<li><a href="Checked_Exceptions.html" title="Java Programming/Checked Exceptions">Checked exceptions</a></li>
+<li><a href="Unchecked_Exceptions.html" title="Java Programming/Unchecked Exceptions">Unchecked exceptions</a></li>
+<li><a href="Preventing_NullPointerException.html" title="Java Programming/Preventing NullPointerException">Preventing <code>NullPointerException</code></a></li>
+<li><strong class="selflink">Chained exceptions(Nesting Exceptions)</strong></li>
+</ul></td>
+</tr></table><p>When an exception is caught, the exception contains the stack-trace, which describes the error and shows where the exception happened, where the problem is, where the application programmer should look to fix the problem.</p>
+<p>Sometime it is desirable to catch an exception and throw an other new exception. This is a kind of exception conversion, from one exception to an other.</p>
+<p>For example, calling a remote object using RMI, the calling method has to deal with <code>RemoteException</code> which is thrown if something is wrong during the communication. For the application point of view, <code>RemoteException</code> has no meaning, it should be transparent to the application that a remote object was used or not. So the <code>RemoteException</code> should be converted to an application exception.</p>
+<p>This conversion can also hide, where the error is originated. The stack-trace starts, when the exception is thrown. So when we catch and throw a new exception, the stack-trace starts at when the new exception was thrown, losing the original stack-trace. This was true with the earlier version of Java (Before 1.4). With the current version, a so called <b>chained exception facility</b> capabilities were build in the <code>Throwable</code> class.</p>
+<p>A throwable contains a snapshot of the execution stack of its thread at the time it was created. It can also contain a message string that gives more information about the error. Finally, it can contain a cause: another throwable that caused this throwable to get thrown. The cause facility is new in release 1.4. It is also known as the chained exception facility, as the cause can, itself, have a cause, and so on, leading to a "chain" of exceptions, each caused by another.</p>
+<p><br></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+ 
+ <span class="kw1">public</span> applicationMethod<span class="br0">(</span><span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">ApplicationException</span>
+ <span class="br0">{</span>
+    <span class="kw1">try</span> <span class="br0">{</span>
+        ...
+        <span class="me1">callRemoteObjectMethod</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        ...
+    <span class="kw1">catch</span> <span class="br0">(</span> <span class="kw3">RemoteException</span> e <span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="kw1">throw</span> <span class="kw1">new</span> <span class="kw3">ApplicationException</span><span class="br0">(</span> e <span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+ <span class="br0">}</span>
+</pre></div>
+</div>
+<p>The above code is an example of the nesting exception. When the <code>ApplicationException</code> is thrown, by passing in the <code>RemoteException</code> object reference as a parameter, the <code>RemoteException</code> is nested in the newly created <code>ApplicationException</code>, its stack-trace is appended together.</p>
+<p>When the <code>ApplicationException</code> is caught, its stack-trace contains the original <code>RemoteException</code>'s stack-trace.</p>
+<p>A cause can be associated with a throwable in two ways: via a constructor that takes the cause as an argument, or via the initCause(Throwable) method. New throwable classes that wish to allow causes to be associated with them should provide constructors that take a cause and delegate (perhaps indirectly) to one of the Throwable constructors that takes a cause. For example:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+ <span class="kw1">try</span> <span class="br0">{</span>
+    lowLevelOp<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ <span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span>LowLevelException le<span class="br0">)</span> <span class="br0">{</span>
+    <span class="kw1">throw</span> <span class="kw1">new</span> HighLevelException<span class="br0">(</span>le<span class="br0">)</span><span class="sy0">;</span>  <span class="co1">// Chaining-aware constructor</span>
+ <span class="br0">}</span>
+</pre></div>
+</div>
+<p>Because the initCause method is public, it allows a cause to be associated with any throwable, even a "legacy throwable" whose implementation predates the addition of the exception chaining mechanism to Throwable. For example:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+ <span class="kw1">try</span> <span class="br0">{</span>
+    lowLevelOp<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ <span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span>LowLevelException le<span class="br0">)</span> <span class="br0">{</span>
+    <span class="kw1">throw</span> <span class="br0">(</span>HighLevelException<span class="br0">)</span>
+    <span class="kw1">new</span> HighLevelException<span class="br0">(</span><span class="br0">)</span>.<span class="me1">initCause</span><span class="br0">(</span>le<span class="br0">)</span><span class="sy0">;</span>  <span class="co1">// Legacy constructor</span>
+ <span class="br0">}</span>
+</pre></div>
+</div>
+<p>Further, as of release 1.4, many general purpose Throwable classes (for example <code>Exception, RuntimeException, Error</code>) have been retrofitted with constructors that take a cause. This was not strictly necessary, due to the existence of the initCause method, but it is more convenient and expressive to delegate to a constructor that takes a cause.</p>
+<p>By convention, class <code>Throwable</code> and its subclasses have two constructors, one that takes no arguments and one that takes a String argument that can be used to produce a detail message. Further, those subclasses that might likely have a cause associated with them should have two more constructors, one that takes a <code>Throwable</code> (the cause), and one that takes a String (the detail message) and a <code>Throwable</code> (the cause).</p>
+<p>Also introduced in release 1.4 is the <code>getStackTrace()</code> method, which allows programmatic access to the stack trace information that was previously available only in text form, via the various forms of the <code>printStackTrace()</code> method. This information has been added to the serialized representation of this class so <code>getStackTrace</code> and <code>printStackTrace</code> will operate properly on a throwable that was obtained by deserialization.</p>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

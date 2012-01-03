@@ -1,0 +1,340 @@
+<html><head><title>Variables</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Variables</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><span id="displaytitle" title=""></span></p>
+
+<p>In the chapter <i>"<a href="Getting_started.html" title="Java Programming/Getting started">Getting started</a>"</i>, we learnt that an object has different <b>properties</b> or <b>fields</b> which they use to store their state. In the Java programming language, the words <b>field</b> and <b>variable</b> are both one and the same thing.</p>
+<h2> <span class="mw-headline" id="What_are_variables.3F">What are variables?</span></h2>
+<p><b>Variables</b> are devices that are used to store data, such as a number, or a string of character data. However for a variable to hold data, a Java programmer has to explicitly define what it can and cannot hold. Thus all variables in the Java programming language ought to have a particular <b>data type</b>.</p>
+<h3> <span class="mw-headline" id="Kinds_of_variables">Kinds of variables</span></h3>
+<p>There are four kind of variables in the Java programming language; these are:</p>
+<ul><li><b>Instance variables</b>: These are variables that are used to store the state of an object. These variables usually have the <code>private</code> access modifiers but they might seldom have a <code>public</code> access modifier. However, they can never have a <code>static</code> modifier attached to them. Every object created from a class definition would have its own copy of the variable.</li>
+<li><b>Class variables</b>: These variables are explicitly defined within the class-level scope with a <code>static</code> modifier. Because, these variables are defined with the <code>static</code> modifier, there would always be a single copy of these variables no matter how many times the class has been instantiated.</li>
+<li><b>Local variables</b>: These variables are defined and used specifically within the method-level scope. These variables are initiated much like the <i>instance variables</i>, however they do not have any modifiers attached to it (i.e., <code>public</code>, <code>private</code>, <code>protected</code> or <code>static</code>.</li>
+<li><b>Parameters</b> or <b>Arguments</b>: These are variables passed into a method signature. Recall the usage of the <code>args</code> variable in the main method.</li>
+</ul><div class="collapsible" style="width:100%; clear:both; border:none;">
+<div class="title" style="background:transparent; text-align:left; background:#cedff2;border:1px solid lightgrey;">Test your knowledge</div>
+<div class="body" style="background:transparent; text-align:left; background:#e7eff9;border:solid 1px lightgrey;padding:8px;">
+<p><b>Question</b>: Consider the following code:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw2">public</span> <span class="kw2">class</span> SomeClass <span class="br0">{</span>
+  <span class="kw2">public</span> <span class="kw3">int</span> a<span class="sy0">;</span>
+  <span class="kw2">private</span> <span class="kw3">int</span> b<span class="sy0">;</span>
+  <span class="kw2">public</span> <span class="kw2">static</span> <span class="kw3">int</span> c<span class="sy0">;</span>
+ 
+  <span class="kw2">public</span> <span class="kw3">void</span> someMethod<span class="br0">(</span><span class="kw3">int</span> d<span class="br0">)</span> <span class="br0">{</span>
+    <span class="kw3">int</span> e<span class="sy0">;</span>
+  <span class="br0">}</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>In the example above, we created five variables: <code>a</code>, <code>b</code>, <code>c</code>, <code>d</code> and <code>e</code>. All these variables have the same data type <code>int</code> (integer). However, can you tell what kind of variable each one is?</p>
+<div class="collapsible" style="width:100%; clear:both; border:none;">
+<div class="title" style="background:transparent; text-align:left; background:#cedff2;border:1px solid lightgrey;">Answer</div>
+<div class="body" style="background:transparent; text-align:left; background:#e7eff9;border:solid 1px lightgrey;padding:8px;">
+<ul><li><code>a</code> and <code>b</code> are <b>instance variables</b>;</li>
+<li><code>c</code> is a <b>class variable</b>;</li>
+<li><code>d</code> is a <b>parameter</b> or <b>argument</b>; and,</li>
+<li><code>e</code> is a <b>local variable</b>.</li>
+</ul></div>
+</div>
+</div>
+</div>
+<h2> <span class="mw-headline" id="Creating_variables">Creating variables</span></h2>
+<p>Variables and all the information they store are kept in the computer's memory for access. Think of a computer's memory as a table of data &#8211; where each cell corresponds to a variable. Although <a href="http://en.wikipedia.org/wiki/Address_space" class="extiw" title="w:Address space">memory spaces</a> have their own addresses &#8211; usually a hash number such as <code>0xCAD3</code>, etc. It is much easier to remember a variable's location in the memory if we can give it a recognizable name.</p>
+<p>Upon creating a variable, we basically create a new address space and give it a unique name. Java goes one step further and lets you define what you can place within the variable &#8211; in Java parlance you call this a <b>data type</b>. So, you essentially have to do two things in order to create a variable:</p>
+<ul><li>Create a variable by giving it a unique name; and,</li>
+<li>Define a data type for the variable.</li>
+</ul><p>The following code demonstrates how a simple variable can be created. This process is known as <b>variable declaration</b>.</p>
+<p><b>Listing 1.1: A simple variable declaration.</b></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw3">int</span> a<span class="sy0">;</span>
+</pre></div>
+</div>
+<h2> <span class="mw-headline" id="Assigning_values_to_variables">Assigning values to variables</span></h2>
+<p>Because we have provided a data type for the variable, we have a hint as to what the variable can and cannot hold. We know that <code>int</code> (integer) data type supports numbers that are either positive of negative integers. Therefore once a variable is created, we can provide it with any integer value using the following syntax. This process is called an <b>assignment operation</b>.</p>
+<p><b>Listing 1.2: Variable declaration and assignment operation (on different lines).</b></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw3">int</span> a<span class="sy0">;</span>
+a = <span class="nu0">10</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<p>Java provides programmers with a simpler way of combining both variable declaration and assignment operation in one line. Consider the following code:</p>
+<p><b>Listing 1.3: Variable declaration and assignment operation (on the same line).</b></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw3">int</span> a = <span class="nu0">10</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<div class="collapsible" style="width:100%; clear:both; border:none;">
+<div class="title" style="background:transparent; text-align:left; background:#cedff2;border:1px solid lightgrey;">Best practices: Grouping variable declarations and assignment operations</div>
+<div class="body" style="background:transparent; text-align:left; background:#e7eff9;border:solid 1px lightgrey;padding:8px;">
+<p>Consider the following code:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw3">int</span> a<span class="sy0">;</span>
+<span class="kw3">int</span> b<span class="sy0">;</span>
+<span class="kw21">String</span> c<span class="sy0">;</span>
+a = <span class="nu0">10</span><span class="sy0">;</span>
+b = <span class="nu0">20</span><span class="sy0">;</span>
+c = <span class="st0">"some text"</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<p>There are various ways by which you can streamline the writing of this code. You can group the declarations of similar data types in one statement, for instance:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw3">int</span> a, b<span class="sy0">;</span>
+<span class="kw21">String</span> c<span class="sy0">;</span>
+a = <span class="nu0">10</span><span class="sy0">;</span>
+b = <span class="nu0">20</span><span class="sy0">;</span>
+c = <span class="st0">"some text"</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<p>Alternatively, you can further reduce the syntax by doing group declarations and assignments together, as such:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw3">int</span> a = <span class="nu0">10</span>, b = <span class="nu0">20</span><span class="sy0">;</span>
+<span class="kw21">String</span> c = <span class="st0">"some text"</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<p>This makes a programmer's life just that bit easier, and the code is easier to maintain as well.</p>
+</div>
+</div>
+<h2> <span class="mw-headline" id="Understanding_data_types">Understanding data types</span></h2>
+<p>Take a look at the code in Listing 1.4. We understand that the variable <code>age</code> that we created must hold an integer value (as understood from the usage of the <code>int</code> data type. However, instead of putting an integer (or whole number) as a value, we present it with a real number (a number with a decimal point). Thus, the following code should not be correct:</p>
+<p><b>Listing 1.4: Setting a real number as a value to an <code>int</code> (integer) type.</b></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw3">int</span> age = <span class="nu0">10.5</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<p>As we already know, the code above is wrong. This is because integers are whole numbers: <code>0</code>, <code>10</code>, <code>21</code>, etc. Anything with a decimal point is not an integer, hence the assignment operation in this instance is wrong. In common programming practice, variables that can hold numbers with decimal points are called <b>floating point</b> numbers and should have an appropriate data type.</p>
+<h2> <span class="mw-headline" id="Integer_numbers_and_floating_point_numbers">Integer numbers and floating point numbers</span></h2>
+<p>The data types that one can use for integer numbers are <code>byte</code>, <code>short</code>, <code>int</code> and <code>long</code> but when it comes to floating point numbers, we use <code>float</code> or <code>double</code>. Now that we know that, we can modify the code in Listing 1.4 as:</p>
+<p><b>Listing 1.5: Correct floating point declaration and assignment.</b></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw3">double</span> age = <span class="nu0">10.5</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<p>Why not <code>float</code>, you say? Well, there are several reasons why not. The number <code>10.5</code> could be anything &#8211; a <code>float</code> or a <code>double</code> but by a certain rule, it is given a certain type. This can be explained further by looking at the table below.</p>
+<table><tr><th style="width:100px; border-bottom:solid 1px #ccc;">Data type</th>
+<th style="border-bottom:solid 1px #ccc;">Values accepted</th>
+<th style="border-bottom:solid 1px #ccc;">Declaration</th>
+</tr><tr><td style="text-align:center; border-bottom:solid 1px #ccc;"><b><code>byte</code></b></td>
+<td style="border-bottom:solid 1px #ccc;">Any number between <code>-128</code> and <code>127</code>.</td>
+<td style="border-bottom:solid 1px #ccc;">
+<pre>
+byte b = 123;
+</pre></td>
+</tr><tr><td style="text-align:center; border-bottom:solid 1px #ccc;"><b><code>short</code></b></td>
+<td style="border-bottom:solid 1px #ccc;">Any number between <code>-32,768</code> and <code>32,767</code>.</td>
+<td style="border-bottom:solid 1px #ccc;">
+<pre>
+short s = 12345;
+</pre></td>
+</tr><tr><td style="text-align:center; border-bottom:solid 1px #ccc;"><b><code>int</code></b></td>
+<td style="border-bottom:solid 1px #ccc;">Any number between <code>-2,147,483,648</code> and <code>2,147,483,647</code>.</td>
+<td style="border-bottom:solid 1px #ccc;">
+<pre>
+int i = 1234567;
+</pre></td>
+</tr><tr><td style="text-align:center; border-bottom:solid 1px #ccc;"><b><code>long</code></b></td>
+<td style="border-bottom:solid 1px #ccc;">Any number between <code>-9,223,372,036,854,775,808</code> and <code>9,223,372,036,854,775,807</code>.</td>
+<td style="border-bottom:solid 1px #ccc;">
+<pre>
+long l = 1234567890L;
+</pre></td>
+</tr><tr><td style="text-align:center; border-bottom:solid 1px #ccc;"><b><code>float</code></b></td>
+<td style="border-bottom:solid 1px #ccc;">Extremely large numbers beyond the scope of discussion here.</td>
+<td style="border-bottom:solid 1px #ccc;">
+<pre>
+float f = 123.4567f;
+</pre></td>
+</tr><tr><td style="text-align:center;"><b><code>double</code></b></td>
+<td>Extremely large numbers beyond the scope of discussion here. The only difference between <code>double</code> and <code>float</code> is the addition of an <code>f</code> as a suffix after the <code>float</code> value.</td>
+<td>
+<pre>
+double d = 1234.56789;
+</pre></td>
+</tr></table><p>The above table only list the number data types. We will look at the others as we go on. So, did you notice why we used a <code>double</code> in listing 1.3, and not a <code>float</code>? The answer is pretty simple. If we'd used a <code>float</code>, we would have to append the number with a <code>f</code> as a suffix, so <code>10.5</code> should be <code>10.5f</code> as in:</p>
+<p><b>Listing 1.6: The correct way to define floating point numbers of type <code>float</code>.</b></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw3">float</span> age = 10.5f<span class="sy0">;</span>
+</pre></div>
+</div>
+<h2> <span class="mw-headline" id="Identifiers">Identifiers</span></h2>
+<p><b>Identifiers</b> are the names we give to our variables. You can name your variable anything like <code>aVariable</code>, <code>someVariable</code>, <code>age</code>, <code>someonesImportantData</code>, etcetera. But notice something, none of the names we described here has a space within it. Hence, it is pretty obvious that spaces aren't allowed in variable names. To be honest, there are a lot of other things that are not allowed in variable names. The only things you are allowed however are:</p>
+<ul><li>Characters <code>A</code> to <code>Z</code> and their lower-case counterparts <code>a</code> to <code>z</code>.</li>
+<li>Numbers <code>0</code> to <code>9</code>. However, numbers should not come at the beginning of a variable's name.</li>
+<li>And finally, special characters that include only <code>$</code> (dollar sign) and <code>_</code> (underscore).</li>
+</ul><div class="collapsible" style="width:100%; clear:both; border:none;">
+<div class="title" style="background:transparent; text-align:left; background:#cedff2;border:1px solid lightgrey;">Test your knowledge</div>
+<div class="body" style="background:transparent; text-align:left; background:#e7eff9;border:solid 1px lightgrey;padding:8px;">
+<p><b>Question</b>: Which of the ones below are proper variable identifiers?</p>
+<ol><li><code>f_name</code></li>
+<li><code>lastname</code></li>
+<li><code>someones name</code></li>
+<li><code>$SomeoneElsesName</code></li>
+<li><code>7days</code></li>
+<li><code>TheAnswerIs42</code></li>
+</ol><div class="collapsible" style="width:100%; clear:both; border:none;">
+<div class="title" style="background:transparent; text-align:left; background:#cedff2;border:1px solid lightgrey;">Answer</div>
+<div class="body" style="background:transparent; text-align:left; background:#e7eff9;border:solid 1px lightgrey;padding:8px;">
+<p>I can tell you that 3 and 5 are not the right way to do things around here, the rest are proper identifiers. Well, not quite. They might be correct but they are not what you should be naming your variables for a few reasons as listed below:</p>
+<ul><li>The name of the variable should reflect the value within them.</li>
+<li>The identifier should be named following the naming guidelines or conventions for doing so. We will explain that in a bit.</li>
+<li>The identifier shouldn't be a nonsense name like <code>fname</code>, you should always name it properly: <code>firstName</code> is the best way of naming a variable.</li>
+</ul></div>
+</div>
+</div>
+</div>
+<h2> <span class="mw-headline" id="Naming_conventions_for_identifiers">Naming conventions for identifiers</span></h2>
+<p>When naming identifiers, you need to use the following guidelines which ensure that your variables are named accurately. As we discussed earlier, we should always name our variables in a way that tells us what they hold. Consider this example:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw3">int</span> a = <span class="nu0">24</span><span class="sy0">;</span>
+<span class="kw3">int</span> b = <span class="nu0">365</span><span class="sy0">;</span>
+<span class="kw3">int</span> c = a <span class="sy0">*</span> b<span class="sy0">;</span>
+</pre></div>
+</div>
+<p>Do you know what this program does? Well, it multiplies two values. That much you guessed right. But, do you know what those values are? Exactly, you don't. Now consider this code:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw3">int</span> age = <span class="nu0">24</span><span class="sy0">;</span>
+<span class="kw3">int</span> daysInYear = <span class="nu0">365</span><span class="sy0">;</span>
+<span class="kw3">int</span> ageInDays = age <span class="sy0">*</span> daysInYear<span class="sy0">;</span>
+</pre></div>
+</div>
+<p>Now you can tell what's happening, can't you? However, before we continue, notice the case of the variables.</p>
+<p>The variables we studied so far had a mixed case. When there are two or more words making up the names of a variable, you need to use a special case called the camel-case. Just like the humps of a camel, your words need to stand out. Using this technique, the words <code>first</code> and <code>name</code> could be written as either <code>firstName</code> or <code>FirstName</code>.</p>
+<p>The first instance, <code>firstName</code> is what we use as the names of variables. Remember though, <code>firstName</code> is not the same as <code>FirstName</code> because Java is <b>case-sensitive</b>. Case-sensitive basically implies that the case in which you wrote one word is the case you have to call that word in when using them later on. Anything other than that is not the same as you intended. You'll know more as you progress. You can hopefully tell now why the variables you were asked to identify weren't proper.</p>
+<h2> <span class="mw-headline" id="Literals_.28values.29">Literals (values)</span></h2>
+<p>Now that we know how variables should be named, let us look at the values of those variables. Simple values like numbers are called literals. This section shows you what literals are and how to use them. Consider the following code:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw3">int</span> age = <span class="nu0">24</span><span class="sy0">;</span>
+<span class="kw3">long</span> bankBalance = 20000005L<span class="sy0">;</span>
+</pre></div>
+</div>
+<p>By now, we've only seen how numbers work in assignment statements. Let's look at data types other than numbers. Characters are basically letters of the English alphabet. When writing a single character, we use single quotes to encapsulate them. Take a look at the code below:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw3">char</span> c = <span class="st0">'a'</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<p>Why, you ask? Well, the explanation is simple. If written without quotes, the system would think it's a variable identifier. That's the very distinction you have to make when differentiating between variables and their literal values. Character data types are a bit weird. First, they can only hold a single character. What if you had to store a complete name within them, say <i>John</i>, would you write something like:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw3">char</span> firstChar = <span class="st0">'J'</span><span class="sy0">;</span>
+<span class="kw3">char</span> secondChar = <span class="st0">'o'</span><span class="sy0">;</span>
+<span class="kw3">char</span> thirdChar = <span class="st0">'h'</span><span class="sy0">;</span>
+<span class="kw3">char</span> fourthChar = <span class="st0">'n'</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<p>Now, that's pathetic. Thankfully, there's a data type that handles large number of characters, it's called a <code>String</code>. A string can be initialized as follows:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw21">String</span> name = <span class="st0">"John"</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<p>Notice, the use of double quotation marks instead of single quotation marks. That's the only thing you need to worry about. Pretty simple, ain't it?</p>
+<h2> <span class="mw-headline" id="Primitive_and_object_reference_declaration">Primitive and object reference declaration</span></h2>
+<p>Variables are either primitive types or object references. Primitive types are data stored directly in memory these include <tt><i><b>boolean</b></i></tt>, <tt><i><b>byte</b></i></tt>, <tt><i><b>char</b></i></tt>, <tt><i><b>short</b></i></tt>, <tt><i><b>int</b></i></tt>, <tt><i><b>long</b></i></tt>, <tt><i><b>float</b></i></tt>, and <tt><i><b>double</b></i></tt>. Everything else is an object reference, including a reference to an array instead of representing the actual data, object references refer to what could be described as a bookmark, which points to where the data is stored.</p>
+<p>Primitives are defined like the following:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw3">int</span> myInteger<span class="sy0">;</span>
+<span class="kw3">float</span> amount<span class="sy0">;</span>
+<span class="kw3">boolean</span> isFinished<span class="sy0">;</span>
+</pre></div>
+</div>
+<p>The above lines both declare the variables and set aside space for the type. Bytes are 8 bits (signed), char 16 bits (unsigned), short 16 bits (signed), int 32 bits (signed), long 64 bits (signed), float 32 bits, and double 64 bits.</p>
+<p>Object references are similar:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw166">Object</span> myObject<span class="sy0">;</span>
+<span class="kw21">String</span> name<span class="sy0">;</span>
+<span class="kw46">Map</span> contestants<span class="sy0">;</span>
+<span class="kw3">int</span><span class="br0">[</span><span class="br0">]</span> widths<span class="sy0">;</span>
+<span class="kw105">JButton</span><span class="br0">[</span><span class="br0">]</span> buttons<span class="sy0">;</span>
+</pre></div>
+</div>
+<p>The above lines declare the variables and set aside space for the references, but not for the object themselves. The objects must be created and assigned to the variables:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+myObject = <span class="kw2">new</span> <span class="kw166">Object</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+name = <span class="st0">"Jeff"</span><span class="sy0">;</span>
+contestants = <span class="kw2">new</span> <span class="kw46">HashMap</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+widths = <span class="kw2">new</span> <span class="kw3">int</span><span class="br0">[</span><span class="nu0">26</span><span class="br0">]</span><span class="sy0">;</span>
+buttons = <span class="kw2">new</span> <span class="kw105">JButton</span><span class="br0">[</span>numButtons<span class="br0">]</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<p>The array referenced by <tt>widths</tt> will contain 26 integers, but the array referenced by <tt>buttons</tt> will only contain <tt>numButtons</tt> <tt>JButton</tt> <i>references</i>. The array must then be filled in with references to actual objects:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw1">for</span> <span class="br0">(</span><span class="kw3">int</span> i = <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> numButtons<span class="sy0">;</span> i++<span class="br0">)</span> <span class="br0">{</span>
+  buttons<span class="br0">[</span>i<span class="br0">]</span> = <span class="kw2">new</span> <span class="kw105">JButton</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>Variables can also be initialized right in the declaration statement:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java5 source-java5">
+<pre class="de1">
+<span class="kw3">int</span> numButtons = <span class="nu0">90</span><span class="sy0">;</span>
+</pre></div>
+</div>
+
+
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

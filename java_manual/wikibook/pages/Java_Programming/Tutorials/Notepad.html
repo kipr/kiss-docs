@@ -1,0 +1,121 @@
+<html><head><title>Java Programming/Tutorials/Notepad</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Tutorials/Notepad</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><h1> <span class="mw-headline" id="Creating_a_Notepad_application">Creating a Notepad application</span></h1>
+<p>You wouldn't be able to learn Java wholly if you don't practice working on sample programs. Throughout these tutorials we will help you grasp the true workability with Java projects. The first tutorial in the series is that of creating a simple Windows based application that resembles a notepad.</p>
+<table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Tutorials/Notepad&amp;printable=yes#Creating_a_Notepad_application"><span class="tocnumber">1</span> <span class="toctext">Creating a Notepad application</span></a>
+<ul><li class="toclevel-2 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Tutorials/Notepad&amp;printable=yes#Coding_the_basics"><span class="tocnumber">1.1</span> <span class="toctext">Coding the basics</span></a>
+<ul><li class="toclevel-3 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Tutorials/Notepad&amp;printable=yes#Setting_the_class_structure"><span class="tocnumber">1.1.1</span> <span class="toctext">Setting the class structure</span></a></li>
+<li class="toclevel-3 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Tutorials/Notepad&amp;printable=yes#Defining_an_entry_point"><span class="tocnumber">1.1.2</span> <span class="toctext">Defining an entry point</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Tutorials/Notepad&amp;printable=yes#Laying_the_base_for_a_main_frame"><span class="tocnumber">1.1.3</span> <span class="toctext">Laying the base for a main frame</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Tutorials/Notepad&amp;printable=yes#Using_the_properties_of_the_frame"><span class="tocnumber">1.1.4</span> <span class="toctext">Using the properties of the frame</span></a></li>
+</ul></li>
+</ul></li>
+</ul></td>
+</tr></table><p><br></p>
+<h2> <span class="mw-headline" id="Coding_the_basics">Coding the basics</span></h2>
+<h3> <span class="mw-headline" id="Setting_the_class_structure">Setting the class structure</span></h3>
+<p>To start programming on our example, we need to write down a <code>class</code> that will encapsulate our Notepad application. We begin with a simple class structure that is empty in the beginning and will be filled appropriately afterward.</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">public</span> <span class="kw1">class</span> Notepad
+<span class="br0">{</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<h3> <span class="mw-headline" id="Defining_an_entry_point">Defining an entry point</span></h3>
+<dl><dd><i>For an in-depth study into the structure of entry points, read the section on <a href="../Understanding_a_Java_Program.html" title="Java Programming/Understanding a Java Program">The Entry Point</a>.</i></dd>
+</dl><p>Because we need our class to be executed, we need an entry point to help it execute while it is stand-alone. To do so, we define a <code>main(...)</code> method that would take care of the execution code.</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">public</span> <span class="kw1">class</span> Notepad
+<span class="br0">{</span>
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span>
+    <span class="br0">{</span>
+    <span class="br0">}</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<h3> <span class="mw-headline" id="Laying_the_base_for_a_main_frame">Laying the base for a main frame</span></h3>
+<p>The next step is to lay the foundation for a frame on which the Notepad application needs to be executed. For this, we import three generic packages namely <code>java.awt.*</code>, <code>java.awt.event.*</code> and <code>javax.swing.*</code>. Now, because we have <code>javax.swing.*</code> package imported in our code, we can safely extend our <code>Notepad</code> class with the <code>JFrame</code> class.</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">import</span> <span class="co2">java.awt.*</span><span class="sy0">;</span>                     <span class="co1">// AWT Components</span>
+<span class="kw1">import</span> <span class="co2">java.awt.event.*</span><span class="sy0">;</span>               <span class="co1">// AWT Events</span>
+<span class="kw1">import</span> <span class="co2">javax.swing.*</span><span class="sy0">;</span>                  <span class="co1">// Swing Components</span>
+<span class="kw1">public</span> <span class="kw1">class</span> Notepad <span class="kw1">extends</span> <span class="kw3">JFrame</span>
+<span class="br0">{</span>
+    <span class="kw1">public</span> Notepad<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span>
+    <span class="br0">}</span>
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span>
+    <span class="br0">{</span>
+    <span class="br0">}</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<h3> <span class="mw-headline" id="Using_the_properties_of_the_frame">Using the properties of the frame</span></h3>
+<p>Using the <code>super()</code> method, we try calling the super-class' constructor to access other properties and methods declared in the super-class. The constructor call that we made is an explicit call, that is, we specifically called for it. But, even if we hadn't called the <code>super()</code> method, it would implicitly (or automatically) be called.</p>
+<p>In the code below, we try to access the methods inherited into the Notepad class in two different ways. Notice the <code>this</code> variable. The <code>this</code> variable, as you might have had studied, helps to call the variables that are a part of the class the variable is called within. The <code>this</code> variable used in this example is used to access the <code>setSize(...)</code> and the <code>setDefaultCloseOperation(...)</code> methods whilst within the class.</p>
+<p>These two methods help in setting the size of the form and then introducing a <code>DISPOSE_ON_CLOSE</code> event that would dispose or destroy the frame object once the particular form is closed either by clicking the <i>Close</i> button or by pressing <i>Alt+F4</i>.</p>
+<p>Whilst in the <code>main(...)</code> method, we initialize and instantiate the Notepad object. Now because we have a Notepad object named <code>notepad</code> with us, we can access public methods from its reference. We use the same object to call the <code>setVisible(...)</code> method. This would be the second way that we can use to access an object's methods and properties.</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">import</span> <span class="co2">java.awt.*</span><span class="sy0">;</span>                        <span class="co1">// AWT Components</span>
+<span class="kw1">import</span> <span class="co2">java.awt.event.*</span><span class="sy0">;</span>                  <span class="co1">// AWT Events</span>
+<span class="kw1">import</span> <span class="co2">javax.swing.*</span><span class="sy0">;</span>                     <span class="co1">// Swing Components</span>
+<span class="kw1">public</span> <span class="kw1">class</span> Notepad <span class="kw1">extends</span> <span class="kw3">JFrame</span>
+<span class="br0">{</span>
+    <span class="kw1">public</span> Notepad<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="kw1">super</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">this</span>.<span class="me1">setSize</span><span class="br0">(</span><span class="nu0">300</span>, <span class="nu0">300</span><span class="br0">)</span><span class="sy0">;</span>           <span class="co1">// Set the frame size</span>
+        <span class="kw1">this</span>.<span class="me1">setDefaultCloseOperation</span><span class="br0">(</span>    <span class="co1">// Automatically disposes the</span>
+          <span class="kw3">JFrame</span>.<span class="me1">DISPOSE_ON_CLOSE</span><span class="br0">)</span><span class="sy0">;</span>       <span class="co1">// frame when it closes</span>
+    <span class="br0">}</span>
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span>
+    <span class="br0">{</span>
+        Notepad notepad <span class="sy0">=</span> <span class="kw1">new</span> Notepad<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>  <span class="co1">// Initialize and instantiate</span>
+                                          <span class="co1">// a Notepad object</span>
+        notepad.<span class="me1">setVisible</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>         <span class="co1">// Displaying the form</span>
+    <span class="br0">}</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>The code above is enough to display a blank frame that is of 300 pixel width and 300 pixel height aligned at the top-left corner of the desktop screen. Try closing the frame to check if the <code>DISPOSE_ON_CLOSE</code> code works. It should work! Then for a test, try taking out the <code>setDefaultCloseOperation(...)</code> method or just comment it to see what happens otherwise.</p>
+<p><a href="http://en.wikibooks.org/wiki/File:Java_Programming_Tut000001.png" class="image"><img alt="Java Programming Tut000001.png" src="../../../thumbs/c6aef_Java_Programming_Tut000001.png" width="330" height="330"></a></p>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

@@ -1,0 +1,438 @@
+<html><head><title>Java Programming/Event Handling</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Event Handling</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p>This module covers the Java platform Event Model, which is the basis for event-driven programming on the Java platform.</p>
+<table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Event_Handling&amp;printable=yes#Event-driven_programming"><span class="tocnumber">1</span> <span class="toctext">Event-driven programming</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Event_Handling&amp;printable=yes#The_Java_Platform_Event_Model"><span class="tocnumber">2</span> <span class="toctext">The Java Platform Event Model</span></a>
+<ul><li class="toclevel-2 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Event_Handling&amp;printable=yes#Introduction"><span class="tocnumber">2.1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Event_Handling&amp;printable=yes#The_Event_Model_framework"><span class="tocnumber">2.2</span> <span class="toctext">The Event Model framework</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Event_Handling&amp;printable=yes#Degrees_of_freedom_in_the_Model"><span class="tocnumber">2.3</span> <span class="toctext">Degrees of freedom in the Model</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Event_Handling&amp;printable=yes#Event_notification_methods.2C_unicast_event_handling_and_event_adaptors"><span class="tocnumber">2.4</span> <span class="toctext">Event notification methods, unicast event handling and event adaptors</span></a></li>
+</ul></li>
+<li class="toclevel-1 tocsection-7"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Event_Handling&amp;printable=yes#A_simple_example"><span class="tocnumber">3</span> <span class="toctext">A simple example</span></a>
+<ul><li class="toclevel-2 tocsection-8"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Event_Handling&amp;printable=yes#Example_basics"><span class="tocnumber">3.1</span> <span class="toctext">Example basics</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Event_Handling&amp;printable=yes#The_event_listener_implementation"><span class="tocnumber">3.2</span> <span class="toctext">The event listener implementation</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Event_Handling&amp;printable=yes#The_event_source"><span class="tocnumber">3.3</span> <span class="toctext">The event source</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Event_Handling&amp;printable=yes#Running_the_example"><span class="tocnumber">3.4</span> <span class="toctext">Running the example</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Event_Handling&amp;printable=yes#Extending_the_example_with_an_adaptor"><span class="tocnumber">3.5</span> <span class="toctext">Extending the example with an adaptor</span></a></li>
+</ul></li>
+<li class="toclevel-1 tocsection-13"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Event_Handling&amp;printable=yes#Platform_uses_of_the_Event_Model"><span class="tocnumber">4</span> <span class="toctext">Platform uses of the Event Model</span></a></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="Event-driven_programming">Event-driven programming</span></h2>
+<p>No matter what the <a href="http://en.wikipedia.org/wiki/programming_language" class="extiw" title="w:programming language">programming language</a> or <a href="http://en.wikipedia.org/wiki/Programming_paradigm" class="extiw" title="w:Programming paradigm">paradigm</a> you are using, chances are that you will eventually run into a situation where your program will have to wait for an external event to happen. Perhaps your program must wait for some user input, or perhaps it must wait for data to be delivered over the network. Or perhaps something else. In any case, the program must wait for something to happen that is beyond the program's control: the program cannot <i>make</i> that event happen.</p>
+<p>In this situation there are two general options for making a program wait for an external event to happen. The first of these is called <i>polling</i> and means you write a little loop of the for "while the event has not happened, check again". Polling is very simple to build and very straightforward. But it is also very wasteful: it means a program takes up processor time in order to do absolutely nothing but wait. This is usually considered too much of a drawback for programs that have to do a lot of waiting. Programs that have a lot of waiting moments (for example, programs that have a graphical user interface and often have to wait for long periods of time until the user does something) usually fare much better when they use the other mechanism: <i>event-driven programming</i>.</p>
+<p>In event-driven programming a program that must wait, simply goes to sleep. It no longer takes up processor time, might even be unloaded from memory and generally leaves the computer available to do useful things. But the program doesn't completely go away; instead, it makes a deal with the computer or the <a href="http://en.wikipedia.org/wiki/operating_system" class="extiw" title="w:operating system">operating system</a>. A deal sort of like this:</p>
+<pre>
+Okay Mr. Operating System, since I have to wait for an event to happen, I'll go away and let you do useful work in the meantime.<br>But in return, <i><u>you</u></i> have to let me know when my event has happened and let me come back to deal with it.
+</pre>
+<p>Event-driven programming usually has a pretty large impact on the design of a program. Usually, a program has to be broken up into separate pieces to do event-drive programming (one piece for general processing and one or more others to deal with events that occur). Event-driven programming in Java is more complicated than non-event driven. But it makes far more efficient use of the hardware and sometimes (like when developing a graphical user interface) dividing your code up into event-driven blocks actually fits very naturally with your program's structure.</p>
+<p>In this module we examine the basis of the Java Platform's facilities for event-driven programming and we look at some typical examples of how that basis has been used throughout the platform.</p>
+<h2> <span class="mw-headline" id="The_Java_Platform_Event_Model">The Java Platform Event Model</span></h2>
+<h3> <span class="mw-headline" id="Introduction">Introduction</span></h3>
+<div class="thumb tright">
+<div class="thumbinner" style="width:582px;"><a href="http://en.wikibooks.org/wiki/File:JavaEventModelBasicFramework.jpg" class="image"><img alt="" src="../../thumbs/4a58a_JavaEventModelBasicFramework.jpg" width="580" height="224" class="thumbimage"></a>
+<div class="thumbcaption">The basic Event Model framework</div>
+</div>
+</div>
+<p>One of the most interesting things about support for event-driven programming on the Java platform is that there is none, as such. Or, depending on your point of view, there are many different individual pieces of the platform that offer their own support for event-driven programming.</p>
+<p>The reason that the Java platform doesn't offer one general implementation of event-driven programming is linked to the origins of the support that the platform does offer. Back in 1996 the Java programming language was just getting started in the world and was still trying to gain a foothold and conquer a place for itself in software development. Part of this early development concentrated on software development tooling like <a href="http://en.wikipedia.org/wiki/IDE" class="extiw" title="w:IDE">IDEs</a>. One of the trends in software development around that time was for reusable software components geared towards user interfaces: components that would encapsulate some sort of interesting, reusable functionality into a single package that could be handled as a single entity rather than as a loose collection of individual classes. Sun Microsystems tried to get on the component bandwagon by introducing what they called a <a href="http://en.wikibooks.org/wiki/JavaBeans" title="JavaBeans" class="mw-redirect">JavaBean</a>, a software component not only geared towards the UI but that could also be configured easily from an IDE. In order to make this happen Sun came up with a large specification of JavaBeans (the JavaBeans Spec) dealing mostly with naming conventions (to make the components easy to handle from an IDE). But Sun also realized at the same time that a UI-centric component would need support for an event-driven way of connecting events in the component to business logic that would have to be written by the individual developer. So the JavaBeans Spec also included a small specification for an event Model for the Java platform.</p>
+<p>When they started working on this Event Model, the Sun engineers were faced with a choice: try to come up with a huge specification to encompass all possible uses of an event model, or just specify an abstract, generic framework that could be expanded for individual use in specific situations. They chose the latter option and so, love it or hate it, the Java Platform has no generic support for event-driven programming other than this general Event Model framework.</p>
+<h3> <span class="mw-headline" id="The_Event_Model_framework">The Event Model framework</span></h3>
+<p>The Event Model framework is really very simple in and of itself, consisting of three classes (one abstract) and an interface. Most of all it consists of naming conventions that the programmer must obey. The framework is depicted in the image on the right.</p>
+<p>Speaking in terms of classes and interfaces, the most important parts of the framework are the <code>java.util.EventObject</code> abstract class and the <code>java.util.EventListener</code> interface. These two types are the centerpieces of the rules and conventions of the Java Platform Event Model, which are:</p>
+<ul><li>A class that is interested in being notified when an event occurs, is called an <i>event listener</i>. An event listener has one distinct method for each type of event notification that it is interested in.</li>
+<li>Event notification method declarations are grouped together into categories. Each category is represented by an event listener interface, which must extend <code>java.util.EventListener</code>. By convention an event listener interface is named <i>&lt;Event category name&gt;Listener</i>. Any class that will be notified of events must implement at least one listener interface.</li>
+<li>Any and all state related to an event occurrence will be captured in a state object. The class of this object must be a subclass of <code>java.util.EventObject</code> and must record at least which object was the source of the event. Such a class is called an event class and by convention is named <i>&lt;Event category name&gt;Event</i>.</li>
+<li>Usually (but not necessarily!) an event listener interface will relate to a single event class. An event listener may have multiple event notification methods that take the same event class as an argument.</li>
+<li>An event notification method usually (but not necessarily!) has the conventional signature <i><a href="Keywords/public.html" title="Java Programming/Keywords/public">public</a> <a href="Keywords/void.html" title="Java Programming/Keywords/void">void</a> &lt;specific event&gt;(&lt;Event category name&gt;Event evt)</i>.</li>
+<li>A class that is the source of events must have a method that allows for the registration of listeners, one for each possible listener interface type. These methods must by convention have the signature <i><a href="Keywords/public.html" title="Java Programming/Keywords/public">public</a> <a href="Keywords/void.html" title="Java Programming/Keywords/void">void</a> add&lt;Event category name&gt;Listener(&lt;Event category name&gt;Listener listener)</i>.</li>
+<li>A class that is the source of events may have a method that allows for the deregistration of listeners, one for each possible listener interface type. These methods must by convention have the signature <i><a href="Keywords/public.html" title="Java Programming/Keywords/public">public</a> <a href="Keywords/void.html" title="Java Programming/Keywords/void">void</a> remove&lt;Event category name&gt;Listener(&lt;Event category name&gt;Listener listener)</i>.</li>
+</ul><div class="thumb tleft">
+<div class="thumbinner" style="width:525px;"><a href="http://en.wikibooks.org/wiki/File:JavaEventModelGenericFrameworkUse.jpg" class="image"><img alt="" src="../../thumbs/e6bbb_523px-JavaEventModelGenericFrameworkUse.jpg" width="523" height="305" class="thumbimage"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikibooks.org/wiki/File:JavaEventModelGenericFrameworkUse.jpg" class="internal" title="Enlarge"><img src="../../thumbs/6d83a_magnify-clip.png" width="15" height="11" alt=""></a></div>
+A general example of how the framework is used</div>
+</div>
+</div>
+<p>That seems like a lot, but it's pretty simple once you get used to it. Take a look at the image on the left, which contains a general example of how you might use the framework. In this example we have a class called <code>EventSourceClass</code> that publishes interesting events. Following the rules of the Event Model, the events are represented by the <code>InterestingEvent</code> class which has a reference back to the <code>EventSourceClass</code> object (<code>source</code>, inherited from <code>java.util.EventObject</code>).</p>
+<p>Whenever an interesting event occurs, the <code>EventSourceClass</code> must notify all of the listeners for that event that it knows about by calling the notification method that exist for that purpose. All of the notification methods (in this example there is only one, <code>interestingEventOccurred</code>) have been grouped together by topic in a listener interface: <code>InterestingEventListener</code>, which implements <code>java.util.EventListener</code> and is named according to the Event Model conventions. This interface must be implemented by all event listener classes (in this case only <code>InterestingEventListenerImpl</code>). Because <code>EventSourceClass</code> must be able to notify any interested listeners, it must be possible to register them. For this purpose the <code>EventSourceClass</code> has an <code>addInterestingEventListener</code> method. And since it is required, there is a <code>removeInterestingEventListener</code> method as well.</p>
+<p>As you can clearly see from the example, using the Event Model is mostly about following naming conventions. This might seem a little cumbersome at first, but the point of having naming conventions is to allow automated tooling to access and use the event model. And there are indeed many tools, IDEs and frameworks that are based on these naming conventions.</p>
+<h3> <span class="mw-headline" id="Degrees_of_freedom_in_the_Model">Degrees of freedom in the Model</span></h3>
+<p>There's one more thing to notice about the Event Model and that is what is <i>not</i> in the Model. The Event Model is designed to allow implementations a large degree of freedom in the implementation choices made, which means that the Event Model can serve as the basis for a very wide range of specific, purpose-built event handling systems.</p>
+<p>Aside from naming conventions and some base classes and interfaces, the Event Model specifies the following:</p>
+<ul><li>It must be possible to register and deregister listeners.</li>
+<li>An event source must publish events by calling the correct notification method on all registered listeners.</li>
+<li>A call to a an event notification method is a normal, synchronous Java call and the method must be executed by the same thread that called it.</li>
+</ul><p>But the Event Model doesn't specify <i>how</i> any of this must be done. There are no rules regarding which classes exactly must be event sources, nor about how they must keep track of registered event listeners. So one class might publish its own events, or be responsible for publishing the events that relate to an entire collection of objects (like an entire component). And an event source might allow listeners to be deregistered at any time (even in the middle of handling an event) or might limit this to certain times (which is relevant to multithreading).</p>
+<p>Also, the Event Model doesn't specify how it must be embedded within any program. So, while the model specifies that a call to an event handling method is a synchronous call, the Model does not prescribe that the event handling method cannot hand of tasks to another thread or that the entire event model implementation must run in the main thread of the application. In fact, the Java Platform's standard user interface framework (<a href="Swing.html" title="Java Programming/Swing">Swing</a>) includes an event handling implementation that runs as a complete subsystem of a desktop application, in its own thread.</p>
+<h3> <span class="mw-headline" id="Event_notification_methods.2C_unicast_event_handling_and_event_adaptors">Event notification methods, unicast event handling and event adaptors</span></h3>
+<p>In the previous section we mentioned that an event notification method usually takes a single argument. This is the preferred convention, but the specification does allow for exceptions to this rule if the application really needs that exception. A typical case for an exception is when the event notification must be sent across the network to a remote system though non-Java means, like the <a href="http://en.wikipedia.org/wiki/CORBA" class="extiw" title="w:CORBA">CORBA</a> standard. In this case it is required to have multiple arguments and the Event Model allows for that. However, as a general rule the correct format for a notification method is</p>
+<pre>
+<a href="Keywords/public.html" title="Java Programming/Keywords/public">public</a> <a href="Keywords/void.html" title="Java Programming/Keywords/void">void</a> <i>specificEventDescription</i>(<i>Event_type</i> <i>evt</i>)
+</pre>
+<p>Another thing we mentioned earlier is that, as a general rule, the Event Model allows many event listeners to register with a single event source for the same event. In this case the event source must broadcast any relevant events to all the registered listeners. However, once again the Event Model specification allows for an exception to the rule. If it is necessary from a design point of view you may limit an event source to registering a single listener; this is called <i>unicast event listener registration</i>. When unicast registration is used, the registration method must be declared to throw the <code>java.util.TooManyListenersException</code> exception if too many listeners are registered:</p>
+<pre>
+<a href="Keywords/public.html" title="Java Programming/Keywords/public">public</a> <a href="Keywords/void.html" title="Java Programming/Keywords/void">void</a> <i>add&lt;Event_type&gt;Listener</i>(<i>&lt;Event_type&gt;Listener</i> <i>listener</i>) throws java.util.TooManyListenersException
+</pre>
+<div class="center">
+<div class="thumb tnone">
+<div class="thumbinner" style="width:1050px;"><a href="http://en.wikibooks.org/wiki/File:JavaEventModelUsingAnAdaptor.jpg" class="image"><img alt="" src="../../thumbs/25729_JavaEventModelUsingAnAdaptor.jpg" width="1048" height="508" class="thumbimage"></a>
+<div class="thumbcaption">An event adaptor in between the event source and the event listener.</div>
+</div>
+</div>
+</div>
+<p>Finally, the specification allows for one more extension: the event adaptor. An event adaptor is an implementation of an event listener interface that can be inserted between an event source and an actual event listener class. This is done by registering the adaptor with the event source object using the regular registration method. Adaptors are used to add additional functionality to the event handling mechanism, such as routing of event objects, event filtering or enriching of the event object before processing by an actual event handler class.</p>
+<h2> <span class="mw-headline" id="A_simple_example">A simple example</span></h2>
+<p>In the previous section we've explored the depths (such as there are) of the Java platform Event Model framework. If you're like most people, you've found the theoretical text more confusing than the actual use of the model. Certainly more confusing than should be necessary to explain what is, really, quite a simple framework.</p>
+<p>In order to clear everything up a bit, let's examine a simple example based on the Even Model framework. Let's assume that we want to write a program that reads a stream of numbers input by the user at the command line and processes this stream somehow. Say, by keeping track of the running sum of numbers and producing that sum once the stream has been completely read.</p>
+<p>Of course we could implement this program quite simply with a loop in a main() method. But instead let's be a little more creative. Let's say that we want to divide our program neatly into classes, each with a responsibility of its own (like we should in a proper, object-oriented design). And let's imagine that we want it to be possible not only to calculate the sum of all the numbers read, but to perform any number of calculations on the same number stream. In fact, it should be possible to add new calculations with relative ease and without having to affect any previously existing code.</p>
+<p>If we analyze these requirements, we come to the conclusion that we have a number of different responsibilities in the program:</p>
+<table class="messagebox"><tr><td>
+<ul><li>Reading the number stream from the command line</li>
+<li>Processing the number stream (possibly multiple of these)</li>
+<li>Starting the entire program</li>
+</ul></td>
+</tr></table><p>Using the Event Model framework allows us to separate the two main responsibilities cleanly and affords us the flexibility we are looking for. If we implement the logic for reading the number stream in a single class and treat the reading of a single number as an event, the Event Model allows us to broadcast that event (and the number) to as many stream processors as we like. The class for reading the number stream will act as the event source of the program and each stream processor will be a listener. Since each listener is a class of its own and can be registered with the stream reader (or not) this means our model allows us to have multiple, independent stream processing that we can add on to without affecting the code to read the stream or any pre-existing stream processor.</p>
+<p>The Event Model says that any state associated with an event should be included in a class that represents the event. That's perfect for us; we can implement a simple event class that will record the number read from the command line. Each listener can then process this number as it sees fit.</p>
+<p>For our interesting event set let's keep things simple: let's limit ourselves to having read a new number and having reached the end of the stream. With this choice we come to the following design for our example application:</p>
+<div class="center">
+<div class="floatnone"><a href="http://en.wikibooks.org/wiki/File:JavaEventModelWikibooksJavaProgrammingBookExample.jpg" class="image"><img alt="JavaEventModelWikibooksJavaProgrammingBookExample.jpg" src="../../thumbs/7dc7d_JavaEventModelWikibooksJavaProgrammingBookExample.jpg" width="844" height="744"></a></div>
+</div>
+<p>In the following sections we look at the implementation of this example.</p>
+<h3> <span class="mw-headline" id="Example_basics">Example basics</span></h3>
+<p>Let's start with the basics. According to the Event Model rules, we must define an event class to encapsulate our interesting event. We should call this class <i>something-something</i>Event. Let's go for <code>NumberReadEvent</code>, since that's what will interest us. According to the Model rules, this class should encapsulate any state that belongs with an event occurrence. In our case, that's the number read from the stream. And our event class must inherit from <code>java.util.EventObject</code>. So all in all, the following class is all we need:</p>
+<p><br></p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">package</span> <span class="co2">org.wikibooks.en.javaprogramming.example</span><span class="sy0">;</span><br><br><span class="kw1">import</span> <span class="co2">java.util.EventObject</span><span class="sy0">;</span><br><br><span class="kw1">public</span> <span class="kw1">class</span> NumberReadEvent <span class="kw1">extends</span> <span class="kw3">EventObject</span> <span class="br0">{</span><br><br>
+&#160; &#160; &#160; &#160; <span class="kw1">private</span> <span class="kw3">Double</span> number<span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; <span class="kw1">public</span> NumberReadEvent<span class="br0">(</span><span class="kw3">Object</span> source, <span class="kw3">Double</span> number<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">super</span><span class="br0">(</span>source<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">this</span>.<span class="me1">number</span> <span class="sy0">=</span> number<span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br><br>
+&#160; &#160; &#160; &#160; <span class="kw1">public</span> <span class="kw3">Double</span> getNumber<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">return</span> number<span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br><br><span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p><br>
+Next, we must define a listener interface. This interface must define methods for interesting events and must extend <code>java.util.EventListener</code>. We said earlier our interesting events were "number read" and "end of stream reached", so here we go:</p>
+<p><br></p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">package</span> <span class="co2">org.wikibooks.en.javaprogramming.example</span><span class="sy0">;</span><br><br><span class="kw1">import</span> <span class="co2">java.util.EventListener</span><span class="sy0">;</span><br><br><span class="kw1">public</span> <span class="kw1">interface</span> NumberReadListener <span class="kw1">extends</span> <span class="kw3">EventListener</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">public</span> <span class="kw4">void</span> numberRead<span class="br0">(</span>NumberReadEvent numberReadEvent<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; <span class="kw1">public</span> <span class="kw4">void</span> numberStreamTerminated<span class="br0">(</span>NumberReadEvent numberReadEvent<span class="br0">)</span><span class="sy0">;</span><br><span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p><br>
+Actually the <code>numberStreamTerminated</code> method is a little weird, since it isn't actually a "number read" event. In a real program you'd probably want to do this differently. But let's keep things simple in this example.</p>
+<h3> <span class="mw-headline" id="The_event_listener_implementation">The event listener implementation</span></h3>
+<p>So, with our listener interface defined, we need one or more implementations (actual listener classes). At the very least we need one that will keep a running sum of the numbers read. We can add as many as we like, of course. But let's stick with just one for now. Obviously, this class must implement our <code>NumberReadListener</code> interface. Kepping a running summation is a matter of adding numbers to a field as the events arrive. And we wanted to report on the sum when the end of the stream is reached; since we know when that happens (i.e. the <code>numberStreamTerminated</code> method is called), a simple println statement will do:</p>
+<p><br></p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">package</span> <span class="co2">org.wikibooks.en.javaprogramming.example</span><span class="sy0">;</span><br><br><span class="kw1">public</span> <span class="kw1">class</span> NumberReadListenerImpl <span class="kw1">implements</span> NumberReadListener <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; <span class="kw3">Double</span> totalSoFar <span class="sy0">=</span> 0D<span class="sy0">;</span><br><br>
+&#160; &#160; &#160; &#160; @Override<br>
+&#160; &#160; &#160; &#160; <span class="kw1">public</span> <span class="kw4">void</span> numberRead<span class="br0">(</span>NumberReadEvent numberReadEvent<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; totalSoFar <span class="sy0">+=</span> numberReadEvent.<span class="me1">getNumber</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br><br>
+&#160; &#160; &#160; &#160; @Override<br>
+&#160; &#160; &#160; &#160; <span class="kw1">public</span> <span class="kw4">void</span> numberStreamTerminated<span class="br0">(</span>NumberReadEvent numberReadEvent<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"Sum of the number stream: "</span> <span class="sy0">+</span> totalSoFar<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br><br><span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p><br>
+So, is this code any good? No. It's yucky and terrible and most of all not thread safe. But it will do for our example.</p>
+<h3> <span class="mw-headline" id="The_event_source">The event source</span></h3>
+<p>This is where things get interesting: the event source class. This is the interesting place because this is where we must put code to read the number stream, code to send events to all the listeners and code to <i>manage</i> listeners (add and remove them and keep track of them).</p>
+<p>Let's start by thinking about keeping track of listeners. Normally this is a tricky business, since you have to take all sorts of multithreading concerns into account. But we're being simple in this example, so let's just stick with a simple <code>java.util.Set</code> of listeners. Which we can initialize in the constructor:</p>
+<p><br></p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">private</span> Set<span class="sy0">&lt;</span>NumberReadListener<span class="sy0">&gt;</span> listeners<span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160;<br><span class="kw1">public</span> NumberReader<span class="br0">(</span><span class="br0">)</span><br><span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; listeners <span class="sy0">=</span> <span class="kw1">new</span> HashSet<span class="sy0">&lt;</span>NumberReadListener<span class="sy0">&gt;</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br><span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p><br>
+That choice makes it really easy to implement adding and removing of listeners:</p>
+<p><br></p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">public</span> <span class="kw4">void</span> addNumberReadListener<span class="br0">(</span>NumberReadListener listener<span class="br0">)</span><br><span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">this</span>.<span class="me1">listeners</span>.<span class="me1">add</span><span class="br0">(</span>listener<span class="br0">)</span><span class="sy0">;</span><br><span class="br0">}</span><br><br><span class="kw1">public</span> <span class="kw4">void</span> removeNumberReadListener<span class="br0">(</span>NumberReadListener listener<span class="br0">)</span><br><span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">this</span>.<span class="me1">listeners</span>.<span class="me1">remove</span><span class="br0">(</span>listener<span class="br0">)</span><span class="sy0">;</span><br><span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p><br>
+We won't actually use the remove method in this example &#8212; but recall that the Model says it must be present.</p>
+<p>Another advantage of this simple choice is that notification of all the listeners is easy as well. We can just assume any listeners will be in the set and iterate over them. And since the notification methods are synchronous (rule of the model) we can just call them directly:</p>
+<p><br></p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">private</span> <span class="kw4">void</span> notifyListenersOfEndOfStream<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">for</span> <span class="br0">(</span>NumberReadListener numberReadListener<span class="sy0">:</span> listeners<span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; numberReadListener.<span class="me1">numberStreamTerminated</span><span class="br0">(</span><span class="kw1">new</span> NumberReadEvent<span class="br0">(</span><span class="kw1">this</span>, 0D<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br><span class="br0">}</span><br><br><span class="kw1">private</span> <span class="kw4">void</span> notifyListeners<span class="br0">(</span><span class="kw3">Double</span> d<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">for</span> <span class="br0">(</span>NumberReadListener numberReadListener<span class="sy0">:</span> listeners<span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; numberReadListener.<span class="me1">numberRead</span><span class="br0">(</span><span class="kw1">new</span> NumberReadEvent<span class="br0">(</span><span class="kw1">this</span>, d<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br><span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p><br>
+Note that we've made some assumptions here. For starters, we've assumed that we'll get the Double value d from somewhere. Also, we've assumed that no listener will ever care about the number value in the end-of-stream notification and have passed in the fixed value 0 for that event.</p>
+<p>Finally we must deal with reading the number stream. We'll use the Console class for that and just keep on reading numbers until there are no more:</p>
+<p><br></p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">public</span> <span class="kw4">void</span> start<span class="br0">(</span><span class="br0">)</span><br><span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; Console console <span class="sy0">=</span> <span class="kw3">System</span>.<span class="me1">console</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">if</span> <span class="br0">(</span>console <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw3">Double</span> d <span class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">do</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw3">String</span> readLine <span class="sy0">=</span> console.<span class="me1">readLine</span><span class="br0">(</span><span class="st0">"Enter a number: "</span>, <span class="br0">(</span><span class="kw3">Object</span><span class="br0">[</span><span class="br0">]</span><span class="br0">)</span><span class="kw2">null</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; d <span class="sy0">=</span> getDoubleValue<span class="br0">(</span>readLine<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">if</span> <span class="br0">(</span>d <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; notifyListeners<span class="br0">(</span>d<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">}</span> <span class="kw1">while</span> <span class="br0">(</span>d <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; notifyListenersOfEndOfStream<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br><span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p><br>
+Note how we've hooked the number-reading loop into the event handling mechanism by calling the notify methods? The entire class looks like this:</p>
+<p><br></p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">package</span> <span class="co2">org.wikibooks.en.javaprogramming.example</span><span class="sy0">;</span><br><br><span class="kw1">import</span> <span class="co2">java.io.Console</span><span class="sy0">;</span><br><span class="kw1">import</span> <span class="co2">java.util.HashSet</span><span class="sy0">;</span><br><span class="kw1">import</span> <span class="co2">java.util.Set</span><span class="sy0">;</span><br><br><span class="kw1">public</span> <span class="kw1">class</span> NumberReader <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">private</span> Set<span class="sy0">&lt;</span>NumberReadListener<span class="sy0">&gt;</span> listeners<span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; <span class="kw1">public</span> NumberReader<span class="br0">(</span><span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; listeners <span class="sy0">=</span> <span class="kw1">new</span> HashSet<span class="sy0">&lt;</span>NumberReadListener<span class="sy0">&gt;</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; <span class="kw1">public</span> <span class="kw4">void</span> addNumberReadListener<span class="br0">(</span>NumberReadListener listener<span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">this</span>.<span class="me1">listeners</span>.<span class="me1">add</span><span class="br0">(</span>listener<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; <span class="kw1">public</span> <span class="kw4">void</span> removeNumberReadListener<span class="br0">(</span>NumberReadListener listener<span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">this</span>.<span class="me1">listeners</span>.<span class="me1">remove</span><span class="br0">(</span>listener<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; <span class="kw1">public</span> <span class="kw4">void</span> start<span class="br0">(</span><span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; Console console <span class="sy0">=</span> <span class="kw3">System</span>.<span class="me1">console</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">if</span> <span class="br0">(</span>console <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw3">Double</span> d <span class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">do</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw3">String</span> readLine <span class="sy0">=</span> console.<span class="me1">readLine</span><span class="br0">(</span><span class="st0">"Enter a number: "</span>, <span class="br0">(</span><span class="kw3">Object</span><span class="br0">[</span><span class="br0">]</span><span class="br0">)</span><span class="kw2">null</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; d <span class="sy0">=</span> getDoubleValue<span class="br0">(</span>readLine<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">if</span> <span class="br0">(</span>d <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; notifyListeners<span class="br0">(</span>d<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">}</span> <span class="kw1">while</span> <span class="br0">(</span>d <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; notifyListenersOfEndOfStream<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br><br>
+&#160; &#160; &#160; &#160; <span class="kw1">private</span> <span class="kw4">void</span> notifyListenersOfEndOfStream<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">for</span> <span class="br0">(</span>NumberReadListener numberReadListener<span class="sy0">:</span> listeners<span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; numberReadListener.<span class="me1">numberStreamTerminated</span><span class="br0">(</span><span class="kw1">new</span> NumberReadEvent<span class="br0">(</span><span class="kw1">this</span>, 0D<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br><br>
+&#160; &#160; &#160; &#160; <span class="kw1">private</span> <span class="kw4">void</span> notifyListeners<span class="br0">(</span><span class="kw3">Double</span> d<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">for</span> <span class="br0">(</span>NumberReadListener numberReadListener<span class="sy0">:</span> listeners<span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; numberReadListener.<span class="me1">numberRead</span><span class="br0">(</span><span class="kw1">new</span> NumberReadEvent<span class="br0">(</span><span class="kw1">this</span>, d<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br><br>
+&#160; &#160; &#160; &#160; <span class="kw1">private</span> <span class="kw3">Double</span> getDoubleValue<span class="br0">(</span><span class="kw3">String</span> readLine<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw3">Double</span> result<span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">try</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; result <span class="sy0">=</span> <span class="kw3">Double</span>.<span class="me1">valueOf</span><span class="br0">(</span>readLine<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span><span class="kw3">Exception</span> e<span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; result <span class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">return</span> result<span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160;<br><span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p><br></p>
+<h3> <span class="mw-headline" id="Running_the_example">Running the example</span></h3>
+<p>Finally, we need one more class: the kickoff point for the application. This class will contain a main() method, plus code to create a NumberReader, a listener and to combine the two:</p>
+<p><br></p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">package</span> <span class="co2">org.wikibooks.en.javaprogramming.example</span><span class="sy0">;</span><br><br><span class="kw1">public</span> <span class="kw1">class</span> Main <span class="br0">{</span><br><br>
+&#160; &#160; &#160; &#160; <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; NumberReader reader <span class="sy0">=</span> <span class="kw1">new</span> NumberReader<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; NumberReadListener listener <span class="sy0">=</span> <span class="kw1">new</span> NumberReadListenerImpl<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; reader.<span class="me1">addNumberReadListener</span><span class="br0">(</span>listener<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; reader.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br><span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p><br>
+If you compile and run the program, the result looks somewhat like this:</p>
+<div style="border: #7777FF solid 1px; text-align: left; padding:5px; clear: both; background-color: #DDDDFF">An example run
+<p><a href="http://en.wikibooks.org/wiki/File:Crystal_Clear_app_terminal.png" class="image"><img alt="Crystal Clear app terminal.png" src="../../thumbs/b6504_20px-Crystal_Clear_app_terminal.png" width="20" height="20"></a> <b>Code:</b></p>
+<div style="border: #7777FF solid 1px; text-align: left; padding:5px; clear: both; background-color: #FFFFFF;">&gt;java org.wikibooks.en.javaprogramming.example.Main
+<p>Enter a number: 0.1<br>
+Enter a number: 0.2<br>
+Enter a number: 0.3<br>
+Enter a number: 0.4<br>
+Enter a number:</p>
+</div>
+<p><a href="http://en.wikibooks.org/wiki/File:Crystal_Clear_app_kscreensaver.png" class="image"><img alt="Crystal Clear app kscreensaver.png" src="../../thumbs/f07d4_20px-Crystal_Clear_app_kscreensaver.png" width="20" height="20"></a> <b>Output:</b></p>
+<div style="border: #7777FF solid 1px; text-align: left; padding:5px; clear: both; background-color: #FFFFFF;">Sum of the number stream: 1.0</div>
+</div>
+<p><br></p>
+<h3> <span class="mw-headline" id="Extending_the_example_with_an_adaptor">Extending the example with an adaptor</span></h3>
+<p>Next, let's take a look at applying an adaptor to our design. Adaptors are used to add functionality to the event handling process that:</p>
+<ul><li>is general to the process and not specific to any one listener; or</li>
+<li>is not supposed to affect the implementation of specific listeners.</li>
+</ul><p>According to the Event Model specification a typical use case for an adapter is to add routing logic for events. But you can also add filtering or logging. In our case, let's do that: add logging of the numbers as "proof" for the calculations done in the listeners.</p>
+<p>An adaptor, as explained earlier, is a class that sits between the event source and the listeners. From the point of view of the event source, it masquerades as a listener (so it must implement the listener interface). From the point of view of the listeners it pretends to be the event source (so it should have add and remove methods). In other words, to write an adaptor you have to repeat some code from the event source (to manage listeners) and you have to re-implement the event notification methods to do some extra stuff and then pass the event on to the actual listeners.</p>
+<p>In our case we need an adaptor that writes the numbers to a log file. Keeping it simple once again, let's settle for an adaptor that:</p>
+<ul><li>Uses a fixed log file name and overwrites that log file with every program run.</li>
+<li>Opens a FileWriter in the constructor and just keeps it open.</li>
+<li>Implements the <code>numberRead</code> method by writing the number to the FileWriter.</li>
+<li>Implements the <code>numberStreamTerminated</code> method by closing the FileWriter.</li>
+</ul><p>Also, we can make life easy on ourselves by just copying all the code we need to manage listeners over from the <code>NumberReader</code> class. Again, in a real program you'd want to do this differently. Note that each notification method implementation also passes the event on to all the real listeners:</p>
+<p><br></p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">package</span> <span class="co2">org.wikibooks.en.javaprogramming.example</span><span class="sy0">;</span><br><br><span class="kw1">import</span> <span class="co2">java.io.BufferedWriter</span><span class="sy0">;</span><br><span class="kw1">import</span> <span class="co2">java.io.FileWriter</span><span class="sy0">;</span><br><span class="kw1">import</span> <span class="co2">java.io.IOException</span><span class="sy0">;</span><br><span class="kw1">import</span> <span class="co2">java.util.HashSet</span><span class="sy0">;</span><br><span class="kw1">import</span> <span class="co2">java.util.Set</span><span class="sy0">;</span><br><br><span class="kw1">public</span> <span class="kw1">class</span> NumberReaderLoggingAdaptor <span class="kw1">implements</span> NumberReadListener <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">private</span> Set<span class="sy0">&lt;</span>NumberReadListener<span class="sy0">&gt;</span> listeners<span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">private</span> <span class="kw3">BufferedWriter</span> output<span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; <span class="kw1">public</span> NumberReaderLoggingAdaptor<span class="br0">(</span><span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; listeners <span class="sy0">=</span> <span class="kw1">new</span> HashSet<span class="sy0">&lt;</span>NumberReadListener<span class="sy0">&gt;</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">try</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; output <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">BufferedWriter</span><span class="br0">(</span><span class="kw1">new</span> <span class="kw3">FileWriter</span><span class="br0">(</span><span class="st0">"numberLog.log"</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span><span class="kw3">IOException</span> e<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="co1">// TODO Auto-generated catch block</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; e.<span class="me1">printStackTrace</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; <span class="kw1">public</span> <span class="kw4">void</span> addNumberReadListener<span class="br0">(</span>NumberReadListener listener<span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">this</span>.<span class="me1">listeners</span>.<span class="me1">add</span><span class="br0">(</span>listener<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; <span class="kw1">public</span> <span class="kw4">void</span> removeNumberReadListener<span class="br0">(</span>NumberReadListener listener<span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">this</span>.<span class="me1">listeners</span>.<span class="me1">remove</span><span class="br0">(</span>listener<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; @Override<br>
+&#160; &#160; &#160; &#160; <span class="kw1">public</span> <span class="kw4">void</span> numberRead<span class="br0">(</span>NumberReadEvent numberReadEvent<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">try</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; output.<span class="me1">write</span><span class="br0">(</span>numberReadEvent.<span class="me1">getNumber</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">+</span> <span class="st0">"<span class="es0">\n</span>"</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span><span class="kw3">Exception</span> e<span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">for</span> <span class="br0">(</span>NumberReadListener numberReadListener<span class="sy0">:</span> listeners<span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; numberReadListener.<span class="me1">numberRead</span><span class="br0">(</span>numberReadEvent<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br><br>
+&#160; &#160; &#160; &#160; @Override<br>
+&#160; &#160; &#160; &#160; <span class="kw1">public</span> <span class="kw4">void</span> numberStreamTerminated<span class="br0">(</span>NumberReadEvent numberReadEvent<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">try</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; output.<span class="me1">flush</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; output.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span><span class="kw3">Exception</span> e<span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">for</span> <span class="br0">(</span>NumberReadListener numberReadListener<span class="sy0">:</span> listeners<span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; numberReadListener.<span class="me1">numberStreamTerminated</span><span class="br0">(</span>numberReadEvent<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br><br><span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p><br>
+Of course, to make the adaptor work we have to make some changes to the bootstrap code:</p>
+<p><br></p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">package</span> <span class="co2">org.wikibooks.en.javaprogramming.example</span><span class="sy0">;</span><br><br><span class="kw1">public</span> <span class="kw1">class</span> Main <span class="br0">{</span><br><br>
+&#160; &#160; &#160; &#160; <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; NumberReader reader <span class="sy0">=</span> <span class="kw1">new</span> NumberReader<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; NumberReadListener listener <span class="sy0">=</span> <span class="kw1">new</span> NumberReadListenerImpl<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; NumberReaderLoggingAdaptor adaptor <span class="sy0">=</span> <span class="kw1">new</span> NumberReaderLoggingAdaptor<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; adaptor.<span class="me1">addNumberReadListener</span><span class="br0">(</span>listener<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; reader.<span class="me1">addNumberReadListener</span><span class="br0">(</span>adaptor<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; reader.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br><span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p><br>
+But note how nicely and easily we can re-link the objects in our system. The fact that adaptors and listeners both implement the listener interface and the adaptor and event source both look like event sources means that we can hook the adaptor into the system without having to change a single statement in the classes that we developed earlier.</p>
+<p>And of course, if we run the same example as given above, the numbers are now recorded in a log file.</p>
+<h2> <span class="mw-headline" id="Platform_uses_of_the_Event_Model">Platform uses of the Event Model</span></h2>
+<p>The Event Model, as mentioned earlier, doesn't have a single all-encompassing implementation within the Java platform. Instead, the model serves as a basis for several different purpose-specific implementations, both within the standard Java platform and outside it (in frameworks).</p>
+<p>Within the platform the main implementations are found in two areas:</p>
+<ul><li>As part of the <a href="JavaBeans/Introduction_to_JavaBeans.html" title="Java Programming/JavaBeans/Introduction to JavaBeans">JavaBeans</a> classes, particularly in the support classes for the implementation of PropertyChangeListeners.</li>
+<li>As part of the Java standard UI frameworks, <a href="http://en.wikibooks.org/wiki/Java_Swings/AWT" title="Java Swings/AWT">AWT</a> and <a href="Swing.html" title="Java Programming/Swing">Swing</a>.</li>
+</ul></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

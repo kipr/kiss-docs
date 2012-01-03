@@ -1,0 +1,48 @@
+<html><head><title>Java Programming/Keywords/synchronized</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Keywords/synchronized</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">synchronized</strong></font></code> is a keyword.</p>
+<p>It marks a 'critical section'. A 'critical section' is where one and only one thread is executing. So to enter into the marked code the threads are 'synchronized', only one can enter, the others have to wait. For more information see <a href="../API/java.lang.Object.html" title="Java Programming/API/java.lang.Object">Synchronizing Threads Methods</a> or <a rel="nofollow" class="external autonumber" href="http://java.sun.com/docs/books/tutorial/essential/concurrency/syncmeth.html">[1]</a>.</p>
+<p>The <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">synchronized</strong></font></code> keyword can be used in two ways:</p>
+<ul><li>Mark a method <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">synchronized</strong></font></code></li>
+<li>Create a <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">synchronized</strong></font></code> block</li>
+</ul><p>Syntax to mark a method <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">synchronized</strong></font></code>:</p>
+<pre>
+<code><a href="public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">synchronized</strong></font></code> <code><a href="void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> method()
+{
+  // Thread.currentThread() has a lock on this object. ie. a synchronized method is the same as calling {synchronized(this){..}}.
+}
+</pre>
+<p>Syntax to mark a <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">synchronized</strong></font></code> block:</p>
+<pre>
+<code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">synchronized</strong></font></code> ( &lt;object_reference&gt; )
+{
+  // Thread.currentThread() has a lock on object_reference. All other threads trying to access it will be blocked until the current thread releases the lock.
+}
+</pre>
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

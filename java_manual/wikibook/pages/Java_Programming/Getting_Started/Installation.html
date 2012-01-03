@@ -1,0 +1,112 @@
+<html><head><title>Java Programming/Getting Started/Installation</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Getting Started/Installation</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p></p>
+<p><br></p>
+<table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Installation&amp;printable=yes#Check_for_availability_of_Java"><span class="tocnumber">1</span> <span class="toctext">Check for availability of Java</span></a>
+<ul><li class="toclevel-2 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Installation&amp;printable=yes#The_Java_platform"><span class="tocnumber">1.1</span> <span class="toctext">The Java platform</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Installation&amp;printable=yes#Availability_check_for_JDK"><span class="tocnumber">1.2</span> <span class="toctext">Availability check for JDK</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Installation&amp;printable=yes#Availability_check_for_JRE"><span class="tocnumber">1.3</span> <span class="toctext">Availability check for JRE</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Installation&amp;printable=yes#Advanced_availability_check_options_on_Windows_platform"><span class="tocnumber">1.4</span> <span class="toctext">Advanced availability check options on Windows platform</span></a></li>
+</ul></li>
+<li class="toclevel-1 tocsection-6"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Installation&amp;printable=yes#Downloading_Java"><span class="tocnumber">2</span> <span class="toctext">Downloading Java</span></a>
+<ul><li class="toclevel-2 tocsection-7"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Installation&amp;printable=yes#Understanding_your_platform"><span class="tocnumber">2.1</span> <span class="toctext">Understanding your platform</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Installation&amp;printable=yes#What_to_do_if_a_download_isn.27t_available_for_your_platform.3F"><span class="tocnumber">2.2</span> <span class="toctext">What to do if a download isn't available for your platform?</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Installation&amp;printable=yes#Betas_and_the_Nightly_Builds"><span class="tocnumber">2.3</span> <span class="toctext">Betas and the Nightly Builds</span></a></li>
+</ul></li>
+<li class="toclevel-1 tocsection-10"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Installation&amp;printable=yes#Install_the_JDK"><span class="tocnumber">3</span> <span class="toctext">Install the JDK</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Installation&amp;printable=yes#Install_an_IDE"><span class="tocnumber">4</span> <span class="toctext">Install an IDE</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Installation&amp;printable=yes#Install_Validation"><span class="tocnumber">5</span> <span class="toctext">Install Validation</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Installation&amp;printable=yes#External_Links"><span class="tocnumber">6</span> <span class="toctext">External Links</span></a></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="Check_for_availability_of_Java">Check for availability of Java</span></h2>
+<h3> <span class="mw-headline" id="The_Java_platform">The Java platform</span></h3>
+<dl><dd><i>For more in-depth detail, read the section on <a href="../The_Java_Platform.html" title="Java Programming/The Java Platform">The Java platform</a></i></dd>
+</dl><p>Before we delve into checking for the availability of Java on our systems, we must come to terms with the Java platform itself. The Java platform in a two-faced coin. Programs written in Java need to be executed on the operating system of choice using the <b>Java Runtime Environment</b> or <b>JRE</b> but to develop the same, you would need a <b>Java Development Kit</b> or <b>JDK</b>.</p>
+<h3> <span class="mw-headline" id="Availability_check_for_JDK">Availability check for JDK</span></h3>
+<p>The Java Development Kit (JDK) is necessary to build Java programs. For our purposes, you must use a JDK. First, check to see if a JDK is already installed on your system. To do so, first open a terminal window or a command window and execute the command below.</p>
+<pre>
+javac -version
+</pre>
+<p>Don't worry if you have no idea as to how to invoke a command window. On a Windows platform, one can invoke a command window simply by clicking on the <i>Start menu</i> and then clicking the <i>Run...</i> button. This would bring forth the Run dialog (an illustrated screenshot is provided below). In the text box, you may write <code>cmd</code> to invoke a window with black background graced with white text. This window is the command prompt or the command window. If the JDK is installed and on your executable path, you should see some output which tells you the command line options. The output will vary depending on which version is installed and which vendor provided the Java installation.</p>
+<p><a href="http://en.wikibooks.org/wiki/File:Java_Programming_Run_dialog.png" class="image"><img alt="Java Programming Run dialog.png" src="../../../thumbs/df46e_Java_Programming_Run_dialog.png" width="347" height="186"></a></p>
+<dl><dd><i>To learn more about the Command Prompt syntax, take a look at this <a rel="nofollow" class="external text" href="http://tnd.com/camosun/elex130/dostutor1.html">MS-DOS tutorial</a>.</i></dd>
+</dl><h3> <span class="mw-headline" id="Availability_check_for_JRE">Availability check for JRE</span></h3>
+<p>The Java Runtime Environment (JRE) is necessary to execute Java programs. To check which version of Java Runtime Environment (JRE) you have, type the following command in the command/terminal window.</p>
+<pre>
+java -version
+</pre>
+<p>Here is the output on a RedHat Fedora Core 4 installation.</p>
+<pre>
+$ java -version
+Eclipse Java Compiler 0.548, pre-3.1.0 milestone-6, Copyright IBM Corp 2000, 2005. All rights reserved.
+</pre>
+<p>You may have other versions of Java installed; this command will only show the first in your PATH. You will be made familiar with the PATH environment variable later in this text. For now, if you have no idea what this is all about. Read through towards the end and we will provide you with a step-by-step guide on how to set your own environment variables.</p>
+<p>If you get an error, such as:</p>
+<pre>
+javac: command not found
+</pre>
+<p>or alternatively on Windows:</p>
+<pre>
+Bad command or file name
+</pre>
+<p>..then the JDK may not be installed or it may not be in your path. You can use your system's file search utilities to see if there is a <code>javac</code> or <code>javac.exe</code> executable installed. If it is, and it is a recent enough version (Java 1.4.2 or Java 1.5, for example), you should put the <code>bin</code> directory that contains <code>javac</code> in your system path. The Java runtime, <code>java</code>, is often in the same <code>bin</code> directory.</p>
+<p>If the installed version is older (i.e. it is Java 1.3.1 or Java 1.4.2 and you wish to use the more recent Java 5 release), you should proceed below with downloading and installing a JDK.</p>
+<p>It is possible that you have the Java runtime (JRE), but not the JDK. In that case the <b>javac</b> program won't be found, but the <b>java -version</b> will print the JRE version number.</p>
+<h3> <span class="mw-headline" id="Advanced_availability_check_options_on_Windows_platform">Advanced availability check options on Windows platform</span></h3>
+<p>On a machine using the Windows operating system, one can invoke the Registry Editor utility by typing <code>REGEDIT</code> in the Run dialog. In the window that opens subsequently, if you traverse through the hierarchy on the left-hand side as follows:</p>
+<pre>
+<a href="http://en.wikipedia.org/wiki/HKEY_LOCAL_MACHINE#HKEY_LOCAL_MACHINE" class="extiw" title="w:HKEY LOCAL MACHINE">HKEY_LOCAL_MACHINE</a> &gt; SOFTWARE &gt; JavaSoft &gt; Java Development Kit
+</pre>
+<p>The resultant would be similar to the image below, with the only exception being the version entries for the Java Development Kit. At the time of writing this manuscript, the latest version for the Java Development Kit available from the internet was 1.7 as seen in the Registry entry. If you see a resultant window that resembles the one presented above, it would prove that you have Java installed on your system, otherwise it is not.</p>
+<p><a href="http://en.wikibooks.org/wiki/File:Java_Programming_Regedit_Av.png" class="image"><img alt="Java Programming Regedit Av.png" src="../../../thumbs/6f5ae_Java_Programming_Regedit_Av.png" width="681" height="227"></a></p>
+<h2> <span class="mw-headline" id="Downloading_Java">Downloading Java</span></h2>
+<h3> <span class="mw-headline" id="Understanding_your_platform">Understanding your platform</span></h3>
+<p>If a JDK is not already on your system, you should download one. But first things first - you need to understand what platform you have. The JDK is available on the <a rel="nofollow" class="external text" href="http://java.sun.com/javase/downloads/index.jsp">Sun website</a> but requires your choice to platform to proceed. Be sure to select a JDK that matches not only your operating system but your hardware system. The downloads available on the above mentioned website include the following platforms: Windows, Linux, Solaris SPARC, Solaris x86 and x64, Linux x64 and Windows x64.</p>
+<h3> <span class="mw-headline" id="What_to_do_if_a_download_isn.27t_available_for_your_platform.3F">What to do if a download isn't available for your platform?</span></h3>
+<p>For other operating systems not listed in the downloads, the system vendor probably has a download of the JDK (sometimes called a Software Development Kit or SDK), or you may have to download a product which includes the JDK. For example for Linux running on the x86 architecture, you can download an <a href="http://en.wikipedia.org/wiki/RPM_Package_Manager" class="extiw" title="w:RPM Package Manager">RPM (RedHat Package Manager) file</a> or a self extracting <code>.bin</code> binary (such as <code>jdk-1_5_0_06-linux-i586.bin</code> for Intel Pentium compatible machines) to get Java SE release 5. The most stable version of JDK available at the time of writing is version 5.0.</p>
+<h3> <span class="mw-headline" id="Betas_and_the_Nightly_Builds">Betas and the <a href="http://en.wikipedia.org/wiki/Nightly_Build" class="extiw" title="w:Nightly Build">Nightly Builds</a></span></h3>
+<p>The Java community online is continuously updating the Java Development Kit and all the fundamental tools needed alongside those builds. One needs to be aware of these specific milestones in the development of a JDK. The version most of the authors of this book are using is the 5.0 version (mostly because it is stable and secure). But, for a taste of the latest in the Java development process, you should visit the <a rel="nofollow" class="external text" href="https://jdk.dev.java.net/">Java.Net JDK repository</a> online to fetch the most recent betas and nightly builds.</p>
+<p>Most of the projects undergoing for the development of Java Development Kits have nicknames that the developer circles use. As of the time of writing this particular line, Java.Net lists two pre-release versions of the JDK namely <a rel="nofollow" class="external text" href="https://mustang.dev.java.net/">Mustang</a> (JDK 6) and <a rel="nofollow" class="external text" href="https://dolphin.dev.java.net/">Dolphin</a> (JDK 7). Be sure to check for the latest updates on the above mentioned repository (you will be surprised by just how often you get to see a new version).</p>
+<h2> <span class="mw-headline" id="Install_the_JDK">Install the JDK</span></h2>
+<p>When you execute the installer, it will install the JDK files. Note: you will need administrator access to install the JDK. You can choose an installation location, such as c:\java\jdk\5.0 on Windows or /var/local/java/5.0 on Linux. or use the default. This location is called the <code>JAVA_HOME</code> and it is customary but not necessary to define an environment variable which refers to that location.</p>
+<p>You may also have to modify your path so that it includes the <code>bin</code> subdirectory of your <code>JAVA_HOME</code>. You should put the JAVA_HOME/bin directory before other directories where Java is installed. The above installations may put the JRE, <code>java</code> (or <code>java.exe</code>) in a system bin directory, but they may not put all of the JDK executables in your path.</p>
+<p>You may need to restart your command shell in order to pick up environment variable changes for <code>JAVA_HOME</code> and <code>PATH</code>.</p>
+<h2> <span class="mw-headline" id="Install_an_IDE">Install an IDE</span></h2>
+<p>You may optionally choose to install an IDE. There are many free and commercial IDE's available. For example, the Eclipse IDE found at <a rel="nofollow" class="external free" href="http://www.eclipse.org">http://www.eclipse.org</a> includes many of the tools necessary to build Java programs (such as a Java compiler, debugger, Javadoc, etc.) and thus you do not need to install a JDK if you opt to use Eclipse. However, Eclipse does require you to install a JRE - Eclipse is a Java program that runs within the JRE. The JDK download sites mentioned above also include JRE downloads, and installation instructions are similar.</p>
+<p>Another Popular IDE for the Windows platform is Borland's JBuilder from <a rel="nofollow" class="external free" href="http://www.borland.com">http://www.borland.com</a></p>
+<p>And a popular Free IDE is JCreator LE from XINOX Software found at <a rel="nofollow" class="external free" href="http://www.jcreator.com">http://www.jcreator.com</a></p>
+<p>However, even if you choose to use Eclipse, it is recommended that you download and install the JDK. This will allow you to use scripts to build and test your Java software from outside the IDE environment.</p>
+<p>If you download Java from Sun's site, you also have the option of installing the NetBeans IDE + JDK 5.0 Update 6 bundle.</p>
+<h2> <span class="mw-headline" id="Install_Validation">Install Validation</span></h2>
+<p>Once you are content that the installations for the Java Development Kit and the Java Runtime Environment have reached completion, you may repeat the steps to check for the availability for Java as mentioned on the top of this section of the book. If, otherwise, you still reach negative conditions try working out through each step to pick where the mistake might have had occurred.</p>
+<dl><dd><i>If the above text fails to address your needs, leave a suggestion on the <a href="http://en.wikibooks.org/wiki/Talk:Java_Programming/Installation" title="Talk:Java Programming/Installation">Talk page</a>.</i></dd>
+</dl><h2> <span class="mw-headline" id="External_Links">External Links</span></h2>
+<ul><li><a rel="nofollow" class="external text" href="http://java.sun.com">Sun's website</a></li>
+<li><a rel="nofollow" class="external text" href="https://jdk.dev.java.net">Java.Net JDK repository</a></li>
+</ul></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

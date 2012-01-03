@@ -1,0 +1,63 @@
+<html><head><title>Java Programming/Threads</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Threads</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p>Threads are very important to the Java world and to many other languages. Java is capable of running more than one thread at a time, which is very useful, but can cause confusion if misused. As a specific example of the utility of threads, suppose you are designing an interface that accepts keyboard and mouse input from the user. Without the use of threads, if the user were to input from both keyboard and mouse simultaneously, the interface would be forced to process those inputs sequentially, which would likely be perceptible to the user. But by using threads, the inputs could be processed in a way that appears simultaneous to the user.</p>
+<p>There are two ways you can create threads. The first is to extend the Thread class itself. The second is by implementing the Runnable interface. Generally, it is best to implement Runnable unless you have a specific reason not to (e.g. overriding methods other than run()).</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">public</span> <span class="kw1">class</span> <span class="kw3">Calendar</span> <span class="kw1">extends</span> <span class="kw3">Thread</span> <span class="br0">{</span>                      
+ <span class="kw1">public</span> <span class="kw4">void</span> run<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>              
+   <span class="co1">//code here</span>
+ <span class="br0">}</span>
+<span class="br0">}</span>
+ 
+<span class="kw1">public</span> <span class="kw1">class</span> SomeOtherClass <span class="br0">{</span>
+  <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+    <span class="kw3">Calendar</span> theCalendar <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">Calendar</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    theCalendar<span class="br0">(</span><span class="br0">)</span>.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+  <span class="br0">}</span>
+<span class="br0">}</span>
+ 
+ 
+<span class="kw1">public</span> <span class="kw1">class</span> <span class="kw3">Calendar</span> <span class="kw1">implements</span> <span class="kw3">Runnable</span> <span class="br0">{</span>                     
+  <span class="kw1">public</span> <span class="kw4">void</span> run<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>                              
+    <span class="co1">//code here           </span>
+  <span class="br0">}</span>
+<span class="br0">}</span>
+ 
+<span class="kw1">public</span> <span class="kw1">class</span> SomeOtherClass <span class="br0">{</span>
+  <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+    <span class="kw3">Thread</span> theCalendar <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">Thread</span><span class="br0">(</span><span class="kw1">new</span> <span class="kw3">Calendar</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+    theCalendar<span class="br0">(</span><span class="br0">)</span>.<span class="me1">start</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+  <span class="br0">}</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

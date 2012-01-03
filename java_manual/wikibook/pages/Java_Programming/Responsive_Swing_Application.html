@@ -1,0 +1,247 @@
+<html><head><title>Java Programming/Responsive Swing Application</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Responsive Swing Application</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><table class="wikitable" style="float: right;"><tr><td><b>User Interface Topics</b>:
+<ul><li><a href="http://en.wikibooks.org/wiki/Java_Programming/BasicIO" title="Java Programming/BasicIO" class="mw-redirect">Basic I/O</a></li>
+<li><a href="Event_Handling.html" title="Java Programming/Event Handling">Event handling</a></li>
+<li><a href="Swing.html" title="Java Programming/Swing">Intro to Swing</a></li>
+<li><a href="Graphics.html" title="Java Programming/Graphics">Graphics</a></li>
+<li><a href="Applets.html" title="Java Programming/Applets">Applets</a><br><br></li>
+</ul></td>
+</tr></table><table class="wikitable" style="float: right;"><tr><td>Navigate <b><a href="Swing.html" title="Java Programming/Swing">Swing</a></b> topic: 
+<ul><li> <a href="Swing.html" title="Java Programming/Swing">Overview</a></li>
+<li> <a href="FirstExamples.html" title="Java Programming/FirstExamples">First Example: Frames and Labels</a></li>
+<li> <a href="Events_and_Buttons.html" title="Java Programming/Events and Buttons">Events and Buttons</a></li>
+<li> <strong class="selflink">A Responsive Application</strong></li>
+<li> <a href="SwingLayouts.html" title="Java Programming/SwingLayouts">Layouts</a></li>
+<li> <a href="SwingLargeExamples.html" title="Java Programming/SwingLargeExamples">Building a Calculator</a></li>
+</ul></td>
+</tr></table><p>In this section, we'll create an application that responds to a user action, namely the pressing of a button.</p>
+<h2> <span class="mw-headline" id="The_Program">The Program</span></h2>
+<p>Last section, we wrote a program that displays a text label along with a button. In this section, we'll add functionality to the application so that the text changes when the user presses the button. In order to accomplish this, we'll write a subclass of JLabel that can change its text, and implements the ActionListener interface. Because a JButton generates action events when pushed, we can connect our specialized JLabel to the JButton by registering it as a listener. Here's the code:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">import</span> <span class="co2">javax.swing.*</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">java.awt.BorderLayout</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">java.awt.event.*</span><span class="sy0">;</span>     <span class="co1">//ActionEvent and ActionListener</span>
+                                <span class="co1">//live in the java.awt.event</span>
+                                <span class="co1">//package</span>
+ 
+<span class="co1">//application with a changing text field</span>
+<span class="kw1">public</span> <span class="kw1">class</span> HelloWithButton2 <span class="br0">{</span>
+ 
+        <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="br0">{</span>
+ 
+                <span class="co1">//constructs the ChangingLabel.  All the</span>
+                <span class="co1">//intialization is done be the default</span>
+                <span class="co1">//constructor, defined in the ChangingLabel</span>
+                <span class="co1">//class below.</span>
+                ChangingLabel changingLabel <span class="sy0">=</span> <span class="kw1">new</span> ChangingLabel<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+                <span class="co1">//create the button</span>
+                <span class="kw3">JButton</span> button <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">JButton</span><span class="br0">(</span><span class="st0">"Button"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+                <span class="co1">//register the ChangingLabel as an action</span>
+                <span class="co1">//listener to the button.  Whenever the</span>
+                <span class="co1">//button is pressed, its ActionEvent will</span>
+                <span class="co1">//be sent the the ChangingLabel's</span>
+                <span class="co1">//actionPerformed() method, and the code</span>
+                <span class="co1">//there will be executed.</span>
+                button.<span class="me1">addActionListener</span><span class="br0">(</span>changingLabel<span class="br0">)</span><span class="sy0">;</span>
+ 
+                <span class="co1">//create the frame</span>
+                <span class="kw3">JFrame</span> frame <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">JFrame</span><span class="br0">(</span><span class="st0">"Hello"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+                <span class="co1">//add the label and the button to the</span>
+                <span class="co1">//frame, using layout constants.</span>
+                frame.<span class="me1">add</span><span class="br0">(</span>changingLabel, <span class="kw3">BorderLayout</span>.<span class="me1">CENTER</span><span class="br0">)</span><span class="sy0">;</span>
+                frame.<span class="me1">add</span><span class="br0">(</span>button, <span class="kw3">BorderLayout</span>.<span class="me1">SOUTH</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+                frame.<span class="me1">setSize</span><span class="br0">(</span><span class="nu0">300</span>, <span class="nu0">300</span><span class="br0">)</span><span class="sy0">;</span>
+                frame.<span class="me1">setDefaultCloseOperation</span><span class="br0">(</span><span class="kw3">JFrame</span>.<span class="me1">EXIT_ON_CLOSE</span><span class="br0">)</span><span class="sy0">;</span>
+                frame.<span class="me1">setVisible</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
+                frame.<span class="me1">setLocationRelativeTo</span><span class="br0">(</span><span class="kw2">null</span><span class="br0">)</span><span class="sy0">;</span>
+                frame.<span class="me1">toFront</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="br0">}</span>
+<span class="br0">}</span>
+ 
+<span class="kw1">class</span> ChangingLabel <span class="kw1">extends</span> <span class="kw3">JLabel</span> <span class="kw1">implements</span> <span class="kw3">ActionListener</span> <span class="br0">{</span>
+ 
+        <span class="co1">//String constants which define the text that's displayed.</span>
+        <span class="kw1">private</span> <span class="kw1">static</span> <span class="kw1">final</span> <span class="kw3">String</span> TEXT1 <span class="sy0">=</span> <span class="st0">"Hello, World!"</span><span class="sy0">;</span>
+        <span class="kw1">private</span> <span class="kw1">static</span> <span class="kw1">final</span> <span class="kw3">String</span> TEXT2 <span class="sy0">=</span> <span class="st0">"Hello again!"</span><span class="sy0">;</span>
+ 
+        <span class="co1">//instance field to keep track of the text currently</span>
+        <span class="co1">//displayed</span>
+        <span class="kw1">private</span> <span class="kw4">boolean</span> usingText1<span class="sy0">;</span>
+ 
+        <span class="co1">//Constructor.  Sets alignment and initial text, and</span>
+        <span class="co1">//sets the usingText1 field appropriately.</span>
+        <span class="kw1">public</span> ChangingLabel<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+                <span class="kw1">this</span>.<span class="me1">setHorizontalAlignment</span><span class="br0">(</span><span class="kw3">SwingConstants</span>.<span class="me1">CENTER</span><span class="br0">)</span><span class="sy0">;</span>              
+                <span class="kw1">this</span>.<span class="me1">setText</span><span class="br0">(</span>TEXT1<span class="br0">)</span><span class="sy0">;</span>       
+                usingText1 <span class="sy0">=</span> <span class="kw2">true</span><span class="sy0">;</span>
+        <span class="br0">}</span>
+ 
+        <span class="co1">//a method to change the label text.  If the</span>
+        <span class="co1">//current text is TEXT1, changes it to TEXT2,</span>
+        <span class="co1">//and vice-versa.  The method is private here,</span>
+        <span class="co1">//because it is never called directly.</span>
+        <span class="kw1">private</span> <span class="kw4">void</span> changeLabel<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+                <span class="kw1">if</span><span class="br0">(</span>usingText1<span class="br0">)</span>
+                        <span class="kw1">this</span>.<span class="me1">setText</span><span class="br0">(</span>TEXT2<span class="br0">)</span><span class="sy0">;</span>
+                <span class="kw1">else</span> 
+                        <span class="kw1">this</span>.<span class="me1">setText</span><span class="br0">(</span>TEXT1<span class="br0">)</span><span class="sy0">;</span>
+ 
+                usingText1 <span class="sy0">=</span> <span class="sy0">!</span>usingText1<span class="sy0">;</span>
+        <span class="br0">}</span>
+ 
+        <span class="co1">//this method implements the ActionListener interface.</span>
+        <span class="co1">//Any time that an action is performed by a component</span>
+        <span class="co1">//that this object is registered with, this method</span>
+        <span class="co1">//is called.  We can analyze the event object received</span>
+        <span class="co1">//here for more information if we want to, but it's not</span>
+        <span class="co1">//necessary in this application.</span>
+        <span class="kw1">public</span> <span class="kw4">void</span> actionPerformed<span class="br0">(</span><span class="kw3">ActionEvent</span> e<span class="br0">)</span> <span class="br0">{</span>
+                <span class="kw1">this</span>.<span class="me1">changeLabel</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="br0">}</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>In this application, class "ChangingLabel" defines a special type of label that is an action listener (ie, that can receive ActionEvents) by implementing the ActionListener interface. It also has the ability to change its text through the private method changeLabel(). The actionPerformed() method just calls changeLabel() when it receives an ActionEvent.</p>
+<p>The main program code in HelloWithButton2 is similar to the code in the last section, but uses a ChangeLabel instead of an ordinary JLabel object. It also registers the ChangeLabel as an ActionListener of the button with the button's addActionListener() method. We can do this because JButtons create ActionEvents, and ChangeLabel is an ActionListener (ie, implements the ActionListener interface).</p>
+<p>There's one thing to notice in the above example. Two classes are defined, one to contain the program code in the static main() method, and another that defines a type used in the program. However, there's no reason that we can't put the main() method directly in our new type's class. In fact, putting the program's main() method in a customized subclass of a component is a common idiom in programming Swing applications. When reorganized this way, the program looks like this:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">import</span> <span class="co2">javax.swing.*</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">java.awt.BorderLayout</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">java.awt.event.*</span><span class="sy0">;</span>        <span class="co1">//ActionEvent and ActionListener</span>
+                                <span class="co1">//live in the java.awt.event</span>
+                                <span class="co1">//package</span>
+ 
+<span class="co1">//application with a changing text field</span>
+<span class="kw1">public</span> <span class="kw1">class</span> ChangingLabel <span class="kw1">extends</span> <span class="kw3">JLabel</span> <span class="kw1">implements</span> <span class="kw3">ActionListener</span> <span class="br0">{</span>
+ 
+        <span class="co1">//String constants which define the text that's displayed.</span>
+        <span class="kw1">private</span> <span class="kw1">static</span> <span class="kw1">final</span> <span class="kw3">String</span> TEXT1 <span class="sy0">=</span> <span class="st0">"Hello, World!"</span><span class="sy0">;</span>
+        <span class="kw1">private</span> <span class="kw1">static</span> <span class="kw1">final</span> <span class="kw3">String</span> TEXT2 <span class="sy0">=</span> <span class="st0">"Hello again!"</span><span class="sy0">;</span>
+ 
+        <span class="co1">//instance field to keep track of the text currently</span>
+        <span class="co1">//displayed</span>
+        <span class="kw1">private</span> <span class="kw4">boolean</span> usingText1<span class="sy0">;</span>
+ 
+        <span class="co1">//Constructor.  Sets alignment and initial text, and</span>
+        <span class="co1">//sets the usingText1 field appropriately.</span>
+        <span class="kw1">public</span> ChangingLabel<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+                <span class="kw1">this</span>.<span class="me1">setHorizontalAlignment</span><span class="br0">(</span><span class="kw3">SwingConstants</span>.<span class="me1">CENTER</span><span class="br0">)</span><span class="sy0">;</span>             
+                <span class="kw1">this</span>.<span class="me1">setText</span><span class="br0">(</span>TEXT1<span class="br0">)</span><span class="sy0">;</span>    
+                usingText1 <span class="sy0">=</span> <span class="kw2">true</span><span class="sy0">;</span>
+        <span class="br0">}</span>
+ 
+        <span class="co1">//a method to change the label text.  If the</span>
+        <span class="co1">//current text is TEXT1, changes it to TEXT2,</span>
+        <span class="co1">//and vice-versa.  The method is private here,</span>
+        <span class="co1">//because it is never called directly.</span>
+        <span class="kw1">private</span> <span class="kw4">void</span> changeLabel<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+                <span class="kw1">if</span><span class="br0">(</span>usingText1<span class="br0">)</span> <span class="br0">{</span>
+                        <span class="kw1">this</span>.<span class="me1">setText</span><span class="br0">(</span>TEXT2<span class="br0">)</span><span class="sy0">;</span>
+                        usingText1 <span class="sy0">=</span> <span class="kw2">false</span><span class="sy0">;</span>
+                <span class="br0">}</span> <span class="kw1">else</span> <span class="br0">{</span>
+                        <span class="kw1">this</span>.<span class="me1">setText</span><span class="br0">(</span>TEXT1<span class="br0">)</span><span class="sy0">;</span>
+                        usingText1 <span class="sy0">=</span> <span class="kw2">true</span><span class="sy0">;</span>
+                <span class="br0">}</span>
+        <span class="br0">}</span>
+ 
+        <span class="co1">//this method implements the ActionListener interface.</span>
+        <span class="co1">//Any time that an action is performed by a component</span>
+        <span class="co1">//that this object is registered with, this method</span>
+        <span class="co1">//is called.  We can analyze the event object received</span>
+        <span class="co1">//here for more information if we want to, but it's not</span>
+        <span class="co1">//necessary in this application.</span>
+        <span class="kw1">public</span> <span class="kw4">void</span> actionPerformed<span class="br0">(</span><span class="kw3">ActionEvent</span> e<span class="br0">)</span> <span class="br0">{</span>
+                <span class="kw1">this</span>.<span class="me1">changeLabel</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="br0">}</span>
+ 
+        <span class="co1">//main method.  This is the code that is executed when the</span>
+        <span class="co1">//program is run</span>
+        <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="br0">{</span>
+ 
+            <span class="co1">//constructs the ChangingLabel.  All the</span>
+            <span class="co1">//intialization is done be the default</span>
+            <span class="co1">//constructor, defined in the ChangingLabel</span>
+            <span class="co1">//class below.</span>
+            ChangingLabel changingLabel <span class="sy0">=</span> <span class="kw1">new</span> ChangingLabel<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+            <span class="co1">//create the button</span>
+            <span class="kw3">JButton</span> button <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">JButton</span><span class="br0">(</span><span class="st0">"Button"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+            <span class="co1">//register the ChangingLabel as an action</span>
+            <span class="co1">//listener to the button.  Whenever the</span>
+            <span class="co1">//button is pressed, its ActionEvent will</span>
+            <span class="co1">//be sent the the ChangingLabel's</span>
+            <span class="co1">//actionPerformed() method, and the code</span>
+            <span class="co1">//there will be executed.</span>
+            button.<span class="me1">addActionListener</span><span class="br0">(</span>changingLabel<span class="br0">)</span><span class="sy0">;</span>
+ 
+            <span class="co1">//create the frame</span>
+            <span class="kw3">JFrame</span> frame <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">JFrame</span><span class="br0">(</span><span class="st0">"Hello"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+            <span class="co1">//add the label and the button to the</span>
+            <span class="co1">//frame, using layout constants.</span>
+            frame.<span class="me1">add</span><span class="br0">(</span>changingLabel, <span class="kw3">BorderLayout</span>.<span class="me1">CENTER</span><span class="br0">)</span><span class="sy0">;</span>
+            frame.<span class="me1">add</span><span class="br0">(</span>button, <span class="kw3">BorderLayout</span>.<span class="me1">SOUTH</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+            frame.<span class="me1">setSize</span><span class="br0">(</span><span class="nu0">300</span>, <span class="nu0">300</span><span class="br0">)</span><span class="sy0">;</span>
+            frame.<span class="me1">setDefaultCloseOperation</span><span class="br0">(</span><span class="kw3">JFrame</span>.<span class="me1">EXIT_ON_CLOSE</span><span class="br0">)</span><span class="sy0">;</span>
+            frame.<span class="me1">setVisible</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
+            frame.<span class="me1">setLocationRelativeTo</span><span class="br0">(</span><span class="kw2">null</span><span class="br0">)</span><span class="sy0">;</span>
+            frame.<span class="me1">toFront</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>This program does exactly the same thing as the first, but organizes all the code into one class.</p>
+<h2> <span class="mw-headline" id="Multi-threading_in_Swing">Multi-threading in Swing</span></h2>
+<p>The thread that performs actions inside the action, change, mouse and other listeners is called a Swing thread. These methods must execute and return quickly, as the Swing thread that must be available for the Swing framework to keep the application responsive. In other words, if you perform some time-consuming calculation or other activities, you must do this in a separate thread, not in the Swing thread. However then you access Swing components from the non-swing thread you initiated yourself, they may hang due race conditions if manipulated by the Swing thread at the same time. Because of that, Swing component from the non-Swing thread must be accessed through intermediate Runnable, using the SwingUtilities.invokeAndWait method:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+ <span class="kw3">String</span> myMessage <span class="sy0">=</span> <span class="st0">"abc"</span><span class="sy0">;</span>
+ <span class="kw1">final</span> <span class="kw3">String</span> message <span class="sy0">=</span> myMessage<span class="sy0">;</span> <span class="co1">// Making final allows to access from inner class here.</span>
+ <span class="kw3">SwingUtilities</span>.<span class="me1">invokeAndWait</span><span class="br0">(</span><span class="kw1">new</span> <span class="kw3">Runnable</span> <span class="br0">{</span>
+   <span class="kw1">public</span> <span class="kw4">void</span> run<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+     myLabel.<span class="me1">setText</span><span class="br0">(</span>message<span class="br0">)</span><span class="sy0">;</span>
+   <span class="br0">}</span>
+ <span class="br0">}</span><span class="br0">)</span>
+</pre></div>
+</div>
+<p>This call will fire setText(message) in the appropriate time, when the Swing thread will be ready to respond. This approach is also usual when implementing the moving progress bar that only works properly if the slow process itself is implemented outside the Swing thread.</p>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

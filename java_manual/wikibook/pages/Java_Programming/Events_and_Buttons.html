@@ -1,0 +1,108 @@
+<html><head><title>Java Programming/Events and Buttons</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Events and Buttons</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><table class="wikitable" style="float: right;"><tr><td><b>User Interface Topics</b>:
+<ul><li><a href="http://en.wikibooks.org/wiki/Java_Programming/BasicIO" title="Java Programming/BasicIO" class="mw-redirect">Basic I/O</a></li>
+<li><a href="Event_Handling.html" title="Java Programming/Event Handling">Event handling</a></li>
+<li><a href="Swing.html" title="Java Programming/Swing">Intro to Swing</a></li>
+<li><a href="Graphics.html" title="Java Programming/Graphics">Graphics</a></li>
+<li><a href="Applets.html" title="Java Programming/Applets">Applets</a><br><br></li>
+</ul></td>
+</tr></table><table class="wikitable" style="float: right;"><tr><td>Navigate <b><a href="Swing.html" title="Java Programming/Swing">Swing</a></b> topic: 
+<ul><li> <a href="Swing.html" title="Java Programming/Swing">Overview</a></li>
+<li> <a href="FirstExamples.html" title="Java Programming/FirstExamples">First Example: Frames and Labels</a></li>
+<li> <strong class="selflink">Events and Buttons</strong></li>
+<li> <a href="Responsive_Swing_Application.html" title="Java Programming/Responsive Swing Application">A Responsive Application</a></li>
+<li> <a href="SwingLayouts.html" title="Java Programming/SwingLayouts">Layouts</a></li>
+<li> <a href="SwingLargeExamples.html" title="Java Programming/SwingLargeExamples">Building a Calculator</a></li>
+</ul></td>
+</tr></table><p><br>
+On the last page, we created an application that passively displays a "Hello, world" message. However, that gets boring quickly. In this chapter, we'll talk about swing events and look at the JButton class, and we'll build a small application that includes a JButton with a JLabel, and use it to introduce the concept of Layouts.</p>
+<h2> <span class="mw-headline" id="Events">Events</span></h2>
+<p>Events are a fundamental part of how swing works. Various actions on the part of the user cause components to "fire" various types of events. Other Java objects can register as listeners of events with any components whose events they are interested in. In order to be a listener, the object must implement the appropriate listener interface (ie, ActionListener for action events, FocusListener for focus events, etc.), which contains methods which are called when the event is "fired".</p>
+<p>In Java, events themselves are objects, and instances of event classes. The event classes are located in the packages java.awt.event and javax.swing.event. A few common classes of events are: ActionEvent -- a (somewhat generic) event fired by some objects, including JButtons MouseEvent -- fired when the user does something with the mouse, such as a click, drag, or more general motion KeyEvent -- fired when the user presses, releases, or more generally "types" a key on the keyboard</p>
+<p>In order to see how events are used, we'll look at JButtons so that we can build an example.</p>
+<h2> <span class="mw-headline" id="JButtons">JButtons</span></h2>
+<p>A JButton is a component that, like a JLabel, can hold text, images, or both. However, as we'd expect, it also has the property that the user can "push" it by clicking on it, which causes it to fire an event (specifically, an action event). In this example, we'll more or less redo our previous example, except that we'll add a JButton. In the next section, we'll add functionality so that pressing the button does something.</p>
+<p>Here's the code that creates the previous "Hello, world" application, plus a button at the bottom of the screen:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">import</span> <span class="co2">javax.swing.*</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">java.awt.BorderLayout</span><span class="sy0">;</span> <span class="co1">//The BorderLayout class</span>
+                              <span class="co1">//lives in java.awt.  We</span>
+                              <span class="co1">//use its constants to tell</span>
+                              <span class="co1">//the JFrame where we want the</span>
+                              <span class="co1">//components to go.</span>
+ 
+<span class="co1">//expanded version of the hello application,</span>
+<span class="co1">//but with a button below.</span>
+<span class="kw1">public</span> <span class="kw1">class</span> HelloWithButton <span class="br0">{</span>
+ 
+        <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="br0">{</span>
+ 
+                <span class="co1">//construct the JLabel,</span>
+                <span class="co1">//an overloaded version of the constructor</span>
+                <span class="co1">//allows us to specify the alignment off the</span>
+                <span class="co1">//bat</span>
+                <span class="kw3">JLabel</span> label <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">JLabel</span>
+                        <span class="br0">(</span><span class="st0">"Hello, World!"</span>, <span class="kw3">SwingConstants</span>.<span class="me1">CENTER</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+                <span class="co1">//create the button. The text in the</span>
+                <span class="co1">//constructor will be visible on the</span>
+                <span class="co1">//button.</span>
+                <span class="kw3">JButton</span> button <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">JButton</span><span class="br0">(</span><span class="st0">"Button"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+                <span class="co1">//create the frame</span>
+                <span class="kw3">JFrame</span> frame <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">JFrame</span><span class="br0">(</span><span class="st0">"Hello"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+                <span class="co1">//add the label and the button to the</span>
+                <span class="co1">//frame, using layout constants.</span>
+                frame.<span class="me1">add</span><span class="br0">(</span>label, <span class="kw3">BorderLayout</span>.<span class="me1">CENTER</span><span class="br0">)</span><span class="sy0">;</span>
+                frame.<span class="me1">add</span><span class="br0">(</span>button, <span class="kw3">BorderLayout</span>.<span class="me1">SOUTH</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+                frame.<span class="me1">setSize</span><span class="br0">(</span><span class="nu0">300</span>, <span class="nu0">300</span><span class="br0">)</span><span class="sy0">;</span>
+                frame.<span class="me1">setDefaultCloseOperation</span><span class="br0">(</span><span class="kw3">JFrame</span>.<span class="me1">EXIT_ON_CLOSE</span><span class="br0">)</span><span class="sy0">;</span>
+                frame.<span class="me1">setVisible</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
+                frame.<span class="me1">setLocationRelativeTo</span><span class="br0">(</span><span class="kw2">null</span><span class="br0">)</span><span class="sy0">;</span>
+                frame.<span class="me1">toFront</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="br0">}</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>What you should see is a frame appear that contains the text "Hello, World!" in the center, along with a button labeled "Button" at the bottom. You can click on the button, but it doesn't do anything.</p>
+<p>In this example, we not only added the components to the frame, but specified where they should go. Every component which contains other components has a LayoutManager object, which controls how the components are laid out, and different layout managers lay out their components differently. A few examples of layout managers are GridLayout, CardLayout, and BorderLayout. This last is the default layout manager of a JFrame (although we can change the layout manager of a component by using its setLayout() method). Although layout managers are covered in more detail in a later chapter, we'll say here that BorderLayout managers divide their space into five regions, and each is associated with a constant in the BorderLayout class. The constants (which explain the regions) are:</p>
+<ul><li>BorderLayout.NORTH</li>
+<li>BorderLayout.SOUTH</li>
+<li>BorderLayout.EAST</li>
+<li>BorderLayout.WEST</li>
+</ul><p>and</p>
+<ul><li>BorderLayout.CENTER</li>
+</ul><p>If you're adding a component to a container that is using a BorderLayout, you can pass one of these constants as an optional second parameter to the add() method to specify where the component should be placed. If no constant is specified, the layout manager by default places the new component in the center. I would encourage you to experiment with the previous example and change the layout parameters, and observe the effect.</p>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

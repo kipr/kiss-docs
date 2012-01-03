@@ -1,0 +1,44 @@
+<html><head><title>Java Programming/Keywords/volatile</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Keywords/volatile</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">volatile</strong></font></code> is a keyword.</p>
+<p>When member variables are marked with this keyword, it changes the runtime behavior in a way that is noticeable when multiple threads access these variables. Without the volatile keyword, one thread could observe another thread update member variables in an order that is not consistent with what is specified in sourcecode. Unlike the synchronized keyword, concurrent access to a volatile field is allowed.</p>
+<p>Syntax:</p>
+<pre>
+<code><a href="private.html" title="Java Programming/Keywords/private"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">private</font></a></code> <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">volatile</strong></font></code> &lt;member-variable&gt;;
+or 
+<code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">volatile</strong></font></code> <code><a href="private.html" title="Java Programming/Keywords/private"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">private</font></a></code> &lt;member-variable&gt;;
+</pre>
+<p><br>
+For example:</p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">private</span> <span class="kw1">volatile</span> changingVar<span class="sy0">;</span></div>
+</div>
+</td>
+</tr></table><p><br>
+See also:</p>
+<ul><li><a href="synchronized.html" title="Java Programming/Keywords/synchronized">Java Programming/Keywords/synchronized</a></li>
+</ul></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

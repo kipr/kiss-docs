@@ -1,0 +1,93 @@
+<html><head><title>Java Programming/Access Modifiers</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Access Modifiers</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><table class="wikitable" style="float: right;"><tr><td>Navigate <b><a href="Language_Fundamentals.html" title="Java Programming/Language Fundamentals">Language Fundamentals</a></b> topic: 
+<ul><li> <a href="Variables.html" title="Java Programming/Variables">Variables</a></li>
+<li> <a href="Flow_control.html" title="Java Programming/Flow control">Flow control</a></li>
+<li> <a href="Arrays.html" title="Java Programming/Arrays">Arrays</a></li>
+<li> <a href="Methods.html" title="Java Programming/Methods">Methods</a></li>
+<li> <a href="Statements.html" title="Java Programming/Statements">Statements</a></li>
+<li> <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Identifiers,_literals_and_expressions&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Identifiers, literals and expressions (does not exist)">Identifiers, literals and expressions</a></li>
+<li> <a href="Types.html" title="Java Programming/Types">Types</a></li>
+<li> <a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></li>
+<li> <a href="Classes,_Objects_and_Types.html" title="Java Programming/Classes, Objects and Types">Classes, Objects and Types</a></li>
+<li> <a href="Syntax.html" title="Java Programming/Syntax">Syntax</a></li>
+<li> <a href="Keywords/assert.html" title="Java Programming/Keywords/assert">Assertions</a></li>
+<li> <a href="Keywords.html" title="Java Programming/Keywords">Keywords</a></li>
+<li> <a href="Packages.html" title="Java Programming/Packages">Packages</a></li>
+<li> <a href="Nested_Classes.html" title="Java Programming/Nested Classes">Nested classes</a></li>
+<li> <strong class="selflink">Access modifiers</strong></li>
+<li> <a href="Data_and_Variables.html" title="Java Programming/Data and Variables">Data and variables</a></li>
+<li> <a href="Generics.html" title="Java Programming/Generics">Generics</a></li>
+<li> <a href="Java_Security.html" title="Java Programming/Java Security">Java Security</a></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="Access_modifiers">Access modifiers</span></h2>
+<p>You surely would have noticed by now, the words <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code>, <code><a href="Keywords/protected.html" title="Java Programming/Keywords/protected"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">protected</font></a></code> and <code><a href="Keywords/private.html" title="Java Programming/Keywords/private"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">private</font></a></code> at the beginning of class's method declarations used in this book. These keywords are called the <b>access modifiers</b> in the Java language syntax, and can be defined as...</p>
+<table style="margin:auto; border-collapse:collapse; border-style:none; background-color:transparent; width:auto;" class="cquote"><tr><td width="20" valign="top" style="color:#B2B7F2;font-size:35px;font-family:'Times New Roman',serif;font-weight:bold;text-align:left;padding:10px 10px;">&#8220;</td>
+<td valign="top" style="padding:4px 10px;">.. keywords that help set the visibility and accessibility of a class, its member variables, and methods.</td>
+<td width="20" valign="bottom" style="color:#B2B7F2;font-size:36px;font-family:'Times New Roman',serif;font-weight:bold;text-align:right;padding:10px 10px;">&#8221;</td>
+</tr></table><p>The following table shows what Access Modifiers are appropriate for classes, nested classes, member variables, and methods:</p>
+<table class="wikitable"><tr><th></th>
+<th>Class</th>
+<th>Nested class</th>
+<th>Method, or Member variable</th>
+<th>Interface</th>
+<th>Interface method signature</th>
+</tr><tr><th><code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code></th>
+<td>visible from anywhere</td>
+<td>same as its class</td>
+<td>same as its class</td>
+<td>visible from anywhere</td>
+<td>visible from anywhere</td>
+</tr><tr><th><code><a href="Keywords/protected.html" title="Java Programming/Keywords/protected"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">protected</font></a></code></th>
+<td>N/A</td>
+<td>its class and its subclass</td>
+<td>its class and its subclass, and from its package</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr><tr><th>package (default)</th>
+<td>only from its package</td>
+<td>only from its package</td>
+<td>only from its package</td>
+<td>only from its package</td>
+<td>N/A, default is public</td>
+</tr><tr><th><code><a href="Keywords/private.html" title="Java Programming/Keywords/private"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">private</font></a></code></th>
+<td>N/A</td>
+<td>only from its class</td>
+<td>only from its class</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr></table><div style="width: 250px; background-color: #F9F9E9; border: 1px solid #AAAAAA; float: right; clear: right; margin: 1em 0 1em 1em; padding: 4px;">
+<div class="floatleft"><a href="http://en.wikibooks.org/wiki/File:Auguste_Rodin_-_Grubleren_2005-03.jpg" class="image"><img alt="Auguste Rodin - Grubleren 2005-03.jpg" src="../../thumbs/4dbb8_40px-Auguste_Rodin_-_Grubleren_2005-03.jpg" width="40" height="53"></a></div>
+<font face="Trebuchet MS" color="#232323" style="font-size:9pt;"><b><u>Points to ponder</u></b><br><font color="#454545">Note that Interface method visibility is <code><a href="Keywords/public.html" title="Java Programming/Keywords/public">public</a></code> by default. You do not need to specify the access modifier it will default to <code><a href="Keywords/public.html" title="Java Programming/Keywords/public">public</a></code>. For clarity it is considered a good practice to put the <code><a href="Keywords/public.html" title="Java Programming/Keywords/public">public</a></code> keyword.<br><br>
+The same way all member variables defined in the Interface by default will become <code><a href="Keywords/static.html" title="Java Programming/Keywords/static">static</a></code> <code><a href="Keywords/final.html" title="Java Programming/Keywords/final">final</a></code> once inherited in a class.</font></font></div>
+<p>If a class has public visibility, the class can be referenced by anywhere in the program. If a class has package visibility, the class can be referenced only in the package where the class is defined. If a class has private visibility, (it can happen only if the class is defined nested in an other class) the class can be accessed only in the outer class.</p>
+<p>If a variable is defined in a public class and it has public visibility, the variable can be reference anywhere in the application through the class it is defined in. If a variable has package visibility, the variable can be referenced only in the same package through the class it is defined in. If a variable has private visibility, the variable can be accessed only in the class it is defined in.</p>
+<p>If a method is defined in a public class and it has public visibility, the method can be called anywhere in the application through the class it is defined in. If a method has package visibility, the method can be called only in the same package through the class it is defined in. If a method has private visibility, the method can be called only in the class it is defined in.</p>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

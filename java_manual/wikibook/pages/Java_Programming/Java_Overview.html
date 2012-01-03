@@ -1,0 +1,269 @@
+<html><head><title>Java Programming/Java Overview</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Java Overview</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p>Before Java emerged as a programming language, C++ was the dominant player in the trade. The primary goals that the <a href="History.html" title="Java Programming/History">developers of Java</a> faced was to create a language that could tackle most of the things that C++ offered while getting rid of some of the more tedious tasks that came with the earlier languages.</p>
+<p>The new features and upgrades included into Java changed the face of programming environment and gave a new definition to <a href="http://en.wikibooks.org/wiki/Object_Oriented_Programming" title="Object Oriented Programming">Object Oriented Programming</a>. But unlike its predecessors, Java needed to be bundled with standard functionality and be independent of the host platform. This is further explained in this section.</p>
+<p>The primary goals in the creation of the Java language:</p>
+<ul><li>It is simple.</li>
+<li>It is object-oriented.</li>
+<li>It is independent of the host platform</li>
+<li>It contains language facilities and libraries for networking.</li>
+<li>It is designed to execute code from remote sources securely.</li>
+</ul><p>The Java language introduces some new features that did not exist in other languages like C and C++.</p>
+<p>The introduction of those features are the subject of this page.</p>
+<table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Overview&amp;printable=yes#Earlier_programming_languages"><span class="tocnumber">1</span> <span class="toctext">Earlier programming languages</span></a>
+<ul><li class="toclevel-2 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Overview&amp;printable=yes#Platform_dependence_and_zero-modularity"><span class="tocnumber">1.1</span> <span class="toctext">Platform dependence and zero-modularity</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Overview&amp;printable=yes#Unsafe_code"><span class="tocnumber">1.2</span> <span class="toctext">Unsafe code</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Overview&amp;printable=yes#Non-standardization_and_complexity"><span class="tocnumber">1.3</span> <span class="toctext">Non-standardization and complexity</span></a></li>
+<li class="toclevel-2 tocsection-5"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Overview&amp;printable=yes#Networking_capabilities"><span class="tocnumber">1.4</span> <span class="toctext">Networking capabilities</span></a></li>
+<li class="toclevel-2 tocsection-6"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Overview&amp;printable=yes#Agenda_for_the_new_language"><span class="tocnumber">1.5</span> <span class="toctext">Agenda for the new language</span></a></li>
+</ul></li>
+<li class="toclevel-1 tocsection-7"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Overview&amp;printable=yes#Dynamic_class_loading"><span class="tocnumber">2</span> <span class="toctext">Dynamic class loading</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Overview&amp;printable=yes#Automatic_memory_garbage_collection"><span class="tocnumber">3</span> <span class="toctext">Automatic memory garbage collection</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Overview&amp;printable=yes#Error_handling"><span class="tocnumber">4</span> <span class="toctext">Error handling</span></a></li>
+<li class="toclevel-1 tocsection-10"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Overview&amp;printable=yes#Platform_independence"><span class="tocnumber">5</span> <span class="toctext">Platform independence</span></a></li>
+<li class="toclevel-1 tocsection-11"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Overview&amp;printable=yes#Secure_execution_of_remote_code"><span class="tocnumber">6</span> <span class="toctext">Secure execution of remote code</span></a></li>
+<li class="toclevel-1 tocsection-12"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Overview&amp;printable=yes#Object_orientation"><span class="tocnumber">7</span> <span class="toctext">Object orientation</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Overview&amp;printable=yes#Evaluation"><span class="tocnumber">8</span> <span class="toctext">Evaluation</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Overview&amp;printable=yes#Note_for_C_programmers"><span class="tocnumber">9</span> <span class="toctext">Note for C programmers</span></a>
+<ul><li class="toclevel-2 tocsection-15"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Overview&amp;printable=yes#Invoking_C_programs_from_Java_applications"><span class="tocnumber">9.1</span> <span class="toctext">Invoking C programs from Java applications</span></a></li>
+</ul></li>
+<li class="toclevel-1 tocsection-16"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Overview&amp;printable=yes#Notes"><span class="tocnumber">10</span> <span class="toctext">Notes</span></a></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="Earlier_programming_languages">Earlier programming languages</span></h2>
+<p>Computer hardware went through a performance and price revolution in the 1980s and 1990s. Better, faster hardware was available at lesser price and the demand for big and complex software exponentially increased. To accommodate the demand, new development technologies were invented.</p>
+<p>The C language developed in 1972 by <a href="http://en.wikipedia.org/wiki/Dennis_Ritchie" class="extiw" title="w:Dennis Ritchie">Dennis Ritchie</a> had taken a decade to become the most popular language amongst programmers. But, with time programmers found that programming in C became tedious with its structural syntax. <sup id="cite_ref-0" class="reference"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Overview&amp;printable=yes#cite_note-0">[1]</a></sup> Although, people attempted solving this problem, it would be later that a new development philosophy was introduced, one named <i>Object-Oriented Programming</i> (<i>OOP</i> in short). With OOP, a person may write a certain code which may be reused later without rewriting the code over and over again. In 1979, <a href="http://en.wikipedia.org/wiki/Bjarne_Stroustrup" class="extiw" title="w:Bjarne Stroustrup">Bjarne Stroustrup</a> developed <a href="http://en.wikipedia.org/wiki/C%2B%2B" class="extiw" title="w:C++">C++</a>, an enhancement to the C language with included OOP fundamentals and features.</p>
+<h3> <span class="mw-headline" id="Platform_dependence_and_zero-modularity">Platform dependence and zero-modularity</span></h3>
+<p>Over time, people began to realize the problems with the architecture of the language. For one, the language produced different results/output for different platforms. C/C++ applications only adhered to platforms they were targeting and would not work on others. A certain program built for a certain platform would only target that specific platform or hardware. This close-knitted integration with the hardware posed greater vulnerability risks.</p>
+<div class="center">
+<div class="floatnone"><a href="http://en.wikibooks.org/wiki/File:C_cplusplus_compilation_process.svg" class="image"><img alt="C cplusplus compilation process.svg" src="../../thumbs/46cce_500px-C_cplusplus_compilation_process.svg.png" width="500" height="400"></a></div>
+</div>
+<p>Note here that when a certain code is compiled into an executable format, the executable can not be changed dynamically. It would need to be recompiled from the changed code for the changes to be reflected in the finished executable. <b>Modularity</b> (dividing code into modules) is evidently <i>not</i> present in Java's predecessors. If instead of a single executable, the output application was in the form of modules, one can easily change a single module and review changes in the application, but rather in C/C++, a slight change in code required the whole application to be recompiled.</p>
+<h3> <span class="mw-headline" id="Unsafe_code">Unsafe code</span></h3>
+<p>With the high-level of control built into the language to manipulate hardware, a programmer could access almost any resource, either hardware or software on the system. This was to be one of the languages' strong points, but this very flexibility led to confusion and complex programming practices. Memory leaks became a regular nuisance in instances where the programmers had to manually attempt at using the system's memory resources.</p>
+<p>Now memory resources or buffers have a peculiar way of working. Once a buffer is filled with data, it needs to be cleaned up after there is no use for its content. If a programmer forgets to clean it in his/her code, the memory is easily overloaded. Programming in C/C++ languages became tedious and unsafe because of these very quirks and programs built in the languages were prone to memory leakages and sudden system crashes, sometimes even harming the hardware itself.</p>
+<h3> <span class="mw-headline" id="Non-standardization_and_complexity">Non-standardization and complexity</span></h3>
+<p>C++ was built atop the C language and as a result different ways doing the same thing became evident in the language. For instance, creating an object could be done in three different ways in C++. Furthermore, the language did not come with a standard library bundled with its compilers and rather relied on resources created by other programmers with code which rarely fit together.</p>
+<h3> <span class="mw-headline" id="Networking_capabilities">Networking capabilities</span></h3>
+<p>However powerful, the predecessors of Java lacked a standard feature to network with other computers, and usually relied on the platforms' intricate networking capabilities. With almost all network protocols being standardized, the creators of Java technology wanted this to be a flagship feature of the language while keeping true to the spirit of earlier advances made towards standardizing <a href="http://en.wikipedia.org/wiki/Remote_procedure_call" class="extiw" title="w:Remote procedure call">Remote Procedure Call</a>. Another feature that the Java team focused on was its integration in the World Wide Web and the Internet.</p>
+<h3> <span class="mw-headline" id="Agenda_for_the_new_language">Agenda for the new language</span></h3>
+<p>Keeping all of the above in mind, the developers of Java created a list of features tackling these problems. In their opinion, Java should&#160;...</p>
+<ul><li>..&#160;be simple and gather tested fundamentals and features from the earlier languages in it,</li>
+<li>..&#160;have standard sets of APIs with basic and advanced features bundled with the language,</li>
+<li>..&#160;get rid of concepts requiring direct manipulation of hardware (in this case, memory) to make the language safe,</li>
+<li>..&#160;be platform independent and may written for every platform once (giving birth to the <a href="http://en.wikipedia.org/wiki/Write_once,_run_anywhere" class="extiw" title="w:Write once, run anywhere">WORA</a> idiom),</li>
+<li>..&#160;be able to manipulate network programming out-of-the-box,</li>
+<li>..&#160;be embeddable in web browsers, and&#160;...</li>
+<li>..&#160;have the ability for a single program to multi-task and do multiple things at the same time.</li>
+<li>Simple syntax, simple features. Those features that could be abused, by a programmer, were not added to the language. Those are:
+<ul><li>Operator overloading</li>
+<li>Multiple inheritance</li>
+<li>Memory allocation (use of automatic garbage collection)</li>
+<li>Friend classes (access an other object private members)</li>
+<li>Force exception handling (programmer must handle exception or declare that the user must handle it, someone must handle it)</li>
+<li>Automatic initializations (to give consistent behavior)</li>
+<li>Restrictions of explicit type casting (related to memory management)</li>
+</ul></li>
+<li>Platform Independence (run everywhere concept)
+<ul><li>Compile to intermediate byte code that executed by a Java Virtual Machine</li>
+</ul></li>
+<li>Network programming
+<ul><li>Be able to download code from remote server and execute that code during runtime</li>
+<li>Creators of the Applet concept (Applets can run in the client browser program)</li>
+</ul></li>
+<li>Built in thread, multitasking capabilities to the language
+<ul><li>Ease of multitasking (other languages needed third party libraries to do that)</li>
+</ul></li>
+<li>Platform independent Graphical User Interface (GUI)
+<ul><li>AWT (Contains widgets that most Operating system supports)</li>
+<li>Swing (Added later)</li>
+</ul></li>
+</ul><p>Java was released in 1995; the time when the Internet was becoming more available and familiar to the general public. The promise of Java was in the client browser-side in that code would be downloaded and executed as a Java applet in the client browser program.</p>
+<p>Then the focus was moved to the server side. Java extensions were added to the JDK, it is called J2EE:</p>
+<ul><li>Servlet execution - (Alternative to CGI programs)</li>
+<li>JSP, Java Server Pages - (Embed Java Code in HTML)</li>
+<li>EJB - (Distributed object execution)</li>
+</ul><h2> <span class="mw-headline" id="Dynamic_class_loading">Dynamic class loading</span></h2>
+<p>In conventional languages like C and C++, all code had to be compiled and linked to one executable program, before execution. In Java, classes are compiled as needed. If a class is not needed during an execution phase, that class is not even compiled into byte code.</p>
+<p>This feature comes in handy especially in network programming when we do not know, beforehand, what code will be executed. A running program could load classes from the file system or from a remote server.</p>
+<p>Also this feature makes it theoretically possible for a Java program to alter its own code during execution, in order to do some self-learning behavior. It would be more realistic to imagine, however, that a Java program would generate Java code before execution, and then, that code would be executed. With some feedback mechanism, the generated code could improve over time.</p>
+<h2> <span class="mw-headline" id="Automatic_memory_garbage_collection">Automatic memory garbage collection</span></h2>
+<p>In conventional languages like C and C++, the programmer has to make sure that all memory that was allocated is freed. Freeing memory is particularly important in servers, since it has to run without stopping for days. If a piece of memory is not freed after use and the server just keeps allocating memory, that memory leak can take down the server.</p>
+<p>In Java, freeing up memory is taken out of the programmers hands; the Java Virtual Machine keeps track of all used memory. When memory is not used any more it is automatically freed up. A separate task is running in the background by the JVM, freeing up unreferenced, unused memory. That task is called the "Garbage Collector".</p>
+<p>The "Garbage Collector" is always running. This automatic memory garbage collection feature makes it easy to write robust server side programs in Java. The only thing the programmer has to watch for is the speed of object creation. If the application is creating objects faster than the "Garbage Collector" can free them, it can cause memory problems. Depending on how the JVM is configured, the application either can run out of memory by throwing the <code>NotEnoughMemoryException</code>, or can halt to give time for the "Garbage Collector" to do its job.</p>
+<h2> <span class="mw-headline" id="Error_handling">Error handling</span></h2>
+<p><i>For more info. see:</i> <a href="Exceptions.html" title="Java Programming/Exceptions">Java Programming/Exceptions</a></p>
+<p>The old way of error handling was to let each function return an error code then let the caller check what was returned. The problem with this method was that if the return code was full of error-checking codes, this got in the way of the original one that was doing the actual work, which in turn did not make it very readable.</p>
+<p>In the new way of error handling, functions/methods do not return error codes. Instead, when there is an error, an exception is thrown. The exceptions can be handled by the <code><a href="Keywords/catch.html" title="Java Programming/Keywords/catch"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">catch</font></a></code> keyword at the end of a <code><a href="Keywords/try.html" title="Java Programming/Keywords/try"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">try</font></a></code> block. This way, the code that is calling the function does not need to be mangled with error checking codes, thus making the code more readable. This new way of error handling is called Exception handling.</p>
+<p>Exception handling was also added to C++. However, there are two differences between Java and C++ Exception handling.</p>
+<ul><li>In Java, the exception that is thrown is a Java object like any other object in Java. It only has to implement <code>Throwable</code> interface.</li>
+<li>The compiler checks whether an exception was caught or not. The compiler gives an error if there is no catch block for a thrown exception.</li>
+</ul><h2> <span class="mw-headline" id="Platform_independence">Platform independence</span></h2>
+<p>Platform independence means that programs written in the Java language must run similarly on diverse hardware. One should be able to write a program once and run it anywhere. This is achieved by compiling Java language code "halfway" to bytecode--simplified virtual machine instructions that conform to a set standard. The code is then run on a <a href="http://en.wikipedia.org/wiki/Java_virtual_machine" class="extiw" title="w:Java virtual machine">Java virtual machine</a>, a program written in native code on the host hardware that translates generic Java bytecode into usable code on the hardware. Further, standardized libraries are provided to allow access to features of the host machines (such as graphics and networking) in unified ways. The Java language also includes support for multi-threaded programs--a necessity for many networking applications.</p>
+<p>The first implementations of the language used an interpreted virtual machine to achieve portability, and many implementations still do. These implementations produce programs that run more slowly than the fully-compiled programs created by the typical C++ compiler and some later Java language compilers, so the language suffered a reputation for producing slow programs. More recent implementations of the Java VM produce programs that run much faster, using multiple techniques.</p>
+<p>The first of these is to simply compile directly into native code like a more traditional compiler, skipping bytecode entirely. This achieves great performance, but at the expense of portability. This is not really used any more.</p>
+<p>Another technique, the <i>just-in-time</i> compiler or "JIT", compiles the Java bytecode into native code at the time the program is run, and keep the compiled code to be used again and again. More sophisticated VMs even use <i>dynamic recompilation</i>, in which the VM can analyze the behavior of the running program and selectively recompile and optimize critical parts of the program. Both of these techniques allow the program to take advantage of the speed of native code without losing portability.</p>
+<p>Portability is a technically difficult goal to achieve, and Java's success at that goal is a matter of some controversy. Although it is indeed possible to write programs for the Java platform that behave consistently across many host platforms, the large number of available platforms with small errors or inconsistencies led some to parody Sun's "Write once, run anywhere" slogan as "Write once, debug everywhere".</p>
+<p>Platform independent Java is, however, very successful with server side applications, such as web services, servlets, or Enterprise Java Beans.</p>
+<p>Java also made progress on the client side, first it had <a href="http://en.wikipedia.org/wiki/Abstract_Window_Toolkit" class="extiw" title="w:Abstract Window Toolkit">Abstract Window Toolkit</a> (AWT), then <a href="http://en.wikipedia.org/wiki/Swing_(Java)" class="extiw" title="w:Swing (Java)">Swing</a>, and the most recent client side library is the <a href="http://en.wikipedia.org/wiki/Standard_Widget_Toolkit" class="extiw" title="w:Standard Widget Toolkit">Standard Widget Toolkit</a> (SWT). It is interesting to see how they tried to handle the two opposing consuming forces. Those are&#160;:</p>
+<dl><dt>Efficient, fast code; port to most popular hardware (write once, test anywhere)&#160;</dt>
+<dd>Use the underlying native subroutine to create a GUI component. This approach was taken by <a href="http://en.wikipedia.org/wiki/Abstract_Window_Toolkit" class="extiw" title="w:Abstract Window Toolkit">AWT</a>, and <a href="http://en.wikipedia.org/wiki/Standard_Widget_Toolkit" class="extiw" title="w:Standard Widget Toolkit">SWT</a>.</dd>
+</dl><dl><dt>Portability to any hardware where JVM ported(write once, run anywhere)&#160;</dt>
+<dd>To achieve this to the latter, the Java toolkit should not rely on the underlying native user interface. <a href="http://en.wikipedia.org/wiki/Swing_(Java)" class="extiw" title="w:Swing (Java)">Swing</a> took this approach.</dd>
+</dl><p>It is interesting to see how the approach was switched back and forth. AWT - Swing - SWT.</p>
+<h2> <span class="mw-headline" id="Secure_execution_of_remote_code">Secure execution of remote code</span></h2>
+<p>The Java platform was one of the first systems to provide wide support for the execution of code from remote sources. The Java language was designed with <a href="http://en.wikipedia.org/wiki/Network_computing" class="extiw" title="w:Network computing">network computing</a> in mind.</p>
+<p>An applet could run within a user's browser, executing code downloaded from a remote HTTP server. The remote code runs in a highly restricted "sandbox", which protects the user from misbehaving or malicious code; publishers could apply for a certificate that they could use to digitally sign applets as "safe", giving them permission to break out of the sandbox and access the local file system and network, presumably under user control.</p>
+<h2> <span class="mw-headline" id="Object_orientation">Object orientation</span></h2>
+<p><a href="http://en.wikibooks.org/wiki/Object_Oriented_Programming" title="Object Oriented Programming">Object orientation</a> ("OO"), refers to a method of programming and language technique. The main idea of OO is to design software around the "things" (i.e. objects) it manipulates, rather than the actions it performs.</p>
+<p>As the hardware of the computer advanced, it brought about the need to create better software techniques to be able to create ever increasing complex applications. The intent is to make large software projects easier to manage, thus improving quality and reducing the number of failed projects. Object oriented solution is the latest software technique.</p>
+<dl><dt>Assembly languages&#160;</dt>
+<dd>Software techniques started with the assembly languages, that was close to machine instruction and was easy to convert executable code. Each hardware had its own assembly language. Assembly language contains low level instructions like move data from memory to hardware registers, do arithmetic operations, and move data back to memory. Programmers had to know the detailed architecture of the computer in order to write programs.</dd>
+</dl><dl><dt>Procedural languages&#160;</dt>
+<dd>After the assembly languages, high level languages were developed. Here the language compiler is used to convert the high level program to machine instructions, freeing up the programmers the burden of knowing the computer hardware architecture. To promote the re-use of code, and to minimize the use of GOTO instruction, "procedural" techniques were introduced. This simplified the creation and maintenance of software control flow, but they left out the organization of data. It became a nightmare to debug and maintain programs having many global variables. Global variables contain data that can be modified anywhere in the application.</dd>
+</dl><dl><dt>Object oriented languages&#160;</dt>
+<dd>In OO languages, data is taken seriously with information hiding. Procedures were replaced by Objects. Objects contain data as well as control flow. Our thinking has to shift from procedures to interaction between objects.</dd>
+</dl><h2> <span class="mw-headline" id="Evaluation">Evaluation</span></h2>
+<p>'<b><i>In most people's opinions, Java technology delivers reasonably well on all'</i> these goals. The language is not, however, without drawbacks.</b> Java tends to be more high-level than similar languages (such as C++), which means that the Java language lacks features such as hardware-specific data types, low-level pointers to arbitrary memory addresses, or programming methods like operator overloading. Although these features are frequently abused or misused by programmers, they are also powerful tools. However, Java technology includes Java Native Interface (JNI), a way to call native code from Java language code. With JNI, it is still possible to use some of these features.</p>
+<p>Some programmers also complain about its lack of multiple inheritance, a powerful feature of several object-oriented languages, among others C++. The Java language separates inheritance of type and implementation, allowing inheritance of multiple type definitions through interfaces, but only single inheritance of type implementation via class hierarchies. This allows most of the benefits of multiple inheritance while avoiding many of its dangers. In addition, through the use of concrete classes, abstract classes, as well as interfaces, a Java language programmer has the option of choosing full, partial, or zero implementation for the object type he defines, thus ensuring maximum flexibility in application design.</p>
+<p>There are some who believe that for certain projects, object orientation makes work harder instead of easier. This particular complaint is not unique to the Java language but applies to other object-oriented languages as well.</p>
+<h2> <span class="mw-headline" id="Note_for_C_programmers">Note for C programmers</span></h2>
+<p>Tools exist to aid the migration of existing projects from C to Java. In general, automated translator tools fall into one of two distinct kinds:</p>
+<ul><li>One kind converts C code to Java byte code. It is basically a compiler that creates byte code. It has the same steps as any other C compiler. See also <a href="http://en.wikipedia.org/wiki/C_to_Java_Virtual_Machine_compilers" class="extiw" title="w:C to Java Virtual Machine compilers">C to Java JVM compilers</a>.</li>
+<li>The other kind translates C code to Java source code. This type is more complicated and uses various syntax rules to create readable Java source code. This option is best for those who want to move their C code to Java and stay in Java. [example needed]</li>
+</ul><h3> <span class="mw-headline" id="Invoking_C_programs_from_Java_applications">Invoking C programs from Java applications</span></h3>
+<p>You can use Runtime.exec method to invoke a program from within a running Java application. Runtime.exec also allows you to perform operations related to the program, such as control the program's standard input and output, wait until it completes execution, and get its exit status.</p>
+<p>Here's a simple C application that illustrates these features. This C program will be called from Java:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="c source-c">
+<pre class="de1">
+<span class="co2">#include &lt;stdio.h&gt;</span>
+ 
+<span class="kw4">int</span> main<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+    <span class="kw3">printf</span><span class="br0">(</span><span class="st0">"testing<span class="es1">\n</span>"</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="kw1">return</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>This application writes a string "testing" to standard output, and then terminates with an exit status of 0. To execute this simple program within a Java application, compile the C application:</p>
+<pre>
+$ cc test.c -o test
+</pre>
+<p>Then invoke the C program using this Java code:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">import</span> <span class="co2">java.io.*</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">java.util.ArrayList</span><span class="sy0">;</span>
+ 
+<span class="kw1">public</span> <span class="kw1">class</span> ExecDemo 
+<span class="br0">{</span>
+    <span class="kw1">static</span> <span class="kw1">public</span> <span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> runCommand<span class="br0">(</span><span class="kw3">String</span> cmd<span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">IOException</span> 
+    <span class="br0">{</span>
+        <span class="co1">// --- set up list to capture command output lines ---</span>
+        <span class="kw3">ArrayList</span> list <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">ArrayList</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        <span class="co1">// --- start command running</span>
+        <span class="kw3">Process</span> proc <span class="sy0">=</span> <span class="kw3">Runtime</span>.<span class="me1">getRuntime</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">exec</span><span class="br0">(</span>cmd<span class="br0">)</span><span class="sy0">;</span>
+ 
+        <span class="co1">// --- get command's output stream and</span>
+        <span class="co1">// put a buffered reader input stream on it ---</span>
+        <span class="kw3">InputStream</span> istr <span class="sy0">=</span> proc.<span class="me1">getInputStream</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw3">BufferedReader</span> br <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">BufferedReader</span><span class="br0">(</span><span class="kw1">new</span> <span class="kw3">InputStreamReader</span><span class="br0">(</span>istr<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        <span class="co1">// --- read output lines from command</span>
+        <span class="kw3">String</span> str<span class="sy0">;</span>
+        <span class="kw1">while</span> <span class="br0">(</span><span class="br0">(</span>str <span class="sy0">=</span> br.<span class="me1">readLine</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span> <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">)</span>
+            list.<span class="me1">add</span><span class="br0">(</span>str<span class="br0">)</span><span class="sy0">;</span>
+ 
+        <span class="co1">// wait for command to terminate</span>
+        <span class="kw1">try</span> <span class="br0">{</span>
+            proc.<span class="me1">waitFor</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="br0">}</span>
+        <span class="kw1">catch</span> <span class="br0">(</span><span class="kw3">InterruptedException</span> e<span class="br0">)</span> <span class="br0">{</span>
+            <span class="kw3">System</span>.<span class="me1">err</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"process was interrupted"</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="br0">}</span>
+ 
+        <span class="co1">// check its exit value</span>
+        <span class="kw1">if</span> <span class="br0">(</span>proc.<span class="me1">exitValue</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">!=</span> <span class="nu0">0</span><span class="br0">)</span>
+            <span class="kw3">System</span>.<span class="me1">err</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"exit value was non-zero"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        <span class="co1">// close stream</span>
+        br.<span class="me1">close</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+        <span class="co1">// return list of strings to caller</span>
+        <span class="kw1">return</span> <span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span><span class="br0">)</span>list.<span class="me1">toArray</span><span class="br0">(</span><span class="kw1">new</span> <span class="kw3">String</span><span class="br0">[</span><span class="nu0">0</span><span class="br0">]</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+ 
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span> args<span class="br0">[</span><span class="br0">]</span><span class="br0">)</span> <span class="kw1">throws</span> <span class="kw3">IOException</span> <span class="br0">{</span>
+        <span class="kw1">try</span> <span class="br0">{</span>
+ 
+            <span class="co1">// run a command</span>
+            <span class="kw3">String</span> outlist<span class="br0">[</span><span class="br0">]</span> <span class="sy0">=</span> runCommand<span class="br0">(</span><span class="st0">"test"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+            <span class="co1">// display its output</span>
+            <span class="kw1">for</span> <span class="br0">(</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> outlist.<span class="me1">length</span><span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">)</span>
+                <span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span>outlist<span class="br0">[</span>i<span class="br0">]</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="br0">}</span>
+        <span class="kw1">catch</span> <span class="br0">(</span><span class="kw3">IOException</span> e<span class="br0">)</span> <span class="br0">{</span>
+            <span class="kw3">System</span>.<span class="me1">err</span>.<span class="me1">println</span><span class="br0">(</span>e<span class="br0">)</span><span class="sy0">;</span>
+        <span class="br0">}</span>
+    <span class="br0">}</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>The demo calls a method runCommand to actually run the program.</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+ <span class="kw3">String</span> outlist<span class="br0">[</span><span class="br0">]</span> <span class="sy0">=</span> runCommand<span class="br0">(</span><span class="st0">"test"</span><span class="br0">)</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<p>This method hooks an input stream to the program's output stream, so that it can read the program's output, and save it into a list of strings.</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+ 
+ <span class="kw3">InputStream</span> istr <span class="sy0">=</span> proc.<span class="me1">getInputStream</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ <span class="kw3">BufferedReader</span> br <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">BufferedReader</span><span class="br0">(</span><span class="kw1">new</span> <span class="kw3">InputStreamReader</span><span class="br0">(</span>istr<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>  
+ 
+ <span class="kw3">String</span> str<span class="sy0">;</span>
+ <span class="kw1">while</span> <span class="br0">(</span><span class="br0">(</span>str <span class="sy0">=</span> br.<span class="me1">readLine</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span> <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">)</span>
+     list.<span class="me1">add</span><span class="br0">(</span>str<span class="br0">)</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<h2> <span class="mw-headline" id="Notes">Notes</span></h2>
+<div class="reflist references" style="">
+<ol class="references"><li id="cite_note-0"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Overview&amp;printable=yes#cite_ref-0">&#8593;</a> Structural syntax is a linear way of writing code. A program is interpreted usually at the first line of the program's code until it reaches the end. One can not hook a later part of the program to an earlier one. The flow follows a linear top-to-bottom approach.</li>
+</ol></div>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

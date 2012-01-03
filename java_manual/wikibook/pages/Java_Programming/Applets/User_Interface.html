@@ -1,0 +1,169 @@
+<html><head><title>Java Programming/Applets/User Interface</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Applets/User Interface</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p>The main difference between an applet and a regular command-line executed program is that applets allow for extensible Graphical User Interfaces (GUI). Applets are what most people think of when they hear the words "Java programming" because applets are very widely used throughout the Internet.</p>
+<p>Since applets provide for the ability to create complex GUI, it is important for developers to know how to create such programs.</p>
+<table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Applets/User_Interface&amp;printable=yes#Applying_styles_and_adding_content"><span class="tocnumber">1</span> <span class="toctext">Applying styles and adding content</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Applets/User_Interface&amp;printable=yes#Font"><span class="tocnumber">2</span> <span class="toctext">Font</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Applets/User_Interface&amp;printable=yes#Button"><span class="tocnumber">3</span> <span class="toctext">Button</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Applets/User_Interface&amp;printable=yes#Label"><span class="tocnumber">4</span> <span class="toctext">Label</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Applets/User_Interface&amp;printable=yes#TextField"><span class="tocnumber">5</span> <span class="toctext">TextField</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Applets/User_Interface&amp;printable=yes#Layout"><span class="tocnumber">6</span> <span class="toctext">Layout</span></a>
+<ul><li class="toclevel-2 tocsection-7"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Applets/User_Interface&amp;printable=yes#Flow_Layout"><span class="tocnumber">6.1</span> <span class="toctext">Flow Layout</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Applets/User_Interface&amp;printable=yes#Grid_Layout"><span class="tocnumber">6.2</span> <span class="toctext">Grid Layout</span></a></li>
+<li class="toclevel-2 tocsection-9"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Applets/User_Interface&amp;printable=yes#Border_Layout"><span class="tocnumber">6.3</span> <span class="toctext">Border Layout</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Applets/User_Interface&amp;printable=yes#Card_Layout"><span class="tocnumber">6.4</span> <span class="toctext">Card Layout</span></a></li>
+</ul></li>
+<li class="toclevel-1 tocsection-11"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Applets/User_Interface&amp;printable=yes#Panel"><span class="tocnumber">7</span> <span class="toctext">Panel</span></a></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="Applying_styles_and_adding_content">Applying styles and adding content</span></h2>
+<p>In Java applets, graphical portions are initialized and added in two different areas. While objects are initialized in the main class, they are added to the layout of the applet in the <code>init()</code> method. This is done using the syntax of <code>add(&lt;object&gt;)</code>. A typical <code>init()</code> method looks something like this:</p>
+<pre>
+<code><a href="../Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="../Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> init() 
+{
+ setFont("Times New Roman", Font.PLAIN, 24);
+ setColor(Color.white);
+ setBackGroundColor(Color.black);
+ setLayout(new GridLayout);
+ 
+ add(label);
+ add(button);
+}
+</pre>
+<p>The different aspects of this method will be covered below.</p>
+<h2> <span class="mw-headline" id="Font">Font</span></h2>
+<p>Using stylish fonts in your Java applets may be necessary to help keep your Java applets attractive. The <code>setFont()</code> allows for either the font used throughout the applet to be defined or for one element's font to be set at a time.</p>
+<p>The syntax for setting a font is <code>&lt;element&gt;.setFont(&lt;fontName&gt;,&lt;fontStyle&gt;,&lt;fontSize&gt;)</code>. However, the <code>&lt;element&gt;</code> field is not mandatory.</p>
+<p>To make every font in the applet plain, size 24 Times New Roman, the following code should be used:</p>
+<pre>
+Font f = <code><a href="../Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> Font("Times New Roman", Font.PLAIN, 24);
+setFont(f);
+
+or
+
+setFont("Times New Roman", Font.PLAIN, 24);
+</pre>
+<p>As you can see, it is not necessary to initialize the font and set the font through two different lines of code.</p>
+<p>However, to make the font of element <code>a</code> plain, size 24 Times New Roman, and element <code>b</code> italicized, size 28 Times New Roman, the following code should be used:</p>
+<pre>
+a.setFont("Times New Roman", Font.PLAIN, 24);
+b.setFont("Times New Roman", Font.ITALIC, 28);
+</pre>
+<p>To set the color of the fonts used in an applet, the <code>setColor(&lt;color&gt;)</code> method is used. This method already includes some predefined colors which can be used by calling, for example, <code>setColor(Color.white)</code>. Here are all of the predefined colors:</p>
+<ul><li>Color.black</li>
+<li>Color.blue</li>
+<li>Color.cyan</li>
+<li>Color.darkGray</li>
+<li>Color.gray</li>
+<li>Color.green</li>
+<li>Color.red</li>
+<li>Color.white</li>
+<li>Color.yellow</li>
+</ul><p>To create a custom color, the RGB values of the color can be passed in as the color parameter. For example, if red were not a predefined color, one could use <code>setColor(255,0,0)</code> to define red.</p>
+<p>Just as font styles, font colors can be applied to separate elements. The syntax follows the same pattern: <code>a.setColor(Color.white)</code>.</p>
+<h2> <span class="mw-headline" id="Button">Button</span></h2>
+<p>Almost every applet not focused only on painting, drawing, or some other media uses a button. There are only a few ways to have contact between the applet and the user, and the use of buttons is one of those ways. Buttons are created the same way as most other Java applet objects: <code>Button b = new Button(&lt;</code><a href="../API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a>&gt;). When initializing a button, it is necessary to define what text will appear on that button in the given parameter. For example, a button with the word "Submit" printed on it would be initialized like so:</p>
+<pre>
+Button b = <code><a href="../Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> Button("Submit");
+</pre>
+<p>Adding the button to the actual layout is done in the <code>init()</code> method, as described above.</p>
+<pre>
+<code><a href="../Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="../Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> init() 
+{
+ add(b);
+}
+</pre>
+<p>Allowing buttons to carry out tasks or utilize a user's input is a bit more complicated. These functions require an <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Applets/ActionEventListener&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Applets/ActionEventListener (does not exist)">ActionListener</a>, and will be discussed later in this book.</p>
+<h2> <span class="mw-headline" id="Label">Label</span></h2>
+<p>Labels are areas in applets that contain text which can not be edited by the user. This is usually ideal for descriptions (i.e. "Insert name:"). Labels are initialized and added to applet layouts in the same way as buttons. Also, like buttons, the text inside labels must be identified at initialization. If, however, the label will receive its text as the cause of a later function and should start off blank, no text should be placed between the quotation marks.</p>
+<pre>
+Label l = <code><a href="../Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> Label("Name: ");
+...
+<code><a href="../Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="../Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> init() {
+ add(l);
+}
+</pre>
+<h2> <span class="mw-headline" id="TextField">TextField</span></h2>
+<p>TextFields are areas in applets that allow users to insert text. The two parameters, which are optional, for TextFields can set predefined text in the field or set the the number of columns allowed in the TextField. Here are a few examples:</p>
+<pre>
+TextField t1 = <code><a href="../Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> TextField();                //blank
+TextField t2 = <code><a href="../Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> TextField(5);               //blank in 5 columns
+TextField t3 = <code><a href="../Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> TextField("Input here");    //predefined text
+TextField t4 = <code><a href="../Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> TextField("Input here", 5); //predefined text in 5 columns
+...
+<code><a href="../Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="../Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> init() {
+ add(t1);
+ ...
+}
+</pre>
+<h2> <span class="mw-headline" id="Layout">Layout</span></h2>
+<p>Layouts are what make applets visible. Without a layout, nothing would display. There are five different types of layouts to choose from - some are very simple while others are complex.</p>
+<h3> <span class="mw-headline" id="Flow_Layout">Flow Layout</span></h3>
+<p>This layout places components left to right, using as much space as is needed. The Flow Layout is the default layout for applets and, therefore, does not need to be set. However, for clarity, one can specify the applet layout as a Flow Layout by placing this line of code at the top of the <code>init()</code> method:</p>
+<pre>
+setLayout(<code><a href="../Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> FlowLayout());
+</pre>
+<p>The added components to the layout that follow will be placed on screen in order of which they are added.</p>
+<pre>
+<code><a href="../Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="../Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> init() 
+{
+ setLayout(<code><a href="../Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> FlowLayout());
+ add(l);
+ add(t1);
+ add(b);
+}
+</pre>
+<p>Assuming that these variables are defined the same as above, these lines of code will create the layout of an applet that is composed of a label, a text field, and a button. They will all appear on one line if the window permits. By changing the width of window, the Flow Layout will contract and expand the components accordingly.</p>
+<h3> <span class="mw-headline" id="Grid_Layout">Grid Layout</span></h3>
+<p>This layout arranges components in the form of the table (grid). The number of rows and columns in the grid is specified in the constructor. The other two parameters, if present, specify vertical and horizontal padding between components.</p>
+<pre>
+Container a=getContentPane();
+// 4 rows, 5 columns, 2 pixel spacing 
+a.setLayout(new GridLayout(4,5,2,2) );
+JButton b1= <code><a href="../Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> JButton("one");
+a.add(b1);
+</pre>
+<h3> <span class="mw-headline" id="Border_Layout">Border Layout</span></h3>
+<p>This layout places one big component in the center and up till four components at the edges. When adding to the container with this layout, you need to specify the location as the second parameter (BorderLayout.CENTER for the center or one of the world directions for the edge (BorderLayout.NORTH points to the top edge).</p>
+<pre>
+import java.awt.*;
+Container b=getcontentPane();
+b.setLayout(new BorderLayout() );
+JButton b2=new JButton("two");
+// Add the button to the right edge.
+b.add(b2,BorderLayout.EAST);
+</pre>
+<h3> <span class="mw-headline" id="Card_Layout">Card Layout</span></h3>
+<h2> <span class="mw-headline" id="Panel">Panel</span></h2>
+<p>A panel is a component that has other components inside. It has its own layout and is normally used to place a group of related components like buttons, for instance. A panel can then be added to the top component (frame or applet) or to another panel and be placed itself as defined by layout and constraints of this parent component.</p>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

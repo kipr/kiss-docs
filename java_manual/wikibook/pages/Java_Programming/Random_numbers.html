@@ -1,0 +1,115 @@
+<html><head><title>Random numbers</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Random numbers</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><span id="displaytitle" title=""></span></p>
+
+<p>To generate random numbers the <code>Math.random()</code> method can be used, which returns a <code><a href="Keywords/double.html" title="Java Programming/Keywords/double"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">double</font></a></code>, greater than or equal to 0.0 and less than 1.0.</p>
+<p>The following code returns a random integer between n and m (where n &lt;= randomNumber &lt; m):</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+  <span class="kw4">int</span> randomNumber <span class="sy0">=</span> n <span class="sy0">+</span> <span class="br0">(</span><span class="kw4">int</span><span class="br0">)</span><span class="br0">(</span><span class="kw3">Math</span>.<span class="me1">random</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">*</span> <span class="br0">(</span> m <span class="sy0">-</span> n <span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<p>Alternatively, the <code>java.util.Random</code> class provides methods for generating random <code><a href="Keywords/boolean.html" title="Java Programming/Keywords/boolean"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">boolean</font></a></code>s, <code><a href="Keywords/byte.html" title="Java Programming/Keywords/byte"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">byte</font></a></code>s, <code><a href="Keywords/float.html" title="Java Programming/Keywords/float"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">float</font></a></code>s, <code><a href="Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code>s, <code><a href="Keywords/long.html" title="Java Programming/Keywords/long"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">long</font></a></code>s and 'Gaussians' (<code><a href="Keywords/double.html" title="Java Programming/Keywords/double"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">double</font></a></code>s from a normal distribution with mean 0.0 and standard deviation 1.0). For example, the following code is equivalent to that above:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+  <span class="kw3">Random</span> random <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">Random</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+  <span class="kw4">int</span> randomNumber <span class="sy0">=</span> n <span class="sy0">+</span> random.<span class="me1">nextInt</span><span class="br0">(</span>m <span class="sy0">-</span> n<span class="br0">)</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<p><br>
+Or:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+  <span class="kw3">Random</span> random <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">Random</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+  <span class="kw4">int</span> randomNumber <span class="sy0">=</span> random.<span class="me1">nextInt</span><span class="br0">(</span><span class="nu0">500</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// this will return a pseudorandom int between 0 and 499</span>
+</pre></div>
+</div>
+<p>As an example using random numbers, we can make a program that uses a Random object to simulate flipping a coin 20 times:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">import</span> <span class="co2">java.util.Random</span><span class="sy0">;</span>
+ 
+<span class="kw1">public</span> <span class="kw1">class</span> CoinFlipper <span class="br0">{</span>
+ 
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="br0">{</span>
+        <span class="kw1">final</span> <span class="kw4">int</span> TIMES_TO_FLIP <span class="sy0">=</span> <span class="nu0">20</span><span class="sy0">;</span> <span class="co1">// The number of times to flip the coin</span>
+        <span class="kw4">int</span> heads <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+        <span class="kw4">int</span> tails <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+        <span class="kw3">Random</span> random <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">Random</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// create a Random object</span>
+        <span class="kw1">for</span> <span class="br0">(</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> TIMES_TO_FLIP<span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">)</span> <span class="br0">{</span>
+            <span class="kw4">int</span> result <span class="sy0">=</span> random.<span class="me1">nextInt</span><span class="br0">(</span><span class="nu0">2</span><span class="br0">)</span><span class="sy0">;</span> <span class="co1">// 0 or 1</span>
+            <span class="kw1">if</span> <span class="br0">(</span>result <span class="sy0">==</span> <span class="nu0">1</span><span class="br0">)</span> <span class="br0">{</span>
+                <span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"Heads"</span><span class="br0">)</span><span class="sy0">;</span>
+                heads<span class="sy0">++;</span>
+            <span class="br0">}</span> <span class="kw1">else</span> <span class="br0">{</span>
+                <span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"Tails"</span><span class="br0">)</span><span class="sy0">;</span>
+                tails<span class="sy0">++;</span>
+            <span class="br0">}</span>
+        <span class="br0">}</span>
+        <span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"There were "</span> <span class="sy0">+</span> heads <span class="sy0">+</span> <span class="st0">" heads and "</span> <span class="sy0">+</span> tails
+                <span class="sy0">+</span> <span class="st0">" tails"</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>which could create this output:</p>
+<pre>
+Heads
+Tails
+Tails
+Tails
+Heads
+Tails
+Heads
+Heads
+Heads
+Heads
+Heads
+Heads
+Tails
+Tails
+Tails
+Tails
+Heads
+Tails
+Tails
+Tails
+There were 9 heads and 11 tails
+</pre>
+<p>Of course, if you run the program you will probably get different results.</p>
+<p>Both Math.random() and the Random class produce pseudorandom numbers. This is good enough for a lot of applications, but remember that it is not <i>truly</i> random. If you want a more secure random number generator, Java provides the java.security.SecureRandom package. What happens with Math.random() and the Random class is that a 'seed' is chosen form which the pseudorandom numbers are generated. SecureRandom increases the security to ensure that the seed which is used by the pseudorandom number generator is non-deterministic &#8211; that is, you cannot simply put the machine in the same state to get the same set of results. Once you have created a SecureRandom instance, you can use it in the same way as you can the Random class.</p>
+<p>If you want <i>truly</i> random numbers, you can get a hardware random number generator or use a randomness generation service.</p>
+
+
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

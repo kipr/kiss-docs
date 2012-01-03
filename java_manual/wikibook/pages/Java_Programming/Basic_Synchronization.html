@@ -1,0 +1,106 @@
+<html><head><title>Java Programming/Basic Synchronization</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Basic Synchronization</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><b>Concurrent Programming</b> topics</p>
+<ul><li><a href="Threads_and_Runnables.html" title="Java Programming/Threads and Runnables">Threads and Runnables</a> </li>
+<li><strong class="selflink">Basic Synchronization</strong> </li>
+<li><a href="Client_Server.html" title="Java Programming/Client Server">Client Server Programming</a> </li>
+<li><a href="Remote_Method_Invocation.html" title="Java Programming/Remote Method Invocation">Remote Method Invocation(RMI)</a> </li>
+<li><a href="EJB.html" title="Java Programming/EJB">Enterprise JavaBean Programming</a> </li>
+<li><a href="Jini.html" title="Java Programming/Jini">Jini-Java Spaces Programming</a> </li>
+</ul><p>In a multi-threaded environment, when more then one thread can access and modify a resource, the outcome could be unpredictable. For example, let's have a counter variable that is incremented by more than one thread.</p>
+<pre>
+<code><a href="Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> counter = 0;
+...
+counter += 1;
+</pre>
+<p>The above code is built up by the following sub-operations:</p>
+<ul><li><b>Read</b>&#160;; read variable 'counter'</li>
+<li><b>Add</b>&#160;; add 1 to the value</li>
+<li><b>Save</b>&#160;; save the new value to variable 'counter'</li>
+</ul><p>Let's say that two threads need to execute that code, and if the initial value of the 'counter' variable is zero, we expect after the operations the value to be 2.</p>
+<table class="wikitable"><tr><th>Thread 1</th>
+<th>Thread 2</th>
+</tr><tr><td><b>Read</b> 0</td>
+<td><b>Read</b> 0</td>
+</tr><tr><td><b>Add</b> 1</td>
+<td><b>Add</b> 1</td>
+</tr><tr><td><b>Save</b> 1</td>
+<td><b>Save</b> 1</td>
+</tr></table><p>In the above case Thread 1 operation is lost, because Thread 2 overwrites its value. We'd like Thread 2 to wait until Thread 1 finishes the operation. See below:</p>
+<table class="wikitable"><tr><th>Thread 1</th>
+<th>Thread 2</th>
+</tr><tr><td><b>Read</b> 0</td>
+<td>blocked</td>
+</tr><tr><td><b>Add</b> 1</td>
+<td>blocked</td>
+</tr><tr><td><b>Save</b> 1</td>
+<td>blocked</td>
+</tr><tr><td></td>
+<td><b>Read</b> 1</td>
+</tr><tr><td></td>
+<td><b>Add</b> 1</td>
+</tr><tr><td></td>
+<td><b>Save</b> 2</td>
+</tr></table><p><br></p>
+<dl><dt>Critical Section&#160;</dt>
+<dd>In the above example the code <code>counter+=1</code> must be executed by one and only one Thread at any given time. That is called <b>critical section</b>. During programming, in a multi-threading environment we have to identify all those pieces of code that belongs to a critical section, and make sure that only one Thread can execute those codes at any given time. That is called synchronization.</dd>
+</dl><dl><dt>Synchronizing threads&#160;</dt>
+<dd>The Thread access to a critical section code must be <b>synchronized</b> among the Threads, that is to make sure that only one Thread can execute them at any given time.</dd>
+</dl><dl><dt>Object monitor&#160;</dt>
+<dd>Each object has an 'Object monitor'. Basically it is a 'semaphore', indicating if a critical section code is being executed by a thread or not. Before a critical section can be executed, the Thread must obtain an 'Object monitor'. Only one Thread at a time can own <b>that</b> object's monitor.</dd>
+</dl><dl><dt>A thread becomes the owner of the object's monitor in one of three ways&#160;</dt>
+<dd>
+<ul><li>By executing a synchronized instance method of that object. See <code><a href="Keywords/synchronized.html" title="Java Programming/Keywords/synchronized"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">synchronized</font></a></code> keyword.</li>
+<li>By executing the body of a synchronized statement that synchronizes on the object. See <code><a href="Keywords/synchronized.html" title="Java Programming/Keywords/synchronized"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">synchronized</font></a></code> keyword.</li>
+<li>For objects of type Class, by executing a synchronized static method of that class.</li>
+</ul></dd>
+</dl><dl><dt>The Object Monitor takes care of the synchronization, so why do we need the "wait() and notify() methods"?&#160;</dt>
+<dd>For synchronization we don't really need them, however for certain situations it is nice to use them. A nice and considerate thread will use them. It can happen that during executing a critical section, the thread is stuck, cannot continue. It can be because it's waiting for an IO and other resources. In any case, the thread may need to wait a relatively long time. It would be selfish for the thread to hold on to the object monitor and blocking other threads to do their work. So the thread goes to a 'wait' state, by calling the <code>wait()</code> method on the object. It has to be the same object the thread obtained its object monitor from.</dd>
+<dd>In the other hand though, a thread should call the <code>wait()</code> method only if there is at least one other thread out there who will call the <code>notify()</code> method when the resource is available, otherwise the tread will wait for ever, unless a time interval is specified as parameter.</dd>
+</dl><dl><dt>Let's have an analogy</dt>
+<dd>You go in a shop to buy some items. You line up at the counter, you obtain the attention of the sale-clerk - you get her "object-monitor". You ask for the item you want. One item needs to be brought in from a warehouse. It'll take more than five minutes, so you release the sales-clerk (give her back her "object-monitor") so she can serve other customers. You go into a <b>wait</b> state. Let's say there are five other customers already waiting. There is a sale-clerk, who brings in the items from the warehouse. As she does that, she gets the attention of the first sales-clerk, getting her object-monitor and <b>notifies</b> one or all waiting customer(s), so the waited customer(s) <b>woke</b> up and line up again to get the attention of the first sales-clerk.</dd>
+</dl><dl><dd>Note the synchronization between the waiting customer and the sale-clerk who brings in the items. This is kind of produce-consume synchronization.</dd>
+<dd>Also note that there is only one object-monitor, belonging to the first sales-clerk. That object-monitor/the attention of clerk needs to be obtained first before a <b>wait</b> and a <b>notify</b> can happen.</dd>
+</dl><p><br></p>
+<dl><dt><code><code><a href="Keywords/final.html" title="Java Programming/Keywords/final"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">final</font></a></code> void wait()</code> method&#160;</dt>
+<dd>The current thread must own this object's monitor. The thread releases ownership of this monitor and waits until another thread notifies threads waiting on this object's monitor to wake up either through a call to the notify method or the notifyAll method. The thread then waits until it can re-obtain ownership of the monitor and resume execution</dd>
+</dl><dl><dt><code><code><a href="Keywords/final.html" title="Java Programming/Keywords/final"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">final</font></a></code> void wait( long time )</code>&#160;</dt>
+<dd>The same as wait, but the thread wakes after the specified time passes, regardless of whether there was a notify or not.</dd>
+</dl><dl><dt><code><code><a href="Keywords/final.html" title="Java Programming/Keywords/final"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">final</font></a></code> void notify()</code>&#160;</dt>
+<dd>This method should only be called by a thread that is the owner of this object's monitor. Wakes up a single thread that is waiting on this object's monitor. If any threads are waiting on this object, one of them is chosen to be awakened. The choice is arbitrary and occurs at the discretion of the implementation. A thread waits on an object's monitor by calling one of the wait methods.</dd>
+<dd>The awakened thread will not be able to proceed until the current thread relinquishes the lock on this object. The awakened thread will compete in the usual manner with any other threads that might be actively competing to synchronize on this object; for example, the awakened thread enjoys no reliable privilege or disadvantage in being the next thread to lock this object.</dd>
+</dl><dl><dt><code><code><a href="Keywords/final.html" title="Java Programming/Keywords/final"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">final</font></a></code> void notifyAll()</code>&#160;</dt>
+<dd>Same as notify(), but it wakes up all threads that are waiting on this object's monitor.</dd>
+</dl><p><br></p>
+<dl><dt>What are the differences between the sleep() and wait() methods?&#160;</dt>
+</dl><dl><dd>
+<dl><dt><code>Thread.sleep(millis)</code> &#160;</dt>
+<dd>This is a static method of the Thread class. Causes the currently executing thread to sleep (temporarily cease execution) for the specified number of milliseconds. The thread does not lose ownership of any monitors. It means that if the thread has an object-monitor, all other threads that need that monitor are blocked. This method can be called regardless whether the thread has any monitor or not.</dd>
+</dl></dd>
+</dl><dl><dd>
+<dl><dt><code>wait()</code> &#160;</dt>
+<dd>This method is inherited from the <code><a href="API/java.lang.Object.html" title="Java Programming/API/java.lang.Object">Object</a></code> class. The thread must obtain the object-monitor of that object first before calling the wait() method. The object monitor is returned by the wait() method, so it does not block other threads wanting this object-monitor, while waiting.</dd>
+</dl></dd>
+</dl></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

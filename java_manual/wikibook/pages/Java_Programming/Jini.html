@@ -1,0 +1,66 @@
+<html><head><title>Java Programming/Jini</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Jini</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><b>Concurrent Programming</b> topics</p>
+<ul><li><a href="Threads_and_Runnables.html" title="Java Programming/Threads and Runnables">Threads and Runnables</a> </li>
+<li><a href="Basic_Synchronization.html" title="Java Programming/Basic Synchronization">Basic Synchronization</a> </li>
+<li><a href="Client_Server.html" title="Java Programming/Client Server">Client Server Programming</a> </li>
+<li><a href="Remote_Method_Invocation.html" title="Java Programming/Remote Method Invocation">Remote Method Invocation(RMI)</a> </li>
+<li><a href="EJB.html" title="Java Programming/EJB">Enterprise JavaBean Programming</a> </li>
+<li><strong class="selflink">Jini-Java Spaces Programming</strong> </li>
+</ul><table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Jini&amp;printable=yes#JINI"><span class="tocnumber">1</span> <span class="toctext">JINI</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Jini&amp;printable=yes#The_jini_Lookup_Service"><span class="tocnumber">2</span> <span class="toctext">The jini Lookup Service</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Jini&amp;printable=yes#Lookup_Discovery"><span class="tocnumber">3</span> <span class="toctext">Lookup Discovery</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Jini&amp;printable=yes#Leasing"><span class="tocnumber">4</span> <span class="toctext">Leasing</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Jini&amp;printable=yes#Entries_and_Templates"><span class="tocnumber">5</span> <span class="toctext">Entries and Templates</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Jini&amp;printable=yes#Distributed_Events"><span class="tocnumber">6</span> <span class="toctext">Distributed Events</span></a></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="JINI">JINI</span></h2>
+<p>After J2EE Sun had a vision about the next step of network computing. That is <a href="http://en.wikipedia.org/wiki/JINI" class="extiw" title="w:JINI">JINI</a>. The main idea is that in a network environment, there would be many independent services and consumers. JINI would allow these services/consumers to interact dynamically with each other in a robust way. The basic features of JINI are:</p>
+<ul><li><b>No user intervention</b> is needed when services are brought on or offline. (In contrast to EJBs where the client program has to know the server and port number where the EJB is deployed. In JINI the client is <i>supposed to find</i>, discover the service in the network.)</li>
+<li><b>Self healing</b> by adapting when services(consumers of services) come and go. (Services need to periodically renew a lease to indicate that they are still available.)</li>
+<li>Consumers of JINI services do not need prior knowledge of the service's implementation. The <b>implementation is downloaded dynamically</b> and run on the consumer JVM, without configuration and user intervention. (For example, the end user may be presented with slightly different user interface depending which service is being used at the time. The implementation of those user interface code would be provided by the service being used.)</li>
+</ul><dl><dd>This fact that the implementation is running on the consumer/client's JVM can increase performance, by eliminating the need of remote calls.</dd>
+</dl><p>A minimal JINI network environment consist of:</p>
+<ul><li>One or more <b>services</b></li>
+<li>A <b>lookup-service</b> keeping a list of registered services</li>
+<li>One or more <b>consumers</b></li>
+</ul><h2> <span class="mw-headline" id="The_jini_Lookup_Service">The jini Lookup Service</span></h2>
+<p>The lookup service is described in the&#160;: <i>Jini Lookup Service Specification (reggie)</i>. This service interface defines all operations that are possible on the lookup service. Clients locate services by requesting with a lookup server that implements a particular interface. Client asks the lookup server for all services that implement the particular service interface. The lookup service returns service objects for all registered services that implement the given interface. The client may invoke methods on that object in order to interact directly with the server.</p>
+<h2> <span class="mw-headline" id="Lookup_Discovery">Lookup Discovery</span></h2>
+<p><i>Jini Discovery and Join Specification</i> describes how does the client find the jini lookup service. There is a protocol to do that, jini comes with a set of API's that implement that protocol. The <i>Jini Discovery Utility Specification</i> defines a set of utility classes that are used to work with the protocol.</p>
+<h2> <span class="mw-headline" id="Leasing">Leasing</span></h2>
+<p>When a service registers with the lookup service, it receives a lease from the lookup service, described in the <i>Jini Distributed Leasing Specification</i>.</p>
+<h2> <span class="mw-headline" id="Entries_and_Templates">Entries and Templates</span></h2>
+<h2> <span class="mw-headline" id="Distributed_Events">Distributed Events</span></h2>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

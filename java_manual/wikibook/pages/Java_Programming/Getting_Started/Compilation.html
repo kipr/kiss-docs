@@ -1,0 +1,177 @@
+<html><head><title>Java Programming/Getting Started/Compilation</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Getting Started/Compilation</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><table><tr><td align="left"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Installation&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Installation (does not exist)">Previous Chapter</a></td>
+<td width="100%" align="right"><a href="../Execution.html" title="Java Programming/Execution">Next Chapter</a></td>
+</tr></table><p>We have already discussed <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Programming_Environment&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Java Programming Environment (does not exist)">compilation basics</a> . Here's a recap of the concepts we'd seen earlier and some additional details.</p>
+<table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#Compiling_to_bytecode"><span class="tocnumber">1</span> <span class="toctext">Compiling to bytecode</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#Automatic_Compilation_of_Dependent_Classes"><span class="tocnumber">2</span> <span class="toctext">Automatic Compilation of Dependent Classes</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#Packages_and_Subdirectories"><span class="tocnumber">3</span> <span class="toctext">Packages and Subdirectories</span></a>
+<ul><li class="toclevel-2 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#Examples"><span class="tocnumber">3.1</span> <span class="toctext">Examples</span></a>
+<ul><li class="toclevel-3 tocsection-5"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#Top_level_package"><span class="tocnumber">3.1.1</span> <span class="toctext">Top level package</span></a></li>
+<li class="toclevel-3 tocsection-6"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#Subpackages"><span class="tocnumber">3.1.2</span> <span class="toctext">Subpackages</span></a></li>
+</ul></li>
+</ul></li>
+<li class="toclevel-1 tocsection-7"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#Filename_Case"><span class="tocnumber">4</span> <span class="toctext">Filename Case</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#Compiler_Options"><span class="tocnumber">5</span> <span class="toctext">Compiler Options</span></a>
+<ul><li class="toclevel-2 tocsection-9"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#Debugging_and_Symbolic_Information"><span class="tocnumber">5.1</span> <span class="toctext">Debugging and Symbolic Information</span></a></li>
+</ul></li>
+<li class="toclevel-1 tocsection-10"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#Additional_Tools"><span class="tocnumber">6</span> <span class="toctext">Additional Tools</span></a>
+<ul><li class="toclevel-2 tocsection-11"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#IDEs"><span class="tocnumber">6.1</span> <span class="toctext">IDEs</span></a></li>
+</ul></li>
+<li class="toclevel-1 tocsection-12"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#JBuilder"><span class="tocnumber">7</span> <span class="toctext">JBuilder</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#JCreator"><span class="tocnumber">8</span> <span class="toctext">JCreator</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#Eclipse"><span class="tocnumber">9</span> <span class="toctext">Eclipse</span></a></li>
+<li class="toclevel-1 tocsection-15"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#NetBeans"><span class="tocnumber">10</span> <span class="toctext">NetBeans</span></a></li>
+<li class="toclevel-1 tocsection-16"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#BlueJ"><span class="tocnumber">11</span> <span class="toctext">BlueJ</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#Kawa"><span class="tocnumber">12</span> <span class="toctext">Kawa</span></a></li>
+<li class="toclevel-1 tocsection-18"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#Ant"><span class="tocnumber">13</span> <span class="toctext">Ant</span></a></li>
+<li class="toclevel-1 tocsection-19"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Getting_Started/Compilation&amp;printable=yes#The_JIT_compiler"><span class="tocnumber">14</span> <span class="toctext">The JIT compiler</span></a></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="Compiling_to_bytecode">Compiling to bytecode</span></h2>
+<p>In Java, programs are not compiled into executable files; they are compiled into <a href="http://en.wikipedia.org/wiki/Bytecode" class="extiw" title="w:Bytecode">Bytecode</a> (as discussed <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Programming_Environment&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Java Programming Environment (does not exist)">earlier</a>), which the JVM then executes at runtime. Java source code is compiled into bytecode when we use the <code>javac</code> compiler. The bytecode gets saved on the disk with the file extension <code>.class</code>. When the program is to be run, the bytecode is converted, using the <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Java_Programming_Environment&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Java Programming Environment (does not exist)">Just-In-Time(JIT) compiler</a>. The result is machine code which is then fed to the memory and is executed.</p>
+<p>So Java has two step compilation:</p>
+<ul><li>Step one to create byte-code</li>
+<li>Step two to create machine level code</li>
+</ul><p>The Java classes/Byte Codes are compiled to machine code and loaded into memory by the JVM when needed the first time. This is different than other languages like C/C++ where the whole program had to be compiled to machine code and linked to create an executable, before the program could start.</p>
+<p>JIT compilers compile byte-code once and the compiled machine code are re-used again and again, to speed up execution. Early Java compilers compiled the byte-code to machine code each time it was used, but more modern compilers cache this machine code for reuse on the machine. Even then, java's JIT compiling was still faster than an "interpreter-language", where code is compiled from <b>high level language</b>, instead of from byte-code each time it was used.</p>
+<h2> <span class="mw-headline" id="Automatic_Compilation_of_Dependent_Classes">Automatic Compilation of Dependent Classes</span></h2>
+<p>In Java, if you have used any reference to any other java object, then the class for that object will be automatically compiled, if that was not compiled already. These automatic compilations are nested, and this continues until all classes are compiled that are needed to run the program. So it is enough to compile only the high level class, all the dependent classes will be automatically compiled.</p>
+<pre>
+javac ... MainClass.java
+</pre>
+<p>You can't rely on this feature if your program is using reflection to create objects, you are compiling for servlets or for a "jar", package. In these cases you should list these classes for explicit compilation.</p>
+<pre>
+javac ... MainClass.java, ServletOne.java, ...
+</pre>
+<p>The best way is to use a build tool to build your application. The build tool would check all the needed dependencies and compile only the needed class for the build. The <a href="../Compilation.html" title="Java Programming/Compilation">Ant</a> tool is the best and the most popular build tool currently available. Using <a href="../Compilation.html" title="Java Programming/Compilation">Ant</a> you would build your application from the command line by typing:</p>
+<pre>
+ant build.xml
+</pre>
+<p>The xml file contains all the information needed to build the application.</p>
+<p>The next most popular way to build applications are using an IDE. IDE stands for <i>Intergated Development Environment</i>. Some of them are listed below.</p>
+<h2> <span class="mw-headline" id="Packages_and_Subdirectories">Packages and Subdirectories</span></h2>
+<p>Each Java top level class belongs to a package (covered in the chapter about <a href="../Packages.html" title="Java Programming/Packages">Packages</a>). This may be declared in a <tt>package</tt> statement at the beginning of the file; if that is missing, the class belongs to the unnamed package.</p>
+<p>For compilation, the file must be in the right directory structure. A file containing a class in the unnamed package must be in the current-root directory; if the class belongs to a package, it must be in a directory with the same name as the package.</p>
+<p>The convention is that package names and directory names coresponding to the package consist of only lower case letters.</p>
+<h3> <span class="mw-headline" id="Examples">Examples</span></h3>
+<h4> <span class="mw-headline" id="Top_level_package">Top level package</span></h4>
+<p>A class with this package declaration</p>
+<pre>
+package example;
+</pre>
+<p>has to be in a directory named</p>
+<pre>
+example
+</pre>
+<h4> <span class="mw-headline" id="Subpackages">Subpackages</span></h4>
+<p>A class with this package declaration</p>
+<pre>
+package org.wikibooks.en;
+</pre>
+<p>has to be in a directory named</p>
+<pre>
+en
+</pre>
+<p>which has to be a sub-directory of</p>
+<pre>
+wikibooks
+</pre>
+<p>which in turn has to be a sub-directory of</p>
+<pre>
+org
+</pre>
+<p>resulting in</p>
+<pre>
+org/wikibooks/en
+</pre>
+<h2> <span class="mw-headline" id="Filename_Case">Filename Case</span></h2>
+<p>The Java source file name must be the same as the public class name, the file contains. There can be only one public class defined per file. The Java class name is case sensitive, as is the source file name.</p>
+<p>The naming convention for the class name is for it to start with a capital letter.</p>
+<h2> <span class="mw-headline" id="Compiler_Options">Compiler Options</span></h2>
+<h3> <span class="mw-headline" id="Debugging_and_Symbolic_Information">Debugging and Symbolic Information</span></h3>
+<h2> <span class="mw-headline" id="Additional_Tools">Additional Tools</span></h2>
+<h3> <span class="mw-headline" id="IDEs">IDEs</span></h3>
+<p>This section contains a little about the different IDEs available and their strengths and weaknesses.</p>
+<h2> <span class="mw-headline" id="JBuilder">JBuilder</span></h2>
+<p>JBuilder is a IDE with proprietary source code, sold by <a href="http://en.wikibooks.org/w/index.php?title=Borland&amp;action=edit&amp;redlink=1" class="new" title="Borland (does not exist)">Borland</a>. One of the advantages in integration with together, a modeling tool.</p>
+<h2> <span class="mw-headline" id="JCreator">JCreator</span></h2>
+<p>There's info at: <a rel="nofollow" class="external free" href="http://www.apcomputerscience.com/ide/jcreator/index.htm">http://www.apcomputerscience.com/ide/jcreator/index.htm</a></p>
+<h2> <span class="mw-headline" id="Eclipse">Eclipse</span></h2>
+<p>Eclipse is a free IDE, plus a developer tool framework that can be extended for a particular development need. IBM was behind this free software development and it replaced IBM Visual Age tool. The idea was to create a standard look and feel that can be extended. The extendibility is distinguish Eclipse from any other IDE tools. Eclipse also meant to compete with Microsoft Visual Studio tools. Microsoft tools give a standard way of developing code in the Microsoft world. Eclipse gives simular standard way of developing code in the Java world, with a big success so far. With the online error checking only, coding can be speed up by at least 50%(coding does not include programming).</p>
+<p>The goal for Eclipse are twofold:</p>
+<ul><li>Give a standard IDE for developing code</li>
+<li>Give a starting point, and the same look and feel for all other more sophisticated tools build on Eclipse</li>
+</ul><p>IBM's WSAD, and later IBM Rational Software Development Platform are built on Eclipse.</p>
+<p>Standard Eclipse features:</p>
+<ul><li>Standard window management (perspectives, views, browsers, explorers, ...)</li>
+<li>As you type error checking (immediate error indications, ...)</li>
+<li>As you type help window (type ., or &lt;ctrl&gt; space, ...)</li>
+<li>Automatic build (changed source code automatically compiled, ...)</li>
+<li>Built in debugger (full featured GUI debugger)</li>
+<li>Source code generation (getters and setters, ...)</li>
+<li>Searches (for implementation, for references, ...)</li>
+<li>Code refactoring (global reference update, ...)</li>
+<li>Plug-in-based architecture (be able to build tools that integrate seamlessly with the environment and other tools)</li>
+<li>...</li>
+</ul><p>For more information see;</p>
+<ul><li>[<a rel="nofollow" class="external text" href="http://www.eclipse.org/">Eclipse</a> ].</li>
+<li>[<a rel="nofollow" class="external text" href="http://www.eclipseplugincentral.com/">Plugincentral</a>]</li>
+</ul><h2> <span class="mw-headline" id="NetBeans">NetBeans</span></h2>
+<p>The NetBeans IDE is a free, open-source Integrated Development Environment for software developers. The IDE runs on many platforms including Windows, Linux, Solaris, and the MacOS. It is easy to install and use straight out of the box. The NetBeans IDE provides developers with all the tools they need to create professional cross-platform desktop, enterprise, web and mobile applications.</p>
+<p>More info can be found at <a rel="nofollow" class="external free" href="http://www.netbeans.org/products/ide/">http://www.netbeans.org/products/ide/</a></p>
+<h2> <span class="mw-headline" id="BlueJ">BlueJ</span></h2>
+<p>BlueJ is an IDE that includes templates and will compile and run the applications for you. BlueJ is often used by classes because it is not necessary to set classpaths. BlueJ has it's own sets of Library's and you can add your own under preferances. That sets the classpath for all compilations that come out of it to include those you have added and the BlueJ libraries.<br><br>
+BlueJ offers an intresting GUI for creation of packages and programs. Classes are represented as boxes with arrows running between them to represent inheratance/implementation or if on is constructed in another. BlueJ addes all those classes (the project) into the classpath at compile time.<br><a rel="nofollow" class="external text" href="http://www.bluej.org">BlueJ Homesite</a></p>
+<h2> <span class="mw-headline" id="Kawa">Kawa</span></h2>
+<p>Kawa was developed by Tek-Tools. It is basically a Java editor, It does not include wizards, and GUI tools, best suited to experienced Java programmers in small and midsized delelopment teams.</p>
+<p>The latest version is 4.0, you can [<a rel="nofollow" class="external text" href="http://www.olabs.com/kawa/">download it.</a>] For more info. see [<a rel="nofollow" class="external text" href="http://www.tek-tools.com/kawa/">Kawa from tek-tools</a>]. See a [<a rel="nofollow" class="external text" href="http://www.javaworld.com/javaworld/jw-06-2000/jw-0602-iw-kawa.html">javaworld article</a>]</p>
+<p>It looks that there is no new development for Kawa.</p>
+<h2> <span class="mw-headline" id="Ant">Ant</span></h2>
+<p>Ant is a build management tool designed to replace MAKE as the tool for automated builds of large Java applications. Like Java, and unlike MAKE, Ant is designed to be platform independent.</p>
+<p>Building a Java application requires certain tasks to be performed. Those tasks may include not only to compile the code, but also to copy code, to package the code to Jar, to create EJBs, to run automated tests, to ftp the code to remote site, and so on. For some tasks a condition can be assigned, for example a compile only changed code, or do the task if that was not already done so. Tasks dependency can also be specified, that will make sure that the order of executions of the tasks are in the right order. For example compile the code before package them to jar, the package-to-jar task depend on the compilation task.</p>
+<p>The tasks and their dependencies are defined in a "build.xml" file. The Ant program will parse it and do whatever it describes. The Ant tool is much more powerful than the MAKE tool. Because of the java codes are spread out in the file system according the java package(name space), the use a MAKE tool feels very awkward.</p>
+<p>Also the Ant tool is written in Java and can be extended, so if there is a task you'd like to be done during the build, and the task is not in the pre-defined tasks list, you can write it yourself. It is very easy to hook your ant task code to the other tasks, you code only needs to be in the classpath, and the Ant tool will load it during runtime. Your ant task code has to follow the Ant framework, that's all.</p>
+<p>A wikibook on ant usage is available at <a href="http://en.wikibooks.org/wiki/Programming:Apache_Ant" title="Programming:Apache Ant" class="mw-redirect">Programming:Apache Ant</a>. The Ant project website&#160;: [<a rel="nofollow" class="external text" href="http://ant.apache.org/">ant.apache.org</a>]</p>
+<h2> <span class="mw-headline" id="The_JIT_compiler">The JIT compiler</span></h2>
+<p>The standard JIT compiler runs <i>on demand</i>. When a method is called repeatedly, the JIT compiler analyzes the bytecode and produces highly efficient machine code, which runs very fast. The JIT compiler is smart enough to recognize when the code has already been compiled, so as the application runs, compilation happens only as needed. As Java applications run, they tend to become faster and faster, because the JIT can perform runtime profiling and optimization to the code to meet the execution environment. Methods or code blocks which do not run often receive less optimization; those which run often (so called <i>hotspots</i>) receive more profiling and optimation.</p>
+<hr><p><br></p>
+<table class="toccolours" style="width: 500px; margin: 0px auto;"><tr><th colspan="2"><a href="../../Java_Programming.html" title="Java Programming">Java Programming</a></th>
+<th colspan="2"><a href="http://en.wikibooks.org/wiki/Category:Java_Programming" title="Category:Java Programming">Index</a></th>
+</tr><tr><td><a href="../Introduction.html" title="Java Programming/Introduction">Introduction</a>&#160;&#160;</td>
+<td><a href="../Getting_started.html" title="Java Programming/Getting started">Getting Started</a>&#160;&#160;</td>
+<td><a href="../Language_Fundamentals.html" title="Java Programming/Language Fundamentals">Fundamentals</a>&#160;&#160;</td>
+<td><a href="../Classes_and_Objects.html" title="Java Programming/Classes and Objects">Classes and Objects</a>&#160;&#160;</td>
+</tr><tr><td><a href="../Collections.html" title="Java Programming/Collections">Collections</a>&#160;&#160;</td>
+<td><a href="../Exceptions.html" title="Java Programming/Exceptions">Exceptions</a>&#160;&#160;</td>
+<td><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Concurrent_Progamming&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Concurrent Progamming (does not exist)">Concurrent Programming</a>&#160;&#160;</td>
+<td><a href="../Reflection.html" title="Java Programming/Reflection">Reflection</a></td>
+</tr><tr><td><a href="../Applets.html" title="Java Programming/Applets">Applets</a>&#160;&#160;</td>
+<td><a href="../JavaBeans.html" title="Java Programming/JavaBeans">JavaBeans</a></td>
+<td><a href="../Libraries.html" title="Java Programming/Libraries">Libraries</a></td>
+</tr></table></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

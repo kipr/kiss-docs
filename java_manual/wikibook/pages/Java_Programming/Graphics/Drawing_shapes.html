@@ -1,0 +1,296 @@
+<html><head><title>Java Programming/Graphics/Drawing shapes</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Graphics/Drawing shapes</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><h1> <span class="mw-headline" id="Drawing_basic_shapes">Drawing basic shapes</span></h1>
+<dl><dd><i>For answers to the questions asked in the previous section, see the <a href="http://en.wikibooks.org/wiki/Talk:Java_Programming/Graphics/Drawing_shapes" title="Talk:Java Programming/Graphics/Drawing shapes">discussion</a> on this page.</i></dd>
+</dl><table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Graphics/Drawing_shapes&amp;printable=yes#Drawing_basic_shapes"><span class="tocnumber">1</span> <span class="toctext">Drawing basic shapes</span></a>
+<ul><li class="toclevel-2 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Graphics/Drawing_shapes&amp;printable=yes#Introduction_to_Graphics"><span class="tocnumber">1.1</span> <span class="toctext">Introduction to Graphics</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Graphics/Drawing_shapes&amp;printable=yes#Etching_a_line_on_the_canvas"><span class="tocnumber">1.2</span> <span class="toctext">Etching a line on the canvas</span></a>
+<ul><li class="toclevel-3 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Graphics/Drawing_shapes&amp;printable=yes#Understanding_coordinates"><span class="tocnumber">1.2.1</span> <span class="toctext">Understanding coordinates</span></a></li>
+<li class="toclevel-3 tocsection-5"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Graphics/Drawing_shapes&amp;printable=yes#Drawing_a_simple_line_across_the_screen"><span class="tocnumber">1.2.2</span> <span class="toctext">Drawing a simple line across the screen</span></a></li>
+</ul></li>
+<li class="toclevel-2 tocsection-6"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Graphics/Drawing_shapes&amp;printable=yes#Drawing_a_simple_rectangle"><span class="tocnumber">1.3</span> <span class="toctext">Drawing a simple rectangle</span></a>
+<ul><li class="toclevel-3 tocsection-7"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Graphics/Drawing_shapes&amp;printable=yes#Playing_around_with_colors"><span class="tocnumber">1.3.1</span> <span class="toctext">Playing around with colors</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Graphics/Drawing_shapes&amp;printable=yes#Filling_up_the_area_of_the_rectangle"><span class="tocnumber">1.3.2</span> <span class="toctext">Filling up the area of the rectangle</span></a></li>
+</ul></li>
+<li class="toclevel-2 tocsection-9"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Graphics/Drawing_shapes&amp;printable=yes#What_about_a_circle.3F"><span class="tocnumber">1.4</span> <span class="toctext">What about a circle?</span></a></li>
+<li class="toclevel-2 tocsection-10"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Graphics/Drawing_shapes&amp;printable=yes#A_new_form_of_a_rectangle"><span class="tocnumber">1.5</span> <span class="toctext">A new form of a rectangle</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Graphics/Drawing_shapes&amp;printable=yes#Hmm.2C_everything.27s_perfect.2C_but..."><span class="tocnumber">1.6</span> <span class="toctext">Hmm, everything's perfect, but...</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Graphics/Drawing_shapes&amp;printable=yes#What_has_eyes_that_pop_out.3F"><span class="tocnumber">1.7</span> <span class="toctext">What has eyes that pop out?</span></a></li>
+<li class="toclevel-2 tocsection-13"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Graphics/Drawing_shapes&amp;printable=yes#External_Links"><span class="tocnumber">1.8</span> <span class="toctext">External Links</span></a></li>
+</ul></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="Introduction_to_Graphics">Introduction to Graphics</span></h2>
+<p>Throughout this chapter, we would be referring to the process of creation on Graphical content by code as either drawing or painting. However, Java officially recognizes the latter as the proper word for the process, but we will differentiate between the two later on.</p>
+<p>Now, the main class that you would be needing would, without doubt, be the <code style="border-bottom:dashed red 1px;">Graphics</code> class. If you take a closer look at the method that we used in the previous section, namely the <code style="border-bottom:dashed green 1px">paint(Graphics)</code> method, you would see that while you overrode said method, you actually obtained an instance of the <code style="border-bottom:dashed red 1px;">Graphics</code> class. Up until now the structure of code that we have is as follows (from Listing 9.2):</p>
+<p><span style="color:#878787;border-bottom:solid 1px #dedede;">Listing 9.3: Identifying the acquisition of the <code>Graphics</code> class in our code</span></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">import</span> <span class="co2">java.awt.*</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.swing.*</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">class</span> MyCanvas <span class="kw1">extends</span> <span class="kw3">Canvas</span>
+<span class="br0">{</span>
+    <span class="kw1">public</span> MyCanvas<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span>
+    <span class="br0">}</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> paint<span class="br0">(</span><span class="kw3">Graphics</span> graphics<span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="coMULTI">/* We would be using this method only for the sake
+         * of brevity throughout the current section. Note
+         * that the Graphics class has been acquired along
+         * with the method that we overrode. */</span>
+    <span class="br0">}</span>
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span>
+    <span class="br0">{</span>
+        MyCanvas canvas <span class="sy0">=</span> <span class="kw1">new</span> MyCanvas<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw3">JFrame</span> frame <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">JFrame</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        frame.<span class="me1">setSize</span><span class="br0">(</span><span class="nu0">400</span>, <span class="nu0">400</span><span class="br0">)</span><span class="sy0">;</span>
+        frame.<span class="me1">setDefaultCloseOperation</span><span class="br0">(</span><span class="kw3">JFrame</span>.<span class="me1">EXIT_ON_CLOSE</span><span class="br0">)</span><span class="sy0">;</span>
+        frame.<span class="me1">getContentPane</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">add</span><span class="br0">(</span>canvas<span class="br0">)</span><span class="sy0">;</span>
+        frame.<span class="me1">setVisible</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>To view the contents of the <code style="border-bottom:dashed red 1px;">Graphics</code> class, please check the <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Graphics/Drawing_shapes&amp;printable=yes#External_Links">external links</a> at the bottom of the page for links to the online API.</p>
+<h2> <span class="mw-headline" id="Etching_a_line_on_the_canvas">Etching a line on the canvas</span></h2>
+<h3> <span class="mw-headline" id="Understanding_coordinates">Understanding coordinates</span></h3>
+<p>To start off your drawing experience, consider drawing the most basic shape - a line. A canvas when viewed upon with regards to drawing routines can be expressed as an inverted <a href="http://en.wikipedia.org/wiki/Cartesian_coordinate_system" class="extiw" title="w:Cartesian coordinate system">Cartesian coordinate system</a>. A plane expressed by an x- and a y-axis. The origin point or <span class="texhtml" dir="ltr">(0,0)</span> being the top-left corner of a canvas and the visible area of the canvas being the <b>Cartesian quadrant I</b> or the positive-positive <b>(+,+) quadrant</b>. The further you go down from the top, the greater the value of y-coordinate on the y-axis, vice-versa for the x-axis as you move toward the right from the left. And unlike the values on a normal graph, the values appear to be positive. So a point at <span class="texhtml" dir="ltr">(10,20)</span> would be 10 pixels away from the left and 20 pixels away from the top, hence the format <span class="texhtml" dir="ltr">(<i>x</i>,<i>y</i>)</span>.</p>
+<div class="thumb tright">
+<div class="thumbinner" style="width:402px;"><a href="http://en.wikibooks.org/wiki/File:Java_programming_graphics_09_02.PNG" class="image"><img alt="" src="../../../misc/26a20_Java_programming_graphics_09_02.PNG" width="400" height="400" class="thumbimage"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikibooks.org/wiki/File:Java_programming_graphics_09_02.PNG" class="internal" title="Enlarge"><img src="../../../thumbs/6d83a_magnify-clip.png" width="15" height="11" alt=""></a></div>
+<span style="color:#878787;border-bottom:solid 1px #dedede;">Figure 9.2: A simple line form displayed across the canvas from Listing 9.4</span></div>
+</div>
+</div>
+<h3> <span class="mw-headline" id="Drawing_a_simple_line_across_the_screen">Drawing a simple line across the screen</span></h3>
+<p>Now, we already know that a line is a connection of two discreet points atop a canvas. So, if one point is at <span class="texhtml" dir="ltr">(<i>x</i>1,<i>y</i>1)</span> and the other is at <span class="texhtml" dir="ltr">(<i>x</i>2,<i>y</i>2)</span>, drawing a line would require you to write a syntax like code below. For the sake of brevity, we will skim out the rest of the method unused in the example.</p>
+<p><span style="color:#878787;border-bottom:solid 1px #dedede;">Listing 9.4: Drawing a simple line form</span></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+...
+<span class="kw1">public</span> <span class="kw1">class</span> MyCanvas <span class="kw1">extends</span> <span class="kw3">Canvas</span>
+<span class="br0">{</span>
+    ...
+    <span class="kw1">public</span> <span class="kw4">void</span> paint<span class="br0">(</span><span class="kw3">Graphics</span> graphics<span class="br0">)</span>
+    <span class="br0">{</span>
+        graphics.<span class="me1">drawLine</span><span class="br0">(</span><span class="nu0">10</span>, <span class="nu0">20</span>, <span class="nu0">300</span>, <span class="nu0">310</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+    ...
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>In the above example, a simple method is used to define precisely where to place the line on the Cartesian scale of the canvas. The <code style="border-bottom:dashed green 1px;">drawLine(int,int,int,int)</code> asks you to put four arguments, appearing in order, the <b>x1 coordinate</b>, the <b>y1 coordinate</b>, the <b>x2 coordinate</b> and the <b>y2 coordinate</b>. Running the program will show a simple black line diagonally going across the canvas.</p>
+<div class="thumb tright">
+<div class="thumbinner" style="width:402px;"><a href="http://en.wikibooks.org/wiki/File:Java_programming_graphics_09_03.PNG" class="image"><img alt="" src="../../../misc/b5dde_Java_programming_graphics_09_03.PNG" width="400" height="400" class="thumbimage"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikibooks.org/wiki/File:Java_programming_graphics_09_03.PNG" class="internal" title="Enlarge"><img src="../../../thumbs/6d83a_magnify-clip.png" width="15" height="11" alt=""></a></div>
+<span style="color:#878787;border-bottom:solid 1px #dedede;">Figure 9.3: A simple black-outlined rectangle drawn</span></div>
+</div>
+</div>
+<h2> <span class="mw-headline" id="Drawing_a_simple_rectangle">Drawing a simple rectangle</span></h2>
+<p>We now proceed on to our second drawing. A simple rectangle would do it justice, see below for code.</p>
+<p><span style="color:#878787;border-bottom:solid 1px #dedede;">Listing 9.5: Drawing a simple rectangle</span></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+...
+<span class="kw1">public</span> <span class="kw1">class</span> MyCanvas <span class="kw1">extends</span> <span class="kw3">Canvas</span>
+<span class="br0">{</span>
+    ...
+    <span class="kw1">public</span> <span class="kw4">void</span> paint<span class="br0">(</span><span class="kw3">Graphics</span> graphics<span class="br0">)</span>
+    <span class="br0">{</span>
+        graphics.<span class="me1">drawRect</span><span class="br0">(</span><span class="nu0">10</span>, <span class="nu0">10</span>, <span class="nu0">100</span>, <span class="nu0">100</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+    ...
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>In the above example, you see how easy it is draw a simple rectangle using the <code style="border-bottom:dashed green 1px;">drawRect(int,int,int,int)</code> method in the <code style="border-bottom:dashed red 1px;">Graphics</code> instance that we obtained. Run the program and you will see a simple black outline of a rectangle appearing where once a blank canvas was.</p>
+<p>The four arguments that are being passed into the method are, in order of appearance, the <b>x-coordinate</b>, the <b>y-coordinate</b>, <b>width</b> and the <b>height</b>. Hence, the resultant rectangle would start painting at the point on the screen 10 pixels from the left and 10 from the top and would be a 100 pixel wide and a 100 pixel in height. To save the argument here, the above drawing is that of a square with equal sides but squares are drawn using the same method and there is no such method as <strike><code style="border-bottom:dashed green 1px;">drawSquare(int,int,int,int)</code></strike></p>
+<div class="thumb tright">
+<div class="thumbinner" style="width:402px;"><a href="http://en.wikibooks.org/wiki/File:Java_programming_graphics_09_04.PNG" class="image"><img alt="" src="../../../misc/a6665_Java_programming_graphics_09_04.PNG" width="400" height="400" class="thumbimage"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikibooks.org/wiki/File:Java_programming_graphics_09_04.PNG" class="internal" title="Enlarge"><img src="../../../thumbs/6d83a_magnify-clip.png" width="15" height="11" alt=""></a></div>
+<span style="color:#878787;border-bottom:solid 1px #dedede;">Figure 9.4: Same rectangle drawn with a red outline</span></div>
+</div>
+</div>
+<h3> <span class="mw-headline" id="Playing_around_with_colors">Playing around with colors</span></h3>
+<p>You can change the color of the outline by telling the <code style="border-bottom:dashed red 1px;">Graphics</code> instance the color you desire. This can be done as follows:</p>
+<p><span style="color:#878787;border-bottom:solid 1px #dedede;">Listing 9.6: Changing the outline color of the rectangle</span></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+...
+<span class="kw1">public</span> <span class="kw1">class</span> MyCanvas <span class="kw1">extends</span> <span class="kw3">Canvas</span>
+<span class="br0">{</span>
+    ...
+    <span class="kw1">public</span> <span class="kw4">void</span> paint<span class="br0">(</span><span class="kw3">Graphics</span> graphics<span class="br0">)</span>
+    <span class="br0">{</span>
+        graphics.<span class="me1">setColor</span><span class="br0">(</span><span class="kw3">Color</span>.<span class="me1">red</span><span class="br0">)</span><span class="sy0">;</span>
+        graphics.<span class="me1">drawRect</span><span class="br0">(</span><span class="nu0">100</span>, <span class="nu0">100</span>, <span class="nu0">500</span>, <span class="nu0">500</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+    ...
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>Running the program would render the same rectangle but with a red colored outline.</p>
+<p>For the purposes of bringing color to our drawing, we used a method namely the <code style="border-bottom:dashed green 1px;">setColor(Color)</code> method which asks for an argument of type <code style="border-bottom:dashed red 1px;">Color</code>. Now because you have no idea of how to actually instantiate a <code style="border-bottom:dashed red 1px;">Color</code> class, the class itself has a few built-in colors. Some built-in colors that you can use are mentioned below.</p>
+<ul><li><code><code style="border-bottom:dashed red 1px;">Color</code>.red</code></li>
+<li><code><code style="border-bottom:dashed red 1px;">Color</code>.blue</code></li>
+<li><code><code style="border-bottom:dashed red 1px;">Color</code>.green</code></li>
+<li><code><code style="border-bottom:dashed red 1px;">Color</code>.yellow</code></li>
+<li><code><code style="border-bottom:dashed red 1px;">Color</code>.pink</code></li>
+<li><code><code style="border-bottom:dashed red 1px;">Color</code>.black</code></li>
+<li><code><code style="border-bottom:dashed red 1px;">Color</code>.white</code></li>
+</ul><p>Try running the program while coding changes to colors for a different colored outline each time. Play around a bit with more colors. Look for the Color class API documentation in the <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Graphics/Drawing_shapes&amp;printable=yes#External_Links">external links</a> at the bottom of the page.</p>
+<div class="thumb tright">
+<div class="thumbinner" style="width:402px;"><a href="http://en.wikibooks.org/wiki/File:Java_programming_graphics_09_05.PNG" class="image"><img alt="" src="../../../misc/53819_Java_programming_graphics_09_05.PNG" width="400" height="400" class="thumbimage"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikibooks.org/wiki/File:Java_programming_graphics_09_05.PNG" class="internal" title="Enlarge"><img src="../../../thumbs/6d83a_magnify-clip.png" width="15" height="11" alt=""></a></div>
+<span style="color:#878787;border-bottom:solid 1px #dedede;">Figure 9.5: Same rectangle drawn with a red outline and a yellow fill</span></div>
+</div>
+</div>
+<h3> <span class="mw-headline" id="Filling_up_the_area_of_the_rectangle">Filling up the area of the rectangle</span></h3>
+<p>Up until now, you have been able to draw a simple rectangle for yourself while asking a question silently, "why is the outline of the rectangle being painted rather the area as a whole?" The answer is simple. Any method that starts with <code style="border-bottom:dashed green 1px;">drawXxxx(...)</code> only draws the outline. To paint the area within the outline, we use the <code style="border-bottom:dashed green 1px;">fillXxxx(...)</code> methods. For instance, the code below would fill a rectangle with yellow color while having a red outline. Notice that the arguments remain the same.</p>
+<p><span style="color:#878787;border-bottom:solid 1px #dedede;">Listing 9.7: Drawing a yellow rectangle with a red outline</span></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+...
+<span class="kw1">public</span> <span class="kw1">class</span> MyCanvas <span class="kw1">extends</span> <span class="kw3">Canvas</span>
+<span class="br0">{</span>
+    ...
+    <span class="kw1">public</span> <span class="kw4">void</span> paint<span class="br0">(</span><span class="kw3">Graphics</span> graphics<span class="br0">)</span>
+    <span class="br0">{</span>
+        graphics.<span class="me1">setColor</span><span class="br0">(</span><span class="kw3">Color</span>.<span class="me1">yellow</span><span class="br0">)</span><span class="sy0">;</span>
+        graphics.<span class="me1">fillRect</span><span class="br0">(</span><span class="nu0">10</span>, <span class="nu0">10</span>, <span class="nu0">100</span>, <span class="nu0">100</span><span class="br0">)</span><span class="sy0">;</span>
+        graphics.<span class="me1">setColor</span><span class="br0">(</span><span class="kw3">Color</span>.<span class="me1">red</span><span class="br0">)</span><span class="sy0">;</span>
+        graphics.<span class="me1">drawRect</span><span class="br0">(</span><span class="nu0">10</span>, <span class="nu0">10</span>, <span class="nu0">100</span>, x<span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+    ...
+<span class="br0">}</span>
+</pre></div>
+</div>
+<div class="thumb tright">
+<div class="thumbinner" style="width:402px;"><a href="http://en.wikibooks.org/wiki/File:Java_programming_graphics_09_06.PNG" class="image"><img alt="" src="../../../misc/3c67d_Java_programming_graphics_09_06.PNG" width="400" height="400" class="thumbimage"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikibooks.org/wiki/File:Java_programming_graphics_09_06.PNG" class="internal" title="Enlarge"><img src="../../../thumbs/6d83a_magnify-clip.png" width="15" height="11" alt=""></a></div>
+<span style="color:#878787;border-bottom:solid 1px #dedede;">Figure 9.6: A white circle drawn with a blue outline</span></div>
+</div>
+</div>
+<h2> <span class="mw-headline" id="What_about_a_circle.3F">What about a circle?</span></h2>
+<p>Drawing a circle is ever so easy? It is the same process as the syntax above only that the word <code>Rect</code> is changed to the word <code>Oval</code>. And don't ask me why oval? You simply don't have the method <strike><code style="border-bottom:dashed green 1px;">drawCircle(int,int,int,int)</code></strike> as you don't have <strike><code style="border-bottom:dashed green 1px;">drawSquare(int,int,int,int)</code></strike>. Following is the application of Graphics code to draw a circle just to whet your appetite.</p>
+<p><span style="color:#878787;border-bottom:solid 1px #dedede;">Listing 9.8: Drawing a white circle with a blue outline</span></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+...
+<span class="kw1">public</span> <span class="kw1">class</span> MyCanvas <span class="kw1">extends</span> <span class="kw3">Canvas</span>
+<span class="br0">{</span>
+    ...
+    <span class="kw1">public</span> <span class="kw4">void</span> paint<span class="br0">(</span><span class="kw3">Graphics</span> graphics<span class="br0">)</span>
+    <span class="br0">{</span>
+        graphics.<span class="me1">setColor</span><span class="br0">(</span><span class="kw3">Color</span>.<span class="me1">white</span><span class="br0">)</span><span class="sy0">;</span>
+        graphics.<span class="me1">fillOval</span><span class="br0">(</span><span class="nu0">50</span>, <span class="nu0">50</span>, <span class="nu0">100</span>, <span class="nu0">100</span><span class="br0">)</span><span class="sy0">;</span>
+        graphics.<span class="me1">setColor</span><span class="br0">(</span><span class="kw3">Color</span>.<span class="me1">blue</span><span class="br0">)</span><span class="sy0">;</span>
+        graphics.<span class="me1">drawOval</span><span class="br0">(</span><span class="nu0">50</span>, <span class="nu0">50</span>, <span class="nu0">100</span>, <span class="nu0">100</span><span class="br0">)</span><span class="sy0">;</span>
+        graphics.<span class="me1">drawRoundRect</span><span class="br0">(</span><span class="nu0">10</span>, <span class="nu0">10</span>, <span class="nu0">100</span>, <span class="nu0">100</span>, <span class="nu0">5</span>, <span class="nu0">5</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+    ...
+<span class="br0">}</span>
+</pre></div>
+</div>
+<h2> <span class="mw-headline" id="A_new_form_of_a_rectangle">A new form of a rectangle</span></h2>
+<div class="thumb tright">
+<div class="thumbinner" style="width:402px;"><a href="http://en.wikibooks.org/wiki/File:Java_programming_graphics_09_07.PNG" class="image"><img alt="" src="../../../misc/59729_Java_programming_graphics_09_07.PNG" width="400" height="400" class="thumbimage"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikibooks.org/wiki/File:Java_programming_graphics_09_07.PNG" class="internal" title="Enlarge"><img src="../../../thumbs/6d83a_magnify-clip.png" width="15" height="11" alt=""></a></div>
+<span style="color:#878787;border-bottom:solid 1px #dedede;">Figure 9.7: A pink rounded rectangle with a red outline. Amazing!</span></div>
+</div>
+</div>
+<p>Simple so far, isn't it? Of all the shapes out there, these two are the only shapes that you'd need to build for the moment. Complex graphics routines are required to build shapes like a rhombus, triangle, trapezium or a parallelogram. We would be tackling them later on in another section. However, on a last note I would leave you with another interesting shape - a combination of both ovals and rectangle. Think a rectangle with rounded corners, a Rounded Rectangle (<code>RoundRect</code>).</p>
+<p><span style="color:#878787;border-bottom:solid 1px #dedede;">Listing 9.9: Drawing a pink rounded retangle with a red outline</span></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+...
+<span class="kw1">public</span> <span class="kw1">class</span> MyCanvas <span class="kw1">extends</span> <span class="kw3">Canvas</span>
+<span class="br0">{</span>
+    ...
+    <span class="kw1">public</span> <span class="kw4">void</span> paint<span class="br0">(</span><span class="kw3">Graphics</span> graphics<span class="br0">)</span>
+    <span class="br0">{</span>
+        graphics.<span class="me1">setColor</span><span class="br0">(</span><span class="kw3">Color</span>.<span class="me1">pink</span><span class="br0">)</span><span class="sy0">;</span>
+        graphics.<span class="me1">fillRoundRect</span><span class="br0">(</span><span class="nu0">10</span>, <span class="nu0">10</span>, <span class="nu0">100</span>, <span class="nu0">100</span>, <span class="nu0">5</span>, <span class="nu0">5</span><span class="br0">)</span><span class="sy0">;</span>
+        graphics.<span class="me1">setColor</span><span class="br0">(</span><span class="kw3">Color</span>.<span class="me1">red</span><span class="br0">)</span><span class="sy0">;</span>
+        graphics.<span class="me1">drawRoundRect</span><span class="br0">(</span><span class="nu0">10</span>, <span class="nu0">10</span>, <span class="nu0">100</span>, <span class="nu0">100</span>, <span class="nu0">5</span>, <span class="nu0">5</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+    ...
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>Notice that the syntax of the <code style="border-bottom:dashed green 1px;">drawRoundRect(int,int,int,int,int,int)</code> method is a bit different than the syntax for the simple rectangle drawing routine <code style="border-bottom:dashed green 1px;">drawRect(int,int,int,int)</code>. The two new arguments added at the end are the <b>width of the arc in pixels</b> and the <b>height of the arc in pixels</b>. The result is pretty amazing when you run the program. You don't need to squint your eyes to tell that the corners of the rectangle are slightly rounded. The more the values of the width and height of the arcs, the more roundness appears to form around the corner.</p>
+<h2> <span class="mw-headline" id="Hmm.2C_everything.27s_perfect.2C_but...">Hmm, everything's perfect, but...</span></h2>
+<p>Sometimes people ask, after creating simple programs like the ones above, questions like:</p>
+<ul><li><b>Why did I have to tell the <code style="border-bottom:dashed red 1px;">Graphics</code> instance the color before each drawing routine?</b> Why can't it remember my choice for the outlines and for the fill colors? The answer is simpler than it seems. But, to fully understand it, we need to focus on one little thing called the <b>Graphics Context</b>. The graphics context is the information that adheres to a single instance of the <code style="border-bottom:dashed red 1px;">Graphics</code> class. Such an instance remembers only one color at a time and that is why we need to make sure the context knows of the color we need to use by using the <code style="border-bottom:dashed green 1px;">setColor(Color)</code> method.</li>
+<li><b>Can I manipulate the shapes, like tilt them and crop them?</b> Hold your horses, cowboy! Everything is possible in Java, even tilting and cropping drawings. We will be focusing on these issues in a later section.</li>
+<li><b>Is making shapes like triangles, rhombuses and other complex ones tedious?</b> Well, to be honest here, you need to go back to your dusty book cabinet and take out that High School Geometry book because we would be covering some geometry basics while dealing with such shapes. Why not read a <a href="http://en.wikibooks.org/wiki/Geometry" title="Geometry">wikibook on Geometry</a>?</li>
+</ul><h2> <span class="mw-headline" id="What_has_eyes_that_pop_out.3F">What has eyes that pop out?</span></h2>
+<p>A happy Java noob after this section, perhaps! Now that we have covered the drawing of basic shapes, let's see how much you were paying attention to the content. Try answering these questions below. Answers will be revealed in the next section.</p>
+<div style="background: #f2fff2; border: solid 1px #bfffbf; padding: 0.5em; width: 95%; margin: auto;">
+<p><b>Question 9.3: Throughout the exercise listings above, we have been filling the shapes first and then drawing their outlines. What happens if we do it the other way around? Consider the code below.</b></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+...
+<span class="kw1">public</span> <span class="kw4">void</span> paint<span class="br0">(</span><span class="kw3">Graphics</span> graphics<span class="br0">)</span>
+<span class="br0">{</span>
+    graphics.<span class="me1">setColor</span><span class="br0">(</span><span class="kw3">Color</span>.<span class="me1">red</span><span class="br0">)</span><span class="sy0">;</span>
+    graphics.<span class="me1">drawRect</span><span class="br0">(</span><span class="nu0">10</span>, <span class="nu0">10</span>, <span class="nu0">100</span>, <span class="nu0">100</span><span class="br0">)</span><span class="sy0">;</span>
+    graphics.<span class="me1">setColor</span><span class="br0">(</span><span class="kw3">Color</span>.<span class="me1">yellow</span><span class="br0">)</span><span class="sy0">;</span>
+    graphics.<span class="me1">fillRect</span><span class="br0">(</span><span class="nu0">10</span>, <span class="nu0">10</span>, <span class="nu0">100</span>, <span class="nu0">100</span><span class="br0">)</span><span class="sy0">;</span>
+<span class="br0">}</span>
+...
+</pre></div>
+</div>
+<ol><li>The left and the top outlines disappear.</li>
+<li>The right and the bottom outlines disappear.</li>
+<li>The color for the outline becomes the color for the fill area.</li>
+<li>All the outlines disappear.</li>
+</ol><p><b>Question 9.4: What would <code style="border-bottom:dashed green 1px;">drawLine(10, 100, 100, 100)</code> give you?</b></p>
+<ol><li>A horizontal line.</li>
+<li>A vertical line.</li>
+<li>A diagonal line.</li>
+</ol></div>
+<p>If you have any questions regarding the content provided here, please feel free to comment in this page's <a href="http://en.wikibooks.org/wiki/Talk:Java_Programming/Graphics/Drawing_shapes" title="Talk:Java Programming/Graphics/Drawing shapes">discussion</a>.</p>
+<h2> <span class="mw-headline" id="External_Links">External Links</span></h2>
+<ul><li><a rel="nofollow" class="external text" href="http://java.sun.com/j2se/1.4.2/docs/api/java/awt/Graphics.html">Locate the Graphics class in the online Java API documentation</a></li>
+<li><a rel="nofollow" class="external text" href="http://java.sun.com/j2se/1.4.2/docs/api/java/awt/Color.html">Locate the Color class in the online Java API documentation</a></li>
+</ul></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

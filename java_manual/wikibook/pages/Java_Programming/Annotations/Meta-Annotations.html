@@ -1,0 +1,97 @@
+<html><head><title>Java Programming/Annotations/Meta-Annotations</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Annotations/Meta-Annotations</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><table class="wikitable" style="float: right;"><tr><td>Navigate <b><a href="../Annotations.html" title="Java Programming/Annotations">Javadoc &amp; Annotations</a></b> topic:
+<ul><li> <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Javadoc/Introduction&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Javadoc/Introduction (does not exist)">Introduction to Javadoc</a></li>
+<li> <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Javadoc/xDoclet&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Javadoc/xDoclet (does not exist)">Introduction to XDoclet</a></li>
+<li> <a href="Introduction.html" title="Java Programming/Annotations/Introduction">Introduction to Annotation</a></li>
+<li> <a href="Custom_Annotations.html" title="Java Programming/Annotations/Custom Annotations">Creating custom annotations</a></li>
+<li> <strong class="selflink">Meta-annotations</strong></li>
+<li> <a href="Compiler_and_Annotations.html" title="Java Programming/Annotations/Compiler and Annotations">Helping the compiler</a></li>
+<li> <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Annotations/Runtime_Processing&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Annotations/Runtime Processing (does not exist)">Processing annotations at runtime</a></li>
+<li> <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Annotations/Examples&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Annotations/Examples (does not exist)">A few examples of annotations</a></li>
+<li> <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Annotations/Annotation_Glossary&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Annotations/Annotation Glossary (does not exist)">A glossary of built-in annotations in Java</a></li>
+</ul></td>
+</tr></table><p>There are four annotation types in the <code>java.lang.annotation</code> package. These so-called <b>meta-annotations</b> are used to annotate other annotation types.</p>
+<table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Annotations/Meta-Annotations&amp;printable=yes#Documented"><span class="tocnumber">1</span> <span class="toctext">Documented</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Annotations/Meta-Annotations&amp;printable=yes#Inherited"><span class="tocnumber">2</span> <span class="toctext">Inherited</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Annotations/Meta-Annotations&amp;printable=yes#Retention"><span class="tocnumber">3</span> <span class="toctext">Retention</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Annotations/Meta-Annotations&amp;printable=yes#Target"><span class="tocnumber">4</span> <span class="toctext">Target</span></a></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="Documented">Documented</span></h2>
+<p>If a member is annotated with a type itself marked as <code>@Documented</code>, then that member will be documented as annotating that type. An example will be useful.</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+@<span class="kw1">interface</span> Secret <span class="br0">{</span> <span class="br0">}</span>
+ 
+@Documented
+@<span class="kw1">interface</span> NotSecret <span class="br0">{</span> <span class="br0">}</span>
+ 
+@Secret
+@NotSecret
+<span class="kw1">public</span> <span class="kw1">class</span> Example <span class="br0">{</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>In the documentation for the <code>Example</code> class, such as the JavaDoc, <code>Example</code> will be shown as annotated with <code>@NotSecret</code>, but not <code>@Secret</code>.</p>
+<h2> <span class="mw-headline" id="Inherited">Inherited</span></h2>
+<p>Exactly as the name sounds, an <code>@Inherited</code> annotation type is inherited by subclasses of an annotated type.</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+@Inherited
+@<span class="kw1">interface</span> ForEveryone <span class="br0">{</span> <span class="br0">}</span>
+ 
+@<span class="kw1">interface</span> JustForMe <span class="br0">{</span> <span class="br0">}</span>
+ 
+@ForEveryone
+@JustForMe
+<span class="kw1">class</span> Superclass <span class="br0">{</span> <span class="br0">}</span>
+ 
+<span class="kw1">class</span> Subclass <span class="kw1">extends</span> Superclass <span class="br0">{</span> <span class="br0">}</span>
+</pre></div>
+</div>
+<p>In this example, <code>Superclass</code> has been explicitly annotated with both <code>@ForEveryone</code> and <code>@JustForMe</code>. <code>Subclass</code> hasn't been explicitly marked with either one; however, it inherits <code>@ForEveryone</code> because the latter is annotated with <code>@Inherited</code>. <code>@JustForMe</code> isn't annotated, so it isn't inherited by <code>Subclass</code>.</p>
+<h2> <span class="mw-headline" id="Retention">Retention</span></h2>
+<p>Different annotation types have different purposes. Some are intended for use with the compiler; others are meant to be reflected dynamically at runtime. There's no reason for a compiler annotation to be available at runtime, so the <code>@Retention</code> meta-annotation specifies how long an annotation type should be retained. The <code>value</code> attribute is one of the <code>java.lang.annotation.RetentionPolicy</code> enum constants. The possible values, in order from shortest to longest retention, are as follows:</p>
+<dl><dt><code>RetentionPolicy.SOURCE</code></dt>
+<dd>The annotation will not be included in the class file. This is useful for annotations which are intended for the compiler only.</dd>
+<dt><code>RetentionPolicy.CLASS</code></dt>
+<dd>The annotation will be included in the class file, but cannot be read reflectively.</dd>
+<dt><code>RetentionPolicy.RUNTIME</code></dt>
+<dd>The annotation can be reflected at runtime.</dd>
+</dl><p>If no <code>@Retention</code> policy is specified, it defaults to <code>RetentionPolicy.CLASS</code>.</p>
+<h2> <span class="mw-headline" id="Target">Target</span></h2>
+<p>The <code>@Target</code> meta-annotation determines what may be marked by the annotation. The <code>value</code> attribute is one or more of the <code>java.lang.annotation.ElementType</code> enum constants. Those constants are <code>ElementType.ANNOTATION_TYPE</code>, <code>CONSTRUCTOR</code>, <code>FIELD</code>, <code>LOCAL_VARIABLE</code>, <code>METHOD</code>, <code>PACKAGE</code>, <code>PARAMETER</code>, and <code>TYPE</code>.</p>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

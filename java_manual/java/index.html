@@ -1,0 +1,453 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+		<link rel="icon" href="images/botball.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="images/botball.ico" type="image/x-icon">
+		<style type="text/css">
+			@import "style.css";
+		</style>
+		<title>Java Programmers Manual</title>
+	</head>
+	<body>
+		Manual Version 1.0, by Braden McDorman (bmcdorman@kipr.org)
+		<br/>
+		<h1>Java Programmers Manual</h1>
+		<br/>
+		<p>
+			Java is an object-oriented imperative language that has a good deal of
+			influence from other popular languages like C and C++. The first part of
+			this document will introduce you to the language, then we will explore
+			CBCJVM, which is the Java library that enables robotics programming.
+			This document will assume you have a working understanding of C programming.
+		</p>
+		<h2>What is an Object Oriented Language?</h2>
+		<p>
+			The "object" is the fundamental unit in an Object Oriented programming language.
+			An object stores both variables (referred to as instance variables)
+			and methods (functions that act on those variables or perform actions specific to the object.)
+			A good example of this is an actual object, like a dog. A dog has a set of properties, such as color
+			and position. It also has actions like bark and walk. Let's model a dog with these properties
+			in Java.
+		</p>
+		<h2>An Object Oriented Pet</h2>
+		<div class="pygments"><pre><span class="kd">class</span> <span class="nc">Dog</span> <span class="o">{</span>
+	
+	<span class="c1">// The dog&#39;s position, represented as (x, y, z)</span>
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">y</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">z</span><span class="o">;</span>
+	
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">color</span><span class="o">;</span> <span class="c1">// Holds the dog&#39;s color</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">bark</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Woof!&quot;</span><span class="o">);</span> <span class="c1">// Print &quot;Woof&quot;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">walk</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">x</span><span class="o">++;</span> <span class="c1">// This dog can only walk in the positive x direction</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<p>
+			Let's look at the previous code listing in more detail. The first thing we see is the <span class="pygments"><code><span class="kd">class</span></code></span>
+			keyword. This means we are about to define a "blueprint" for our object. A class
+			defines what the object can do and the properties it has, but it doesn't actually
+			create an object in memory. If we wanted to create an object based off this class, we
+			could write the following: <span class="pygments"><code><span class="n">Dog</span> <span class="n">buddy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Dog</span><span class="o">();</span></code></span> (More on this later.)
+			The next keyword that might look foreign is <span class="pygments"><code><span class="kd">private</span></code></span>, which is part of the
+			group of <em>visibility</em> keywords, which include <span class="pygments"><code><span class="kd">public</span></code></span>, <span class="pygments"><code><span class="kd">protected</span></code></span>,
+			and <span class="pygments"><code><span class="kd">private</span></code></span>. These visibility keywords allow us to modify what
+			the user of our class can see. For example, if we attempted to access the <span class="pygments"><code><span class="n">x</span></code></span>
+			property of <span class="pygments"><code><span class="n">buddy</span></code></span>, Java would produce an error. However, since our methods
+			are public, some one can easily call <span class="pygments"><code><span class="n">bark</span><span class="o">()</span></code></span> on <span class="pygments"><code><span class="n">buddy</span></code></span>. In Java,
+			it is usually considered bad practice to have <span class="pygments"><code><span class="kd">public</span></code></span> instance variables. We will
+			discuss <span class="pygments"><code><span class="kd">protected</span></code></span> at a latter time.
+		</p>
+		<p>
+			So, how would we actually go about using <span class="pygments"><code><span class="n">Dog</span></code></span>? Let's take a look at another example.
+		</p>
+		<h3>The Main Method</h3>
+		<div class="pygments"><pre><span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">Dog</span> <span class="n">buddy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Dog</span><span class="o">();</span>
+		<span class="n">buddy</span><span class="o">.</span><span class="na">bark</span><span class="o">();</span> <span class="c1">// Print Woof</span>
+		
+		<span class="n">buddy</span><span class="o">.</span><span class="na">walk</span><span class="o">();</span>
+		<span class="n">buddy</span><span class="o">.</span><span class="na">walk</span><span class="o">();</span>
+		<span class="n">buddy</span><span class="o">.</span><span class="na">walk</span><span class="o">();</span>
+		<span class="c1">// The x property of buddy should now equal 3</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<p>
+			Everything in Java must belong to a class, so our <span class="pygments"><code><span class="n">main</span></code></span> method must as well.
+			We call this class <span class="pygments"><code><span class="n">Main</span></code></span> because CBCJVM expects your <span class="pygments"><code><span class="n">main</span></code></span> method to
+			belong to the <span class="pygments"><code><span class="n">Main</span></code></span> class. This however is not a restriction imposed by regular Java.
+			This main is slightly different from the C main you're probably used to, so let's discuss
+			it for a second. <span class="pygments"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span></code></span> Starts with the
+			<span class="pygments"><code><span class="kd">public</span></code></span> keyword, which we have already discussed. The next keyword is
+			<span class="pygments"><code><span class="kd">static</span></code></span>, which we will defer for later discussion. <span class="pygments"><code><span class="kt">void</span></code></span> means
+			our main method doesn't have a return value. Next is the name of the method, <span class="pygments"><code><span class="n">main</span></code></span>.
+			This is followed by the parameter list. <span class="pygments"><code><span class="n">String</span><span class="o">[]</span> <span class="n">args</span></code></span> allows a user to "pass" arguments
+			to our program. This, however, will never be the case with CBC development, so we will not discuss
+			it in more detail. While we don't use <span class="pygments"><code><span class="n">args</span></code></span>, we <em>must</em> still have it in our <span class="pygments"><code><span class="n">main</span></code></span>
+			definition. If you were to omit <span class="pygments"><code><span class="n">args</span></code></span>, Java would fail to find your main method.
+			We use the dot operator to access public members of any object. The syntax for the dot operator is as follows:
+			<span class="pygments"><code><span class="o">[</span><span class="n">object</span> <span class="n">variable</span><span class="o">].[</span><span class="kd">public</span> <span class="n">member</span><span class="o">]</span></code></span>.
+		</p>
+		<h3>Changing Instance Variables</h3>
+		<p>
+			Let's expand on our <span class="pygments"><code><span class="n">Dog</span></code></span> class a bit. Let's add accessors and mutators for our instance variables.
+			An accessor is usually a one line method that takes no parameters, that simply returns a variable. A mutator is
+			a one line method that takes one parameter, and assigns the instance variable to the parameter. Let's make our
+			position both mutable and accessible.
+		</p>
+		<div class="pygments"><pre><span class="kd">class</span> <span class="nc">Dog</span> <span class="o">{</span>
+	
+	<span class="c1">// The dog&#39;s position, represented as (x, y, z)</span>
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">y</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">z</span><span class="o">;</span>
+	
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">color</span><span class="o">;</span> <span class="c1">// Holds the dog&#39;s color</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">bark</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Woof!&quot;</span><span class="o">);</span> <span class="c1">// Print &quot;Woof&quot;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">walk</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">x</span><span class="o">++;</span> <span class="c1">// This dog can only walk in the positive x direction</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getX</span><span class="o">()</span> <span class="o">{</span> <span class="c1">// Note: Accessors are usually prefixed with &quot;get&quot;</span>
+		<span class="k">return</span> <span class="n">x</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setX</span><span class="o">(</span><span class="kt">int</span> <span class="n">newX</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// Mutators are usually prefixed with &quot;set&quot;</span>
+		<span class="n">x</span> <span class="o">=</span> <span class="n">newX</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getY</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">y</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setY</span><span class="o">(</span><span class="kt">int</span> <span class="n">newY</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">y</span> <span class="o">=</span> <span class="n">newY</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getZ</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">z</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setZ</span><span class="o">(</span><span class="kt">int</span> <span class="n">newZ</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">z</span> <span class="o">=</span> <span class="n">newZ</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<p>
+			This may seem like a lot of code to do something trivial, but this is accepted convention in Java.
+			<i>Sigh</i>. Let's update our <span class="pygments"><code><span class="n">main</span></code></span> method to print the X value after walking three times.
+		</p>
+		<div class="pygments"><pre><span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">Dog</span> <span class="n">buddy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Dog</span><span class="o">();</span>
+		<span class="n">buddy</span><span class="o">.</span><span class="na">bark</span><span class="o">();</span> <span class="c1">// Print Woof</span>
+		
+		<span class="n">buddy</span><span class="o">.</span><span class="na">walk</span><span class="o">();</span>
+		<span class="n">buddy</span><span class="o">.</span><span class="na">walk</span><span class="o">();</span>
+		<span class="n">buddy</span><span class="o">.</span><span class="na">walk</span><span class="o">();</span>
+		<span class="c1">// The x property of buddy should now equal 3</span>
+		
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Buddy&#39;s X position is now &quot;</span> <span class="o">+</span> <span class="n">buddy</span><span class="o">.</span><span class="na">getX</span><span class="o">());</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<h3>Abstraction</h3>
+		<p>
+			So we have a dog that can walk in the positive x direction, but what if we want a
+			cat to do the same? Why not just rename <span class="pygments"><code><span class="n">Dog</span></code></span> to something more generic, like
+			<span class="pygments"><code><span class="n">Pet</span></code></span>? This might be an excellent idea, but let's modify the requirements a bit.
+			A cat has a property called <span class="pygments"><code><span class="n">lives</span></code></span>, and methods to mutate that value, so we need a class.
+			specific to it. I'm sure you're tempted to create a new class and copy + paste our old walking code 
+			into it, but Java provides us with a better way. This is called abstraction. Let's introduce a new 
+			class called <span class="pygments"><code><span class="n">WalkingPet</span></code></span>. This class is going to have all of the walking and position 
+			code from <span class="pygments"><code><span class="n">Dog</span></code></span>.
+		</p>
+		<div class="pygments"><pre><span class="kd">class</span> <span class="nc">WalkingPet</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">y</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">z</span><span class="o">;</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">walk</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">x</span><span class="o">++;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getX</span><span class="o">()</span> <span class="o">{</span> <span class="c1">// Note: Accessors are usually prefixed with &quot;get&quot;</span>
+		<span class="k">return</span> <span class="n">x</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setX</span><span class="o">(</span><span class="kt">int</span> <span class="n">newX</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// Mutators are usually prefixed with &quot;set&quot;</span>
+		<span class="n">x</span> <span class="o">=</span> <span class="n">newX</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getY</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">y</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setY</span><span class="o">(</span><span class="kt">int</span> <span class="n">newY</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">y</span> <span class="o">=</span> <span class="n">newY</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getZ</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">z</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setZ</span><span class="o">(</span><span class="kt">int</span> <span class="n">newZ</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">z</span> <span class="o">=</span> <span class="n">newZ</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<p>
+			Now we can define our <span class="pygments"><code><span class="n">Dog</span></code></span> and <span class="pygments"><code><span class="n">Cat</span></code></span> by
+			<i>extending</i> <span class="pygments"><code><span class="n">WalkingPet</span></code></span>. We do this with the
+			<span class="pygments"><code><span class="kd">extends</span></code></span> keyword, which follows the class name during
+			the definition of a class. Let's now define these two classes.
+		</p>
+		<div class="pygments"><pre><span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="n">WalkingPet</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">color</span><span class="o">;</span> <span class="c1">// Holds the dog&#39;s color</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">bark</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Woof!&quot;</span><span class="o">);</span> <span class="c1">// Print &quot;Woof&quot;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Cat</span> <span class="kd">extends</span> <span class="n">WalkingPet</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">lives</span> <span class="o">=</span> <span class="mi">9</span><span class="o">;</span>
+	
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getLives</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">lives</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">loseLives</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">lives</span> <span class="o">=</span> <span class="n">lives</span> <span class="o">-</span> <span class="n">num</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<p>
+			Great! Now let's modify our driver (which is a fancy name for main) to create
+			both a cat and dog.
+		</p>
+		<div class="pygments"><pre><span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+	<span class="c1">// This method can take any WalkingPet, be it cat or dog. How cool is that?</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">walkPet</span><span class="o">(</span><span class="n">WalkingPet</span> <span class="n">pet</span><span class="o">,</span> <span class="kt">int</span> <span class="n">times</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">times</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+			<span class="n">pet</span><span class="o">.</span><span class="na">walk</span><span class="o">();</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">Dog</span> <span class="n">buddy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Dog</span><span class="o">();</span>
+		<span class="n">Cat</span> <span class="n">grayson</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Cat</span><span class="o">();</span>
+		
+		<span class="n">buddy</span><span class="o">.</span><span class="na">bark</span><span class="o">();</span> <span class="c1">// Print Woof</span>
+		
+		<span class="n">walkPet</span><span class="o">(</span><span class="n">buddy</span><span class="o">,</span> <span class="mi">2</span><span class="o">);</span>
+		
+		<span class="n">walkPet</span><span class="o">(</span><span class="n">grayson</span><span class="o">,</span> <span class="mi">1</span><span class="o">);</span>
+		
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Buddy&#39;s X position is now &quot;</span> <span class="o">+</span> <span class="n">buddy</span><span class="o">.</span><span class="na">getX</span><span class="o">()</span> <span class="o">+</span>
+			<span class="s">&quot;, while grayson&#39;s is &quot;</span> <span class="o">+</span> <span class="n">grayson</span><span class="o">.</span><span class="na">getX</span><span class="o">());</span>
+		
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Grayson started with &quot;</span> <span class="o">+</span> <span class="n">grayson</span><span class="o">.</span><span class="na">getLives</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot; lives.&quot;</span><span class="o">);</span>
+		
+		<span class="n">grayson</span><span class="o">.</span><span class="na">loseLives</span><span class="o">(</span><span class="mi">2</span><span class="o">);</span>
+		
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;But now only has &quot;</span> <span class="o">+</span> <span class="n">grayson</span><span class="o">.</span><span class="na">getLives</span><span class="o">()</span> <span class="o">+</span> <span class="s">&quot;. Bummer.&quot;</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<p>
+			This will output: <br />
+			<code>
+				Buddy's X position is now 2, while grayson's is 1 <br />
+				Grayson started with 9 lives. <br />
+				But now only has 7. Bummer. <br />
+			</code>
+		</p>
+		<h3>The <code>abstract</code> Keyword</h3>
+		<p>
+			We're on the right track!  This code is still kind of specific, however. We assume that
+			all pets walk in the positive x direction, which is an incorrect assumption. How do we make
+			this code less specific while still making <span class="pygments"><code><span class="n">WalkingPet</span></code></span>s walkable? To do this, we
+			must introduce a new keyword, called <span class="pygments"><code><span class="kd">abstract</span></code></span>. Let's rewrite WalkingPet using this
+			keyword.
+		</p>
+		<div class="pygments"><pre><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">WalkingPet</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">y</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">z</span><span class="o">;</span>
+	
+	<span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">walk</span><span class="o">();</span>
+	
+	<span class="c1">// Accessors and Mutators omitted for clarity</span>
+<span class="o">}</span>
+</pre></div>
+
+		<p>
+			If we could give our classes voices at this point, the conversation would go something like this: <br /> <br />
+			Dog: Hey, WalkingPet, I want you to walk for me. <br />
+			WalkingPet: Sorry, Dog. (no pun intended.) I don't know how to walk. <br />
+			Dog: Bummer dude. I guess I'll figure it out. <br /> <br />
+			
+			By declaring <span class="pygments"><code><span class="n">walk</span></code></span> <span class="pygments"><code><span class="kd">abstract</span></code></span>, we've effectively deferred the responsibility of implementing <span class="pygments"><code><span class="n">walk</span></code></span>
+			to the classes that extend <span class="pygments"><code><span class="n">WalkingPet</span></code></span>, namely <span class="pygments"><code><span class="n">Dog</span></code></span> and <span class="pygments"><code><span class="n">Cat</span></code></span>. Note that if a class has any
+			<span class="pygments"><code><span class="kd">abstract</span></code></span> members, we must put the <span class="pygments"><code><span class="kd">abstract</span></code></span> keyword before the <span class="pygments"><code><span class="kd">class</span></code></span> keyword as well.
+			Let's attempt to redefine the <span class="pygments"><code><span class="n">Dog</span></code></span> and <span class="pygments"><code><span class="n">Cat</span></code></span> classes to implement <span class="pygments"><code><span class="n">walk</span></code></span>:
+		</p>
+		<div class="pygments"><pre><span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="n">WalkingPet</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">color</span><span class="o">;</span> <span class="c1">// Holds the dog&#39;s color</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">bark</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Woof!&quot;</span><span class="o">);</span> <span class="c1">// Print &quot;Woof&quot;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">walk</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">x</span><span class="o">++;</span> <span class="c1">// Our dog walks like usual</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Cat</span> <span class="kd">extends</span> <span class="n">WalkingPet</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">lives</span> <span class="o">=</span> <span class="mi">9</span><span class="o">;</span>
+	
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getLives</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">lives</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">loseLives</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">lives</span> <span class="o">=</span> <span class="n">lives</span> <span class="o">-</span> <span class="n">num</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">walk</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">y</span><span class="o">--;</span> <span class="c1">// Our cat walks in the negative y direction</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<h3>The <code>protected</code> Keyword</h3>
+		<p>
+			This code looks innocent enough, but it has a problem. Neither
+			<span class="pygments"><code><span class="n">Dog</span></code></span> nor <span class="pygments"><code><span class="n">Cat</span></code></span> can access the position instance variables,
+			because those are declared <span class="pygments"><code><span class="kd">private</span></code></span> within <span class="pygments"><code><span class="n">WalkingPet</span></code></span>.
+			There are two options here. Either we change the visibility of the position instance
+			variables, or we use the public accessors and mutators. To use the accessors and mutators,
+			we would simply replace <span class="pygments"><code><span class="n">x</span><span class="o">++;</span></code></span> with <span class="pygments"><code><span class="n">setX</span><span class="o">(</span><span class="n">getX</span><span class="o">()</span> <span class="o">+</span> <span class="mi">1</span><span class="o">);</span></code></span>. This isn't
+			preferred, however, since this is both slower and uglier than <span class="pygments"><code><span class="n">x</span><span class="o">++;</span></code></span>. So, how do
+			we make instance variables directly accessible to children classes, but not to outsiders? This
+			is where the keyword <span class="pygments"><code><span class="kd">protected</span></code></span> comes into play. If we simply redefine our position
+			variables to be  <span class="pygments"><code><span class="kd">protected</span></code></span> rather than <span class="pygments"><code><span class="kd">private</span></code></span>, our code will be
+			pretty, fast, and visibility will remain internal only. Let's do that now.
+		</p>
+		<div class="pygments"><pre><span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">WalkingPet</span> <span class="o">{</span>
+	<span class="kd">protected</span> <span class="kt">int</span> <span class="n">x</span><span class="o">;</span>
+	<span class="kd">protected</span> <span class="kt">int</span> <span class="n">y</span><span class="o">;</span>
+	<span class="kd">protected</span> <span class="kt">int</span> <span class="n">z</span><span class="o">;</span>
+	
+	<span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">walk</span><span class="o">();</span>
+	
+	<span class="c1">// Accessors and Mutators omitted for clarity</span>
+<span class="o">}</span>
+</pre></div>
+
+		<h3>The <code>static</code> keyword</h3>
+		<p>
+			The <span class="pygments"><code><span class="kd">static</span></code></span> modifier makes a variable or method similar to a global variable or function in C.
+			Even though these static members are still members of classes, they are very different from their instance
+			brethren. In a static method, you cannot use an instance variable. However, you may use static methods and
+			variables in instance methods and instance variables.
+		</p>
+		<p>
+			Usually we prefer instance over static members, however, there are times that static members are very useful.
+			Imagine we are trying to write a class in which every object has a unique id. We could do something like this:
+		</p>
+		<div class="pygments"><pre><span class="kd">class</span> <span class="nc">ObjectWithID</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">generateUniqueID</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">i</span><span class="o">++;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">private</span> <span class="kt">int</span> <span class="n">id</span> <span class="o">=</span> <span class="n">generateUniqueID</span><span class="o">();</span>
+	
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getUniqueID</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">id</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<p>
+			The first object constructed will have the id of 1, the second will have
+			an id of 2, and so on.
+		</p>
+		<p>
+			If the static member is public, we must use a slight variant of the dot operator we've
+			grown used to. Instead of calling the dot operator with a variable, we call it with the
+			class's full name. For example:
+		<div class="pygments"><pre><span class="kd">class</span> <span class="nc">IntegerHelpers</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">roundTo</span><span class="o">(</span><span class="kt">int</span> <span class="n">num</span><span class="o">,</span> <span class="kt">int</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">num</span> <span class="o">-</span> <span class="n">num</span> <span class="o">%</span> <span class="n">value</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">main</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kt">int</span> <span class="n">input</span> <span class="o">=</span> <span class="mi">462</span><span class="o">;</span>
+		<span class="kt">int</span> <span class="n">roundedToFive</span> <span class="o">=</span> <span class="n">IntegerHelpers</span><span class="o">.</span><span class="na">roundTo</span><span class="o">(</span><span class="n">input</span><span class="o">,</span> <span class="mi">5</span><span class="o">);</span> <span class="c1">// == 460</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;The number &quot;</span> <span class="o">+</span> <span class="n">input</span> <span class="o">+</span> <span class="s">&quot; rounded to five is &quot;</span> <span class="o">+</span> <span class="n">roundedToFive</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<h3>Constructors</h3>
+		<p>
+			Sometimes we need to "set up" an object before it is ready for use. Let's say we wanted our <span class="pygments"><code><span class="n">Dog</span></code></span>
+			to have an associated <span class="pygments"><code><span class="n">name</span></code></span> property. We could write a mutator that modified the <span class="pygments"><code><span class="n">name</span></code></span>
+			variable, but names rarely change, so providing a mutator might be an incorrect solution to our 
+			problem. Instead, we can use something called a constructor, which is a special type of method called when
+			we bring an object into existence using the <span class="pygments"><code><span class="k">new</span></code></span> keyword.
+		</p>
+		<div class="pygments"><pre><span class="kd">class</span> <span class="nc">Dog</span> <span class="kd">extends</span> <span class="n">WalkingPet</span> <span class="o">{</span>
+	<span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+	
+	<span class="kd">public</span> <span class="nf">Dog</span><span class="o">(</span><span class="n">String</span> <span class="n">newName</span><span class="o">)</span> <span class="o">{</span> <span class="c1">// This is a constructor</span>
+		<span class="n">name</span> <span class="o">=</span> <span class="n">newName</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">name</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	<span class="c1">// Other members omitted for clarity</span>
+<span class="o">}</span>
+
+<span class="o">....</span>
+
+<span class="n">Dog</span> <span class="n">buddy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Dog</span><span class="o">(</span><span class="s">&quot;Buddy&quot;</span><span class="o">);</span>
+<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;The dog&#39;s name is &quot;</span> <span class="o">+</span> <span class="n">buddy</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+</pre></div>
+
+		<p>
+			There are a few things to note from the code listing above. The first is the declaration of the constructor.
+			Constructors cannot not have a return type, so the return type is omitted. The name of the constructor must also
+			exactly match the name of the class. Finally, we use the constructor by supplying parameters for use with the <span class="pygments"><code><span class="k">new</span></code></span>
+			operator.
+		</p>
+	</body>
+</html>
+

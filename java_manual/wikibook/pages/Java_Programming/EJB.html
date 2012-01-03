@@ -1,0 +1,68 @@
+<html><head><title>Java Programming/EJB</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/EJB</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><b>Concurrent Programming</b> topics</p>
+<ul><li><a href="Threads_and_Runnables.html" title="Java Programming/Threads and Runnables">Threads and Runnables</a> </li>
+<li><a href="Basic_Synchronization.html" title="Java Programming/Basic Synchronization">Basic Synchronization</a> </li>
+<li><a href="Client_Server.html" title="Java Programming/Client Server">Client Server Programming</a> </li>
+<li><a href="Remote_Method_Invocation.html" title="Java Programming/Remote Method Invocation">Remote Method Invocation(RMI)</a> </li>
+<li><strong class="selflink">Enterprise JavaBean Programming</strong> </li>
+<li><a href="Jini.html" title="Java Programming/Jini">Jini-Java Spaces Programming</a> </li>
+</ul><p>Enterprise JavaBeans (EJB) technology is the server-side component architecture for Java Platform, Enterprise Edition (Java EE). EJB technology enables to create distributed, transactional, secure and portable application component objects.</p>
+<p>EJB supports the development and deployment of component based business applications. Applications written using the Enterprise JavaBeans architecture are scalable, transactional, and multi-user secure. These applications may be written once, and then deployed on any server platform that supports the Enterprise JavaBeans specification.</p>
+<table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/EJB&amp;printable=yes#EJB_History"><span class="tocnumber">1</span> <span class="toctext">EJB History</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/EJB&amp;printable=yes#EJB_Features"><span class="tocnumber">2</span> <span class="toctext">EJB Features</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/EJB&amp;printable=yes#Types_of_EJB"><span class="tocnumber">3</span> <span class="toctext">Types of EJB</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/EJB&amp;printable=yes#Problems_with_EJB_as_a_component_based_development"><span class="tocnumber">4</span> <span class="toctext">Problems with EJB as a component based development</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/EJB&amp;printable=yes#References"><span class="tocnumber">5</span> <span class="toctext">References</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/EJB&amp;printable=yes#External_links"><span class="tocnumber">6</span> <span class="toctext">External links</span></a></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="EJB_History">EJB History</span></h2>
+<h2> <span class="mw-headline" id="EJB_Features">EJB Features</span></h2>
+<ul><li>Security Management</li>
+<li>Persistance Management</li>
+<li>Transaction Management</li>
+<li>Distributable Interoperable Management</li>
+<li>Exception Management</li>
+</ul><h2> <span class="mw-headline" id="Types_of_EJB">Types of EJB</span></h2>
+<ul><li>Session Beans
+<ul><li>StateFull Session Beans</li>
+<li>Stateless Session Beans)</li>
+</ul></li>
+<li>Entity Beans</li>
+<li>Message Driven Beans</li>
+</ul><h2> <span class="mw-headline" id="Problems_with_EJB_as_a_component_based_development">Problems with EJB as a component based development</span></h2>
+<p>EJBs are an attempt to create component based application development. With EJBs it is easier to develop components, but the same basic and fundamental maintenance problem will still be there. That is the dependencies between the client and the components. The usage of a component is fixed, changes on the component interface cause to break the client code. The same client/server problem comes back, that is as the users of a component increases the mainteneces of that component getting harder and harder until it goes to impossible.</p>
+<p>For a true component based application development we need to standardize the usage of a component. The client must somehow flexibly figure out automatically how to use a component, so component changes don't affect any of the clients using that component. Without that flexibility, a true component based application development will remain as an idea, a dream, a theory without significant practical use. If we had that flexibility, it could cause a paradime shift in the software development industry.</p>
+<p>JINI was an attempt from Sun to address this flexibility problem. In JINI, the client download the component interface implementation and execute it in the client space.</p>
+<p>So we need to mix (somehow) EJB and JINI technologies to come up with a true flexible component based technology.</p>
+<h2> <span class="mw-headline" id="References">References</span></h2>
+<ul><li><a rel="nofollow" class="external text" href="http://java.sun.com/products/ejb/">Sun EJB Home</a></li>
+</ul><h2> <span class="mw-headline" id="External_links">External links</span></h2>
+<ul><li><a rel="nofollow" class="external text" href="http://javalessons.com/cgi-bin/fun/java-tutorials-main.cgi?sub=ejb&amp;ses=ao789">EJB 2 Tutorial, interactive Java Lessons</a></li>
+</ul></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

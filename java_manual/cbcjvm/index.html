@@ -1,0 +1,735 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+		<link rel="icon" href="images/botball.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="images/botball.ico" type="image/x-icon">
+		<style type="text/css">
+			@import "style.css";
+		</style>
+		<title>CBCJVM Programmers Manual</title>
+	</head>
+	<body>
+		Manual Version 1.0, by Braden McDorman (bmcdorman@kipr.org) and Benjamin Woodruff (benjaminwoodruff@ufl.edu)
+		<br/>
+		<h1>CBCJVM Programmers Manual</h1>
+		<center><img src="CBCJava_64.png" alt="CBCJVM Logo"/></center>
+		<br/>
+		<p>
+			This document assumes you have a decent understanding of Java and
+			CBC development in C. CBCJVM is an Object Oriented library for CBC
+			development in Java. Started in 2009 as an open source project, the
+			project quickly grew as students and professionals contributed to
+			its codebase. Now, after years development, CBCJVM has been included
+			in the official CBC firmware.
+		</p>
+		<p>
+			Java and CBCJVM allow rapid and professional development of robot
+			programs. This document hopes to serve as a guide to understanding
+			CBCJVM and its usage.
+		</p>
+		<p>
+			<b>Note:</b> <i>CBCJVM's APIs are subject to change in the future,
+			so if a future release of CBCJVM breaks your code, don't say we
+			didn't warn you! That said, we'll try to keep major changes to a
+			minimum and documentation up-to-date.</i>
+		</p>
+		<h2>Things That Move (<code>cbccore.motors.*</code>)</h2>
+		<h3>Motors (<code>cbccore.motors.Motor</code>)</h3>
+		<p>
+			Individual motors are creating instances of the
+			<span class="pygments"><code><span class="n">cbccore</span><span class="o">.</span><span class="na">motors</span><span class="o">.</span><span class="na">Motor</span></code></span> class. The <span class="pygments"><code><span class="n">Motor</span></code></span>
+			class has a significant amount of similarity to libcbc. For example,
+			if we wished to move motor on port 0 at a specific velocity for 1
+			second, we could use the <span class="pygments"><code><span class="n">moveAtVelocity</span></code></span> method in
+			<span class="pygments"><code><span class="n">Motor</span></code></span>.
+		</p>
+		<div class="pygments"><pre><span class="kn">import</span> <span class="nn">cbccore.motors.Motor</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MotorTest</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">Motor</span> <span class="n">test</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Motor</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+		<span class="n">test</span><span class="o">.</span><span class="na">moveAtVelocity</span><span class="o">(</span><span class="mi">150</span><span class="o">);</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+		<span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+		<span class="o">}</span> 
+		<span class="n">test</span><span class="o">.</span><span class="na">off</span><span class="o">();</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<p>
+			If you've programmed a CBC in C before, the method
+			<span class="pygments"><code><span class="n">moveAtVelocity</span></code></span> should look somewhat familiar. In C, we
+			can use the <span class="pygments"><code><span class="n">move_at_velocity</span></code></span> or
+			<span class="pygments"><code><span class="n">mav</span></code></span> functions to achieve a similar effect. In CBCJVM,
+			though, we don't have to supply a port to the method. The
+			<span class="pygments"><code><span class="n">Motor</span></code></span> class stores the port we supplied to it in the
+			constructor, cleaning our code both syntactically and conceptually.
+		</p>
+		The next bit of code sleeps for one second (1000 milliseconds.)
+		<div class="pygments"><pre><span class="k">try</span> <span class="o">{</span>
+	<span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+	<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span>
+</pre></div>
+
+		<p>
+			While this code is somewhat verbose, this is the standard way to
+			"sleep" for a given amount of time in Java. As such, we will
+			continue to use it in this manual. If you wish, you may encapsulate
+			this code in a separate method to clean up your logic. However, most
+			code in CBCJVM is reaction based, so sleeping occurs less often than
+			one may think in nontrivial samples.
+		</p>
+		<p>
+			A full listing of methods provided by
+			<span class="pygments"><code><span class="n">cbccore</span><span class="o">.</span><span class="na">motors</span><span class="o">.</span><span class="na">Motor</span></code></span> can be found in CBCJVM's JavaDoc
+			documentation.
+		</p>
+		<h3>Servos (<code>cbccore.motors.Servo</code>)</h3>
+		<p>
+			Servos are also very simple to use in CBCJVM. In the following
+			example, we will quickly move a servo on port 0 to position 500,
+			then smoothly move it to 1000 over a period of 5 seconds. CBCJVM
+			does quite a bit of work behind the scenes to accomplish this for
+			us.
+		</p>
+		<div class="pygments"><pre><span class="kn">import</span> <span class="nn">cbccore.motors.Servo</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ServoTest</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">msleep</span><span class="o">(</span><span class="kt">long</span> <span class="n">ms</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="n">ms</span><span class="o">);</span>
+		<span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">Servo</span> <span class="n">test</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Servo</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+		<span class="n">test</span><span class="o">.</span><span class="na">enable</span><span class="o">();</span>
+		<span class="n">test</span><span class="o">.</span><span class="na">setPosition</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span> <span class="c1">// Move servo to 500 like in C</span>
+		<span class="n">msleep</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span> <span class="c1">// Wait one second</span>
+		<span class="c1">// smoothly move servo to a new position over 5 seconds</span>
+		<span class="n">test</span><span class="o">.</span><span class="na">setPositionTime</span><span class="o">(</span><span class="mi">1000</span><span class="o">,</span> <span class="mi">5000</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+		<span class="n">test</span><span class="o">.</span><span class="na">disable</span><span class="o">();</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<p>
+			Be careful about defining multiple <span class="pygments"><code><span class="n">Servo</span></code></span> objects for
+			the same physical servo. Controlling it simultaneously from multiple
+			objects could have unintended consequences. For this reason, try to
+			match no more than one CBCJVM <span class="pygments"><code><span class="n">Servo</span></code></span> object with each
+			hardware servo.
+		</p>
+		<p>
+			Let's take a closer look at <span class="pygments"><code><span class="n">setPositionTime</span></code></span>. CBCJVM
+			defines the method like this: <span class="pygments"><code><span class="n">setPositionTime</span><span class="o">(</span><span class="kt">int</span> <span class="n">newPos</span><span class="o">,</span>			<span class="kt">int</span> <span class="n">ms</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">blocking</span><span class="o">)</span></code></span>. The first parameter is the new
+			absolute position of the servo, just as in <span class="pygments"><code><span class="n">setPosition</span></code></span>.
+			The next parameter is the time to move over, in milliseconds. The
+			next parameter is called <span class="pygments"><code><span class="n">blocking</span></code></span>. In programming, a
+			function is blocking if it waits for its operation to finish. For
+			example, if we wrote a sample program to compute the value of pi, we
+			may write the following:
+		</p>
+		<div class="pygments"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ComputePi</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Computing Pi...&quot;</span><span class="o">);</span>
+		<span class="n">computePi</span><span class="o">();</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Done!&quot;</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<p>
+			Realistically, this function might take a significant amount of time
+			to finish its computation. In the <b>blocking</b> scenario, the text
+			"Done!" wouldn't print until the calculation finished. However, if
+			the method is <b>nonblocking</b>, "Done!" will print immediately. A
+			blocking function halts execution until it is finished, while a
+			nonblocking function allows execution to continue. In both cases, pi
+			will be computed, but in the nonblocking scenario we don't wait for
+			it to do so.
+		</p>
+		<p>
+			Since both scenarios have their obvious uses, CBCJVM allows the
+			programmer to pick. In our example, we block. Otherwise, we would be
+			disabling the servo before the servo finished moving, which wouldn't
+			produce the desired behavior.
+		</p>
+		<h2>Sensors (<code>cbccore.sensors.*</code>)</h2>
+		<p>
+			CBCJVM sensors are slightly less straightforward than what we've
+			learned so far. Sensors are based off of two core abstractions, that
+			of the <span class="pygments"><code><span class="n">IBooleanSensor</span></code></span> and the
+			<span class="pygments"><code><span class="n">IAnalogSensor</span></code></span>. All other sensors and sensor decorators
+			are based off of these two classes. For now, we will discuss the two
+			of them separately.
+		</p>
+		<h3>
+			Boolean Sensors
+			(<code>cbccore.sensors.digital.*</code>)
+		</h3>
+		<p>
+			A Boolean sensor can be defined very simply: Anything that can
+			return a true or a false. The method we call to determine this state
+			is called <span class="pygments"><code><span class="n">getValue</span></code></span> All digital sensors fall under this
+			category, so we will discuss them first. In the following example,
+			we will wait for a touch sensor on port 15 to be pressed before
+			printing a message.
+		</p>
+		<div class="pygments"><pre><span class="kn">import</span> <span class="nn">cbccore.sensors.digital.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TouchSensors</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">Touch</span> <span class="n">sensor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Touch</span><span class="o">(</span><span class="mi">15</span><span class="o">);</span>
+		<span class="k">while</span><span class="o">(!</span><span class="n">sensor</span><span class="o">.</span><span class="na">getValue</span><span class="o">())</span> <span class="n">Thread</span><span class="o">.</span><span class="na">yield</span><span class="o">();</span> <span class="c1">// Wait until sensor is pressed</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Touched!&quot;</span><span class="o">);</span> <span class="c1">// Code executed after sensor is pressed</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<p>
+			You may be wondering what <span class="pygments"><code><span class="n">Thread</span><span class="o">.</span><span class="na">yield</span></code></span> does. Why didn't
+			we just use <span class="pygments"><code><span class="k">while</span><span class="o">(!</span><span class="n">sensor</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span></code></span>? To understand why, let's take a look at a slightly more
+			complicated scenario. Let's say that CBCJVM was smoothly moving a
+			servo for you, and you chose to continue code execution
+			(nonblocking.) CBCJVM is able to do this by running a thread called
+			<span class="pygments"><code><span class="n">ServoThread</span></code></span> in the background, which updates the servo
+			on your behalf. Now your program has two "threads" of execution. One
+			of these is your main method, and the other is the ServoThread. If
+			we simply do <span class="pygments"><code><span class="k">while</span><span class="o">(!</span><span class="n">sensor</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span></code></span>, we've effectively locked out other threads from using the
+			processor. As a result, servo movement will be anything but smooth.
+			Since the thread updating the servo on our behalf can no longer do
+			its job, the servo will move in a sporadic manner.
+			<span class="pygments"><code><span class="n">Thread</span><span class="o">.</span><span class="na">yield</span></code></span> solves this issue, by effectively telling
+			Java we aren't doing anything important, so give the processor to
+			another thread. Our <span class="pygments"><code><span class="n">ServoThread</span></code></span> continues to run as a
+			result, and our servo smoothly moves to where we told it! This is a
+			good habit to get into.
+		</p>
+		<h4>User Input (<code>cbccore.sensors.buttons.*</code>)</h4>
+		<p>
+			In addition to handlers for various physical sensors, CBCJVM
+			includes a set of classes allowing one to treat cbcui's buttons as
+			digital sensors. For example, we can slightly modify the above code
+			to use the a-button instead of a touch sensor.
+		</p>
+		<div class="pygments"><pre><span class="kn">import</span> <span class="nn">cbccore.sensors.buttons.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ButtonDemo</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">AButton</span> <span class="n">button</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AButton</span><span class="o">();</span> <span class="c1">// No port number is needed</span>
+		<span class="k">while</span><span class="o">(!</span><span class="n">button</span><span class="o">.</span><span class="na">getValue</span><span class="o">())</span> <span class="n">Thread</span><span class="o">.</span><span class="na">yield</span><span class="o">();</span> <span class="c1">// Wait until button is pressed</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Pressed!&quot;</span><span class="o">);</span> <span class="c1">// Code executed after button is pressed</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<p>
+			Taking things one step further, we can use some-button specific
+			methods, defined by the <span class="pygments"><code><span class="n">AbstractButton</span></code></span> class, changing
+			the line
+		</p>
+		<div class="pygments"><pre><span class="k">while</span><span class="o">(!</span><span class="n">button</span><span class="o">.</span><span class="na">getValue</span><span class="o">())</span> <span class="n">Thread</span><span class="o">.</span><span class="na">yield</span><span class="o">();</span>
+</pre></div>
+
+		<p>
+			to the more readable
+		</p>
+		<div class="pygments"><pre><span class="k">while</span><span class="o">(</span><span class="n">button</span><span class="o">.</span><span class="na">isNotPressed</span><span class="o">())</span> <span class="n">Thread</span><span class="o">.</span><span class="na">yield</span><span class="o">();</span>
+</pre></div>
+
+		<h3>Analog Sensors (<code>cbccore.sensors.analog.*</code>)</h3>
+		<p>
+			Analog sensors, such as distance or light sensors are dealt with
+			similarly to boolean sensors, however the sensor values are
+			naturally given as integers rather than booleans.
+		</p>
+		<p>
+			There are two main functions for deriving value from an Analog
+			sensor object. Like in the C-library, where there are the
+			<span class="pygments"><code><span class="n">analog</span></code></span> and
+			<span class="pygments"><code><span class="n">analog10</span></code></span> functions, CBCJVM has
+			<span class="pygments"><code><span class="n">getValue</span></code></span> and <span class="pygments"><code><span class="n">getValueHigh</span></code></span> methods. In
+			CBCJVM, <span class="pygments"><code><span class="n">getValue</span></code></span> is allowed, but explicitly deprecated
+			in favor of <span class="pygments"><code><span class="n">getValueHigh</span></code></span>. This is because it has
+			reduced precision with no benefits, however having it may be useful
+			when porting old C-code over to CBCJVM. If you compile code using
+			<span class="pygments"><code><span class="n">getValue</span></code></span>, you will receive a deprecation warning.
+		</p>
+		<p>
+			The CBC's floating mode allows one to work with certain pieces of
+			hardware, such as the ET Sensor. KISS-C's API requires one to set
+			the floating mode for all sensors at once. CBCJVM improves upon this
+			API slightly, allowing you to set each sensor individually through
+			<span class="pygments"><code><span class="n">cbccore</span><span class="o">.</span><span class="na">sensors</span><span class="o">.</span><span class="na">analog</span><span class="o">.</span><span class="na">Analog</span></code></span>'s
+			<span class="pygments"><code><span class="n">setFloating</span></code></span> method, doing the required work for you in
+			the background. To enable floating mode, you could simply execute a
+			line of code such as:
+		</p>
+		<div class="pygments"><pre><span class="n">mySensor</span><span class="o">.</span><span class="na">setFloating</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+</pre></div>
+
+		<p>
+			Disabling floating mode would be as simple as passing
+			<span class="pygments"><code><span class="kc">false</span></code></span> instead. Floating mode is off by default.
+		</p>
+		<p>
+			What follows is a simple program to read an analog sensor, such as
+			a top-hat sensor, plugged into port 6 multiple times, averaging the
+			results together and printing them out.
+		</p>
+		<div class="pygments"><pre><span class="kn">import</span> <span class="nn">cbccore.sensors.analog.*</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">cbccore.sensors.buttons.AButton</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SensorReader</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="c1">// Wait for user input before we start</span>
+		<span class="n">AButton</span> <span class="n">button</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AButton</span><span class="o">();</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Press the \&quot;A\&quot; button to begin!&quot;</span><span class="o">)</span>
+		<span class="k">while</span><span class="o">(!</span><span class="n">button</span><span class="o">.</span><span class="na">getValue</span><span class="o">())</span> <span class="n">Thread</span><span class="o">.</span><span class="na">yield</span><span class="o">();</span> <span class="c1">// Wait until button is pressed</span>
+		<span class="c1">// Initialize our variables used</span>
+		<span class="kt">int</span> <span class="n">sum</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+		<span class="kt">int</span> <span class="n">numberOfReadings</span> <span class="o">=</span> <span class="mi">15</span><span class="o">;</span>
+		<span class="n">Analog</span> <span class="n">sensor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Analog</span><span class="o">(</span><span class="mi">6</span><span class="o">);</span>
+		<span class="c1">// Perform the reading</span>
+		<span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numberOfReadings</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">sum</span> <span class="o">+=</span> <span class="n">sensor</span><span class="o">.</span><span class="na">getValueHigh</span><span class="o">();</span>
+		<span class="o">}</span>
+		<span class="kt">int</span> <span class="n">average</span> <span class="o">=</span> <span class="n">Math</span><span class="o">.</span><span class="na">round</span><span class="o">((</span><span class="kt">double</span><span class="o">)</span><span class="n">sum</span> <span class="o">/</span> <span class="n">numberOfReadings</span><span class="o">);</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;I recorded a value of &quot;</span> <span class="o">+</span> <span class="n">average</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<h4>ET Sensors (<code>cbccore.sensors.analog.ETSensor</code>)</h4>
+		<p>
+			ET Sensors tend to be complicated, requiring intricate calibration,
+			as values they give roughly fit a power model, instead of being
+			linear. The <span class="pygments"><code><span class="n">ETSensor</span></code></span> can take calibration information,
+			use it to generate distances in centimeters. Additionally, the
+			ETSensor class automatically sets the proper port to floating mode
+			for you.
+		</p>
+		<p>
+			To get started quickly, one can use the default calibration values:
+		</p>
+		<div class="pygments"><pre><span class="kn">import</span> <span class="nn">cbccore.sensors.analog.ETSensor</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SimpleETDistanceFinder</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">ETSensor</span> <span class="n">sensor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ETSensor</span><span class="o">(</span><span class="mi">6</span><span class="o">);</span> <span class="c1">// Let&#39;s say it&#39;s in port 6</span>
+		<span class="c1">// Make five readings averaged together, waiting 10ms between each one:</span>
+		<span class="kt">double</span> <span class="n">distanceCm</span> <span class="o">=</span> <span class="n">sensor</span><span class="o">.</span><span class="na">getCm</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="mi">10</span><span class="o">);</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;The nearest object is about &quot;</span> <span class="o">+</span> <span class="n">distanceCm</span> <span class="o">+</span>
+		                   <span class="s">&quot; centimeters away&quot;</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<p>
+			For calibration values specific to your sensor, you can use a tool
+			like
+			<a href="kiss://openfile#targets/java/templates/ETCalibrator/bin/
+			Main.java">the example ET calibrator</a>. It will ask you to move an
+			object various distances away from the ET sensor, and then it will
+			calibrate around those experimental values. You can optimize about
+			specific distances by modifying the <span class="pygments"><code><span class="n">distances</span></code></span> array in
+			the program. This should give you an output like:
+		</p>
+		<div class="pygments"><pre><span class="nl">bestPow:</span> <span class="mf">1.23</span>
+<span class="nl">bestK:</span> <span class="mi">29470</span>
+<span class="nl">bestB:</span> <span class="o">-.</span><span class="mi">00448</span>
+<span class="n">with</span> <span class="nl">deviation:</span> <span class="mf">0.01</span>
+</pre></div>
+
+		<p>
+			Which then can be mapped to the constructor like:
+			<span class="pygments"><code><span class="k">new</span> <span class="nf">ETSensor</span><span class="o">(</span><span class="n">port</span><span class="o">,</span> <span class="mi">29470</span><span class="o">,</span> <span class="mf">1.23</span><span class="o">,</span> <span class="o">-.</span><span class="mi">00448</span><span class="o">)</span></code></span>, where
+			<span class="pygments"><code><span class="n">port</span></code></span> is the port that the ET sensor is plugged into.
+		</p>
+		<h4>
+			Using Analog Sensors like Digital Sensors, or <i>I Can't Believe
+			it's not Boolean!</i>
+			(<code>cbccore.sensors.analog.AnalogBooleanAdapter</code>)
+		</h4>
+		<p>
+			A common goal when using analog sensors is to have them act around a
+			specific pivot point. In this case, while you are working with an
+			analog sensor, you are conceptually treating it like a boolean one.
+		</p>
+		<p>
+			The <span class="pygments"><code><span class="n">AnalogBooleanAdapter</span></code></span> class can take a
+			<span class="pygments"><code><span class="n">Analog</span></code></span> sensor object, and let you treat it like a
+			<span class="pygments"><code><span class="n">cbccore</span><span class="o">.</span><span class="na">sensors</span><span class="o">.</span><span class="na">digital</span><span class="o">.</span><span class="na">IBooleanSensor</span></code></span> object. For
+			example, you can construct an instance like
+		</p>
+		<div class="pygments"><pre><span class="n">Analog</span> <span class="n">baseLightSensor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Analog</span><span class="o">(</span><span class="mi">6</span><span class="o">);</span>
+<span class="n">IBooleanSensor</span> <span class="n">lightSensor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnalogBooleanAdapter</span><span class="o">(</span><span class="n">baseLightSensor</span><span class="o">,</span> <span class="mi">50</span><span class="o">);</span>
+</pre></div>
+
+		<p>
+			This will make a virtual boolean sensor out of the analog sensor in
+			port 6. When <span class="pygments"><code><span class="n">baseLightSensor</span><span class="o">.</span><span class="na">getValueHigh</span><span class="o">()</span></code></span> gives a
+			value <u>greater than or equal to</u> 50,
+			<span class="pygments"><code><span class="n">lightSensor</span><span class="o">.</span><span class="na">getValue</span><span class="o">()</span></code></span> will give a value of
+			<span class="pygments"><code><span class="kc">true</span></code></span>. As a convenience,
+			<span class="pygments"><code><span class="n">AnalogBooleanAdapter</span></code></span> can be constructed with a
+			<span class="pygments"><code><span class="n">reverseCondition</span></code></span> argument. Constructing an
+			<span class="pygments"><code><span class="n">AnalogBooleanAdapter</span></code></span> instance like
+		</p>
+		<div class="pygments"><pre><span class="n">IBooleanSensor</span> <span class="n">lightSensor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AnalogBooleanAdapter</span><span class="o">(</span><span class="n">baseLightSensor</span><span class="o">,</span> <span class="mi">50</span><span class="o">,</span> <span class="kc">true</span><span class="o">);</span>
+</pre></div>
+
+		<p>
+			would make <span class="pygments"><code><span class="n">lightSensor</span><span class="o">.</span><span class="na">getValue</span><span class="o">()</span></code></span> give a value of
+			<span class="pygments"><code><span class="kc">true</span></code></span> when <span class="pygments"><code><span class="n">baseLightSensor</span><span class="o">.</span><span class="na">getValueHigh</span><span class="o">()</span></code></span>
+			gives a value <u>less than</u> 50.
+		</p>
+		<p>
+			In some cases, a virtual boolean device can improve readability,
+			such as in the following example.
+		</p>
+		<div class="pygments"><pre><span class="k">while</span><span class="o">(!</span><span class="n">lightSensor</span><span class="o">.</span><span class="na">getValue</span><span class="o">())</span> <span class="n">Thread</span><span class="o">.</span><span class="na">yield</span><span class="o">();</span> <span class="c1">// Wait until light turns on</span>
+</pre></div>
+
+		<p>
+			However, the real power of the <span class="pygments"><code><span class="n">AnalogBooleanAdapter</span></code></span>
+			class becomes apparent when used with an event system.
+		</p>
+		<h1>Eventing (<code>cbccore.events</code>)</h1>
+		<p>
+			An event-system flips the way one handles changes in a system. The
+			traditional way of receiving information on these events is through
+			<b>polling</b>. An example of this can be seen in the following
+			code:
+		</p>
+		<div class="pygments"><pre><span class="k">while</span><span class="o">(!</span><span class="n">button</span><span class="o">.</span><span class="na">getValue</span><span class="o">())</span> <span class="n">Thread</span><span class="o">.</span><span class="na">yield</span><span class="o">();</span> <span class="c1">// Wait until button is pressed</span>
+</pre></div>
+
+		<p>
+			This code gets the job done, but it sure is expensive, and we can't
+			easily do anything else while the code is running (the code is
+			blocking).
+		</p>
+		<p>
+			Now imagine if we had the sensor, the button (or whatever else you
+			can think of that might have a state that changes), <i>called
+			us</i>. We could write code on how to pick up the (metaphorical)
+			phone and respond, but we could do things in the meantime. We
+			wouldn't have to worry about waiting for an action, and if we
+			wanted, we could sit <i>completely idle</i>, consuming almost no CPU
+			cycles if we wanted to, with no need to perform expensive polling.
+			CBCJVM's event system attempts to provide the mechanisms needed for
+			this type of "callback" setup.
+		</p>
+		<p>
+			<b>Note:</b> <i>While it would be ideal to have a sensor or button
+			notify us, the KISS-C API doesn't allow for exactly that. Therefore,
+			polling must occur for those specific cases. For buttons and
+			sensors, where there is no choice but to poll, CBCJVM performs the
+			polling in the background, but in the most efficient way
+			possible.</i>
+		</p>
+		<p>
+			When it comes to CBCJVM's event system, there are four major
+			constructs: <span class="pygments"><code><span class="n">Event</span></code></span> objects, <span class="pygments"><code><span class="n">EventType</span></code></span>
+			objects, <span class="pygments"><code><span class="n">IEventListener</span></code></span> instances, and the
+			<span class="pygments"><code><span class="n">EventManager</span></code></span>. A developer first "connects" an
+			<span class="pygments"><code><span class="n">IEventListener</span></code></span> instance to an
+			<span class="pygments"><code><span class="n">EventManager</span></code></span>, specifying an <span class="pygments"><code><span class="n">EventType</span></code></span>.
+			Later on, if an emitter, such as
+			<span class="pygments"><code><span class="n">cbccore</span><span class="o">.</span><span class="na">sensors</span><span class="o">.</span><span class="na">buttons</span><span class="o">.</span><span class="na">ButtonEmitter</span></code></span> notices a state
+			change, it will create a new <span class="pygments"><code><span class="n">Event</span></code></span> object, and emit it
+			using the <span class="pygments"><code><span class="n">EventManager</span></code></span>. When the
+			<span class="pygments"><code><span class="n">EventManager</span></code></span> receives this emitted event, it then
+			broadcasts it to any listeners connected to the event's
+			<span class="pygments"><code><span class="n">EventType</span></code></span>.
+		</p>
+		<p>
+			An example of this can be seen in an example button-listening
+			system: <a href="kiss://openfile#targets/java/templates/Buttons/bin/
+			Main.java">(also included in CBCJVM's examples)</a>
+		</p>
+		<div class="pygments"><pre><span class="kn">import</span> <span class="nn">cbccore.Device</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">cbccore.events.Event</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">cbccore.events.EventManager</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">cbccore.events.EventListenerAdapter</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">cbccore.sensors.buttons.ButtonEmitter</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">EventingButtonHandler</span> <span class="o">{</span>
+	
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">EventManager</span> <span class="n">manager</span> <span class="o">=</span> <span class="n">EventManager</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
+		<span class="n">ButtonEmitter</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">start</span><span class="o">();</span>
+		
+		
+		<span class="n">EventListenerAdapter</span> <span class="n">AButtonPressedHandler</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EventListenerAdapter</span><span class="o">()</span> <span class="o">{</span>
+			<span class="nd">@Override</span>
+			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">event</span><span class="o">(</span><span class="n">Event</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+				<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;The A Button Was Pressed!&quot;</span><span class="o">);</span>
+			<span class="o">}</span>
+		<span class="o">};</span>
+		
+		<span class="n">EventListenerAdapter</span> <span class="n">AButtonReleasedHandler</span> <span class="o">=</span> <span class="k">new</span> <span class="n">EventListenerAdapter</span><span class="o">()</span> <span class="o">{</span>
+			<span class="nd">@Override</span>
+			<span class="kd">public</span> <span class="kt">void</span> <span class="nf">event</span><span class="o">(</span><span class="n">Event</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+				<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;The A Button Was Released!&quot;</span><span class="o">);</span>
+			<span class="o">}</span>
+		<span class="o">};</span>
+		
+		<span class="n">manager</span><span class="o">.</span><span class="na">connect</span><span class="o">(</span><span class="n">ButtonEmitter</span><span class="o">.</span><span class="na">AButtonPressed</span><span class="o">,</span> <span class="n">AButtonPressedHandler</span><span class="o">);</span>
+		<span class="n">manager</span><span class="o">.</span><span class="na">connect</span><span class="o">(</span><span class="n">ButtonEmitter</span><span class="o">.</span><span class="na">AButtonReleased</span><span class="o">,</span> <span class="n">AButtonReleasedHandler</span><span class="o">);</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">cbccore</span><span class="o">.</span><span class="na">Device</span><span class="o">.</span><span class="na">init</span><span class="o">();</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Press the A button.&quot;</span><span class="o">);</span>
+		<span class="k">new</span> <span class="nf">EventingButtonHandler</span><span class="o">().</span><span class="na">run</span><span class="o">();</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<p>
+			You'll find that for complicated problems, or where performance is
+			important, CBCJVM's event system can be handy. But the event system
+			inevitably adds some overhead, and requires some boilerplate code,
+			making it less than ideal in some simple cases. Therefore, the
+			decision of when to use, and when not to use the event system lies
+			with the end developer.
+		</p>
+		<h1>High-Level Navigation (<code>cbccore.movement</code>)</h1>
+		<p>
+			CBCJVM comes with a very high-level navigation library allowing a
+			user to move a dual-wheel drive system by issuing commands such as
+			<span class="pygments"><code><span class="n">moveCm</span><span class="o">(</span><span class="mi">5</span><span class="o">,</span> <span class="n">getMaxCmps</span><span class="o">())</span></code></span>, which would move a properly
+			calibrated robot 5 centimeters at the maximum possible speed.
+		</p>
+		<h2>Constructing a <code>DriveTrain</code> Instance</h2>
+		<p>
+			The APIs for dealing with creates and traditional motor-based
+			drive-trains are significantly different. To mitigate this problem,
+			CBCJVM's movement library utilizes a plugin system. When defining a
+			plugin, one simply tells the movement library how to perform some
+			very basic tasks, such as driving the left and right wheels at given
+			speeds. Additionally, plugins provide the <span class="pygments"><code><span class="n">DriveTrain</span></code></span>
+			information on the physical dimensions of the robot, which may be
+			needed for turning.
+		</p>
+		<p>
+			Before we can construct an instance of <span class="pygments"><code><span class="n">DriveTrain</span></code></span>, we
+			must first construct a plugin for it. Fortunately, plugin classes
+			are already defined for create and traditional two-wheel based lego
+			drive-train robots.
+		</p>
+		<h3>Making a New <code>CreateMovementPlugin</code> Instance</h3>
+		<p>
+			The <code>CreateMovementPlugin</code> class is very easy to
+			instantiate, requiring no measurements, only an instance of a
+			<span class="pygments"><code><span class="n">cbccore</span><span class="o">.</span><span class="na">create</span><span class="o">.</span><span class="na">Create</span></code></span> object. A <span class="pygments"><code><span class="n">Create</span></code></span>
+			object can be created with no arguments, or with an optional "lag"
+			argument, which maps to KISS-C's related function arguments,
+			representing the number of seconds to wait between sensor updates.
+			If no argument is specified, a lag of 0 is given.
+		</p>
+		<p>
+			The only catch here, is that either the <span class="pygments"><code><span class="n">Create</span></code></span> or the
+			<span class="pygments"><code><span class="n">CreateMovementPlugin</span></code></span> constructors could throw a
+			<span class="pygments"><code><span class="n">cbccore</span><span class="o">.</span><span class="na">create</span><span class="o">.</span><span class="na">CreateConnectException</span></code></span>, as they attempt
+			to automatically connect to the create. Because of this, we must
+			form a try-catch block around our initialization code.
+		</p>
+		<p>
+			Here is an example of a program to construct a new
+			<span class="pygments"><code><span class="n">CreateMovementPlugin</span></code></span>, and nothing else:
+		</p>
+		<div class="pygments"><pre><span class="kn">import</span> <span class="nn">cbccore.movement.plugins.MovementPlugin</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">cbccore.movement.plugins.create.CreateMovementPlugin</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">cbccore.create.Create</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">cbccore.create.CreateConnectException</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CreateMovementPluginConstructionTest</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">MovementPlugin</span> <span class="n">plugin</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">plugin</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CreateMovementPlugin</span><span class="o">(</span><span class="k">new</span> <span class="n">Create</span><span class="o">());</span>
+		<span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">CreateConnectException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Create failed to connect.&quot;</span><span class="o">);</span>
+			<span class="n">System</span><span class="o">.</span><span class="na">exit</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+		<span class="o">}</span>
+		<span class="c1">// you could then construct a DriveTrain with the plugin and do</span>
+		<span class="c1">// something interesting</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<h3>Making a New <code>MotorMovementPlugin</code> Instance</h3>
+		<p>
+			A <span class="pygments"><code><span class="n">MotorMovementPlugin</span></code></span> represents a traditional
+			two-wheeled lego robot, powered by two separate drive motors.
+		</p>
+		<p>
+			<span class="pygments"><code><span class="n">cbccore</span><span class="o">.</span><span class="na">movement</span><span class="o">.</span><span class="na">plugins</span><span class="o">.</span><span class="na">motor</span><span class="o">.</span><span class="na">MotorMovementPlugin</span></code></span>
+			objects are a bit more complicated to construct, as they require a
+			few measurements; wheel circumferences, and the distance between the
+			two wheels.
+		</p>
+		<p>
+			Wheel circumferences are provided through
+			<span class="pygments"><code><span class="n">cbccore</span><span class="o">.</span><span class="na">movement</span><span class="o">.</span><span class="na">plugins</span><span class="o">.</span><span class="na">motor</span><span class="o">.</span><span class="na">Wheel</span></code></span> objects.
+			<span class="pygments"><code><span class="n">Wheel</span></code></span> objects are constructed with a port and a
+			circumference in centimeters (everything in
+			<span class="pygments"><code><span class="n">cbccore</span><span class="o">.</span><span class="na">movement</span></code></span> uses centimeters). The distance
+			between the two wheels is provided in the
+			<span class="pygments"><code><span class="n">MotorMovementPlugin</span></code></span> constructor itself.
+		</p>
+		<p>
+			Here is an example of a program to construct a new
+			<span class="pygments"><code><span class="n">MotorMovementPlugin</span></code></span>, and nothing else:
+		</p>
+		<div class="pygments"><pre><span class="kn">import</span> <span class="nn">cbccore.movement.plugins.MovementPlugin</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">cbccore.movement.plugins.motor.Wheel</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">cbccore.movement.plugins.motor.MotorMovementPlugin</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MotorMovementPluginConstructionTest</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="c1">// Let&#39;s pretend we have a robot with a left wheel motor plugged into</span>
+		<span class="c1">// port 0, and a right wheel motor plugged into port 1. The</span>
+		<span class="c1">// circumference for both wheels is 14.5 cm. The distance between the</span>
+		<span class="c1">// wheels is 9.2 cm.</span>
+		<span class="n">MovementPlugin</span> <span class="n">plugin</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MotorMovementPlugin</span><span class="o">(</span>
+			<span class="k">new</span> <span class="nf">Wheel</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="mf">14.5</span><span class="o">),</span> <span class="k">new</span> <span class="n">Wheel</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="mf">14.5</span><span class="o">),</span> <span class="mf">9.2</span>
+		<span class="o">);</span>
+		<span class="c1">// you could then construct a DriveTrain with the plugin and do</span>
+		<span class="c1">// something interesting</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+		<h3>Putting Things Together</h3>
+		<p>
+			Now that we have a plugin, we can construct a
+			<span class="pygments"><code><span class="n">DriveTrain</span></code></span> instance. The constructor requires the
+			plugin and nothing else. Given a plugin named <span class="pygments"><code><span class="n">plugin</span></code></span>,
+			constructing a <span class="pygments"><code><span class="n">DriveTrain</span></code></span> (assuming you've already
+			imported <span class="pygments"><code><span class="n">cbccore</span><span class="o">.</span><span class="na">movement</span><span class="o">.</span><span class="na">DriveTrain</span></code></span>) is as simple as
+		</p>
+		<div class="pygments"><pre><span class="n">DriveTrain</span> <span class="n">dt</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DriveTrain</span><span class="o">(</span><span class="n">plugin</span><span class="o">);</span>
+</pre></div>
+
+		<h2>Using Your New <code>DriveTrain</code></h2>
+		<p>
+			There are a variety of methods that can be used with the
+			<span class="pygments"><code><span class="n">DriveTrain</span></code></span> class. For the full listing, check the
+			JavaDoc page for the class. We'll cover the most basic movements
+			here: driving straight, and turning.
+		</p>
+		<h3>Moving Straight</h3>
+		<p>
+			One of the simplest conceivable programs for a robot is simply to
+			have it drive straight an arbitrary distance. CBCJVM's
+			<span class="pygments"><code><span class="n">moveCm</span><span class="o">(</span><span class="n">cm</span><span class="o">,</span> <span class="n">cmps</span><span class="o">)</span></code></span> allows you to do just this. The only
+			issue to solve, is the right cmps to move at. Often, one will want
+			to move at a proportion of the maximum speed of the robot. The
+			<span class="pygments"><code><span class="n">DriveTrain</span></code></span> class defines two methods to help with this,
+			<span class="pygments"><code><span class="n">getMaxCmps</span><span class="o">()</span></code></span> and <span class="pygments"><code><span class="n">getMinCmps</span><span class="o">()</span></code></span>. The first
+			gets the maximum forward speed in centimeters-per-second of the
+			robot. The second gets the maximum backwards speed of the robot.
+			Multiplying the returned value of these methods with a proportion
+			will give a speed in proportion to the maximum speed of the robot.
+		</p>
+		<p>
+			Given a <span class="pygments"><code><span class="n">DriveTrain</span></code></span> object, <span class="pygments"><code><span class="n">dt</span></code></span>, you could
+			move the robot forward one meter at half speed with the line of
+			code,
+		</p>
+		<div class="pygments"><pre><span class="n">dt</span><span class="o">.</span><span class="na">moveCm</span><span class="o">(</span><span class="mi">100</span><span class="o">.,</span> <span class="n">dt</span><span class="o">.</span><span class="na">getMaxCmps</span><span class="o">()</span> <span class="o">*</span> <span class="mf">0.5</span><span class="o">);</span>
+</pre></div>
+
+		<p>
+			and backwards with the line of code,
+		</p>
+		<div class="pygments"><pre><span class="n">dt</span><span class="o">.</span><span class="na">moveCm</span><span class="o">(-</span><span class="mi">100</span><span class="o">.,</span> <span class="n">dt</span><span class="o">.</span><span class="na">getMinCmps</span><span class="o">()</span> <span class="o">*</span> <span class="mf">0.5</span><span class="o">);</span>
+</pre></div>
+
+		<p>
+			<b>Note:</b> <i>As our second argument is speed and not velocity,
+			sign doesn't matter, but it is typically customary with CBCJVM, and
+			often more readable, to give the displacement and speed arguments
+			matching signs.</i>
+		</p>
+		<h3>Rotating in Place</h3>
+		<p>
+			Often times, the next step in navigation is to rotate a robot in
+			place. The <span class="pygments"><code><span class="n">rotateDegrees</span><span class="o">(</span><span class="n">degrees</span><span class="o">,</span> <span class="n">degreesPerSecond</span><span class="o">)</span></code></span> and
+			<span class="pygments"><code><span class="n">rotateRadians</span><span class="o">(</span><span class="n">radians</span><span class="o">,</span> <span class="n">radiansPerSecond</span><span class="o">)</span></code></span> methods can do
+			just that. The first argument's sign specifies the direction to
+			turn: counter-clockwise when positive, and clockwise when negative.
+			The <span class="pygments"><code><span class="n">getMaxDegreesPerSec</span><span class="o">()</span></code></span>,
+			<span class="pygments"><code><span class="n">getMinDegreesPerSec</span><span class="o">()</span></code></span>,
+			<span class="pygments"><code><span class="n">getMaxRadiansPerSec</span><span class="o">()</span></code></span>, and
+			<span class="pygments"><code><span class="n">getMinRadiansPerSec</span><span class="o">()</span></code></span> can aid with determining a good
+			rotational speed.
+		</p>
+		<p>
+			Making a 90-degree left turn at half-speed is as simple as
+		</p>
+		<div class="pygments"><pre><span class="n">dt</span><span class="o">.</span><span class="na">rotateDegrees</span><span class="o">(</span><span class="mi">90</span><span class="o">.,</span> <span class="n">dt</span><span class="o">.</span><span class="na">getMaxDegreesPerSec</span><span class="o">()</span> <span class="o">*</span> <span class="mf">0.5</span><span class="o">);</span>
+</pre></div>
+
+		<p>
+			and making a 90-degree right turn at half-speed can be done with
+		</p>
+		<div class="pygments"><pre><span class="n">dt</span><span class="o">.</span><span class="na">rotateDegrees</span><span class="o">(-</span><span class="mi">90</span><span class="o">.,</span> <span class="n">dt</span><span class="o">.</span><span class="na">getMinDegreesPerSec</span><span class="o">()</span> <span class="o">*</span> <span class="mf">0.5</span><span class="o">);</span>
+</pre></div>
+
+		<h1>Botball Specific Tools (<code>cbccore.Botball</code>)</h1>
+		<p>
+			CBCJVM contains a couple of standard tools for botball tournaments,
+			similar to KISS-C.
+		</p>
+		<p>
+			After importing <span class="pygments"><code><span class="n">cbccore</span><span class="o">.</span><span class="na">Botball</span></code></span> and
+			<span class="pygments"><code><span class="n">cbccore</span><span class="o">.</span><span class="na">sensors</span><span class="o">.</span><span class="na">analog</span><span class="o">.</span><span class="na">Analog</span></code></span>, waiting for a light can
+			be accomplished with the following line of code:
+		</p>
+		<div class="pygments"><pre><span class="n">Botball</span><span class="o">.</span><span class="na">waitForLight</span><span class="o">(</span><span class="k">new</span> <span class="n">Analog</span><span class="o">(</span><span class="mi">0</span><span class="o">));</span> <span class="c1">// assume port 0 for light sensor</span>
+</pre></div>
+
+		<p>
+			A failsafe, disabling the robot after a fixed period can be enabled
+			with the following line of code:
+		</p>
+		<div class="pygments"><pre><span class="k">new</span> <span class="nf">Botball</span><span class="o">().</span><span class="na">shutDownIn</span><span class="o">(</span><span class="mf">115.0</span><span class="o">);</span> <span class="c1">// force stop after 115 seconds after this line</span>
+                                 <span class="c1">// of code is executed</span>
+</pre></div>
+
+		<h1>Ending Notes</h1>
+		<p>
+			Hopefully that's enough to get you started! Despite the length of
+			this document, we've only begun to scratch the surface. Java itself
+			is a massive language, with one of the largest standard language
+			libraries in existence!
+		</p>
+		<p>
+			From here, we'd recommend you take a look at the CBCJVM JavaDoc
+			documentation, and perhaps even the
+			<a href="https://github.com/CBCJVM/CBCJVM">CBCJVM source code
+			itself!</a> If you find a bug in CBCJVM, or would like a new
+			feature, feel free to either
+			<a href="https://github.com/CBCJVM/CBCJVM/issues">request it</a>, or
+			(even better) fix or add it yourself. CBCJVM is always welcoming of
+			new developers, even if you aren't the most experienced.
+		</p>
+		<p>
+			<i>Sincerely and Good Luck,<br>The CBCJVM Developers</i>
+		</p>
+	</body>
+</html>
+

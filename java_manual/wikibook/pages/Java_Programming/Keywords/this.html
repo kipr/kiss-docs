@@ -1,0 +1,70 @@
+<html><head><title>Java Programming/Keywords/this</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Keywords/this</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">this</strong></font></code> is a Java keyword. It contains the current object reference.</p>
+<p>Syntax:</p>
+<pre>
+<code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">this</strong></font></code>.method();
+or
+<code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">this</strong></font></code>.variable;
+
+</pre>
+<p>Example #1:</p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">public</span> <span class="kw1">class</span> MyClass<br>
+&#160;<span class="br0">{</span><br>
+&#160; &#160; <span class="co1">//...</span><br>
+&#160; &#160; <span class="kw1">private</span> <span class="kw3">String</span> _memberVar<span class="sy0">;</span><br>
+&#160; &#160; <span class="co1">//...</span><br>
+&#160; &#160; <span class="kw1">public</span> <span class="kw4">void</span> setMemberVar<span class="br0">(</span> <span class="kw3">String</span> value <span class="br0">)</span><br>
+&#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">this</span>._memberVar<span class="sy0">=</span> value<span class="sy0">;</span><br>
+&#160; &#160; <span class="br0">}</span><br>
+&#160;<span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p>Example #2:</p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">public</span> <span class="kw1">class</span> MyClass<br>
+&#160;<span class="br0">{</span><br>
+&#160; &#160; MyClass<span class="br0">(</span><span class="kw4">int</span> a, <span class="kw4">int</span> b<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"int a: "</span> <span class="sy0">+</span> a<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"int b: "</span> <span class="sy0">+</span> b<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; MyClass<span class="br0">(</span><span class="kw4">int</span> a<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">this</span><span class="br0">(</span>a, <span class="nu0">0</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; <span class="co1">//...</span><br>
+&#160; &#160; <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">new</span> MyClass<span class="br0">(</span><span class="nu0">1</span>, <span class="nu0">2</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">new</span> MyClass<span class="br0">(</span><span class="nu0">5</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; <span class="br0">}</span><br>
+&#160;<span class="br0">}</span></div>
+</div>
+</td>
+</tr></table></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

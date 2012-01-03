@@ -1,0 +1,81 @@
+<html><head><title>Java Programming/Keywords/finally</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Keywords/finally</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">finally</strong></font></code> is a keyword.</p>
+<p>It is an optional part of a <code><a href="try.html" title="Java Programming/Keywords/try"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">try</font></a></code> block. The code inside the finally block will always be executed. This is also true for cases when there is an exception or even executed <code><a href="return.html" title="Java Programming/Keywords/return"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">return</font></a></code> statement in the try block.</p>
+<p>Three things can happen in a try block:</p>
+<ul><li>No exception is thrown. In such a case, the following are executed:
+<ul><li>code in the try block</li>
+<li>code in the <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">finally</strong></font></code> block</li>
+<li>code after the try-catch block</li>
+</ul></li>
+<li>An exception is thrown and a matching catch block found. In such a case, the following are executed:
+<ul><li>code in the try block until where the exception occurred</li>
+<li>code in the matched catch block</li>
+<li>code in the <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">finally</strong></font></code> block</li>
+<li>code after the try-catch block</li>
+</ul></li>
+<li>An exception is thrown and no matching catch block exists. In such a case, the following are executed:
+<ul><li>code in the try block until where the exception occurred</li>
+<li>code in the <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">finally</strong></font></code> block</li>
+</ul></li>
+</ul><p>Note: in that third and final case, <b>NO CODE</b> after the try-catch block is executed.</p>
+<p>For example:</p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">public</span> <span class="kw4">void</span> method<span class="br0">(</span><span class="br0">)</span> <span class="kw1">throws</span> NoMatchedException<br><span class="br0">{</span><br>
+&#160; &#160;<span class="kw1">try</span> <span class="br0">{</span><br>
+&#160; &#160;<span class="co1">//...</span><br>
+&#160; &#160; &#160;<span class="kw1">throw</span> <span class="kw1">new</span> MyException_1<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160;<span class="co1">//...</span><br>
+&#160; &#160;<span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span> MyException_1 e <span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160;<span class="co1">// --- Handle the Exception_1 here --</span><br>
+&#160; &#160;<span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span> MyException_2 e <span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160;<span class="co1">// --- Handle the Exception_2 here --</span><br>
+&#160; &#160;<span class="br0">}</span> <span class="kw1">finally</span> <span class="br0">{</span><br>
+&#160; &#160; &#160;<span class="co1">// --- This will always be executed no matter what --</span><br>
+&#160; &#160;<span class="br0">}</span><br>
+&#160; &#160;<span class="co1">// --- Code after the try-catch block</span><br><span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p>Note: if there is an exception that happens before the try-catch block, the <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">finally</strong></font></code> block is not executed.</p>
+<p>If <code><a href="return.html" title="Java Programming/Keywords/return"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">return</font></a></code> statement is used inside finally, it overrides the return statement in the try-catch block. For instance, the construct</p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">try</span> <span class="br0">{</span><br>
+&#160; &#160;<span class="kw1">return</span> <span class="nu0">11</span><span class="sy0">;</span><br>
+&#160;<span class="br0">}</span> &#160;<span class="kw1">finally</span> <span class="br0">{</span><br>
+&#160; &#160;<span class="kw1">return</span> <span class="nu0">12</span><span class="sy0">;</span><br>
+&#160;<span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p><br>
+will return 12, not 11. Professional code almost never contains statements that alter execution order (like <code><a href="return.html" title="Java Programming/Keywords/return"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">return</font></a></code>, <code><a href="break.html" title="Java Programming/Keywords/break"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">break</font></a></code>, <code><a href="continue.html" title="Java Programming/Keywords/continue"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">continue</font></a></code>) inside the finally block, as such code is more difficult to read and maintain.</p>
+<p>See also:</p>
+<ul><li><a href="try.html" title="Java Programming/Keywords/try">Java Programming/Keywords/try</a></li>
+<li><a href="catch.html" title="Java Programming/Keywords/catch">Java Programming/Keywords/catch</a></li>
+<li><a href="../Throwing_and_Catching_Exceptions.html" title="Java Programming/Throwing and Catching Exceptions">Java Programming/Throwing and Catching Exceptions#Catching Rule</a></li>
+</ul></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

@@ -1,0 +1,74 @@
+<html><head><title>Java Programming/Interfaces</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Interfaces</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><table class="wikitable" style="float: right;"><tr><td>Navigate <b><a href="Classes_and_Objects.html" title="Java Programming/Classes and Objects">Classes and Objects</a></b> topic: 
+<ul><li><a href="Defining_Classes.html" title="Java Programming/Defining Classes">Defining classes</a></li>
+<li><a href="Creating_Objects.html" title="Java Programming/Creating Objects">Creating objects</a></li>
+<li><strong class="selflink">Interfaces</strong></li>
+<li><a href="Using_Static_Members.html" title="Java Programming/Using Static Members">Using static members</a></li>
+<li><a href="Destroying_Objects.html" title="Java Programming/Destroying Objects">Destroying objects</a></li>
+<li><a href="Overloading_Methods_and_Constructors.html" title="Java Programming/Overloading Methods and Constructors">Overloading methods and constructors</a></li>
+<li><a href="Class_Loading.html" title="Java Programming/Class Loading">Class Loading</a></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="Interfaces">Interfaces</span></h2>
+<p>Java does not allow you to create a subclass from two classes. There is no multiple inheritance. The major benefit of that is that all java objects can have a common ancestor. That class is called <code><a href="API/java.lang.Object.html" title="Java Programming/API/java.lang.Object">Object</a></code>. All java classes can be up-casted to <code><a href="API/java.lang.Object.html" title="Java Programming/API/java.lang.Object">Object</a></code>. Example:</p>
+<pre>
+<code><a href="Keywords/class.html" title="Java Programming/Keywords/class"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">class</font></a></code> MyObject
+{
+ ...
+}
+</pre>
+<p>When you type the above code, it actually means the following:</p>
+<pre>
+<code><a href="Keywords/class.html" title="Java Programming/Keywords/class"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">class</font></a></code> MyObject <b><code><a href="Keywords/extends.html" title="Java Programming/Keywords/extends"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">extends</font></a></code> Object</b> // -- The compiler adds 'extends Object'. if not specified
+{
+ ...
+}
+</pre>
+<p>So it can be guaranteed that certain methods are available in all java classes. This makes the language simpler.</p>
+<p>To mimic multiple inheritance, java offers <i>interfaces</i>, which are similar to abstract classes. In interfaces all methods are abstract by default, without the <i>abstract</i> key word. Interfaces have no implementation and no variables, but constant values can be defined in interfaces - however, a single class can implement as many interfaces as required.</p>
+<pre>
+<code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> interface MyInterface
+{
+  <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/static.html" title="Java Programming/Keywords/static"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">static</font></a></code> <code><a href="Keywords/final.html" title="Java Programming/Keywords/final"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">final</font></a></code> <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> CONSTANT = "This value can not be changed";
+
+  <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> methodOne(); // <b>This method must be implemented by the class that implements this interface</b>
+  ...
+}
+
+...
+
+<code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/class.html" title="Java Programming/Keywords/class"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">class</font></a></code> MyObject <code><a href="Keywords/implements.html" title="Java Programming/Keywords/implements"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">implements</font></a></code> MyInterface
+{
+  // Implement MyInterface interface 
+  <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> methodOne()
+  {
+   ...
+  }
+}
+</pre>
+<h2> <span class="mw-headline" id="External_links">External links</span></h2>
+<ul><li><a rel="nofollow" class="external text" href="http://javalessons.com/cgi-bin/fun/java-tutorials-main.cgi?ses=ao789&amp;code=if1&amp;sub=fun">Interfaces, interactive Java Lesson</a></li>
+<li><a rel="nofollow" class="external text" href="http://javalessons.com/cgi-bin/fun/java-tutorials-main.cgi?ses=ao789&amp;code=if2&amp;sub=fun">Interfaces 2, interactive Java Lesson</a></li>
+</ul></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

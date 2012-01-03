@@ -1,0 +1,79 @@
+<html><head><title>Java Programming/Remote Method Invocation</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Remote Method Invocation</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><b>Concurrent Programming</b> topics</p>
+<ul><li><a href="Threads_and_Runnables.html" title="Java Programming/Threads and Runnables">Threads and Runnables</a> </li>
+<li><a href="Basic_Synchronization.html" title="Java Programming/Basic Synchronization">Basic Synchronization</a> </li>
+<li><a href="Client_Server.html" title="Java Programming/Client Server">Client Server Programming</a> </li>
+<li><strong class="selflink">Remote Method Invocation(RMI)</strong> </li>
+<li><a href="EJB.html" title="Java Programming/EJB">Enterprise JavaBean Programming</a> </li>
+<li><a href="Jini.html" title="Java Programming/Jini">Jini-Java Spaces Programming</a> </li>
+</ul><p>Java's Remote Method Invocation (commonly referred to as RMI) is used for client and server models. RMI is the object oriented equivalent to <a href="http://en.wikipedia.org/wiki/Remote_procedure_call" class="extiw" title="w:Remote procedure call">RPC(Remote procedure call)</a>.</p>
+<p>The Java Remote Method Invocation (RMI) system allows an object running in one Java Virtual Machine (VM) to invoke methods on an object running in another Java VM. RMI provides for remote communication between programs written in the Java programming language.</p>
+<p>RMI is defined to use only with the Java platform. If you need to call methods between different language environments, use <a href="http://en.wikipedia.org/wiki/Common_Object_Request_Broker_Architecture" class="extiw" title="w:Common Object Request Broker Architecture">CORBA</a>. With <a href="http://en.wikipedia.org/wiki/Common_Object_Request_Broker_Architecture" class="extiw" title="w:Common Object Request Broker Architecture">CORBA</a> a Java client can call C++ server and/or a C++ client can call a Java server. With RMI that can not be done.</p>
+<table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Remote_Method_Invocation&amp;printable=yes#STUB_and_SKELETON"><span class="tocnumber">1</span> <span class="toctext">STUB and SKELETON</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Remote_Method_Invocation&amp;printable=yes#rmiregistry"><span class="tocnumber">2</span> <span class="toctext">rmiregistry</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Remote_Method_Invocation&amp;printable=yes#rmic_tool"><span class="tocnumber">3</span> <span class="toctext">rmic tool</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Remote_Method_Invocation&amp;printable=yes#RMI_Remote_object"><span class="tocnumber">4</span> <span class="toctext">RMI Remote object</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Remote_Method_Invocation&amp;printable=yes#RMI_clients"><span class="tocnumber">5</span> <span class="toctext">RMI clients</span></a></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="STUB_and_SKELETON">STUB and SKELETON</span></h2>
+<p>The remote method invocation goes through a STUB on the client side and a so called SKELETON on the server side.</p>
+<pre>
+CLIENT --&gt; STUB --&gt; ... <i>Network</i> ... --&gt; SKELETON --&gt; REMOTE OBJECT
+</pre>
+<p><br></p>
+<h2> <span class="mw-headline" id="rmiregistry">rmiregistry</span></h2>
+<p>Remote objects are listed in the <b>rmiregistry</b>. Clients will get a reference to the remote object by querying the rmiregistry. After that the client can call methods on the remote objects.</p>
+<p>The rmiregistry is a separate process that has to be started before remote objects can be added to it. It can be started by the command line in Unix:</p>
+<pre>
+rmiregistry &lt;port&gt; &amp;
+</pre>
+<p>or under Windows:</p>
+<pre>
+start rmiregistry &lt;port&gt;
+</pre>
+<p>If the <i>port</i> is not specified the default 1099 is used. The client will need to connect to this <i>port</i> to access the remote object.</p>
+<p>The rmiregistry can also be started from a program by calling the following code:</p>
+<pre>
+<code><a href="Keywords/import.html" title="Java Programming/Keywords/import"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">import</font></a></code> java.rmi.registry.LocateRegistry;
+...
+Registry reg = LocateRegistry.<b>createRegistry</b>( iPort );
+</pre>
+<p><br>
+Objects passed in as <b>parameters to the remote objects's methods will be passed by value</b>. This is the only thing developers need to keep in mind (program logic wise) when using remote objects. If the remote object changes the passed in object values, it won't be reflected on the client side, this is opposite what happens when a local object is called. Objects that used as parameters for remote methods invocation, must implement the <code>java.io.Serializable</code> interface, as they are going to be serialized when passed through the network, and a new object will be created on the other side.</p>
+<h2> <span class="mw-headline" id="rmic_tool">rmic tool</span></h2>
+<h2> <span class="mw-headline" id="RMI_Remote_object">RMI Remote object</span></h2>
+<p>The remote object has to extend the <code>java.rmi.server.UnicastRemoteObject</code> object.</p>
+<h2> <span class="mw-headline" id="RMI_clients">RMI clients</span></h2>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

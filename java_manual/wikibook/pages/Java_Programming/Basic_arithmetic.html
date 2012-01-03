@@ -1,0 +1,205 @@
+<html><head><title>Basic arithmetic</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Basic arithmetic</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><span id="displaytitle" title=""></span></p>
+
+<h2> <span class="mw-headline" id="Using_Arithmetic_Within_Java">Using Arithmetic Within Java</span></h2>
+<p>In order to do arithmetic in Java, one must first declare at least one integer. Typically one declares an integer and assigns it a value before any arithmetic is done. Here's an example of declaring an integer variable:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw4">int</span> x <span class="sy0">=</span> <span class="nu0">5</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<p>After creating a variable, one can manipulate its value by using Java's operators (the examples use our previously declared <code>x</code> variable):</p>
+<table class="wikitable"><tr><th>Operator</th>
+<th>Function</th>
+<th>Example input</th>
+<th>Example output</th>
+</tr><tr><td>+</td>
+<td>Addition</td>
+<td>x + 2</td>
+<td>7</td>
+</tr><tr><td>-</td>
+<td>Subtraction</td>
+<td>x - 4</td>
+<td>1</td>
+</tr><tr><td>*</td>
+<td>Multiplication</td>
+<td>x * 3</td>
+<td>15</td>
+</tr><tr><td>/</td>
+<td>(Integer) Division</td>
+<td>x / 2</td>
+<td>2</td>
+</tr><tr><td>&#160;%</td>
+<td>Modulo (Remainder)<a rel="nofollow" class="external autonumber" href="http://en.wikipedia.org/wiki/Modulo_operation">[1]</a></td>
+<td>x&#160;% 2</td>
+<td>1</td>
+</tr><tr><td>++</td>
+<td>Preincrement by one</td>
+<td>++x</td>
+<td>6</td>
+</tr><tr><td>--</td>
+<td>Predecrement by one</td>
+<td>--x</td>
+<td>4</td>
+</tr><tr><td>++</td>
+<td>Postincrement by one</td>
+<td>x++</td>
+<td>5</td>
+</tr><tr><td>--</td>
+<td>Postdecrement by one</td>
+<td>x--</td>
+<td>5</td>
+</tr></table><p>The division operator rounds towards zero: <code>5 / 2</code> is 2, and <code>-5 / 2</code> is -2. The remainder operator has the same sign as the left operand; it is defined such that <code>((a / b) * b) + (a&#160;% b)</code> is always equal to a. The preincrement, predecrement, postincrement, and postdecrement operators are special: they also change the value of the variable, by adding or subtracting one. The only difference is that preincrement/decrement returns the value of the variable after adding/subtracting 1; postincrement adds 1 after returning the expression. So if we executed</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw4">int</span> x1 <span class="sy0">=</span> <span class="nu0">7</span><span class="sy0">;</span>
+<span class="kw4">int</span> y1 <span class="sy0">=</span> <span class="nu0">2</span> <span class="sy0">*</span> <span class="sy0">++</span>x1<span class="sy0">;</span>
+ 
+<span class="kw4">int</span> x2 <span class="sy0">=</span> <span class="nu0">7</span><span class="sy0">;</span>
+<span class="kw4">int</span> y2 <span class="sy0">=</span> <span class="nu0">2</span> <span class="sy0">*</span> x2<span class="sy0">++;</span>
+</pre></div>
+</div>
+<p>both x1 and x2 would be 8, but y1 would be 16 and y2 would be 14. y1 was calculated after 1 was added to the value of x1, and y2 was calculated before 1 was added to x2. All increment/decrement operators can be used alone to add or subtract 1 from a variable. For example one can write just <code>x++;</code> or <code>++x;</code> to add 1 to x.</p>
+<p>Note that by inserting these example statements into Java source code, no output would be produced. To print the results of a math operation, you would use:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span>x <span class="sy0">+</span> <span class="nu0">2</span><span class="br0">)</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<p>When using several operators in the same expression, one must consider Java's order of precedence. Java uses the standard PEMDAS (Parenthesis, Exponents, Multiplication and Division, Addition and Subtraction) order. When there are multiple instances of the same precedence, Java reads from left to right. Consider what the output of the following code would be:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="nu0">10</span> <span class="sy0">*</span> <span class="nu0">5</span> <span class="sy0">+</span> <span class="nu0">100</span> <span class="sy0">/</span> <span class="nu0">10</span> <span class="sy0">-</span> <span class="nu0">5</span> <span class="sy0">+</span> <span class="nu0">7</span> <span class="sy0">%</span> <span class="nu0">2</span><span class="br0">)</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<p>The following chart shows how Java would compute this expression:</p>
+<p><br></p>
+<table align="center" style="border:solid 1px lightgray; padding:8px; background: #fdfdfd"><tr><td style="text-align:center; padding:2px 8px;">
+<div style="color:#2a7fff; border-bottom:solid 1px #ddd; padding-bottom:4px;"><b>Figure 1:</b> Computation of an arithmetic expression in the Java programming language</div>
+</td>
+</tr><tr><td style="padding-top:8px;">
+<div class="center">
+<div class="floatnone"><a href="http://en.wikibooks.org/wiki/File:Java_Computation_of_Arithmetic_Expression.svg" class="image"><img alt="Java Computation of Arithmetic Expression.svg" src="../../thumbs/51786_204px-Java_Computation_of_Arithmetic_Expression.svg.png" width="204" height="261"></a></div>
+</div>
+</td>
+</tr></table><p><br>
+The output would be "56".</p>
+<p>Besides performing mathematical functions, there are also operators to assign numbers to variables (each example again uses the variable initialized as <code>x=5</code>):</p>
+<table class="wikitable"><tr><th>Operator</th>
+<th>Function</th>
+<th>Example input</th>
+<th>Example output</th>
+</tr><tr><td>=</td>
+<td>Assignment</td>
+<td>x = 3</td>
+<td>3</td>
+</tr><tr><td>+=</td>
+<td>Assign <code>x</code> plus another integer to itself</td>
+<td>x += 5</td>
+<td>10</td>
+</tr><tr><td>-=</td>
+<td>Assign <code>x</code> minus another integer to itself</td>
+<td>x -= 4</td>
+<td>1</td>
+</tr><tr><td>*=</td>
+<td>Assign <code>x</code> multiplied by another integer to itself</td>
+<td>x *= 6</td>
+<td>30</td>
+</tr><tr><td>/=</td>
+<td>Assign <code>x</code> divided by another integer to itself</td>
+<td>x /= 5</td>
+<td>1</td>
+</tr></table><p>A third kind of operator does not return or assign numbers. The following are Java's evaluation operators, which either return "true" or "false.":</p>
+<table class="wikitable"><tr><th>Operator</th>
+<th>Function</th>
+<th>Example input</th>
+<th>Example output</th>
+</tr><tr><td>&lt;</td>
+<td>Less than</td>
+<td>x &lt; 7</td>
+<td>true</td>
+</tr><tr><td>&gt;</td>
+<td>Greater than</td>
+<td>x &gt; 5</td>
+<td>false</td>
+</tr><tr><td>&lt;=</td>
+<td>Less than or equal to</td>
+<td>x &lt;= 5</td>
+<td>true</td>
+</tr><tr><td>&gt;=</td>
+<td>Greater than or equal to</td>
+<td>x &gt;= 1</td>
+<td>true</td>
+</tr><tr><td>==</td>
+<td>Equal to</td>
+<td>x == 5</td>
+<td>true</td>
+</tr><tr><td>&#160;!=</td>
+<td>Not equal to</td>
+<td>x&#160;!= 5</td>
+<td>false</td>
+</tr></table><p>These statements come in handy when using <code>if-else</code>, statements and <code>for</code> and <code>while</code> loops. What would the output of the following code be?</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">public</span> <span class="kw1">class</span> Test <span class="br0">{</span>
+   <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span> <span class="br0">{</span>
+     <span class="kw4">int</span> x <span class="sy0">=</span> <span class="nu0">4</span><span class="sy0">;</span>
+     <span class="kw4">int</span> y <span class="sy0">=</span> <span class="nu0">4</span><span class="sy0">;</span>
+     <span class="kw4">int</span> z <span class="sy0">=</span> <span class="nu0">6</span><span class="sy0">;</span>
+     x<span class="sy0">++;</span>
+     y <span class="sy0">*=</span> <span class="nu0">2</span><span class="sy0">;</span>
+     z <span class="sy0">+=</span> x<span class="sy0">;</span>
+     <span class="kw1">if</span> <span class="br0">(</span>x <span class="sy0">&lt;=</span> y<span class="br0">)</span> <span class="br0">{</span>
+       <span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"x is less than or equal to y."</span><span class="br0">)</span><span class="sy0">;</span>
+     <span class="br0">}</span>
+     <span class="kw1">if</span> <span class="br0">(</span>z <span class="sy0">&lt;=</span> y<span class="br0">)</span> <span class="br0">{</span>
+       <span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"z is less than y."</span><span class="br0">)</span><span class="sy0">;</span>
+     <span class="br0">}</span>
+     <span class="kw1">if</span> <span class="br0">(</span>x <span class="sy0">!=</span> z<span class="br0">)</span> <span class="br0">{</span>
+       <span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"x is not equal to z."</span><span class="br0">)</span><span class="sy0">;</span>
+     <span class="br0">}</span>
+   <span class="br0">}</span>
+ <span class="br0">}</span>
+</pre></div>
+</div>
+<p>This code would print:</p>
+<pre>
+x is less than or equal to y.
+x is not equal to z
+</pre>
+
+
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

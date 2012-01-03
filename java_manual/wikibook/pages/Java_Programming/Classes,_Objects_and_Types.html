@@ -1,0 +1,121 @@
+<html><head><title>Java Programming/Classes, Objects and Types</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Classes, Objects and Types</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><table class="wikitable" style="float: right;"><tr><td>Navigate <b><a href="Language_Fundamentals.html" title="Java Programming/Language Fundamentals">Language Fundamentals</a></b> topic: 
+<ul><li> <a href="Variables.html" title="Java Programming/Variables">Variables</a></li>
+<li> <a href="Flow_control.html" title="Java Programming/Flow control">Flow control</a></li>
+<li> <a href="Arrays.html" title="Java Programming/Arrays">Arrays</a></li>
+<li> <a href="Methods.html" title="Java Programming/Methods">Methods</a></li>
+<li> <a href="Statements.html" title="Java Programming/Statements">Statements</a></li>
+<li> <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Identifiers,_literals_and_expressions&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Identifiers, literals and expressions (does not exist)">Identifiers, literals and expressions</a></li>
+<li> <a href="Types.html" title="Java Programming/Types">Types</a></li>
+<li> <a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></li>
+<li> <strong class="selflink">Classes, Objects and Types</strong></li>
+<li> <a href="Syntax.html" title="Java Programming/Syntax">Syntax</a></li>
+<li> <a href="Keywords/assert.html" title="Java Programming/Keywords/assert">Assertions</a></li>
+<li> <a href="Keywords.html" title="Java Programming/Keywords">Keywords</a></li>
+<li> <a href="Packages.html" title="Java Programming/Packages">Packages</a></li>
+<li> <a href="Nested_Classes.html" title="Java Programming/Nested Classes">Nested classes</a></li>
+<li> <a href="Access_Modifiers.html" title="Java Programming/Access Modifiers">Access modifiers</a></li>
+<li> <a href="Data_and_Variables.html" title="Java Programming/Data and Variables">Data and variables</a></li>
+<li> <a href="Generics.html" title="Java Programming/Generics">Generics</a></li>
+<li> <a href="Java_Security.html" title="Java Programming/Java Security">Java Security</a></li>
+</ul></td>
+</tr></table><table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Classes%2C_Objects_and_Types&amp;printable=yes#Objects_and_Classes"><span class="tocnumber">1</span> <span class="toctext">Objects and Classes</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Classes%2C_Objects_and_Types&amp;printable=yes#Instantiation_and_Constructors"><span class="tocnumber">2</span> <span class="toctext">Instantiation and Constructors</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Classes%2C_Objects_and_Types&amp;printable=yes#Type"><span class="tocnumber">3</span> <span class="toctext">Type</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Classes%2C_Objects_and_Types&amp;printable=yes#Multiple_classes_in_a_Java_file"><span class="tocnumber">4</span> <span class="toctext">Multiple classes in a Java file</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Classes%2C_Objects_and_Types&amp;printable=yes#External_links"><span class="tocnumber">5</span> <span class="toctext">External links</span></a></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="Objects_and_Classes">Objects and Classes</span></h2>
+<p>An <b>object</b> is composed of <b>members</b> and <b>methods</b>. The members, also called <i>data members</i>, <i>characteristics</i>, <i>attributes</i>, or <i>properties</i>, describe the object. The methods generally describe the actions associated with a particular object. Think of an object as a noun, its members as adjectives describing that noun, and its methods as the verbs that can be performed by or on that noun.</p>
+<p>For example, a sports car is an object. Some of its members might be its height, weight, acceleration, and speed. An object's members just hold data about that object. Some of the methods of the sports car could be "drive", "park", "race", etc. The methods really don't mean much unless associated with the sports car, and the same goes for the members.</p>
+<p>The blueprint that lets us build our sports car object is called a <b>class</b>. A class doesn't tell us how fast our sports car goes, or what color it is, but it does tell us that our sports car will have a member representing speed and color, and that they will be say, a number and a word (or hex color code), respectively. The class also lays out the methods for us, telling the car how to park and drive, but these methods can't take any action with just the blueprint - they need an object to have an effect.</p>
+<p>In Java, a class is located in a file similar to its own name. If you want to have a class called SportsCar, its source file needs to be <tt>SportsCar.java</tt>. The class is created by placing the following in the source file:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">public</span> <span class="kw1">class</span> SportsCar
+<span class="br0">{</span>
+   <span class="coMULTI">/* Insert your code here */</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>The class doesn't do anything yet, as you will need to add methods and member variables first.</p>
+<h2> <span class="mw-headline" id="Instantiation_and_Constructors">Instantiation and Constructors</span></h2>
+<p>In order to get from class to object, we "build" our object by <b>instantiation</b>. Instantiation simply means to create an <b>instance</b> of a class. Instance and object are very similar terms and are sometimes interchangeable, but remember that an instance refers to a <i>specific object</i>, which was created from a class.</p>
+<p>This instantiation is brought about by one of the class's methods, called a <b>constructor</b>. As its name implies, a constructor builds the object based on the blueprint. Behind the scenes, this means that computer memory is being allocated for the instance, and values are being assigned to the data members.</p>
+<p>In general there are four constructor types: default, non-default, copy, and cloning.</p>
+<p>A <b>default constructor</b> will build the most basic instance. Generally, this means assigning all the members values like null, zero, or an empty string. Nothing would stop you, however, from your default sports car color from being red, but this is generally bad programming style. Another programmer would be confused if your basic car came out red instead of say, colorless.</p>
+<p>A <b>non-default constructor</b> is designed to create an object instance with prescribed values for most, if not all, of the object's members. The car is red, goes from 0-60 in 12 seconds, tops out at 190mph, etc.</p>
+<p>A <b>copy constructor</b> is not included in the Java language, however one can easily create a constructor that do the same as a copy constructor. It's important to understand what it is. As the name implies, a copy constructor creates a new instance to be a duplicate of an already existing one. In Java, this can be also accomplished by creating the instance with the default constructor, and then using the assignment operator to equivocate them. This is not possible in all languages though, so just keep the terminology under your belt.</p>
+<p>Java has the concepts of <b>cloning object</b>, and the end results are similar to copy constructor. Cloning an object is faster than creation with the new keyword, because all the object memory is copied at once to destination cloned object. This is possible by implementing the Cloneable interface, which allows the method Object.clone() to perform a field-by-field copy.</p>
+<h2> <span class="mw-headline" id="Type">Type</span></h2>
+<p>When an object is created, a reference to the object is also created. The object can not be accessed directly in Java, only through this object reference. This object reference has a <b>type</b> assigned to it. We need this type when passing the object reference to a method as a parameter. Java does strong type checking.</p>
+<p>Type is basically a list of features/operations, that can be performed through that object reference. The object reference type basically is a contract that guarantees that those operations will be there at run time.</p>
+<p>When a car is created, it comes with a list of features/operations listed in the user manual that guarantees that those will be there when the car is used.</p>
+<p>When you create an object from a class by default its type is the same as its class. It means that all the features/operations the class defined are there and available, and can be used. See below:</p>
+<pre>
+(<code><a href="Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> ClassName()).operations();
+</pre>
+<p>You can assign this to a variable having the same type as the class:</p>
+<pre>
+ClassName objRefVariable = <code><a href="Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> ClassName();
+objRefVariable.operations();
+</pre>
+<p>You can assign the created object reference to the class super class, or to an interface the class implements:</p>
+<pre>
+SuperClass objectRef = <code><a href="Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> ClassName();   // features/operations list are defined by the SuperClass class
+..
+Interface inter = <code><a href="Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> ClassName();  // features/operations list are defined by the interface
+</pre>
+<p><br>
+In the car analogy, the created car may have different <b>Type</b> of drivers. We create separate user manuals for them, Average user manual, Power user manual, Child user manual, or Handicapped user manual. Each type of user manual describes only those features/operations appropriate for the type of driver. The Power driver may have additional gears to switch to higher speeds, that are not available to other type of users...</p>
+<p>When the car key is passed from an adult to a child we replacing the user manuals, that is called <b>Type Casting</b>.</p>
+<p>In Java, casts can occur in three ways:</p>
+<ul><li>up casting: going up in the inheritance tree, until we reach the <code><a href="API/java.lang.Object.html" title="Java Programming/API/java.lang.Object">Object</a></code></li>
+<li>up casting: to an interface the class implements</li>
+<li>down casting: until we reach the class the object was created from</li>
+</ul><p><b>Type</b> and <b>Type Casting</b> will be covered in more details later at '<a href="Types.html" title="Java Programming/Types">Java Programming/Types</a>' module.</p>
+<h2> <span class="mw-headline" id="Multiple_classes_in_a_Java_file">Multiple classes in a Java file</span></h2>
+<p>Normally, a Java file can have one and only one <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> Java class. However, a given file can contain additional non-public classes.</p>
+<pre>
+<code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/class.html" title="Java Programming/Keywords/class"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">class</font></a></code> OuterClass
+{
+    ...
+}
+<code><a href="Keywords/class.html" title="Java Programming/Keywords/class"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">class</font></a></code> AdditionalClass
+{
+    ...
+}
+</pre>
+<p>Because they have the "package (default)" access specifier, the 'AdditionalClass' can be accessed only in the same package.</p>
+<p>These "additional" classes compile to separate ".class" bytecode files when compiled, just as if they were in separate source files. However, including multiple classes in one file may increase the difficulty in examining the structure of a given application.</p>
+<h2> <span class="mw-headline" id="External_links">External links</span></h2>
+<ul><li><a rel="nofollow" class="external text" href="http://javalessons.com/cgi-bin/fun/java-tutorials-main.cgi?ses=ao789&amp;code=ctr&amp;sub=fun">Constructors, interactive Java Lesson</a></li>
+</ul></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

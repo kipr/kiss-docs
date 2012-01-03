@@ -1,0 +1,151 @@
+<html><head><title>Java Programming/Struts</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Struts</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><small><b>This reference is under development. All Struts developers are requested to contribute and help in expanding this reference</b></small></p>
+<hr><p><a rel="nofollow" class="external text" href="http://struts.apache.org/">Struts</a> is the most popular framework for developing Java based web applications. Struts is being developed as an open source project started by <a rel="nofollow" class="external text" href="http://www.apache.org/">Apache Software Foundation</a> . Struts framework is based on <a rel="nofollow" class="external text" href="http://java.sun.com/blueprints/guidelines/designing_enterprise_applications_2e/web-tier/web-tier5.html">Model View Controller</a> (MVC) architecture.</p>
+<table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Struts&amp;printable=yes#Preface"><span class="tocnumber">1</span> <span class="toctext">Preface</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Struts&amp;printable=yes#Action_Framework_in_a_Nutshell"><span class="tocnumber">2</span> <span class="toctext">Action Framework in a Nutshell</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Struts&amp;printable=yes#Struts_Config_in_a_Nutshell"><span class="tocnumber">3</span> <span class="toctext">Struts Config in a Nutshell</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Struts&amp;printable=yes#Prerequisites"><span class="tocnumber">4</span> <span class="toctext">Prerequisites</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Struts&amp;printable=yes#Getting_Started"><span class="tocnumber">5</span> <span class="toctext">Getting Started</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Struts&amp;printable=yes#Further_Reading"><span class="tocnumber">6</span> <span class="toctext">Further Reading</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Struts&amp;printable=yes#for_more_information"><span class="tocnumber">7</span> <span class="toctext">for more information</span></a>
+<ul><li class="toclevel-2 tocsection-8"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Struts&amp;printable=yes#SHINE_ENTERPRISE_PATTERN"><span class="tocnumber">7.1</span> <span class="toctext">SHINE ENTERPRISE PATTERN</span></a></li>
+</ul></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="Preface">Preface</span></h2>
+<h2> <span class="mw-headline" id="Action_Framework_in_a_Nutshell">Action Framework in a Nutshell</span></h2>
+<p>Within the MVC context the struts framework provides its own web Controller component and integrates with other technologies to provide the Model and the View. For the Model, the framework can interact with standard data access technologies, like JDBC and EJB , as well as most any third-party packages, like Hibernate , iBATIS , or Object Relational Bridge . For the View , the framework works well with JavaServer Pages , including JSTL and JSF , as well as Velocity Templates , XSLT , and other presentation systems.</p>
+<p>The framework's Controller acts as a bridge between the application's Model and the web View. When a request is received, the Controller invokes an Action class. The Action class consults with the Model (or, preferably, a Facade representing your Model) to examine or update the application's state. The framework provides an ActionForm class to help transfer data between Model and View.</p>
+<p>Most often, the Model is represented as a set of JavaBeans . Typically, developers will use the Commons BeanUtils to transfer data between ActionForms and the Model objects (or a Facade). Preferably, the Model will do the "heavy lifting", and the Action will act as a "traffic cop" or adapter.</p>
+<h2> <span class="mw-headline" id="Struts_Config_in_a_Nutshell">Struts Config in a Nutshell</span></h2>
+<p>A web application uses a deployment descriptor to initialize resources like servlets and taglibs . The deployment descriptor is formatted as a XML document and named "web.xml". Likewise, the framework uses a configuration file to initialize its own resources. These resources include ActionForms to collect input from users, ActionMappings to direct input to server-side Actions , and ActionForwards to select output pages.</p>
+<p>The initialisation of struts is acheived through the inclusion of the following in the web.xml file</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;servlet<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>action<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;servlet-class<span class="re2">&gt;</span></span></span>org.apache.struts.action.ActionServlet<span class="sc3"><span class="re1">&lt;/servlet-class<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;init-param<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>config<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>/WEB-INF/struts-config.xml<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/init-param<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;init-param<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>debug<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>0<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/init-param<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;init-param<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;param-name<span class="re2">&gt;</span></span></span>detail<span class="sc3"><span class="re1">&lt;/param-name<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;param-value<span class="re2">&gt;</span></span></span>2<span class="sc3"><span class="re1">&lt;/param-value<span class="re2">&gt;</span></span></span>
+     <span class="sc3"><span class="re1">&lt;/init-param<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;load-on-startup<span class="re2">&gt;</span></span></span>2<span class="sc3"><span class="re1">&lt;/load-on-startup<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/servlet<span class="re2">&gt;</span></span></span>
+ 
+<span class="sc3"><span class="re1">&lt;servlet-mapping<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;servlet-name<span class="re2">&gt;</span></span></span>action<span class="sc3"><span class="re1">&lt;/servlet-name<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;url-pattern<span class="re2">&gt;</span></span></span>*.do<span class="sc3"><span class="re1">&lt;/url-pattern<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/servlet-mapping<span class="re2">&gt;</span></span></span>
+</pre></div>
+</div>
+<p>Here's a simple configuration (struts-config.xml) for a login workflow:</p>
+<p><br></p>
+<pre>
+   &lt;?xml version="1.0" encoding="ISO-8859-1" ?&gt;
+   &lt;!DOCTYPE struts-config PUBLIC
+         "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+         "<a rel="nofollow" class="external free" href="http://struts.apache.org/dtds/struts-config_1_3.dtd">http://struts.apache.org/dtds/struts-config_1_3.dtd</a>"&gt;
+   &lt;struts-config&gt;
+       &lt;form-beans&gt;
+           &lt;form-bean
+               name="logonForm"
+               type="app.LogonForm"/&gt;
+       &lt;/form-beans&gt;
+       &lt;action-mappings&gt;
+           &lt;action
+               path="/Welcome"
+               forward="/pages/Welcome.jsp"/&gt;
+           &lt;action
+               path="/Logon"
+               forward="/pages/Logon.jsp"/&gt;
+           &lt;action
+               path="/LogonSubmit"
+               type="app.LogonAction"
+               name="logonForm"
+               scope="request"
+               validate="true"
+               input="/pages/Logon.jsp"&gt;
+               &lt;forward
+                   name="success"
+                   path="/pages/Welcome.jsp"/&gt;
+               &lt;forward
+                   name="failure"
+                   path="/pages/Logon.jsp"/&gt;
+           &lt;/action&gt;
+           &lt;action
+               path="/Logoff"
+               type="app.LogoffAction"&gt;
+               &lt;forward
+                   name="success"
+                   path="/pages/Logoff.jsp"/&gt;
+           &lt;/action&gt;
+       &lt;/action-mappings&gt;
+       &lt;message-resources parameter="resources.application"/&gt;
+   &lt;/struts-config&gt;
+   
+</pre>
+<p>There are several other resources you can specify in the framework's configuration file. You can specify validations for the ActionForms in an XML descriptor, using the Struts Validator . A standard extension, Tiles , helps you build pages from smaller fragments.</p>
+<p>Struts Action Framework is extensible. Every class deployed by the framework can be replaced by your own default class. The properties of your default class can be set using the Digester's set-property feature. This is one reason why there are so many contributor extensions</p>
+<p>tiles is a contributor extension</p>
+<p>s Features Screen definitions Create a screen by assembling Tiles&#160;: header, footer, menu, body, etc. Definitions can take place&#160;: in a centralized xml file directly in jsp pages programatically in struts actions Definitions provide an inheritance mechanism&#160;: a definition can extend another one, and override parameters. Layouts Define common page layouts and reuse them across your web site. Define menu layouts, and use them by passing lists of items and links. Define a portal layout, use it by passing a list of Tiles (pages) to show. Reuse existing layouts, or define your own. Dynamic page building Tiles can be gathered dynamically during page reload. It is possible to change any attribute: layout, list of Tiles in portal, list of menu items, etc. Reuse of Tiles / Components If well defined, a Tile can be reused across multiple applications. Dynamic attributes are used to parameterize Tiles. It is possible to define a library of reusable Tiles. Build a page by assembling predefined components, giving them appropriate parameters. Internationalization (i18n) It is possible to load different tiles according to Locale. A mechanism similar to Java properties files is used for definitions files: you can have one definition file per Locale. The appropriate definition is loaded according to the current Locale. Multi-channels It is possible to load different Tiles according to a key. For example, the key could be user privilege, browser type, arbitrary name stored in session, etc. A mechanism similar to Java properties files is used for definitions files: you can have one definition file per key. The appropriate definition is loaded according to the key.</p>
+<h2> <span class="mw-headline" id="Prerequisites">Prerequisites</span></h2>
+<p>Apart from basic understanding of building a web application. The reader is required to have some sort of working knowledge in the following technologies.</p>
+<ul><li><a href="http://en.wikibooks.org/wiki/HTML_Programming" title="HTML Programming" class="mw-redirect">HTML</a></li>
+<li><a href="http://en.wikibooks.org/w/index.php?title=HyperText_Transfer_Protocol&amp;action=edit&amp;redlink=1" class="new" title="HyperText Transfer Protocol (does not exist)">HTTP</a></li>
+<li><a href="http://en.wikibooks.org/w/index.php?title=Programming:Object-Oriented_Programming_(OOP)&amp;action=edit&amp;redlink=1" class="new" title="Programming:Object-Oriented Programming (OOP) (does not exist)">Object-Oriented Programming (OOP)</a></li>
+<li><a href="JSP.html" title="Java Programming/JSP">JSP and Java Servlets</a></li>
+<li><a href="Java_Beans.html" title="Java Programming/Java Beans">Java Beans</a></li>
+<li><a href="http://en.wikibooks.org/wiki/XML_-_Managing_Data_Exchange" title="XML - Managing Data Exchange">XML</a></li>
+</ul><h2> <span class="mw-headline" id="Getting_Started">Getting Started</span></h2>
+<p>Struts framework provides the following benefits over conventional methods of Web Application Development.</p>
+<ul><li>Decoupling of business logic and presentation logic</li>
+<li>Reusablity</li>
+<li>Maintainability</li>
+</ul><p>These benefits are gained because Struts provides a system based on the "Model 2" paradigm of Java web application design, while also providing a framework for the application that is cleaner than a series of J2EE servlets.</p>
+<h2> <span class="mw-headline" id="Further_Reading">Further Reading</span></h2>
+<p>Best practices&#160;: <a rel="nofollow" class="external free" href="http://www.javaworld.com/javaworld/jw-09-2004/jw-0913-struts.html">http://www.javaworld.com/javaworld/jw-09-2004/jw-0913-struts.html</a><br>
+More Tutorials&#160;: <a rel="nofollow" class="external free" href="http://www.strutsmypassion.com">http://www.strutsmypassion.com</a> Understanding Struts Controller&#160;: <a rel="nofollow" class="external free" href="http://www.roseindia.net/struts/understanding_struts_controller.shtml">http://www.roseindia.net/struts/understanding_struts_controller.shtml</a></p>
+<h2> <span class="mw-headline" id="for_more_information">for more information</span></h2>
+<h3> <span class="mw-headline" id="SHINE_ENTERPRISE_PATTERN">SHINE ENTERPRISE PATTERN</span></h3>
+<p>(This section does not flow well. It needs to be edited.) In 2010 Amirsam Bahador produced a new pattern for java.This pattern introduce a new architecture which help programmer to develop easier and faster. this architecture is based on MVC but it has completed and corrected MVC. For using this architecture you must use maplet. This pattern also contain JSHOOTER .A technology for working with reflect in java.with this you can call or add a method in runtime... If it's hard to work with JDBC or Hibernate you can work with them very easily by using JConnection, an other Technology in SHINE enterprise pattern. also a util package is prepared with lots of methods for working with thread,for xml parsing, for managering file , using OS cammands ... This pattern is registered in source forge. the pattern and document is available at <a rel="nofollow" class="external free" href="http://code.google.com/p/shine-enterprise-pattern/">http://code.google.com/p/shine-enterprise-pattern/</a> www.j2OS.org</p>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

@@ -1,0 +1,79 @@
+<html><head><title>Java Programming/Stack trace</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Stack trace</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><table class="wikitable" style="float: right;"><tr><td>Navigate <b><a href="Exceptions.html" title="Java Programming/Exceptions">Exceptions</a></b> topic:
+<ul><li><a href="Throwing_and_Catching_Exceptions.html" title="Java Programming/Throwing and Catching Exceptions">Throwing and catching exceptions</a></li>
+</ul><dl><dd>
+<dl><dd><a href="Throwing_and_Catching_Exceptions.html" title="Java Programming/Throwing and Catching Exceptions">Application exceptions</a></dd>
+<dd><a href="Throwing_and_Catching_Exceptions.html" title="Java Programming/Throwing and Catching Exceptions">Runtime exceptions</a></dd>
+<dd><code><a href="Throwing_and_Catching_Exceptions.html" title="Java Programming/Throwing and Catching Exceptions">NullPointerException</a></code></dd>
+<dd><a href="Throwing_and_Catching_Exceptions.html" title="Java Programming/Throwing and Catching Exceptions">Main Exception classes</a></dd>
+</dl></dd>
+</dl><ul><li><a href="http://en.wikibooks.org/wiki/Java_Programming/StackTrace" title="Java Programming/StackTrace" class="mw-redirect">Stack trace</a></li>
+<li><a href="Checked_Exceptions.html" title="Java Programming/Checked Exceptions">Checked exceptions</a></li>
+<li><a href="Unchecked_Exceptions.html" title="Java Programming/Unchecked Exceptions">Unchecked exceptions</a></li>
+<li><a href="Preventing_NullPointerException.html" title="Java Programming/Preventing NullPointerException">Preventing <code>NullPointerException</code></a></li>
+<li><a href="Nesting_Exceptions.html" title="Java Programming/Nesting Exceptions">Chained exceptions(Nesting Exceptions)</a></li>
+</ul></td>
+</tr></table><p><b>Stack Trace</b> is a list of method calls from the point when the application was started to the point where the exception was thrown. The most recent method calls are at the top.</p>
+<p>The stack trace can be printed to the standard error by calling the <code>public void printStackTrace()</code> method.</p>
+<p>From Java 1.4, the stack trace is encapsulated into an array of a java class called <code>java.lang.StackTraceElement</code>. The stack trace element array returned by <code>Throwable.getStackTrace()</code> method. Each element represents a single stack frame. All stack frames except for the one at the top of the stack represent a method invocation. The frame at the top of the stack represents the execution point at which the stack trace was generated. Typically, this is the point at which the throwable corresponding to the stack trace was created.</p>
+<p>A stack frame represent the following information:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+   <span class="kw1">public</span> StackTraceElement<span class="br0">(</span><span class="kw3">String</span> declaringClass,
+                            <span class="kw3">String</span> methodName,
+                            <span class="kw3">String</span> fileName,
+                            <span class="kw4">int</span> lineNumber<span class="br0">)</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<p>Creates a stack trace element representing the specified execution point.</p>
+<p><br></p>
+<h2> <span class="mw-headline" id="Converting_the_Stack_Trace_to_string">Converting the Stack Trace to string</span></h2>
+<p>Many times for debugging purposes, we'd like to convert the stack trace to a <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> so we can log it to our log file.</p>
+<p>The following code shows how to do that:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+ ...
+ <span class="kw1">import</span> <span class="st0">"java.io.StringWriter"</span><span class="sy0">;</span>
+ <span class="kw1">import</span> <span class="st0">"java.io.PrintWriter"</span><span class="sy0">;</span>
+ ...
+ <span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span>HttpException e<span class="br0">)</span> <span class="br0">{</span>
+   <span class="kw3">StringWriter</span> outError <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">StringWriter</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+   <span class="kw3">PrintWriter</span> errorWriter <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">PrintWriter</span><span class="br0">(</span> outError <span class="br0">)</span><span class="sy0">;</span>
+   e.<span class="me1">printStackTrace</span><span class="br0">(</span>errorWriter<span class="br0">)</span><span class="sy0">;</span>
+   <span class="kw3">String</span> errorString <span class="sy0">=</span> outError.<span class="me1">toString</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;;</span>
+   ... <span class="co1">// Do whatever you want with the 'errorString </span>
+ <span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span><span class="kw3">IOException</span> e<span class="br0">)</span> <span class="br0">{</span>
+ ...
+</pre></div>
+</div>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

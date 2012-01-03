@@ -1,0 +1,61 @@
+<html><head><title>Java Programming/Keywords/throw</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Keywords/throw</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">throw</strong></font></code> is a keyword. It 'throws' an exception.</p>
+<p>Syntax:</p>
+<pre>
+<code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">throw</strong></font></code> &lt;Exception Ref&gt;;
+</pre>
+<p>For example:</p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">public</span> Customer findCustomer<span class="br0">(</span> <span class="kw3">String</span> name <span class="br0">)</span> <span class="kw1">throws</span> <span class="st0">''</span><span class="st0">'CustomerNotFoundException'</span><span class="st0">''</span><br>
+&#160;<span class="br0">{</span><br>
+&#160; &#160; Customer custRet <span class="sy0">=</span> <span class="kw2">null</span><span class="sy0">;</span><br>
+&#160;<br>
+&#160; &#160; <span class="kw3">Iterator</span> iter <span class="sy0">=</span> _customerList.<span class="me1">iterator</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; <span class="kw1">while</span> <span class="br0">(</span> iter.<span class="me1">hasNext</span><span class="br0">(</span><span class="br0">)</span> <span class="br0">)</span><br>
+&#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; Customer cust <span class="sy0">=</span> <span class="br0">(</span>Customer<span class="br0">)</span> iter.<span class="me1">next</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">if</span> <span class="br0">(</span> cust.<span class="me1">getName</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">equals</span><span class="br0">(</span> name <span class="br0">)</span> <span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160;<span class="co1">// --- Customer find --</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160;custRet <span class="sy0">=</span> cust<span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160;<span class="kw1">break</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; &#160;<span class="br0">}</span><br>
+&#160; &#160; &#160;<span class="kw1">if</span> <span class="br0">(</span> custRet <span class="sy0">==</span> <span class="kw2">null</span> <span class="br0">)</span><br>
+&#160; &#160; &#160;<span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="co1">// --- Customer not found ---</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">throw</span> <span class="kw1">new</span> <span class="st0">''</span><span class="st0">'CustomerNotFoundException'</span><span class="st0">''</span><span class="br0">(</span> <span class="st0">"Customer "</span><span class="sy0">+</span> name <span class="sy0">+</span> <span class="st0">"was not found"</span> <span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160;<span class="br0">}</span><br>
+&#160;<br>
+&#160; &#160; <span class="kw1">return</span> custRet<br>
+&#160; <span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p>See also:</p>
+<ul><li><a href="throws.html" title="Java Programming/Keywords/throws">Java Programming/Keywords/throws</a></li>
+</ul></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

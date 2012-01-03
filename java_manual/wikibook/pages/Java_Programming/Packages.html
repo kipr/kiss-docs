@@ -1,0 +1,112 @@
+<html><head><title>Java Programming/Packages</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Packages</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><table class="wikitable" style="float: right;"><tr><td>Navigate <b><a href="Language_Fundamentals.html" title="Java Programming/Language Fundamentals">Language Fundamentals</a></b> topic: 
+<ul><li> <a href="Variables.html" title="Java Programming/Variables">Variables</a></li>
+<li> <a href="Flow_control.html" title="Java Programming/Flow control">Flow control</a></li>
+<li> <a href="Arrays.html" title="Java Programming/Arrays">Arrays</a></li>
+<li> <a href="Methods.html" title="Java Programming/Methods">Methods</a></li>
+<li> <a href="Statements.html" title="Java Programming/Statements">Statements</a></li>
+<li> <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Identifiers,_literals_and_expressions&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Identifiers, literals and expressions (does not exist)">Identifiers, literals and expressions</a></li>
+<li> <a href="Types.html" title="Java Programming/Types">Types</a></li>
+<li> <a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></li>
+<li> <a href="Classes,_Objects_and_Types.html" title="Java Programming/Classes, Objects and Types">Classes, Objects and Types</a></li>
+<li> <a href="Syntax.html" title="Java Programming/Syntax">Syntax</a></li>
+<li> <a href="Keywords/assert.html" title="Java Programming/Keywords/assert">Assertions</a></li>
+<li> <a href="Keywords.html" title="Java Programming/Keywords">Keywords</a></li>
+<li> <strong class="selflink">Packages</strong></li>
+<li> <a href="Nested_Classes.html" title="Java Programming/Nested Classes">Nested classes</a></li>
+<li> <a href="Access_Modifiers.html" title="Java Programming/Access Modifiers">Access modifiers</a></li>
+<li> <a href="Data_and_Variables.html" title="Java Programming/Data and Variables">Data and variables</a></li>
+<li> <a href="Generics.html" title="Java Programming/Generics">Generics</a></li>
+<li> <a href="Java_Security.html" title="Java Programming/Java Security">Java Security</a></li>
+</ul></td>
+</tr></table><table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Packages&amp;printable=yes#Java_Package_.2F_Name_Space"><span class="tocnumber">1</span> <span class="toctext">Java Package / Name Space</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Packages&amp;printable=yes#Wildcard_imports"><span class="tocnumber">2</span> <span class="toctext">Wildcard imports</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Packages&amp;printable=yes#Importing_packages_from_.jar_files"><span class="tocnumber">3</span> <span class="toctext">Importing packages from .jar files</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Packages&amp;printable=yes#Class_Loading_.2F_Name_Space"><span class="tocnumber">4</span> <span class="toctext">Class Loading / Name Space</span></a></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="Java_Package_.2F_Name_Space">Java Package / Name Space</span></h2>
+<p>Usually a Java application is built by many developers and it is common that third party modules/classes are integrated. The end product can easily contain hundreds of classes. Class name collision is likely to happen. To avoid this a Java class can be put in a "name space". This "name space" in Java is called the <b>package</b>.</p>
+<p>The Java package needs to be unique across Vendors to avoid name collisions. For that reason Vendors usually use their domain name in reverse order. That is guaranteed to be unique. For example a company called 'Your Company Inc.', would use a package name something like this: <code>com.yourcompany.yourapplicationname.yourmodule.YourClass</code>.</p>
+<p>To put a class in a package, the <code>package</code> keyword is used at the top of each class file. For Example,</p>
+<pre>
+<code><a href="Keywords/package.html" title="Java Programming/Keywords/package"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">package</font></a></code> com.yourcompany.yourapplication.yourmodule;
+</pre>
+<p>When we want to reference a Java class that is defined outside of the current package name space, we have to specify which package name space that class is in. So we could reference that class with something like <i>com.yourcompany.yourapplication.yourmodule.YourClass</i> . To avoid having to type in the package name each time when we want to reference an outside class, we can declare which package the class belongs to by using the <b>import</b> Java keyword at the top of the file. For Example,</p>
+<pre>
+<code><a href="Keywords/import.html" title="Java Programming/Keywords/import"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">import</font></a></code> com.yourcompany.yourapplication.yourmodule.YourClass;
+</pre>
+<p>Then we can refer to that class by just using the class name <i>YourClass</i> .</p>
+<p>In rare cases it can happen that you need to reference two classes having the same name in different packages. In those cases, you can not use the import keyword for both classes. One of them needs to be referenced by typing in the whole package name. For Example,</p>
+<pre>
+<code><a href="Keywords/package.html" title="Java Programming/Keywords/package"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">package</font></a></code> com.mycompany.myapplication.mymodule;
+...
+<code><a href="Keywords/import.html" title="Java Programming/Keywords/import"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">import</font></a></code> com.yourcompany.yourapplication.youmodule.SameClassName;
+...
+SameClassName yourObjectRef = new SameClassName();
+com.hercompany.herapplication.hermodule.SameClassName herObjectRef = 
+   new com.hercompany.herapplication.hermodule.SameClassName();
+
+</pre>
+<p>The Java package has one more interesting characteristic; the package name corresponds where the actual file is stored on the file system. And that is actually how the compiler and the class loader find the Java files on the file system. For example, the class <i>com.yourcompany.yourapplication.yourmodule.YourClass</i>, is stored on the file system in the corresponding directory&#160;: <i>com/yourcompany/yourapplication/yourmodule/YourClass</i>. Because of this, package names should be lowercase, since in some operating systems the directory names are not case sensitive.</p>
+<h2> <span class="mw-headline" id="Wildcard_imports">Wildcard imports</span></h2>
+<p>It is possible to import an entire package, using an asterisk:</p>
+<pre>
+<code>import javax.swing.*;</code>
+</pre>
+<p>While it may seem convenient, it may cause problems if you make a typographical error. For example, if you use the above import to use JFrame, but then type <code>JFraim frame=new JFraim();</code>, the Java compiler will report an error similar to "Cannot find symbol: JFraim". Even though it seems as if it was imported, the compiler is giving the error report at the first mention of JFraim, which is half-way through your code, instead of the point where you imported JFrame along with everything else in javax.swing.</p>
+<p>If you change this to <code>import javax.swing.JFraim;</code> the error will be at the import instead of within your code.</p>
+<p>Furthermore, if you <code>import javax.swing.*;</code> and <code>import java.util.*;</code>, and javax.swing.Queue is later added in a future version of Java, your code that uses Queue (java.util) will fail to compile. This particular example is fairly unlikely, but if you are working with non-Sun libraries, it may be more likely to happen.</p>
+<h2> <span class="mw-headline" id="Importing_packages_from_.jar_files">Importing packages from .jar files</span></h2>
+<p>If you are importing library packages or classes that reside in a <code>.jar</code> file, you must ensure that the file is in the current classpath (both at compile- and execution-time). Apart from this requirement, importing these packages and classes is the same as if they were in their full, expanded, directory structure.</p>
+<div style="background: #ffCC99; border: 1px solid #aaaaaa; padding: 6pt; margin: 12pt 0.5em; width: -0.5em">
+<div class="floatleft"><a href="http://en.wikibooks.org/wiki/File:Evolution-tasks.png" class="image" title="Example"><img alt="Example" src="../../thumbs/ab142_40px-Evolution-tasks.png" width="40" height="40"></a></div>
+<b>Example:</b><br><p>To compile and run a class from a project's top directory (that contains the two directories <code>/source</code> and <code>/libraries</code>) you could use the following command:</p>
+<pre>
+javac -classpath libraries/lib.jar source/MainClass.java
+</pre>
+<p>And then to run it, similarly:</p>
+<pre>
+java -classpath libraries/lib.jar source/MainClass
+</pre>
+<p>(The above is simplified, and demands that MainClass be in the default package, or a package called 'source', which isn't very desirable.)</p>
+</div>
+<h2> <span class="mw-headline" id="Class_Loading_.2F_Name_Space">Class Loading / Name Space</span></h2>
+<p>A fully qualified class name consists of the package name plus the class name. For example, the fully qualified class name of <code>HashMap</code> is <code>java.util.HashMap</code>. Sometime is can happen that two classes have the same name, but they can not belong to the same package, otherwise it would be the same class. It can be said that the two classes with the same name are in different name spaces. In the above example, the <code>HashMap</code> class is in the <code>java.util</code> name space.</p>
+<p>Let be two <code>Customer</code> classes with different name spaces (in different packages):</p>
+<ul><li><code>com.bluecompany.Customer</code></li>
+<li><code>com.redcompany.Customer</code></li>
+</ul><p>when we need to use both classes in the same program file, we can use the <code><a href="Keywords/import.html" title="Java Programming/Keywords/import"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">import</font></a></code> keyword only for one of the classes. For the other we need to use the fully qualified name.</p>
+<p>The runtime identity of a class in Java 2 is defined by the fully qualified class name and its defining class loader. This means that the same class, loaded by two different class loaders, is seen by the Virtual Machine as two completely different types.</p>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

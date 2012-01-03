@@ -1,0 +1,40 @@
+<html><head><title>Java Programming/Syntax/Unicode Escape Sequences</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Syntax/Unicode Escape Sequences</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p>Most characters in a Java source program are ASCII characters, although all Unicode characters can be used in comments, character and string literals. Unicode characters can also be expressed through Unicode Escape Sequences.</p>
+<p>Unicode escape sequence may appear anywhere in a Java source file (including inside <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Syntax/Identifiers&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Syntax/Identifiers (does not exist)">identifiers</a>, <a href="Comments.html" title="Java Programming/Syntax/Comments">comments</a>, and <a href="../Literals/String_Literals.html" title="Java Programming/Literals/String Literals">string literals</a>.)</p>
+<p>Unicode escape sequences consist of</p>
+<ol><li>a backslash '<code>\</code>' (ASCII character 92, hex 0x5c),</li>
+<li>a '<code>u</code>' (ASCII 117, hex 0x75)</li>
+<li>optionally one or more additional '<code>u</code>' characters, and</li>
+<li>four hexadecimal digits (the characters '<code>0</code>' through '<code>9</code>' or '<code>a</code>' through '<code>f</code>' or '<code>A</code>' through '<code>F</code>').</li>
+</ol><p>Such sequences represent the UTF-16 encoding of a Unicode character, for example, 'a' is equivalent to '\u0061'.</p>
+<p>Any and all characters in a program may be expressed in Unicode escape characters, but such programs are not very readable, except by the Java compiler! They are not compact either!</p>
+<p>One can find a full list of the characters here: <a rel="nofollow" class="external text" href="http://www.ssec.wisc.edu/~tomw/java/unicode.html#x0080">unicode chart</a>.</p>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

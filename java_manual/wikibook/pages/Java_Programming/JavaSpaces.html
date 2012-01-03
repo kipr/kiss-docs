@@ -1,0 +1,42 @@
+<html><head><title>Java Programming/JavaSpaces</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/JavaSpaces</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><b>Concurrent Programming</b> topics</p>
+<ul><li><a href="Threads_and_Runnables.html" title="Java Programming/Threads and Runnables">Threads and Runnables</a> </li>
+<li><a href="Basic_Synchronization.html" title="Java Programming/Basic Synchronization">Basic Synchronization</a> </li>
+<li><a href="Client_Server.html" title="Java Programming/Client Server">Client Server Programming</a> </li>
+<li><a href="Remote_Method_Invocation.html" title="Java Programming/Remote Method Invocation">Remote Method Invocation(RMI)</a> </li>
+<li><a href="EJB.html" title="Java Programming/EJB">Enterprise JavaBean Programming</a> </li>
+<li><a href="Jini.html" title="Java Programming/Jini">Jini-Java Spaces Programming</a> </li>
+</ul><p><b>JavaSpaces</b> can be viewed as an object repository that provides a distributed persistent object exchange mechanism (persistent can be in memory or disk) for Java objects. It can be used to store the system state and implement distributed algorithms. In a JavaSpace all communication partners (peers) communicate by sharing state. It is an implementation of the <a href="http://en.wikipedia.org/wiki/Tuple_spaces" class="extiw" title="w:Tuple spaces">Tuple spaces</a> idea.</p>
+<p>JavaSpaces is used when someone wants to achieve scalability and availability and at the same time reducing the complexity of the overall system.</p>
+<p>Processes perform simple operations to write new objects into a <i>JavaSpace</i>, take objects from a <i>JavaSpace</i>, or read (make a copy of) objects from the <i>JavaSpace</i>.</p>
+<p>JavaSpaces technology is part of the Java <a href="http://en.wikipedia.org/wiki/Jini" class="extiw" title="w:Jini">Jini</a> technology, which has not been a commercial success, although it has found and kept new users over the years. However some vendors are as of 2004 offering JavaSpaces-based products as a way to provide distributed reliable persistence for non-Jini environments.</p>
+<p>In conventional applications, obects are assembled from the database before presenting to the end user. In JavaSpace applications, we keep the ready made "end user" objects and store them in the JavaSpace. In JavaSpace applications the services are decoupled from each other; they communicate throught objects that they write and read/take from the JavaSpace. Services search for objects that they want to take or read from the Space by using template object.</p>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

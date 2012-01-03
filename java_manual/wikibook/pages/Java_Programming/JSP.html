@@ -1,0 +1,402 @@
+<html><head><title>Java Programming/JSP</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/JSP</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p>The <b>Java Server Pages</b> is a technology for merging <a href="http://en.wikibooks.org/wiki/HTML_Programming" title="HTML Programming" class="mw-redirect">HTML</a> with Java to produce dynamic web content. To enable this, an HTML page is given the file extension <code>.jsp</code> and an XML markup page is given the file extension <code>.jspx</code>, so that the Java server (container) will recognise that the file requires JSP processing before sending it to the client. The Java is inserted either as embedded scriptlets or as standard/custom tags, thus producing an HTML page that can be displayed on a web browser. If used correctly, the source file can be read and interpreted by WYSIWYG editing programs or HTML programmers that have little to no experience with Java, while still giving the server side functionality of a servlet. In fact a JSP page becomes a standard Java servlet at compile time. JSP pages embed tags within a HTML or XML document that are evaluated by the compiler. This can be done through the use of scripting tags similar to those used in <a href="http://en.wikibooks.org/wiki/PHP" title="PHP" class="mw-redirect">PHP</a> or <a href="http://en.wikibooks.org/wiki/ASP.NET" title="ASP.NET">ASP.NET</a>, or by importing a JSP Tag Library.</p>
+<table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/JSP&amp;printable=yes#Example"><span class="tocnumber">1</span> <span class="toctext">Example</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/JSP&amp;printable=yes#JSP_Directives"><span class="tocnumber">2</span> <span class="toctext">JSP Directives</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/JSP&amp;printable=yes#Implicit_Objects"><span class="tocnumber">3</span> <span class="toctext">Implicit Objects</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/JSP&amp;printable=yes#Scripting_Elements"><span class="tocnumber">4</span> <span class="toctext">Scripting Elements</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/JSP&amp;printable=yes#JSP_actions"><span class="tocnumber">5</span> <span class="toctext">JSP actions</span></a>
+<ul><li class="toclevel-2 tocsection-6"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/JSP&amp;printable=yes#Examples_of_tags"><span class="tocnumber">5.1</span> <span class="toctext">Examples of tags</span></a>
+<ul><li class="toclevel-3 tocsection-7"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/JSP&amp;printable=yes#jsp:include"><span class="tocnumber">5.1.1</span> <span class="toctext">jsp:include</span></a></li>
+<li class="toclevel-3 tocsection-8"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/JSP&amp;printable=yes#jsp:forward"><span class="tocnumber">5.1.2</span> <span class="toctext">jsp:forward</span></a></li>
+<li class="toclevel-3 tocsection-9"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/JSP&amp;printable=yes#jsp:plugin"><span class="tocnumber">5.1.3</span> <span class="toctext">jsp:plugin</span></a></li>
+</ul></li>
+</ul></li>
+<li class="toclevel-1 tocsection-10"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/JSP&amp;printable=yes#JSP_Tag_Libraries"><span class="tocnumber">6</span> <span class="toctext">JSP Tag Libraries</span></a>
+<ul><li class="toclevel-2 tocsection-11"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/JSP&amp;printable=yes#JSP_Standard_Tag_Library_.28JSTL.29"><span class="tocnumber">6.1</span> <span class="toctext">JSP Standard Tag Library (JSTL)</span></a></li>
+<li class="toclevel-2 tocsection-12"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/JSP&amp;printable=yes#Struts_Tag_Library"><span class="tocnumber">6.2</span> <span class="toctext">Struts Tag Library</span></a></li>
+</ul></li>
+<li class="toclevel-1 tocsection-13"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/JSP&amp;printable=yes#Internationalization"><span class="tocnumber">7</span> <span class="toctext">Internationalization</span></a></li>
+<li class="toclevel-1 tocsection-14"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/JSP&amp;printable=yes#JSP_2.0"><span class="tocnumber">8</span> <span class="toctext">JSP 2.0</span></a>
+<ul><li class="toclevel-2 tocsection-15"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/JSP&amp;printable=yes#JSP_Technology_in_the_Java_EE_5_Platform"><span class="tocnumber">8.1</span> <span class="toctext">JSP Technology in the Java EE 5 Platform</span></a></li>
+</ul></li>
+<li class="toclevel-1 tocsection-16"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/JSP&amp;printable=yes#Environment"><span class="tocnumber">9</span> <span class="toctext">Environment</span></a></li>
+<li class="toclevel-1 tocsection-17"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/JSP&amp;printable=yes#Model-view-controller_paradigm"><span class="tocnumber">10</span> <span class="toctext">Model-view-controller paradigm</span></a></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="Example">Example</span></h2>
+<p>Regardless of whether the JSP compiler generates Java source code for a servlet or emits the byte code directly, it is helpful to understand how the JSP compiler transforms the page into a Java servlet. For example, consider the following input JSP and its resulting generated Java Servlet.</p>
+<p><b>Input JSP</b></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="html4strict source-html4strict">
+<pre class="de1">
+ <span class="sc2">&lt;%@ page errorPage<span class="sy0">=</span><span class="st0">"myerror.jsp"</span> %&gt;</span>
+ <span class="sc2">&lt;%@ page import<span class="sy0">=</span><span class="st0">"com.foo.bar"</span> %&gt;</span>
+ 
+ <span class="sc2">&lt;<span class="kw2">html</span>&gt;</span>
+ <span class="sc2">&lt;<span class="kw2">head</span>&gt;</span>
+ <span class="sc2">&lt;%! int serverInstanceVariable <span class="sy0">=</span> <span class="nu0">1</span>;%&gt;</span>
+ 
+ <span class="sc2">&lt;% int localStackBasedVariable <span class="sy0">=</span> <span class="nu0">1</span>; %&gt;</span>
+ <span class="sc2">&lt;<span class="kw2">table</span>&gt;</span>
+ <span class="sc2">&lt;<span class="kw2">tr</span>&gt;&lt;<span class="kw2">td</span>&gt;&lt;%<span class="sy0">=</span> toStringOrBlank<span class="br0">(</span> <span class="st0">"expanded inline data "</span> + <span class="nu0">1</span> <span class="br0">)</span> %&gt;&lt;<span class="sy0">/</span><span class="kw2">td</span>&gt;&lt;<span class="sy0">/</span><span class="kw2">tr</span>&gt;</span>
+</pre></div>
+</div>
+<p><b>Resulting servlet</b></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+ <span class="kw1">package</span> <span class="co2">jsp_servlet</span><span class="sy0">;</span>
+ <span class="kw1">import</span> <span class="co2">java.util.*</span><span class="sy0">;</span>
+ <span class="kw1">import</span> <span class="co2">java.io.*</span><span class="sy0">;</span>
+ <span class="kw1">import</span> <span class="co2">javax.servlet.*</span><span class="sy0">;</span>
+ <span class="kw1">import</span> <span class="co2">javax.servlet.http.*</span><span class="sy0">;</span>
+ <span class="kw1">import</span> <span class="co2">javax.servlet.jsp.*</span><span class="sy0">;</span>
+ <span class="kw1">import</span> <span class="co2">javax.servlet.jsp.tagext.*</span><span class="sy0">;</span>
+ 
+ <span class="kw1">import</span> <span class="co2">com.foo.bar</span><span class="sy0">;</span> <span class="co1">// Imported as a result of &lt;%@ page import="com.foo.bar" %&gt;</span>
+ <span class="kw1">import</span> &#8230;
+ 
+ <span class="kw1">class</span> _myservlet <span class="kw1">implements</span> javax.<span class="me1">servlet</span>.<span class="me1">Servlet</span>, javax.<span class="me1">servlet</span>.<span class="me1">jsp</span>.<span class="me1">HttpJspPage</span> <span class="br0">{</span>
+    <span class="co1">// Inserted as a</span>
+    <span class="co1">// result of &lt;%! int serverInstanceVariable = 1;%&gt;</span>
+    <span class="kw4">int</span> serverInstanceVariable <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">;</span>
+    &#8230;
+ 
+    <span class="kw1">public</span> <span class="kw4">void</span> _jspService<span class="br0">(</span> javax.<span class="me1">servlet</span>.<span class="me1">http</span>.<span class="me1">HttpServletRequest</span> request,
+    javax.<span class="me1">servlet</span>.<span class="me1">http</span>.<span class="me1">HttpServletResponse</span> response <span class="br0">)</span>
+    <span class="kw1">throws</span> javax.<span class="me1">servlet</span>.<span class="me1">ServletException</span>,
+    java.<span class="me1">io</span>.<span class="kw3">IOException</span>
+    <span class="br0">{</span>
+        javax.<span class="me1">servlet</span>.<span class="me1">ServletConfig</span> config <span class="sy0">=</span> &#8230;<span class="sy0">;</span> <span class="co1">// Get the servlet config</span>
+        <span class="kw3">Object</span> page <span class="sy0">=</span> <span class="kw1">this</span><span class="sy0">;</span>
+        PageContext pageContext <span class="sy0">=</span> &#8230;<span class="sy0">;</span>            <span class="co1">// Get the page context for this request</span>
+        javax.<span class="me1">servlet</span>.<span class="me1">jsp</span>.<span class="me1">JspWriter</span> out <span class="sy0">=</span> pageContext.<span class="me1">getOut</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        HttpSession session <span class="sy0">=</span> request.<span class="me1">getSession</span><span class="br0">(</span> <span class="kw2">true</span> <span class="br0">)</span><span class="sy0">;</span>
+        <span class="kw1">try</span> <span class="br0">{</span>
+            out.<span class="me1">print</span><span class="br0">(</span> <span class="st0">"&lt;html&gt;<span class="es0">\r</span><span class="es0">\n</span>"</span> <span class="br0">)</span><span class="sy0">;</span>
+            out.<span class="me1">print</span><span class="br0">(</span> <span class="st0">"&lt;head&gt;<span class="es0">\r</span><span class="es0">\n</span>"</span> <span class="br0">)</span><span class="sy0">;</span>
+            &#8230;
+            <span class="co1">// From &lt;% int localStackBasedVariable = 1; %&gt;</span>
+            <span class="kw4">int</span> localStackBasedVariable <span class="sy0">=</span> <span class="nu0">1</span><span class="sy0">;</span>
+            &#8230;
+            out.<span class="me1">print</span><span class="br0">(</span> <span class="st0">"&lt;table&gt;<span class="es0">\r</span><span class="es0">\n</span>"</span> <span class="br0">)</span><span class="sy0">;</span>
+            out.<span class="me1">print</span><span class="br0">(</span> <span class="st0">" &lt;tr&gt;&lt;td&gt;"</span> <span class="br0">)</span><span class="sy0">;</span>
+            <span class="co1">// From &lt;%= toStringOrBlank( "expanded inline data " + 1 ) %&gt;</span>
+            out.<span class="me1">print</span><span class="br0">(</span> toStringOrBlank<span class="br0">(</span> <span class="st0">"expanded inline data "</span> <span class="sy0">+</span> <span class="nu0">1</span> <span class="br0">)</span> <span class="br0">)</span><span class="sy0">;</span>
+            out.<span class="me1">print</span><span class="br0">(</span> <span class="st0">" &lt;/td&gt;&lt;/tr&gt;<span class="es0">\r</span><span class="es0">\n</span>"</span> <span class="br0">)</span><span class="sy0">;</span>
+            &#8230;
+        <span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span> <span class="kw3">Exception</span> _exception <span class="br0">)</span> <span class="br0">{</span>
+            <span class="co1">// Clean up and redirect to error page in &lt;%@ page errorPage="myerror.jsp" %&gt;</span>
+        <span class="br0">}</span>
+    <span class="br0">}</span>
+ <span class="br0">}</span>
+</pre></div>
+</div>
+<h2> <span class="mw-headline" id="JSP_Directives">JSP Directives</span></h2>
+<p>JSP directives are added at the top of a JSP page. These directives control how the JSP compiler generates the servlet. The following directives are available:</p>
+<dl><dt>include&#160;</dt>
+<dd>The include directive informs the JSP compiler to include a complete file into the current file. It is as if the contents of the included file were pasted directly into the original file. This functionality is similar to the one provided by the C preprocessor. Included files generally have the extension "jspf" (for JSP <b>Fragment</b>):</dd>
+</dl><pre>
+&lt;%@ include file="somefile.jspf" %&gt; 
+</pre>
+<dl><dt>page&#160;</dt>
+<dd>The page directive has several attributes:
+<dl><dt>import&#160;</dt>
+<dd>Results in a Java <code>import</code> statement being inserted into the resulting file.</dd>
+<dt>contentType&#160;</dt>
+<dd>Specifies the content that is generated. This should be used if HTML is not used or if the character set is not the default character set.</dd>
+<dt>errorPage&#160;</dt>
+<dd>Indicates the address of the page that should be shown if an exception occurs while processing the HTTP request.</dd>
+<dt>isErrorPage&#160;</dt>
+<dd>If set to true, it indicates that this is the error page. Default value is <i>false</i>.</dd>
+<dt>isThreadSafe&#160;</dt>
+<dd>A boolean indicating whether the resulting servlet is thread safe.</dd>
+<dt>autoFlush&#160;</dt>
+<dd>To autoflush the contents. A value of true, the default, indicates that the buffer should be flushed when it is full. A value of false, rarely used, indicates that an exception should be thrown when the buffer overflows. A value of false is illegal when also using buffer="none".</dd>
+<dt>session</dt>
+<dd>To maintain session. A value of true (the default) indicates that the predefined variable session (of type HttpSession) should be bound to the existing session if one exists, otherwise a new session should be created and bound to it. A value of false indicates that no sessions will be used, and attempts to access the variable session will result in errors at the time the JSP page is translated into a servlet.</dd>
+<dt>buffer</dt>
+<dd>To set Buffer Size. The default is 8k and it is advisable that you increase it.</dd>
+<dt>isELIgnored</dt>
+<dd>Defines whether EL (<i>Expression Language</i>) expressions are ignored when the JSP is translated.</dd>
+<dt>language</dt>
+<dd>Defines the scripting language used in scriptlets, expressions and declarations. Right now, the only possible value is "java".</dd>
+<dt>extends</dt>
+<dd>Defines the superclass of the class this JSP will become. You won't use this unless you <u>really</u> know what you're doing - it overrides the class hierarchy provided by the Container.</dd>
+<dt>info</dt>
+<dd>Defines a String that gets put into the translated page, just so that you can get it using the generated servlet's inherited getServletInfo() method.</dd>
+<dt>pageEncoding</dt>
+<dd>Defines the character encoding for the JSP. The default is "ISO-8859-1"(unless the contentType attribute already defines a character encoding, or the page uses XML document syntax).</dd>
+</dl></dd>
+</dl><pre>
+&lt;%@ page import="java.util.*" %&gt; &lt;%-- example import --%&gt;
+&lt;%@ page contentType="text/html" %&gt; &lt;%-- example contentType --%&gt;
+&lt;%@ page isErrorPage="false" %&gt; &lt;%-- example for non error page --%&gt;
+&lt;%@ page isThreadSafe="true" %&gt; &lt;%-- example for a thread safe JSP --%&gt;
+&lt;%@ page session="true" %&gt; &lt;%-- example for using session binding --%&gt;
+&lt;%@ page autoFlush="true" %&gt; &lt;%-- example for setting autoFlush --%&gt;
+&lt;%@ page buffer="20kb" %&gt; &lt;%-- example for setting Buffer Size --%&gt;
+</pre>
+<dl><dd><b>Note:</b> Only the "import" page directive can be used multiple times in the same JSP.</dd>
+<dt>taglib&#160;</dt>
+<dd>The taglib directive indicates that a JSP tag library is to be used. The directive requires that a prefix be specified (much like a namespace in C++) and the URI for the tag library description.</dd>
+</dl><pre>
+&lt;%@ taglib prefix="myprefix" uri="taglib/mytag.tld" %&gt;
+</pre>
+<h2> <span class="mw-headline" id="Implicit_Objects">Implicit Objects</span></h2>
+<p>The JSP container exposes a number of implicit objects that can be used by the programmer:</p>
+<dl><dt>out&#160;</dt>
+<dd>The <a rel="nofollow" class="external text" href="http://java.sun.com/javaee/5/docs/api/javax/servlet/jsp/JspWriter.html">JspWriter</a> used to write the data to the response stream.</dd>
+<dt>page&#160;</dt>
+<dd>The servlet itself.</dd>
+<dt>pageContext&#160;</dt>
+<dd>A <a rel="nofollow" class="external text" href="http://java.sun.com/javaee/5/docs/api/javax/servlet/jsp/PageContext.html">PageContext</a> instance that contains data associated with the whole page. A given HTML page may be passed among multiple JSPs.</dd>
+<dt>request&#160;</dt>
+<dd>The <a rel="nofollow" class="external text" href="http://java.sun.com/javaee/5/docs/api/javax/servlet/http/HttpServletRequest.html">HttpServletRequest</a> object that provides HTTP request information.</dd>
+<dt>response&#160;</dt>
+<dd>The <a rel="nofollow" class="external text" href="http://java.sun.com/javaee/5/docs/api/javax/servlet/http/HttpServletResponse.html">HttpServletResponse</a> object that can be used to send data back to the client.</dd>
+<dt>session&#160;</dt>
+<dd>The <a rel="nofollow" class="external text" href="http://java.sun.com/javaee/5/docs/api/javax/servlet/http/HttpSession.html">HttpSession</a> object that can be used to track information about a user from one request to another.</dd>
+<dt>config&#160;</dt>
+<dd>Provides servlet configuration data.</dd>
+<dt>application&#160;</dt>
+<dd>Data shared by all JSPs and servlets in the application.</dd>
+<dt>exception&#160;</dt>
+<dd>Exceptions not caught by application code.</dd>
+</dl><h2> <span class="mw-headline" id="Scripting_Elements">Scripting Elements</span></h2>
+<p>There are <i>three</i> basic kinds of scripting elements that allow java code to be inserted directly into the servlet.</p>
+<ul><li>A <i><b>declaration</b></i> tag places a variable definition inside the body of the java servlet class. Static data members may be defined as well. Also inner classes should be defined here.</li>
+</ul><pre>
+&lt;%! int serverInstanceVariable = 1; %&gt;
+</pre>
+<p>Declaration tags also allow methods to be defined.</p>
+<pre>
+&lt;%!
+   /** 
+    * Converts the Object into a string or if
+    * the Object is null, it returns the empty string.
+    */
+   public String toStringOrBlank( Object obj ){
+       if(obj != null){
+           return obj.toString();
+       }
+       return "";
+   }
+%&gt;
+</pre>
+<ul><li>A <i><b>scriptlet</b></i> tag places all of the statements contained within it, inside the <code>_jspService()</code> method of the java servlet class.</li>
+</ul><pre>
+&lt;% int localStackBasedVariable = 1;
+out.println(localStackBasedVariable); %&gt;
+</pre>
+<ul><li>An <i><b>expression</b></i> tag places an expression to be evaluated inside the java servlet class. Expressions should not be terminated with a semi-colon .</li>
+</ul><pre>
+&lt;%= "expanded inline data " + 1 %&gt;
+</pre>
+<h2> <span class="mw-headline" id="JSP_actions">JSP actions</span></h2>
+<p>JSP actions are XML tags that invoke built-in web server functionality. They are executed at runtime. Some are standard and some are custom (which are developed by Java developers). The following list contains the standard ones:</p>
+<dl><dt>jsp:include&#160;</dt>
+<dd>Similar to a subroutine, the Java servlet temporarily hands the request and response off to the specified JavaServer Page. Control will then return to the current JSP, once the other JSP has finished. Using this, JSP code will be shared between multiple other JSPs, rather than duplicated.</dd>
+<dt>jsp:param&#160;</dt>
+<dd>Can be used inside a jsp:include, jsp:forward or jsp:params block. Specifies a parameter that will be added to the request's current parameters.</dd>
+<dt>jsp:forward&#160;</dt>
+<dd>Used to hand off the request and response to another JSP or servlet. Control will never return to the current JSP.</dd>
+<dt>jsp:plugin&#160;</dt>
+<dd>Older versions of Netscape Navigator and Internet Explorer used different tags to embed an applet. This action generates the browser specific tag needed to include an applet.</dd>
+<dt>jsp:fallback&#160;</dt>
+<dd>The content to show if the browser does not support applets.</dd>
+<dt>jsp:getProperty&#160;</dt>
+<dd>Gets a property from the specified JavaBean.</dd>
+</dl><h3> <span class="mw-headline" id="Examples_of_tags">Examples of tags</span></h3>
+<h4> <span class="mw-headline" id="jsp:include">jsp:include</span></h4>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="xml source-xml">
+<pre class="de1">
+ <span class="sc3"><span class="re1">&lt;html<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;head<span class="re2">&gt;</span></span><span class="re1">&lt;/head<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;body<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;jsp:include</span> <span class="re0">page</span>=<span class="st0">"mycommon.jsp"</span> <span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;jsp:param</span> <span class="re0">name</span>=<span class="st0">"extraparam"</span> <span class="re0">value</span>=<span class="st0">"myvalue"</span> <span class="re2">/&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;/jsp:include<span class="re2">&gt;</span></span></span>
+        name:<span class="sc3">&lt;%=request.getParameter<span class="br0">(</span><span class="st0">"extraparam"</span><span class="br0">)</span>%<span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;/body<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/html<span class="re2">&gt;</span></span></span>
+</pre></div>
+</div>
+<h4> <span class="mw-headline" id="jsp:forward">jsp:forward</span></h4>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="xml source-xml">
+<pre class="de1">
+ <span class="sc3"><span class="re1">&lt;jsp:forward</span> <span class="re0">page</span>=<span class="st0">"subpage.jsp"</span> <span class="re2">&gt;</span></span>
+    <span class="sc3"><span class="re1">&lt;jsp:param</span> <span class="re0">name</span>=<span class="st0">"forwardedFrom"</span> <span class="re0">value</span>=<span class="st0">"this.jsp"</span> <span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/jsp:forward<span class="re2">&gt;</span></span></span>
+</pre></div>
+</div>
+<p>In this forwarding example, the request is forwarded to "subpage.jsp". The request handling does not return to this page.</p>
+<h4> <span class="mw-headline" id="jsp:plugin">jsp:plugin</span></h4>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="xml source-xml">
+<pre class="de1">
+ <span class="sc3"><span class="re1">&lt;jsp:plugin</span> <span class="re0">type</span>=applet <span class="re0">height</span>=<span class="st0">"100%"</span> <span class="re0">width</span>=<span class="st0">"100%"</span></span>
+<span class="sc3"> <span class="re0">archive</span>=<span class="st0">"myjarfile.jar,myotherjar.jar"</span></span>
+<span class="sc3"> <span class="re0">codebase</span>=<span class="st0">"/applets"</span></span>
+<span class="sc3"> <span class="re0">code</span>=<span class="st0">"com.foo.MyApplet"</span> <span class="re2">&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;jsp:params<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;jsp:param</span> <span class="re0">name</span>=<span class="st0">"enableDebug"</span> <span class="re0">value</span>=<span class="st0">"true"</span> <span class="re2">/&gt;</span></span>
+ <span class="sc3"><span class="re1">&lt;/jsp:params<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;jsp:fallback<span class="re2">&gt;</span></span></span>
+ Your browser does not support applets.
+ <span class="sc3"><span class="re1">&lt;/jsp:fallback<span class="re2">&gt;</span></span></span>
+ <span class="sc3"><span class="re1">&lt;/jsp:plugin<span class="re2">&gt;</span></span></span>
+</pre></div>
+</div>
+<p>The plugin example illustrates a &lt;html&gt; uniform way of embedding applets in a web page. Before the advent of the &lt;<i>OBJECT</i>&gt; tag, there was no common way of embedding applets. Currently, the jsp:plugin tag does not allow for dynamically called applets. For example, jsp:params cannot be used with a charting applet that requires the data points to be passed in as parameters unless the number of data points is constant. You cannot, for example, loop through a ResultSet to create the jsp:param tags. Each jsp:param tag must be hand-coded. <u>However, each of those jsp:param tags can have a dynamic name and a dynamic value.</u><b>??? REALLY&#160;??? If the parameter name may be dynamic, provide a code example, otherwise I believe it must be a hard-coded literal string (which makes it brittle as compared to being able to use a Java constant supplied by some interface definition).</b></p>
+<h2> <span class="mw-headline" id="JSP_Tag_Libraries">JSP Tag Libraries</span></h2>
+<p>In addition to the pre-defined JSP actions, developers may add their own custom <i>actions</i> using the JSP Tag Extension API. Developers write a Java class that implements one of the Tag interfaces and provide a tag library XML description file that specifies the tags and the java classes that implement the tags.</p>
+<p>Consider the following JSP.</p>
+<pre>
+&lt;%@ taglib uri="mytaglib.tld" prefix="myprefix" %&gt;
+&#8230;
+&lt;myprefix:myaction&gt; &lt;%-- The start tag %&gt;
+&#8230;
+&lt;/myprefix:myaction&gt; &lt;%-- The end tag %&gt;
+&#8230;
+</pre>
+<p>The JSP compiler will load the mytaglib.tld XML file and see that the tag 'myaction' is implemented by the java class 'MyActionTag'. The first time the tag is used in the file, it will create an instance of 'MyActionTag'. Then (and each additional time that the tag is used), it will invoke the method doStartTag() when it encounters the starting tag. It looks at the result of the start tag, and determines how to process the body of the tag. The body is the text between the start tag and the end tag. The doStartTag() method may return one of the following:</p>
+<dl><dt>SKIP_BODY&#160;</dt>
+<dd>The body between the tag is not processed.</dd>
+<dt>EVAL_BODY_INCLUDE&#160;</dt>
+<dd>Evaluate the body of the tag.</dd>
+<dt>EVAL_BODY_TAG&#160;</dt>
+<dd>Evaluate the body of the tag and push the result onto stream (stored in the body content property of the tag).</dd>
+</dl><p><b>Note:</b> If tag extends the BodyTagSupport class, the method doAfterBody() will be called when the body has been processed just prior to calling the doEndTag(). This method is used to implement looping constructs.</p>
+<p>When it encounters the end tag, it invokes the doEndTag() method. The method may return one of two values:</p>
+<dl><dt>EVAL_PAGE&#160;</dt>
+<dd>This indicates that the rest of the JSP file should be processed.</dd>
+<dt>SKIP_PAGE&#160;</dt>
+<dd>This indicates that no further processing should be done. Control leaves the JSP page. This is what is used for the forwarding action.</dd>
+</dl><p>The myaction tag above would have an implementation class that looked like something below:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+ <span class="kw1">public</span> <span class="kw1">class</span> MyActionTag <span class="kw1">extends</span> TagSupport <span class="br0">{</span>
+    <span class="co1">// Releases all instance variables.</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> release<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>&#8230;<span class="br0">}</span>
+ 
+    <span class="kw1">public</span> MyActionTag<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> &#8230; <span class="br0">}</span>
+ 
+    <span class="co1">// Called for the start tag</span>
+    <span class="kw1">public</span> <span class="kw4">int</span> doStartTag<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> &#8230; <span class="br0">}</span>
+ 
+    <span class="co1">// Called at the end tag</span>
+    <span class="kw1">public</span> <span class="kw4">int</span> doEndTag<span class="br0">(</span><span class="br0">)</span><span class="br0">{</span> &#8230; <span class="br0">}</span>
+ <span class="br0">}</span>
+</pre></div>
+</div>
+<p>Add Body Tag description.</p>
+<p>If you want to iterate the body a few times, then the java class (tag handler) implements IterationTag interface. It returns EVAL_BODY_AGAIN - which means to invoke the body again.</p>
+<h3> <span class="mw-headline" id="JSP_Standard_Tag_Library_.28JSTL.29">JSP Standard Tag Library (JSTL)</span></h3>
+<p>The JavaServer Pages Standard Tag Library (JSTL) is a component of the Java EE Web application development platform. It extends the JSP specification by adding a tag library of JSP tags for common tasks, such as XML data processing, conditional execution, loops and internationalization.</p>
+<h3> <span class="mw-headline" id="Struts_Tag_Library">Struts Tag Library</span></h3>
+<p>The <a href="Struts.html" title="Java Programming/Struts">Jakarta Struts</a> project includes the <a href="Struts/Struts_Tag_Library.html" title="Java Programming/Struts/Struts Tag Library">Struts Tag Library</a>, the bulk of which is useful independantly of the Struts architecture.</p>
+<h2> <span class="mw-headline" id="Internationalization">Internationalization</span></h2>
+<p>Internationalization in JSP is accomplished the same way as in a normal Java application, that is by using resource bundles.</p>
+<h2> <span class="mw-headline" id="JSP_2.0">JSP 2.0</span></h2>
+<p>The new version of the JSP specification includes new features meant to improve programmer productivity. Namely:</p>
+<ul><li>An Expression Language (EL) which allows developers to create Velocity-style templates (among other things).</li>
+<li>A faster/easier way to display parameter values.</li>
+</ul><div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+Hello, $<span class="br0">{</span>param.<span class="me1">visitor</span><span class="br0">}</span> <span class="sy0">&lt;%--</span> Same as<span class="sy0">:</span> Hello, <span class="sy0">&lt;%=</span>request.<span class="me1">getParameter</span><span class="br0">(</span><span class="st0">"visitor"</span><span class="br0">)</span><span class="sy0">%&gt;</span> <span class="sy0">--%&gt;</span>
+</pre></div>
+</div>
+<ul><li>A clearer way to navigate nested beans</li>
+</ul><p>Consider some beans.</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+ <span class="kw1">class</span> Person <span class="br0">{</span>
+    <span class="kw3">String</span> name<span class="sy0">;</span>
+    <span class="co1">// Person nests an organization bean.</span>
+    Organization organization<span class="sy0">;</span>
+ 
+    <span class="kw1">public</span> <span class="kw3">String</span> getName<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> <span class="kw1">return</span> <span class="kw1">this</span>.<span class="me1">name</span><span class="sy0">;</span> <span class="br0">}</span>
+    <span class="kw1">public</span> Organization getOrganization<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> <span class="kw1">return</span> <span class="kw1">this</span>.<span class="me1">organization</span><span class="sy0">;</span> <span class="br0">}</span>
+ <span class="br0">}</span>
+</pre></div>
+</div>
+<p><br></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+ <span class="kw1">class</span> Organization <span class="br0">{</span>
+    <span class="kw3">String</span> name<span class="sy0">;</span>
+    <span class="kw1">public</span> <span class="kw3">String</span> getName<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span> <span class="kw1">return</span> <span class="kw1">this</span>.<span class="me1">name</span><span class="sy0">;</span> <span class="br0">}</span>
+ <span class="br0">}</span>
+</pre></div>
+</div>
+<p><br>
+Then, if an instance of Person was to be placed onto a request attribute under the name "person"</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="html4strict source-html4strict">
+<pre class="de1">
+<span class="sc-1">&lt;!-- The JSP would have --&gt;</span>
+ Hello, ${person.name}, of company ${person.organization.name}
+ <span class="sc2">&lt;%-- Second expression same as </span>
+<span class="sc2">    &lt;% Person p <span class="sy0">=</span> <span class="br0">(</span>Person<span class="br0">)</span> request.getAttribute<span class="br0">(</span><span class="st0">"person"</span><span class="br0">)</span>;</span>
+<span class="sc2">        if <span class="br0">(</span>p !<span class="sy0">=</span> null<span class="br0">)</span> <span class="br0">{</span></span>
+<span class="sc2">            Organization o <span class="sy0">=</span> p.getOrganization<span class="br0">(</span><span class="br0">)</span>;</span>
+<span class="sc2">            if <span class="br0">(</span>o !<span class="sy0">=</span> null<span class="br0">)</span> <span class="br0">{</span></span>
+<span class="sc2">                out.print<span class="br0">(</span>o.getName<span class="br0">(</span><span class="br0">)</span><span class="br0">)</span>;</span>
+<span class="sc2">            <span class="br0">}</span></span>
+<span class="sc2">        <span class="br0">}</span></span>
+<span class="sc2">    %&gt;</span>
+ --%&gt;
+</pre></div>
+</div>
+<h3> <span class="mw-headline" id="JSP_Technology_in_the_Java_EE_5_Platform">JSP Technology in the Java EE 5 Platform</span></h3>
+<p>The focus of Java EE 5 has been ease of development by making use of Java language annotations that were introduced by J2SE 5.0. JSP 2.1 supports this goal by defining annotations for dependency injection on JSP tag handlers and context listeners.</p>
+<p>Another key concern of the Java EE 5 specification has been the alignment of its webtier technologies, namely JavaServer Pages (JSP), JavaServer Faces (JSF), and JavaServer Pages Standard Tag Library (JSTL).</p>
+<p>The outcome of this alignment effort has been the Unified Expression Language (EL), which integrates the expression languages defined by JSP 2.0 and JSF 1.1.</p>
+<p>The main key additions to the Unified EL that came out of the alignment work have been: A pluggable API for resolving variable references into Java objects and for resolving the properties applied to these Java objects, Support for deferred expressions, which may be evaluated by a tag handler when needed, unlike their regular expression counterparts, which get evaluated immediately when a page is executed and rendered, and Support for lvalue expression, which appear on the left hand side of an assignment operation. When used as an lvalue, an EL expression represents a reference to a data structure, for example: a JavaBeans property, that is assigned some user input. The new Unified EL is defined in its own specification document, which is delivered along with the JSP 2.1 specification.</p>
+<p>Thanks to the Unified EL, JSTL tags, such as the JSTL iteration tags, can now be used with JSF components in an intuitive way.</p>
+<p>JSP 2.1 leverages the Servlet 2.5 specification for its web semantics.</p>
+<h2> <span class="mw-headline" id="Environment">Environment</span></h2>
+<p>Both the Java Server (J2EE specification) and the page scripts and/or extended customised programming added operate by(in the runtime context of being loaded programs used) a special pre-installed base program called a Virtual Machine that integrates with the host Operating System, this type being the Java Virtual Machine (JVM).</p>
+<p>Because either, <i>both a Compiler-JVM set (called an SDK or JDK)</i> or <i>the lone JVM (called a JRE, Java Runtime Environment)</i> is made for most computer platform OSs and the compiled programs for the JVM are compiled into special Java Byte code files for the JVM the Byte-code files(compiled Java program .class files) can be effectively transferred between platforms with no requirement to be recompiled excepting versioning compatibility, or special circumstance. The source code for these J2EE servlet or J2EE JSP programs is <i>almost always supplied with J2EE JSP material and J2EE Web Applications because the server must call the compiler when loading them</i>. These small extension programs (custom tags, servlets, beans, page scripting) are variable and likely to be updated or changed either shortly before runtime or intermittently but particularly when sending JSP page requests themselves, <i><u>it requires the JSP server to have access</u> to a Java compiler (SDK or JDK) and the required source code (not simply the JVM JRE and byte code class files)</i> to successfully exploit the method of serving.</p>
+<p>JSP syntax has two basic forms, <i>scriptlet</i> and <i>markup</i> though fundamentally the page is either HTML or XML markup. Scriptlet tagging (called Scriptlet Elements)<i>(delimited) blocks of code</i> with the markup are not effectively markup and allows any java server relevant API (e.g. the servers running binaries themselves or datatbase connections API or java mail API) or more specialist JSP API language code to be embedded in an HTML or XML page provided the correct declarations in the JSP file and file extension of the page are used. Scriptlet blocks do not require to be completed in the block itself only the last line of the block itself being completed <i>syntactically correctly as a statement</i> is required, it <i>can be completed in a later block</i>. This system of split inline coding sections is called <i>step over scripting</i> because it can wrap around the static markup <i>by stepping over it</i>. At runtime(during a client request) the code is compiled and evaluated, but compilation of the code generally only occurs when a change to the code of the file occurs. The JSP syntax adds additional XML-like tags, called JSP actions, to be used to invoke built-in functionality. Additionally, the technology allows for the creation of JSP tag libraries that act as extensions to the standard HTML or XML tags. JVM operated Tag libraries provide a platform independent way of extending the capabilities of a Web server. Note that not all company makes of Java servers are J2EE specification compliant.</p>
+<h2> <span class="mw-headline" id="Model-view-controller_paradigm">Model-view-controller paradigm</span></h2>
+<p>Sun recommends that the Model-view-controller pattern be used with the JSP files in order to split the presentation from request processing and computer data storage. Either regular servlets or separate JSP files are used to process the request. After the request processing has finished, control is passed to a JSP used only for creating the output. There are several platforms based on Model-view-controller pattern for web tiers (such as Barracuda, Apache Struts, Stripes, and the Spring MVC framework).</p>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

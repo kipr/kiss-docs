@@ -1,0 +1,65 @@
+<html><head><title>Java Programming/Keywords/throws</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Keywords/throws</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">throws</strong></font></code> is a Java keyword. It is used in a method definition to declare the Exceptions to be thrown by the method.</p>
+<p>Syntax:</p>
+<pre>
+public myMethod() <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">throws</strong></font></code> MyException1, MyException2
+{
+  ...
+}
+</pre>
+<p>Example:</p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">class</span> MyDefinedException <span class="kw1">extends</span> <span class="kw3">Exception</span><br>
+&#160;<span class="br0">{</span><br>
+&#160; <span class="kw1">public</span> MyDefinedException<span class="br0">(</span><span class="kw3">String</span> str<span class="br0">)</span><br>
+&#160; <span class="br0">{</span><br>
+&#160; &#160; &#160;<span class="kw1">super</span><span class="br0">(</span>str<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; <span class="br0">}</span> &#160;<br>
+&#160;<span class="br0">}</span><br><br>
+&#160;<span class="kw1">public</span> <span class="kw1">class</span> MyClass<br>
+&#160;<span class="br0">{</span><br>
+&#160; &#160; <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> showMyName<span class="br0">(</span><span class="kw3">String</span> str<span class="br0">)</span> <span class="kw1">throws</span> MyDefinedException<br>
+&#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; <span class="kw1">if</span><span class="br0">(</span>str.<span class="me1">equals</span><span class="br0">(</span><span class="st0">"What is your Name?"</span><span class="br0">)</span><span class="br0">)</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">throw</span> <span class="kw1">new</span> MyDefinedException<span class="br0">(</span><span class="st0">"My name is Blah Blah"</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span> a<span class="br0">[</span><span class="br0">]</span><span class="br0">)</span><br>
+&#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160;<span class="kw1">try</span><br>
+&#160; &#160; &#160; &#160;<span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; showMyName<span class="br0">(</span><span class="st0">"What is your Name?"</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160;<span class="br0">}</span><br>
+&#160; &#160; &#160; &#160;<span class="kw1">catch</span><span class="br0">(</span>MyDefinedException mde<span class="br0">)</span><br>
+&#160; &#160; &#160; &#160;<span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; mde.<span class="me1">printStackTrace</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160;<span class="br0">}</span><br>
+&#160; &#160; &#160;<span class="br0">}</span><br>
+&#160;<span class="br0">}</span></div>
+</div>
+</td>
+</tr></table></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

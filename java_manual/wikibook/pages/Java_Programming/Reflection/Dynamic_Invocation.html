@@ -1,0 +1,123 @@
+<html><head><title>Java Programming/Reflection/Dynamic Invocation</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Reflection/Dynamic Invocation</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><table class="wikitable" style="float: right;"><tr><td>Navigate <b><a href="../Reflection.html" title="Java Programming/Reflection">Reflection</a></b> topic:
+<ul><li> <a href="Overview.html" title="Java Programming/Reflection/Overview">Reflection Overview</a></li>
+<li> <a href="Dynamic_Class_Loading.html" title="Java Programming/Reflection/Dynamic Class Loading">Dynamic Class Loading</a></li>
+<li> <strong class="selflink">Dynamic Method Invocation</strong></li>
+<li> <a href="Accessing_Private_Features_with_Reflection.html" title="Java Programming/Reflection/Accessing Private Features with Reflection">Accessing Private Features with Reflection</a></li>
+</ul></td>
+</tr></table><p>We start with basic transfer object:</p>
+<p><br></p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">package</span> <span class="co2">com.test</span><span class="sy0">;</span><br><br><span class="kw1">public</span> <span class="kw1">class</span> DummyTo <span class="br0">{</span><br>
+&#160; &#160; <span class="kw1">private</span> <span class="kw3">String</span> name<span class="sy0">;</span><br>
+&#160; &#160; <span class="kw1">private</span> <span class="kw3">String</span> address<span class="sy0">;</span><br>
+&#160; &#160;<br>
+&#160; &#160; <span class="kw1">public</span> <span class="kw3">String</span> getName<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">return</span> name<span class="sy0">;</span><br>
+&#160; &#160; <span class="br0">}</span><br><br>
+&#160; &#160; <span class="kw1">public</span> <span class="kw4">void</span> setName<span class="br0">(</span><span class="kw3">String</span> name<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">this</span>.<span class="me1">name</span> <span class="sy0">=</span> name<span class="sy0">;</span><br>
+&#160; &#160; <span class="br0">}</span><br><br>
+&#160; &#160; <span class="kw1">public</span> <span class="kw3">String</span> getAddress<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">return</span> address<span class="sy0">;</span><br>
+&#160; &#160; <span class="br0">}</span><br><br>
+&#160; &#160; <span class="kw1">public</span> <span class="kw4">void</span> setAddress<span class="br0">(</span><span class="kw3">String</span> address<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">this</span>.<span class="me1">address</span> <span class="sy0">=</span> address<span class="sy0">;</span><br>
+&#160; &#160; <span class="br0">}</span><br><br>
+&#160; &#160; <span class="kw1">public</span> DummyTo<span class="br0">(</span><span class="kw3">String</span> name, <span class="kw3">String</span> address<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">this</span>.<span class="me1">name</span> <span class="sy0">=</span> name<span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">this</span>.<span class="me1">address</span> <span class="sy0">=</span> address<span class="sy0">;</span><br>
+&#160; &#160; <span class="br0">}</span><br><br>
+&#160; &#160; <span class="kw1">public</span> DummyTo<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">this</span>.<span class="me1">name</span> <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">String</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">this</span>.<span class="me1">address</span> <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">String</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; <span class="br0">}</span><br><br>
+&#160; &#160; <span class="kw1">public</span> <span class="kw3">String</span> toString<span class="br0">(</span><span class="kw3">String</span> appendBefore<span class="br0">)</span><br>
+&#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">return</span> appendBefore<span class="sy0">+</span><span class="st0">" "</span><span class="sy0">+</span>name<span class="sy0">+</span><span class="st0">" , "</span><span class="sy0">+</span>address<span class="sy0">;</span><br>
+&#160; &#160; <span class="br0">}</span><br><span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p><br>
+Following is the example for invoking method from the above mentioned to dynamically. Code is self explanatory.</p>
+<p><br></p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">package</span> <span class="co2">com.test</span><span class="sy0">;</span><br><br><span class="kw1">import</span> <span class="co2">java.lang.reflect.Constructor</span><span class="sy0">;</span><br><span class="kw1">import</span> <span class="co2">java.lang.reflect.InvocationTargetException</span><span class="sy0">;</span><br><span class="kw1">import</span> <span class="co2">java.lang.reflect.Method</span><span class="sy0">;</span><br><br><span class="kw1">public</span> <span class="kw1">class</span> ReflectTest <span class="br0">{</span><br>
+&#160; &#160; <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span><br>
+&#160; &#160; <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; <span class="kw1">try</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">Class</span> dummyClass <span class="sy0">=</span> <span class="kw1">Class</span>.<span class="me1">forName</span><span class="br0">(</span><span class="st0">"com.test.DummyTo"</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; &#160; &#160; <span class="co1">//parameter types for methods</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">Class</span><span class="br0">[</span><span class="br0">]</span> partypes <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw1">Class</span><span class="br0">[</span><span class="br0">]</span><span class="br0">{</span><span class="kw3">String</span>.<span class="kw1">class</span><span class="br0">}</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; &#160; &#160; <span class="co1">//Create method object . methodname and parameter types</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; <span class="kw3">Method</span> meth <span class="sy0">=</span> dummyClass.<span class="me1">getMethod</span><span class="br0">(</span><span class="st0">"toString"</span>, partypes<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; &#160; &#160; <span class="co1">//parameter types for constructor</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; <span class="kw1">Class</span><span class="br0">[</span><span class="br0">]</span> constrpartypes <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw1">Class</span><span class="br0">[</span><span class="br0">]</span><span class="br0">{</span><span class="kw3">String</span>.<span class="kw1">class</span>, <span class="kw3">String</span>.<span class="kw1">class</span><span class="br0">}</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; &#160; &#160; <span class="co1">//Create constructor object . parameter types</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; <span class="kw3">Constructor</span> constr <span class="sy0">=</span> dummyClass.<span class="me1">getConstructor</span><span class="br0">(</span>constrpartypes<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; &#160; &#160; <span class="co1">//create instance</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; <span class="kw3">Object</span> dummyto <span class="sy0">=</span> constr.<span class="me1">newInstance</span><span class="br0">(</span><span class="kw1">new</span> <span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span><span class="br0">{</span><span class="st0">"Java Programmer"</span>, <span class="st0">"India"</span><span class="br0">}</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; &#160; &#160; <span class="co1">//Arguments to be passed into method</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; <span class="kw3">Object</span><span class="br0">[</span><span class="br0">]</span> arglist <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">Object</span><span class="br0">[</span><span class="br0">]</span><span class="br0">{</span><span class="st0">"I am"</span><span class="br0">}</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; &#160; &#160; <span class="co1">//invoke method!!</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; <span class="kw3">String</span> output <span class="sy0">=</span> <span class="br0">(</span><span class="kw3">String</span><span class="br0">)</span> meth.<span class="me1">invoke</span><span class="br0">(</span>dummyto, arglist<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; <span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span>output<span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160;<br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span><span class="kw3">ClassNotFoundException</span> e<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; e.<span class="me1">printStackTrace</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span><span class="kw3">SecurityException</span> e<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; e.<span class="me1">printStackTrace</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span><span class="kw3">NoSuchMethodException</span> e<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; e.<span class="me1">printStackTrace</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span><span class="kw3">IllegalArgumentException</span> e<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; e.<span class="me1">printStackTrace</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span><span class="kw3">IllegalAccessException</span> e<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; e.<span class="me1">printStackTrace</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span> <span class="kw1">catch</span> <span class="br0">(</span><span class="kw3">InvocationTargetException</span> e<span class="br0">)</span> <span class="br0">{</span><br>
+&#160; &#160; &#160; &#160; &#160; &#160; e.<span class="me1">printStackTrace</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span><br>
+&#160; &#160; &#160; &#160; <span class="br0">}</span><br>
+&#160; &#160; <span class="br0">}</span><br><span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p><br>
+Conclusion: Above examples demonstrate the invocation of method dynamically using reflection.</p>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

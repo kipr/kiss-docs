@@ -1,0 +1,59 @@
+<html><head><title>Java Programming/IntroToStreams&amp;Outputting Text</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/IntroToStreams&amp;Outputting Text</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><table class="wikitable" style="float: right;"><tr><td><b>User Interface Topics</b>:
+<ul><li><a href="http://en.wikibooks.org/wiki/Java_Programming/BasicIO" title="Java Programming/BasicIO" class="mw-redirect">Basic I/O</a></li>
+<li><a href="Event_Handling.html" title="Java Programming/Event Handling">Event handling</a></li>
+<li><a href="Swing.html" title="Java Programming/Swing">Intro to Swing</a></li>
+<li><a href="Graphics.html" title="Java Programming/Graphics">Graphics</a></li>
+<li><a href="Applets.html" title="Java Programming/Applets">Applets</a><br><br></li>
+</ul></td>
+</tr></table><table class="wikitable" style="float: right;"><tr><td>Navigate <b><a href="http://en.wikibooks.org/wiki/Java_Programming/BasicIO" title="Java Programming/BasicIO" class="mw-redirect">Basic I/O</a></b> topic:
+<ul><li> <a href="http://en.wikibooks.org/wiki/Java_Programming/BasicIO" title="Java Programming/BasicIO" class="mw-redirect">Overview</a></li>
+<li> <strong class="selflink">Streams Introduced and Outputting Text</strong></li>
+<li> <a href="Reading_Text_Input.html" title="Java Programming/Reading Text Input">Reading Text Input</a></li>
+</ul></td>
+</tr></table><p><br></p>
+<h2> <span class="mw-headline" id="Streams_In_General">Streams In General</span></h2>
+<p>The most basic input and output in Java is done using streams. Streams are objects that represent sources and destinations of data. Streams that are sources of data can be read from, and streams that are destinations of data can be written to.</p>
+<p>It is a characteristic of streams that they deal only in one discrete unit of data at a time, and different streams deal with different types of data. If one had a stream that represented a destination for bytes, for example, one would send data to the destination one byte at a time. If a stream was a source of byte data, one would read the data a byte at a time. Because this is the only way to access data from a stream, in this latter case, we wouldn't know when we had read all the data from the stream until we actually got there. When reading a stream, one generally has to check each unit of data each read operation to see if the end of the stream has been reached (with byte streams, the special value is the integer -1, or FFFF hex).</p>
+<p>In Java, there are various classes in the package java.io that represent various types of streams. The stream classes differ in whether they represent input or output streams, what the source destination actually is (e.g. a file, an array, a keyboard or monitor, etc.), and what type of data they actually work with. There are also classes that "filter" streams, changing one format to another (e.g. class DataOutputStream, which translates various primitive types to byte streams).</p>
+<p>To understand streams in Java, it is useful to look at the organization of the java.io package. Most of the classes are descended from four primitive ones:</p>
+<ul><li>InputStream -- This is an abstract class that represents a source of byte data. It has a read() method, which returns the next byte in the stream and a close() method, which should be called by a program when that program is done with the stream. The read() method is overloaded, and can take a byte array to read to. It has a skip() method that can skip a number of bytes, and an available() method that a program can use to determine the number of bytes immediately available to be read, as not all the data is necessarily ready immediately. As an abstract class, it cannot be instantiated, but describes the general behavior of an input stream. A few examples of concrete subclasses would be ByteArrayInputStream, which reads from a byte array, and FileInputStream, which reads byte data from a file.</li>
+<li>OutputStream -- An abstract class which is the destination counterpart of InputStream. OutputStream has a write() method which can be used to write a byte to the stream. The method is overloaded, and can take an array as well. A close() method closes the stream when the application is finished with it, and it has a flush() method. If the stream object is buffering any data before writing it (perhaps it waits until it has a certain amount before it writes it all at once for efficiency), this method will force it to write all of this data. Like InputStream, this class cannot be instantiated, but has concrete subclasses that parallel those of InputStream, eg ByteArrayOutputStream, FileOutputStream, etc.</li>
+<li>Reader -- An abstract class that represents a source of character data. It is analogous to InputStream, except that it deals with characters instead of bytes (remember that Java uses Unicode, so that a character is 2 bytes, not one). Its methods are generally similar to those of InputStream. Concrete subclasses include classes like FileReader, which reads characters from files, and StringReader, which reads characters from strings. You can also convert an InputStream object to a Reader object with the InputStreamReader class, which can be "wrapped around" an InputStream object (by passing it as an argument in its constructor). It uses a character encoding scheme (which can be changed by the programmer) to translate a byte into a 16-bit Unicode character.</li>
+<li>Writer -- A character counterpart of OutputStream, and a destination counterpart to Reader, this is also an abstract superclass. Particular implementations parallel those of Reader, eg FileWriter, StringWriter, and OutputStreamWriter, for converting a regular OutputStream into a reader so that it can take character data.</li>
+</ul><h2> <span class="mw-headline" id="System.out_and_System.err">System.out and System.err</span></h2>
+<p>System is a class in the package java.lang with a number of static members that are available to Java programs. Two members that are useful for console output are System.out and System.err. Both System.out and System.err are PrintStream objects. PrintStream is a subclass of FilterOutputStream, itself a subclass of OutputStream (discussed above), and its main purpose is to translate a wide variety of data types into streams of bytes that represent that data in characters according to some encoding scheme.</p>
+<p>System.out and System.err both display text to a console where the user can read it, however what this means exactly depends on the platform used and the environment in which the program is running. In BlueJay and Eclipse IDE, for example, there is a special "terminal" window that will display this output. If the program is launched in Windows, the output will be sent to the DOS prompt (usually this means that you have to launch the program from the command line to see the output).</p>
+<p>System.out and System.err differ in what they're supposed to be used for. System.out should be used for normal program output, System.err should be used to inform the user that some kind of error has occurred in the program. In some situations, this may be important. In DOS, for instance, a user can redirect standard output to some other destination (a file, for example), but error output will not be redirected, but rather displayed on the screen. If this weren't the case, the user might never be able to tell that an error had occurred.</p>
+<p><br></p>
+<h2> <span class="mw-headline" id="More_Info">More Info</span></h2>
+<p>More information on the contents of the java.io package can be viewed on the Sun website by clicking this link (<a rel="nofollow" class="external free" href="http://java.sun.com/j2se/1.4.2/docs/api/index.html">http://java.sun.com/j2se/1.4.2/docs/api/index.html</a>).</p>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

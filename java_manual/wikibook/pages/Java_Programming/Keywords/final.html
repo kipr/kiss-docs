@@ -1,0 +1,45 @@
+<html><head><title>Java Programming/Keywords/final</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Keywords/final</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">final</strong></font></code> is a keyword.</p>
+<p>It has more than one meaning depending whether it used for a class, a method, or for a variable.</p>
+<ul><li>It is denoting that a variable is to be constant. This is similar to <code>const</code> in other languages. A variable declared with the <code>final</code> keyword cannot be modified by the program after initialization. This is useful for universal constants, such as <a href="http://en.wikipedia.org/wiki/pi" class="extiw" title="w:pi">pi</a>, or other values that the programmer would like to keep constant throughout the code.</li>
+<li>It marks a method <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">final</strong></font></code>, meaning that subclasses can not override this method. The compiler checks and gives an error if you try to override the method.</li>
+<li>It marks a class <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">final</strong></font></code>, meaning that the class can not be subclassed.</li>
+</ul><p>For example:</p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java"><span class="kw1">static</span> <span class="kw1">final</span> <span class="kw4">double</span> PI <span class="sy0">=</span> <span class="nu0">3.1415926</span><span class="sy0">;</span><br>
+&#160;<br><span class="kw1">final</span> <span class="kw1">public</span> <span class="kw4">void</span> method<span class="br0">(</span><span class="br0">)</span><br><span class="br0">{</span><br>
+&#160; &#160;<span class="co1">//...</span><br><span class="br0">}</span><br>
+&#160;<br><span class="kw1">final</span> <span class="kw1">public</span> <span class="kw1">class</span> MyClass<br><span class="br0">{</span><br>
+&#160; &#160;<span class="co1">//...</span><br><span class="br0">}</span></div>
+</div>
+</td>
+</tr></table><p><br>
+Note that <code>final</code> is always placed before the variable type in a constant, before the return type of a method, and before the keyword class in a class header.</p>
+<p>See also:</p>
+<ul><li><a href="../Access_Modifiers.html" title="Java Programming/Access Modifiers">Java Programming/Access Modifiers</a></li>
+</ul></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

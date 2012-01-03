@@ -1,0 +1,61 @@
+<html><head><title>Java Programming/Annotations</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Annotations</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><table class="wikitable" style="float: right;"><tr><td><b>Beginners Topics</b>:
+<ul><li><a href="Introduction.html" title="Java Programming/Introduction">Introduction</a></li>
+<li><a href="Getting_started.html" title="Java Programming/Getting started">Getting started</a></li>
+<li><a href="Language_Fundamentals.html" title="Java Programming/Language Fundamentals">Language fundamentals</a></li>
+<li><a href="Classes_and_Objects.html" title="Java Programming/Classes and Objects">Classes and objects</a></li>
+<li><a href="http://en.wikibooks.org/wiki/Java_Programming/Basic_Arithmetic" title="Java Programming/Basic Arithmetic" class="mw-redirect">Basic arithmetic</a></li>
+<li><a href="Collections.html" title="Java Programming/Collections">Collections</a></li>
+<li><a href="Exceptions.html" title="Java Programming/Exceptions">Exceptions</a></li>
+<li><a href="Concurrent_Programming.html" title="Java Programming/Concurrent Programming">Concurrent Programming</a></li>
+<li><strong class="selflink">Javadoc &amp; Annotations</strong></li>
+<li><a href="Byte_Code.html" title="Java Programming/Byte Code">Byte Code</a></li>
+</ul></td>
+</tr></table><table class="wikitable" style="float: right;"><tr><td>Navigate <b><strong class="selflink">Javadoc &amp; Annotations</strong></b> topic:
+<ul><li> <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Javadoc/Introduction&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Javadoc/Introduction (does not exist)">Introduction to Javadoc</a></li>
+<li> <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Javadoc/xDoclet&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Javadoc/xDoclet (does not exist)">Introduction to XDoclet</a></li>
+<li> <a href="Annotations/Introduction.html" title="Java Programming/Annotations/Introduction">Introduction to Annotation</a></li>
+<li> <a href="Annotations/Custom_Annotations.html" title="Java Programming/Annotations/Custom Annotations">Creating custom annotations</a></li>
+<li> <a href="Annotations/Meta-Annotations.html" title="Java Programming/Annotations/Meta-Annotations">Meta-annotations</a></li>
+<li> <a href="Annotations/Compiler_and_Annotations.html" title="Java Programming/Annotations/Compiler and Annotations">Helping the compiler</a></li>
+<li> <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Annotations/Runtime_Processing&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Annotations/Runtime Processing (does not exist)">Processing annotations at runtime</a></li>
+<li> <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Annotations/Examples&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Annotations/Examples (does not exist)">A few examples of annotations</a></li>
+<li> <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Annotations/Annotation_Glossary&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Annotations/Annotation Glossary (does not exist)">A glossary of built-in annotations in Java</a></li>
+</ul></td>
+</tr></table><p><a href="http://en.wikipedia.org/wiki/Javadoc" class="extiw" title="w:Javadoc">Javadoc</a> is Java source code document generator, that was introduced with the Java language from version 1.0 .</p>
+<p>Well commented Java code is supposed to have Javadoc tags. Those tags are in the /** ... */ comment blocks, so the compiler ignores them. A separate utility would read the code and create the Java API html files.</p>
+<p>The Javadoc API documentations are well known. The Java JDK classes are coming with Javadoc API documentations. Most popular IDE tools automatically read Javadoc tags and wherever that class, attribute or method are used, the tags content are displayed automatically, when the mouse courser is over of the text.</p>
+<p>x x x</p>
+<p>As Java matured, the "Javadoc concept" was recognized as an excellent tool for other purposes, like generating XML descriptors, or even generating Java code, with the help of the <a href="http://en.wikipedia.org/wiki/XDoclet" class="extiw" title="w:XDoclet">XDoclet</a> open source program.</p>
+<p>With the help of the <a href="http://en.wikipedia.org/wiki/XDoclet" class="extiw" title="w:XDoclet">XDoclet</a> program, it was possible to use additional Javadoc tags in the code that this program would understand and generate code or data. For example, Javadoc tags were introduced to generate XML descriptors for EJBs. It introduced an additional step in the build process of an EJB, and compiling the code <a href="http://en.wikipedia.org/wiki/XDoclet" class="extiw" title="w:XDoclet">XDoclet</a> would generate the XML descriptors.</p>
+<p>x x x</p>
+<p>Recognizing its usefulness, in Java 5, <a href="http://en.wikipedia.org/wiki/Java_annotation" class="extiw" title="w:Java annotation">annotation</a> was added to the Java language. <a href="http://en.wikipedia.org/wiki/Java_annotation" class="extiw" title="w:Java annotation">Annotation</a> tags are NOT inside a comment block, any more. <a href="http://en.wikipedia.org/wiki/Java_annotation" class="extiw" title="w:Java annotation">Annotation</a> is part of the class and it may be accessed at runtime.</p>
+<p>Wherever XML descriptors were heavily used, now an alternative way is available that is the Java <a href="http://en.wikipedia.org/wiki/Java_annotation" class="extiw" title="w:Java annotation">annotation</a>. From EJB 3.0, it is possible to define EJBs without using XML. Also the new <a href="http://en.wikipedia.org/wiki/Java_Persistence_API" class="extiw" title="w:Java Persistence API">JPA (Java Persistent API)</a> using annotations.</p>
+<p>x x x</p>
+<p>It is important to note, that <a href="http://en.wikipedia.org/wiki/Javadoc" class="extiw" title="w:Javadoc">Javadoc</a> and <a href="http://en.wikipedia.org/wiki/Java_annotation" class="extiw" title="w:Java annotation">annotation</a> are two different construct.</p>
+<ul><li><a href="http://en.wikipedia.org/wiki/Javadoc" class="extiw" title="w:Javadoc">Javadoc</a> tags are inside a comment block and such ignored by the compiler.</li>
+<li><a href="http://en.wikipedia.org/wiki/Java_annotation" class="extiw" title="w:Java annotation">Annotation</a> tags are outside of comment blocks and they are type checked by the compiler.</li>
+</ul></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

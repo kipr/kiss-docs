@@ -1,0 +1,121 @@
+.CLMenu
+{
+	list-style-type: decimal;
+}
+
+.CLMenu ul 
+{
+	list-style-type: square;
+	display: none;
+}
+
+.CLMenu ul ul
+{
+	list-style-type: circle;
+	display: none;
+}
+
+img .CLButton
+{
+	cursor: pointer;
+	width: 11;
+	height: 11;
+	border: none;
+	margin: none;
+}
+
+#Title
+{
+	text-align: center;
+}
+
+h1
+{
+	text-align: center;
+	font-size: 42;
+}
+
+h2
+{
+	text-align: left;
+	font-size: 32;
+}
+
+h3
+{
+	text-align: left;
+	font-size: 24;
+}
+
+h4
+{
+	text-align: left;
+	font-size: 18;
+}
+
+.pygments
+{
+	font-family: Monospace;
+	
+	tab-size: 4;
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	font-size: 12px;
+	padding: 0;
+	margin: 0;
+	background: #f0f0f0;
+	border-left: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+	width: auto;
+	overflow: auto; /*--If the Code exceeds the width, a scrolling is available--*/
+	overflow-Y: hidden;  /*--Hides vertical scroll created by IE--*/
+}
+
+.pygments pre 
+{
+	margin: 0 0 0 20px;  /*--Left Margin--*/
+	line-height: 20px; /*--Height of each line of code--*/
+	padding: 10px 0;
+	display: block;
+}
+
+.pygments code 
+{
+	line-height: 14px; /*--Height of each line of code--*/
+}
+
+.pygments .c, .pygments .cm, .pygments .cp, .pygments .c1, .pygments .cs /* Comment */
+{ 
+	font-style: italic;
+	color: darkgreen;
+}
+
+.pygments .k, .pygments .kc, .pygments .kd, .pygments .kn, .pygments .kr /* Keyword */
+{
+	color: Blue;
+}
+
+.pygments .nf /* Method Name*/
+{
+	/*color: Purple;*/
+}
+
+.pygments .s, .pygments .sb, .pygments .sc, .pygments .sd, .pygments .s2,
+.pygments .se, .pygments .sh, .pygments .si, .pygments .sx, .pygments .sr,
+.pygments .sl, .pygments .ss /* Literal String */
+{
+	color: Red;
+	font-family: Monospace; 
+}
+
+div .indent
+{
+	padding-left: 30px;
+}
+
+table .CFunctions
+{
+	border-spacing: 5px;
+}

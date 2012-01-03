@@ -1,0 +1,46 @@
+<html><head><title>Java Programming/Keywords/class</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Keywords/class</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">class</strong></font></code> is a Java keyword which begins the declaration and definition of a <a href="../Classes_and_Objects.html" title="Java Programming/Classes and Objects">class</a>.</p>
+<p>The general syntax of a class declaration, using <a href="http://en.wikibooks.org/wiki/Programming_Languages/Syntax_Specification" title="Programming Languages/Syntax Specification">Extended Backus-Naur Form</a>, is</p>
+<pre>
+class-declaration ::= [<i><a href="../Access_Modifiers.html" title="Java Programming/Access Modifiers">access-modifiers</a></i>] <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">class</strong></font></code> <code><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Keywords/identifier&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Keywords/identifier (does not exist)"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">identifier</font></a></code>
+                      [<i>extends-clause</i>] [<i>implements-clause</i>] 
+                      <i>class-body</i>
+
+extends-clause ::= <code><a href="extends.html" title="Java Programming/Keywords/extends"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">extends</font></a></code> <i>class-name</i>
+implements-clause ::= <code><a href="implements.html" title="Java Programming/Keywords/implements"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">implements</font></a></code> <i>interface-names</i> 
+interface-names ::= <i>interface-name</i> [<code>,</code> <i>interface-names</i>]
+class-body ::= <b><code>{</code></b> [<i>member-declarations</i>] <b><code>}</code></b>
+member-declarations = <i>member-declaration</i> [<i>member-declarations</i>]
+member-declaration = <i>field-declaration</i> 
+                     | <i>initializer</i> 
+                     | <i>constructor</i> 
+                     | <i>method-declaration</i>
+                     | <i>class-declaration</i>
+</pre>
+<p>The <code><a href="extends.html" title="Java Programming/Keywords/extends"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">extends</font></a></code> word is optional. If omitted, the class extends the <code><a href="../API/java.lang.Object.html" title="Java Programming/API/java.lang.Object">Object</a></code> class, as all Java classes inherit from it.</p>
+<p>See also:</p>
+<ul><li><a href="new.html" title="Java Programming/Keywords/new">Java Programming/Keywords/new</a></li>
+</ul></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

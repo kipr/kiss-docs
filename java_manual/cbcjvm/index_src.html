@@ -1,0 +1,739 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+		<link rel="icon" href="images/botball.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="images/botball.ico" type="image/x-icon">
+		<style type="text/css">
+			@import "style.css";
+		</style>
+		<title>CBCJVM Programmers Manual</title>
+	</head>
+	<body>
+		Manual Version 1.0, by Braden McDorman (bmcdorman@kipr.org) and Benjamin Woodruff (benjaminwoodruff@ufl.edu)
+		<br/>
+		<h1>CBCJVM Programmers Manual</h1>
+		<center><img src="CBCJava_64.png" alt="CBCJVM Logo"/></center>
+		<br/>
+		<p>
+			This document assumes you have a decent understanding of Java and
+			CBC development in C. CBCJVM is an Object Oriented library for CBC
+			development in Java. Started in 2009 as an open source project, the
+			project quickly grew as students and professionals contributed to
+			its codebase. Now, after years development, CBCJVM has been included
+			in the official CBC firmware.
+		</p>
+		<p>
+			Java and CBCJVM allow rapid and professional development of robot
+			programs. This document hopes to serve as a guide to understanding
+			CBCJVM and its usage.
+		</p>
+		<p>
+			<b>Note:</b> <i>CBCJVM's APIs are subject to change in the future,
+			so if a future release of CBCJVM breaks your code, don't say we
+			didn't warn you! That said, we'll try to keep major changes to a
+			minimum and documentation up-to-date.</i>
+		</p>
+		<h2>Things That Move (<code>cbccore.motors.*</code>)</h2>
+		<h3>Motors (<code>cbccore.motors.Motor</code>)</h3>
+		<p>
+			Individual motors are creating instances of the
+			<pygm>cbccore.motors.Motor</pygm> class. The <pygm>Motor</pygm>
+			class has a significant amount of similarity to libcbc. For example,
+			if we wished to move motor on port 0 at a specific velocity for 1
+			second, we could use the <pygm>moveAtVelocity</pygm> method in
+			<pygm>Motor</pygm>.
+		</p>
+		<pygments>
+			import cbccore.motors.Motor;
+			public class MotorTest {
+				public static void main(String[] args) {
+					Motor test = new Motor(0);
+					test.moveAtVelocity(150);
+					try {
+						Thread.sleep(1000);
+					} catch(InterruptedException e) {
+						e.printStackTrace();
+					} 
+					test.off();
+				}
+			}
+		</pygments>
+		<p>
+			If you've programmed a CBC in C before, the method
+			<pygm>moveAtVelocity</pygm> should look somewhat familiar. In C, we
+			can use the <pygm language="c">move_at_velocity</pygm> or
+			<pygm>mav</pygm> functions to achieve a similar effect. In CBCJVM,
+			though, we don't have to supply a port to the method. The
+			<pygm>Motor</pygm> class stores the port we supplied to it in the
+			constructor, cleaning our code both syntactically and conceptually.
+		</p>
+		The next bit of code sleeps for one second (1000 milliseconds.)
+		<pygments>
+			try {
+				Thread.sleep(1000);
+			} catch(InterruptedException e) {
+				e.printStackTrace();
+			}
+		</pygments>
+		<p>
+			While this code is somewhat verbose, this is the standard way to
+			"sleep" for a given amount of time in Java. As such, we will
+			continue to use it in this manual. If you wish, you may encapsulate
+			this code in a separate method to clean up your logic. However, most
+			code in CBCJVM is reaction based, so sleeping occurs less often than
+			one may think in nontrivial samples.
+		</p>
+		<p>
+			A full listing of methods provided by
+			<pygm>cbccore.motors.Motor</pygm> can be found in CBCJVM's JavaDoc
+			documentation.
+		</p>
+		<h3>Servos (<code>cbccore.motors.Servo</code>)</h3>
+		<p>
+			Servos are also very simple to use in CBCJVM. In the following
+			example, we will quickly move a servo on port 0 to position 500,
+			then smoothly move it to 1000 over a period of 5 seconds. CBCJVM
+			does quite a bit of work behind the scenes to accomplish this for
+			us.
+		</p>
+		<pygments>
+			import cbccore.motors.Servo;
+			
+			public class ServoTest {
+				public static void msleep(long ms) {
+					try {
+						Thread.sleep(ms);
+					} catch(InterruptedException e) {
+						e.printStackTrace();
+					}
+				}
+			
+				public static void main(String[] args) {
+					Servo test = new Servo(0);
+					test.enable();
+					test.setPosition(500); // Move servo to 500 like in C
+					msleep(1000); // Wait one second
+					// smoothly move servo to a new position over 5 seconds
+					test.setPositionTime(1000, 5000, true);
+					test.disable();
+				}
+			}
+		</pygments>
+		<p>
+			Be careful about defining multiple <pygm>Servo</pygm> objects for
+			the same physical servo. Controlling it simultaneously from multiple
+			objects could have unintended consequences. For this reason, try to
+			match no more than one CBCJVM <pygm>Servo</pygm> object with each
+			hardware servo.
+		</p>
+		<p>
+			Let's take a closer look at <pygm>setPositionTime</pygm>. CBCJVM
+			defines the method like this: <pygm>setPositionTime(int newPos,
+			int ms, boolean blocking)</pygm>. The first parameter is the new
+			absolute position of the servo, just as in <pygm>setPosition</pygm>.
+			The next parameter is the time to move over, in milliseconds. The
+			next parameter is called <pygm>blocking</pygm>. In programming, a
+			function is blocking if it waits for its operation to finish. For
+			example, if we wrote a sample program to compute the value of pi, we
+			may write the following:
+		</p>
+		<pygments>
+			public class ComputePi {
+				public static void main(String[] args) {
+					System.out.println("Computing Pi...");
+					computePi();
+					System.out.println("Done!");
+				}
+			}
+		</pygments>
+		<p>
+			Realistically, this function might take a significant amount of time
+			to finish its computation. In the <b>blocking</b> scenario, the text
+			"Done!" wouldn't print until the calculation finished. However, if
+			the method is <b>nonblocking</b>, "Done!" will print immediately. A
+			blocking function halts execution until it is finished, while a
+			nonblocking function allows execution to continue. In both cases, pi
+			will be computed, but in the nonblocking scenario we don't wait for
+			it to do so.
+		</p>
+		<p>
+			Since both scenarios have their obvious uses, CBCJVM allows the
+			programmer to pick. In our example, we block. Otherwise, we would be
+			disabling the servo before the servo finished moving, which wouldn't
+			produce the desired behavior.
+		</p>
+		<h2>Sensors (<code>cbccore.sensors.*</code>)</h2>
+		<p>
+			CBCJVM sensors are slightly less straightforward than what we've
+			learned so far. Sensors are based off of two core abstractions, that
+			of the <pygm>IBooleanSensor</pygm> and the
+			<pygm>IAnalogSensor</pygm>. All other sensors and sensor decorators
+			are based off of these two classes. For now, we will discuss the two
+			of them separately.
+		</p>
+		<h3>
+			Boolean Sensors
+			(<code>cbccore.sensors.digital.*</code>)
+		</h3>
+		<p>
+			A Boolean sensor can be defined very simply: Anything that can
+			return a true or a false. The method we call to determine this state
+			is called <pygm>getValue</pygm> All digital sensors fall under this
+			category, so we will discuss them first. In the following example,
+			we will wait for a touch sensor on port 15 to be pressed before
+			printing a message.
+		</p>
+		<pygments>
+			import cbccore.sensors.digital.*;
+			
+			public class TouchSensors {
+				public static void main(String[] args) {
+					Touch sensor = new Touch(15);
+					while(!sensor.getValue()) Thread.yield(); // Wait until sensor is pressed
+					System.out.println("Touched!"); // Code executed after sensor is pressed
+				}
+			}
+		</pygments>
+		<p>
+			You may be wondering what <pygm>Thread.yield</pygm> does. Why didn't
+			we just use <pygm>
+				while(!sensor.getValue());
+			</pygm>? To understand why, let's take a look at a slightly more
+			complicated scenario. Let's say that CBCJVM was smoothly moving a
+			servo for you, and you chose to continue code execution
+			(nonblocking.) CBCJVM is able to do this by running a thread called
+			<pygm>ServoThread</pygm> in the background, which updates the servo
+			on your behalf. Now your program has two "threads" of execution. One
+			of these is your main method, and the other is the ServoThread. If
+			we simply do <pygm>
+				while(!sensor.getValue());
+			</pygm>, we've effectively locked out other threads from using the
+			processor. As a result, servo movement will be anything but smooth.
+			Since the thread updating the servo on our behalf can no longer do
+			its job, the servo will move in a sporadic manner.
+			<pygm>Thread.yield</pygm> solves this issue, by effectively telling
+			Java we aren't doing anything important, so give the processor to
+			another thread. Our <pygm>ServoThread</pygm> continues to run as a
+			result, and our servo smoothly moves to where we told it! This is a
+			good habit to get into.
+		</p>
+		<h4>User Input (<code>cbccore.sensors.buttons.*</code>)</h4>
+		<p>
+			In addition to handlers for various physical sensors, CBCJVM
+			includes a set of classes allowing one to treat cbcui's buttons as
+			digital sensors. For example, we can slightly modify the above code
+			to use the a-button instead of a touch sensor.
+		</p>
+		<pygments>
+			import cbccore.sensors.buttons.*;
+			
+			public class ButtonDemo {
+				public static void main(String[] args) {
+					AButton button = new AButton(); // No port number is needed
+					while(!button.getValue()) Thread.yield(); // Wait until button is pressed
+					System.out.println("Pressed!"); // Code executed after button is pressed
+				}
+			}
+		</pygments>
+		<p>
+			Taking things one step further, we can use some-button specific
+			methods, defined by the <pygm>AbstractButton</pygm> class, changing
+			the line
+		</p>
+		<pygments>
+			while(!button.getValue()) Thread.yield();
+		</pygments>
+		<p>
+			to the more readable
+		</p>
+		<pygments>
+			while(button.isNotPressed()) Thread.yield();
+		</pygments>
+		<h3>Analog Sensors (<code>cbccore.sensors.analog.*</code>)</h3>
+		<p>
+			Analog sensors, such as distance or light sensors are dealt with
+			similarly to boolean sensors, however the sensor values are
+			naturally given as integers rather than booleans.
+		</p>
+		<p>
+			There are two main functions for deriving value from an Analog
+			sensor object. Like in the C-library, where there are the
+			<pygm language="c">analog</pygm> and
+			<pygm language="c">analog10</pygm> functions, CBCJVM has
+			<pygm>getValue<pygm> and <pygm>getValueHigh</pygm> methods. In
+			CBCJVM, <pygm>getValue</pygm> is allowed, but explicitly deprecated
+			in favor of <pygm>getValueHigh</pygm>. This is because it has
+			reduced precision with no benefits, however having it may be useful
+			when porting old C-code over to CBCJVM. If you compile code using
+			<pygm>getValue</pygm>, you will receive a deprecation warning.
+		</p>
+		<p>
+			The CBC's floating mode allows one to work with certain pieces of
+			hardware, such as the ET Sensor. KISS-C's API requires one to set
+			the floating mode for all sensors at once. CBCJVM improves upon this
+			API slightly, allowing you to set each sensor individually through
+			<pygm>cbccore.sensors.analog.Analog</pygm>'s
+			<pygm>setFloating</pygm> method, doing the required work for you in
+			the background. To enable floating mode, you could simply execute a
+			line of code such as:
+		</p>
+		<pygments>
+			mySensor.setFloating(true);
+		</pygments>
+		<p>
+			Disabling floating mode would be as simple as passing
+			<pygm>false</pygm> instead. Floating mode is off by default.
+		</p>
+		<p>
+			What follows is a simple program to read an analog sensor, such as
+			a top-hat sensor, plugged into port 6 multiple times, averaging the
+			results together and printing them out.
+		</p>
+		<pygments>
+			import cbccore.sensors.analog.*;
+			import cbccore.sensors.buttons.AButton;
+			
+			public class SensorReader {
+				public static void main(String[] args) {
+					// Wait for user input before we start
+					AButton button = new AButton();
+					System.out.println("Press the \"A\" button to begin!")
+					while(!button.getValue()) Thread.yield(); // Wait until button is pressed
+					// Initialize our variables used
+					int sum = 0;
+					int numberOfReadings = 15;
+					Analog sensor = new Analog(6);
+					// Perform the reading
+					for(int i = 0; i < numberOfReadings; ++i) {
+						sum += sensor.getValueHigh();
+					}
+					int average = Math.round((double)sum / numberOfReadings);
+					System.out.println("I recorded a value of " + average);
+				}
+			}
+		</pygments>
+		<h4>ET Sensors (<code>cbccore.sensors.analog.ETSensor</code>)</h4>
+		<p>
+			ET Sensors tend to be complicated, requiring intricate calibration,
+			as values they give roughly fit a power model, instead of being
+			linear. The <pygm>ETSensor</pygm> can take calibration information,
+			use it to generate distances in centimeters. Additionally, the
+			ETSensor class automatically sets the proper port to floating mode
+			for you.
+		</p>
+		<p>
+			To get started quickly, one can use the default calibration values:
+		</p>
+		<pygments>
+			import cbccore.sensors.analog.ETSensor;
+			
+			public class SimpleETDistanceFinder {
+				public static void main(String[] args) {
+					ETSensor sensor = new ETSensor(6); // Let's say it's in port 6
+					// Make five readings averaged together, waiting 10ms between each one:
+					double distanceCm = sensor.getCm(5, 10);
+					System.out.println("The nearest object is about " + distanceCm +
+					                   " centimeters away");
+				}
+			}
+		</pygments>
+		<p>
+			For calibration values specific to your sensor, you can use a tool
+			like
+			<a href="kiss://openfile#targets/java/templates/ETCalibrator/bin/
+			Main.java">the example ET calibrator</a>. It will ask you to move an
+			object various distances away from the ET sensor, and then it will
+			calibrate around those experimental values. You can optimize about
+			specific distances by modifying the <pygm>distances</pygm> array in
+			the program. This should give you an output like:
+		</p>
+		<pygments>
+			bestPow: 1.23
+			bestK: 29470
+			bestB: -.00448
+			with deviation: 0.01
+		</pygments>
+		<p>
+			Which then can be mapped to the constructor like:
+			<pygm>new ETSensor(port, 29470, 1.23, -.00448)</pygm>, where
+			<pygm>port</pygm> is the port that the ET sensor is plugged into.
+		</p>
+		<h4>
+			Using Analog Sensors like Digital Sensors, or <i>I Can't Believe
+			it's not Boolean!</i>
+			(<code>cbccore.sensors.analog.AnalogBooleanAdapter</code>)
+		</h4>
+		<p>
+			A common goal when using analog sensors is to have them act around a
+			specific pivot point. In this case, while you are working with an
+			analog sensor, you are conceptually treating it like a boolean one.
+		</p>
+		<p>
+			The <pygm>AnalogBooleanAdapter</pygm> class can take a
+			<pygm>Analog</pygm> sensor object, and let you treat it like a
+			<pygm>cbccore.sensors.digital.IBooleanSensor</pygm> object. For
+			example, you can construct an instance like
+		</p>
+		<pygments>
+			Analog baseLightSensor = new Analog(6);
+			IBooleanSensor lightSensor = new AnalogBooleanAdapter(baseLightSensor, 50);
+		</pygments>
+		<p>
+			This will make a virtual boolean sensor out of the analog sensor in
+			port 6. When <pygm>baseLightSensor.getValueHigh()</pygm> gives a
+			value <u>greater than or equal to</u> 50,
+			<pygm>lightSensor.getValue()</pygm> will give a value of
+			<pygm>true</pygm>. As a convenience,
+			<pygm>AnalogBooleanAdapter</pygm> can be constructed with a
+			<pygm>reverseCondition</pygm> argument. Constructing an
+			<pygm>AnalogBooleanAdapter</pygm> instance like
+		</p>
+		<pygments>
+			IBooleanSensor lightSensor = new AnalogBooleanAdapter(baseLightSensor, 50, true);
+		</pygments>
+		<p>
+			would make <pygm>lightSensor.getValue()</pygm> give a value of
+			<pygm>true</pygm> when <pygm>baseLightSensor.getValueHigh()</pygm>
+			gives a value <u>less than</u> 50.
+		</p>
+		<p>
+			In some cases, a virtual boolean device can improve readability,
+			such as in the following example.
+		</p>
+		<pygments>
+			while(!lightSensor.getValue()) Thread.yield(); // Wait until light turns on
+		</pygments>
+		<p>
+			However, the real power of the <pygm>AnalogBooleanAdapter</pygm>
+			class becomes apparent when used with an event system.
+		</p>
+		<h1>Eventing (<code>cbccore.events</code>)</h1>
+		<p>
+			An event-system flips the way one handles changes in a system. The
+			traditional way of receiving information on these events is through
+			<b>polling</b>. An example of this can be seen in the following
+			code:
+		</p>
+		<pygments>
+			while(!button.getValue()) Thread.yield(); // Wait until button is pressed
+		</pygments>
+		<p>
+			This code gets the job done, but it sure is expensive, and we can't
+			easily do anything else while the code is running (the code is
+			blocking).
+		</p>
+		<p>
+			Now imagine if we had the sensor, the button (or whatever else you
+			can think of that might have a state that changes), <i>called
+			us</i>. We could write code on how to pick up the (metaphorical)
+			phone and respond, but we could do things in the meantime. We
+			wouldn't have to worry about waiting for an action, and if we
+			wanted, we could sit <i>completely idle</i>, consuming almost no CPU
+			cycles if we wanted to, with no need to perform expensive polling.
+			CBCJVM's event system attempts to provide the mechanisms needed for
+			this type of "callback" setup.
+		</p>
+		<p>
+			<b>Note:</b> <i>While it would be ideal to have a sensor or button
+			notify us, the KISS-C API doesn't allow for exactly that. Therefore,
+			polling must occur for those specific cases. For buttons and
+			sensors, where there is no choice but to poll, CBCJVM performs the
+			polling in the background, but in the most efficient way
+			possible.</i>
+		</p>
+		<p>
+			When it comes to CBCJVM's event system, there are four major
+			constructs: <pygm>Event</pygm> objects, <pygm>EventType</pygm>
+			objects, <pygm>IEventListener<pygm> instances, and the
+			<pygm>EventManager</pygm>. A developer first "connects" an
+			<pygm>IEventListener</pygm> instance to an
+			<pygm>EventManager</pygm>, specifying an <pygm>EventType</pygm>.
+			Later on, if an emitter, such as
+			<pygm>cbccore.sensors.buttons.ButtonEmitter</pygm> notices a state
+			change, it will create a new <pygm>Event</pygm> object, and emit it
+			using the <pygm>EventManager</pygm>. When the
+			<pygm>EventManager</pygm> receives this emitted event, it then
+			broadcasts it to any listeners connected to the event's
+			<pygm>EventType</pygm>.
+		</p>
+		<p>
+			An example of this can be seen in an example button-listening
+			system: <a href="kiss://openfile#targets/java/templates/Buttons/bin/
+			Main.java">(also included in CBCJVM's examples)</a>
+		</p>
+		<pygments>
+			import cbccore.Device;
+			import cbccore.events.Event;
+			import cbccore.events.EventManager;
+			import cbccore.events.EventListenerAdapter;
+			import cbccore.sensors.buttons.ButtonEmitter;
+			
+			public class EventingButtonHandler {
+				
+				public void run() {
+					EventManager manager = EventManager.get();
+					ButtonEmitter.get().start();
+					
+					
+					EventListenerAdapter AButtonPressedHandler = new EventListenerAdapter() {
+						@Override
+						public void event(Event type) {
+							System.out.println("The A Button Was Pressed!");
+						}
+					};
+					
+					EventListenerAdapter AButtonReleasedHandler = new EventListenerAdapter() {
+						@Override
+						public void event(Event type) {
+							System.out.println("The A Button Was Released!");
+						}
+					};
+					
+					manager.connect(ButtonEmitter.AButtonPressed, AButtonPressedHandler);
+					manager.connect(ButtonEmitter.AButtonReleased, AButtonReleasedHandler);
+				}
+				
+				public static void main(String[] args) {
+					cbccore.Device.init();
+					System.out.println("Press the A button.");
+					new EventingButtonHandler().run();
+				}
+			}
+		</pygments>
+		<p>
+			You'll find that for complicated problems, or where performance is
+			important, CBCJVM's event system can be handy. But the event system
+			inevitably adds some overhead, and requires some boilerplate code,
+			making it less than ideal in some simple cases. Therefore, the
+			decision of when to use, and when not to use the event system lies
+			with the end developer.
+		</p>
+		<h1>High-Level Navigation (<code>cbccore.movement</code>)</h1>
+		<p>
+			CBCJVM comes with a very high-level navigation library allowing a
+			user to move a dual-wheel drive system by issuing commands such as
+			<pygm>moveCm(5, getMaxCmps())</pygm>, which would move a properly
+			calibrated robot 5 centimeters at the maximum possible speed.
+		</p>
+		<h2>Constructing a <code>DriveTrain</code> Instance</h2>
+		<p>
+			The APIs for dealing with creates and traditional motor-based
+			drive-trains are significantly different. To mitigate this problem,
+			CBCJVM's movement library utilizes a plugin system. When defining a
+			plugin, one simply tells the movement library how to perform some
+			very basic tasks, such as driving the left and right wheels at given
+			speeds. Additionally, plugins provide the <pygm>DriveTrain</pygm>
+			information on the physical dimensions of the robot, which may be
+			needed for turning.
+		</p>
+		<p>
+			Before we can construct an instance of <pygm>DriveTrain</pygm>, we
+			must first construct a plugin for it. Fortunately, plugin classes
+			are already defined for create and traditional two-wheel based lego
+			drive-train robots.
+		</p>
+		<h3>Making a New <code>CreateMovementPlugin</code> Instance</h3>
+		<p>
+			The <code>CreateMovementPlugin</code> class is very easy to
+			instantiate, requiring no measurements, only an instance of a
+			<pygm>cbccore.create.Create</pygm> object. A <pygm>Create</pygm>
+			object can be created with no arguments, or with an optional "lag"
+			argument, which maps to KISS-C's related function arguments,
+			representing the number of seconds to wait between sensor updates.
+			If no argument is specified, a lag of 0 is given.
+		</p>
+		<p>
+			The only catch here, is that either the <pygm>Create</pygm> or the
+			<pygm>CreateMovementPlugin</pygm> constructors could throw a
+			<pygm>cbccore.create.CreateConnectException</pygm>, as they attempt
+			to automatically connect to the create. Because of this, we must
+			form a try-catch block around our initialization code.
+		</p>
+		<p>
+			Here is an example of a program to construct a new
+			<pygm>CreateMovementPlugin</pygm>, and nothing else:
+		</p>
+		<pygments>
+			import cbccore.movement.plugins.MovementPlugin;
+			import cbccore.movement.plugins.create.CreateMovementPlugin;
+			import cbccore.create.Create;
+			import cbccore.create.CreateConnectException;
+			
+			public class CreateMovementPluginConstructionTest {
+				public static void main(String[] args) {
+					MovementPlugin plugin = null;
+					try {
+						plugin = new CreateMovementPlugin(new Create());
+					} catch(CreateConnectException e) {
+						System.out.println("Create failed to connect.");
+						System.exit(1);
+					}
+					// you could then construct a DriveTrain with the plugin and do
+					// something interesting
+				}
+			}
+		</pygments>
+		<h3>Making a New <code>MotorMovementPlugin</code> Instance</h3>
+		<p>
+			A <pygm>MotorMovementPlugin</pygm> represents a traditional
+			two-wheeled lego robot, powered by two separate drive motors.
+		</p>
+		<p>
+			<pygm>cbccore.movement.plugins.motor.MotorMovementPlugin</pygm>
+			objects are a bit more complicated to construct, as they require a
+			few measurements; wheel circumferences, and the distance between the
+			two wheels.
+		</p>
+		<p>
+			Wheel circumferences are provided through
+			<pygm>cbccore.movement.plugins.motor.Wheel</pygm> objects.
+			<pygm>Wheel</pygm> objects are constructed with a port and a
+			circumference in centimeters (everything in
+			<pygm>cbccore.movement</pygm> uses centimeters). The distance
+			between the two wheels is provided in the
+			<pygm>MotorMovementPlugin</pygm> constructor itself.
+		</p>
+		<p>
+			Here is an example of a program to construct a new
+			<pygm>MotorMovementPlugin</pygm>, and nothing else:
+		</p>
+		<pygments>
+			import cbccore.movement.plugins.MovementPlugin;
+			import cbccore.movement.plugins.motor.Wheel;
+			import cbccore.movement.plugins.motor.MotorMovementPlugin;
+			
+			public class MotorMovementPluginConstructionTest {
+				public static void main(String[] args) {
+					// Let's pretend we have a robot with a left wheel motor plugged into
+					// port 0, and a right wheel motor plugged into port 1. The
+					// circumference for both wheels is 14.5 cm. The distance between the
+					// wheels is 9.2 cm.
+					MovementPlugin plugin = new MotorMovementPlugin(
+						new Wheel(0, 14.5), new Wheel(1, 14.5), 9.2
+					);
+					// you could then construct a DriveTrain with the plugin and do
+					// something interesting
+				}
+			}
+		</pygments>
+		<h3>Putting Things Together</h3>
+		<p>
+			Now that we have a plugin, we can construct a
+			<pygm>DriveTrain</pygm> instance. The constructor requires the
+			plugin and nothing else. Given a plugin named <pygm>plugin</pygm>,
+			constructing a <pygm>DriveTrain</pygm> (assuming you've already
+			imported <pygm>cbccore.movement.DriveTrain</pygm>) is as simple as
+		</p>
+		<pygments>
+			DriveTrain dt = new DriveTrain(plugin);
+		</pygments>
+		<h2>Using Your New <code>DriveTrain</code></h2>
+		<p>
+			There are a variety of methods that can be used with the
+			<pygm>DriveTrain</pygm> class. For the full listing, check the
+			JavaDoc page for the class. We'll cover the most basic movements
+			here: driving straight, and turning.
+		</p>
+		<h3>Moving Straight</h3>
+		<p>
+			One of the simplest conceivable programs for a robot is simply to
+			have it drive straight an arbitrary distance. CBCJVM's
+			<pygm>moveCm(cm, cmps)</pygm> allows you to do just this. The only
+			issue to solve, is the right cmps to move at. Often, one will want
+			to move at a proportion of the maximum speed of the robot. The
+			<pygm>DriveTrain</pygm> class defines two methods to help with this,
+			<pygm>getMaxCmps()</pygm> and <pygm>getMinCmps()</pygm>. The first
+			gets the maximum forward speed in centimeters-per-second of the
+			robot. The second gets the maximum backwards speed of the robot.
+			Multiplying the returned value of these methods with a proportion
+			will give a speed in proportion to the maximum speed of the robot.
+		</p>
+		<p>
+			Given a <pygm>DriveTrain</pygm> object, <pygm>dt</pygm>, you could
+			move the robot forward one meter at half speed with the line of
+			code,
+		</p>
+		<pygments>
+			dt.moveCm(100., dt.getMaxCmps() * 0.5);
+		</pygments>
+		<p>
+			and backwards with the line of code,
+		</p>
+		<pygments>
+			dt.moveCm(-100., dt.getMinCmps() * 0.5);
+		</pygments>
+		<p>
+			<b>Note:</b> <i>As our second argument is speed and not velocity,
+			sign doesn't matter, but it is typically customary with CBCJVM, and
+			often more readable, to give the displacement and speed arguments
+			matching signs.</i>
+		</p>
+		<h3>Rotating in Place</h3>
+		<p>
+			Often times, the next step in navigation is to rotate a robot in
+			place. The <pygm>rotateDegrees(degrees, degreesPerSecond)</pygm> and
+			<pygm>rotateRadians(radians, radiansPerSecond)</pygm> methods can do
+			just that. The first argument's sign specifies the direction to
+			turn: counter-clockwise when positive, and clockwise when negative.
+			The <pygm>getMaxDegreesPerSec()</pygm>,
+			<pygm>getMinDegreesPerSec()</pygm>,
+			<pygm>getMaxRadiansPerSec()</pygm>, and
+			<pygm>getMinRadiansPerSec()</pygm> can aid with determining a good
+			rotational speed.
+		</p>
+		<p>
+			Making a 90-degree left turn at half-speed is as simple as
+		</p>
+		<pygments>
+			dt.rotateDegrees(90., dt.getMaxDegreesPerSec() * 0.5);
+		</pygments>
+		<p>
+			and making a 90-degree right turn at half-speed can be done with
+		</p>
+		<pygments>
+			dt.rotateDegrees(-90., dt.getMinDegreesPerSec() * 0.5);
+		</pygments>
+		<h1>Botball Specific Tools (<code>cbccore.Botball</code>)</h1>
+		<p>
+			CBCJVM contains a couple of standard tools for botball tournaments,
+			similar to KISS-C.
+		</p>
+		<p>
+			After importing <pygm>cbccore.Botball</pygm> and
+			<pygm>cbccore.sensors.analog.Analog</pygm>, waiting for a light can
+			be accomplished with the following line of code:
+		</p>
+		<pygments>
+			Botball.waitForLight(new Analog(0)); // assume port 0 for light sensor
+		</pygments>
+		<p>
+			A failsafe, disabling the robot after a fixed period can be enabled
+			with the following line of code:
+		</p>
+		<pygments>
+			new Botball().shutDownIn(115.0); // force stop after 115 seconds after this line
+			                                 // of code is executed
+		</pygments>
+		<h1>Ending Notes</h1>
+		<p>
+			Hopefully that's enough to get you started! Despite the length of
+			this document, we've only begun to scratch the surface. Java itself
+			is a massive language, with one of the largest standard language
+			libraries in existence!
+		</p>
+		<p>
+			From here, we'd recommend you take a look at the CBCJVM JavaDoc
+			documentation, and perhaps even the
+			<a href="https://github.com/CBCJVM/CBCJVM">CBCJVM source code
+			itself!</a> If you find a bug in CBCJVM, or would like a new
+			feature, feel free to either
+			<a href="https://github.com/CBCJVM/CBCJVM/issues">request it</a>, or
+			(even better) fix or add it yourself. CBCJVM is always welcoming of
+			new developers, even if you aren't the most experienced.
+		</p>
+		<p>
+			<i>Sincerely and Good Luck,<br>The CBCJVM Developers</i>
+		</p>
+	</body>
+</html>

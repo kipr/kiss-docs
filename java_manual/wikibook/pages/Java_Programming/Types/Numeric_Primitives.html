@@ -1,0 +1,120 @@
+<html><head><title>Java Programming/Types/Numeric Primitives</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Types/Numeric Primitives</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr">
+<h2> <span class="mw-headline" id="Numeric_Primitives">Numeric Primitives</span></h2>
+<p>Programming may not be as trivial or boring as just crunching huge numbers any more. However, huge chunks of code written in any programming language today, let alone Java, obsessively deal with numbers. Be it churning out huge prime numbers,<sup id="cite_ref-note-1_0-0" class="reference"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Types/Numeric_Primitives&amp;printable=yes#cite_note-note-1-0">[1]</a></sup> or just calculating a cost of emission from your scooter. In 1965, <a href="http://en.wikipedia.org/wiki/Gemini_5" class="extiw" title="w:Gemini 5">Gemini V</a> space mission escaped a near-fatal accident because of a programming error.<sup id="cite_ref-note-2_1-0" class="reference"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Types/Numeric_Primitives&amp;printable=yes#cite_note-note-2-1">[2]</a></sup> And again in 1979, a computer program calculated the ability of five nuclear reactors to withstand earthquakes as overestimated; this caused the plants had to be shut down temporarily.<sup id="cite_ref-note-3_2-0" class="reference"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Types/Numeric_Primitives&amp;printable=yes#cite_note-note-3-2">[3]</a></sup> There is one thing common to both these programming errors: the subject data, being computed at the time the errors occurred, was numeric. Out of past experience, Java came bundled with revised type checking for numeric data and puts lots of emphasis on correctly identifying different types of numeric data. We will come to that in a later section within this chapter. Before continuing on, you must recognise the importance of numeric data when it comes to programming.</p>
+<table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Types/Numeric_Primitives&amp;printable=yes#Numeric_Primitives"><span class="tocnumber">1</span> <span class="toctext">Numeric Primitives</span></a>
+<ul><li class="toclevel-2 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Types/Numeric_Primitives&amp;printable=yes#Java_and_Numbers"><span class="tocnumber">1.1</span> <span class="toctext">Java and Numbers</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Types/Numeric_Primitives&amp;printable=yes#Memory_and_the_Binary_System"><span class="tocnumber">1.2</span> <span class="toctext">Memory and the Binary System</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Types/Numeric_Primitives&amp;printable=yes#Integer_Types"><span class="tocnumber">1.3</span> <span class="toctext">Integer Types</span></a></li>
+</ul></li>
+<li class="toclevel-1 tocsection-5"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Types/Numeric_Primitives&amp;printable=yes#Notes"><span class="tocnumber">2</span> <span class="toctext">Notes</span></a></li>
+</ul></td>
+</tr></table><h3> <span class="mw-headline" id="Java_and_Numbers">Java and Numbers</span></h3>
+<p>In Java, numbers are dealt with using data types specially formulated to host numeric data. But before we dive into these types, we must first set some concepts in stone. Just like you did in high school (or even primary school), numbers in Java are placed in clearly distinct groups and systems. As you'd already know by now, number systems includes groups like the <i>integer</i> numbers (0, 1, 2 ... &#8734;); <i>negative integers</i> (0, -1, -2 ... -&#8734;) or even <i>real</i> and <i>rational</i> numbers (<a href="http://en.wikipedia.org/wiki/Pi" class="extiw" title="w:Pi">value of Pi</a>, &#190;, 0.333~, etcetera). Java simply tends to place these numbers in two distinct groups, <b>integers</b> (-&#8734; ... 0 ... &#8734;) and <b>floating point</b> numbers (any number with decimal points or fractional representation). But before we define their usage, we must delve into the slightly complicated world of memory management. Don&#8217;t fret, it would soon be over.</p>
+<h3> <span class="mw-headline" id="Memory_and_the_Binary_System">Memory and the Binary System</span></h3>
+<dl><dd><i>See also: <a href="http://en.wikipedia.org/wiki/Binary_numeral_system" class="extiw" title="w:Binary numeral system">Binary numeral system</a></i></dd>
+<dd><i>Learn more about <a rel="nofollow" class="external text" href="http://computer.howstuffworks.com/bytes.htm">How Bits and Bytes Work?</a></i></dd>
+</dl><div class="thumb tright">
+<div class="thumbinner" style="width:302px;"><a href="http://en.wikibooks.org/wiki/File:Java_Numeric_Types_Memory.png" class="image"><img alt="" src="../../../thumbs/fe631_Java_Numeric_Types_Memory.png" width="300" height="300" class="thumbimage"></a>
+<div class="thumbcaption">
+<div class="magnify"><a href="http://en.wikibooks.org/wiki/File:Java_Numeric_Types_Memory.png" class="internal" title="Enlarge"><img src="../../../thumbs/6d83a_magnify-clip.png" width="15" height="11" alt=""></a></div>
+A graphical representation of computer memory</div>
+</div>
+</div>
+<p>Think of memory as a storage space you rented at a storage company. It comes with a large empty room or space to fill in things. The thing with memory, however, is that you can only place things within it in what is roughly analogous to boxes or cartons; and each carton can hold only one item. So, you are only left with three options. Either you can choose to fill a box with one item, or just place an empty box there. Or, you could just not place anything at all in the storage room.</p>
+<p>So, technically, you either place something in the memory as a single bit, or leave a space in memory empty to be populated with something at a later time. Or, you could just do nothing with the memory and leave it clean and pristine (you&#8217;ll find this is the hardest to do of the three). Now, one bit is roughly equivalent to 1. An empty box in the memory signifies 0. Nothing placed in memory at all, well, is just plain unused memory. For this reason, mathematicians devised the binary system that counts with only two numbers &#8211; 0 and 1.</p>
+<p>A single <b>binary digit</b> (shortened to <b>bit</b>) can only hold two possible values &#8211; a zero or a one. Multiple bits held together can hold multiple permutations - 2 bits can hold 4 possible values, 3 can hold 8, and so on. For instance, the maximum number 8 bits can hold (<code>11111111</code> in binary) is <code>255</code> in the decimal system. So, to have numbers from 0 to 255 can fit within 8 bits. It is all good, but in this way, we can only host positive numbers (or unsigned integers).</p>
+<p><b>Unsigned integers</b> are whole number values that are all positive and do not attribute to negative values. For this very reason, we would ask one of the 8 bits to hold information about the sign of the number (positive or negative). This leaves us with just 7 bits to actually count out a number. The maximum number that these 7 bits can hold (<code>1111111</code>) is <code>127</code> in the decimal system. Altogether, using this method, 8 bits can hold numbers ranging from <code>-128</code> to <code>127</code> (including zero) &#8211; a total of 255 numbers. Not a bad pay-off one might presume.</p>
+<p>The opposite to an unsigned integer is a <b>signed integer</b> that have the capability of holding both positive and negative values.</p>
+<p>But, what about larger numbers. You would need significantly more bits to hold larger numbers. That's where Java's numeric types come into play. Java has multiple numeric types - their size dependant on the number of bits that are at play. For the moment, we would only look into integer values as they are easier to understand and work with.</p>
+<h3> <span class="mw-headline" id="Integer_Types">Integer Types</span></h3>
+<p>With what we have learnt so far, we will identify the different types of signed integer values that can be created and manipulated in Java. Following is a table of the most basic numeric types: integers. As we have discussed earlier, the data types in Java for integers caters to both positive and negative values and hence are <b>signed numeric types</b>. The size in bits for a numeric type determines what its minimum and maximum value would be. If in doubt, one can always calculate these values.</p>
+<table class="wikitable sortable"><tr><th>Name</th>
+<th>Data type</th>
+<th>Size (in <i>bits</i>)</th>
+<th>Minimum value</th>
+<th>Maximum value</th>
+</tr><tr><td>Byte</td>
+<td><code>byte</code></td>
+<td>8</td>
+<td>-128</td>
+<td>127</td>
+</tr><tr><td>Short Integer</td>
+<td><code>short</code></td>
+<td>16</td>
+<td>-32,768</td>
+<td>32,767</td>
+</tr><tr><td>Integer</td>
+<td><code>int</code></td>
+<td>32</td>
+<td>-2,147,483,648</td>
+<td>2,147,483,647</td>
+</tr><tr><td>Long Integer</td>
+<td><code>long</code></td>
+<td>64</td>
+<td>-9,223,372,036,854,775,808</td>
+<td>9,223,372,036,854,775,807</td>
+</tr></table><p>Lets see how this new found knowledge of the basic integer types in Java fits into the picture. Say, you want to numerically manipulate the days in a year &#8211; all 365 days. What type would you use? Since the data type <code>byte</code> only goes up to 127, would you risk giving it a value greater than its allowed maximum. Such decisions might save you from dreaded errors that might occur out of the programmed code. A much more sensible choice for such a numeric operation might be a <code>short</code>. Oh, why couldn't they make just one data type to hold all kinds of numbers? Wouldn't you ask that question? Well, let's explore why.</p>
+<p>When you tell a program you need to use an integer, say even a <code>byte</code>, the Java program allocates a space in the memory. It allocates whole 8 bits of memory. Where it wouldn't seem to matter for today's memory modules that have place for almost a dozen trillion such bits, it matters in other cases. Once allocated that part of the memory gets used and can only be claimed back after the operation is finished. Consider a complicated Java program where the only data type you'd be using would be <code>long</code> integers. What happens when there's no space for more memory allocation jobs? Ever heard of the <a href="http://en.wikipedia.org/wiki/Stack_overflow" class="extiw" title="w:Stack overflow">Stack Overflow errors</a>. That's exactly what happens &#8211; your memory gets completely used up and fast. So, choose your data types with extreme caution.</p>
+<p>Enough talk, let's see how you can create a numeric type. A numeric type begins with the type's name (<code>short</code>, <code>int</code>, etc.) and then provides with a name for the allocated space in the memory. Following is how it's done. Say, we need to create a variable to hold the number of days in a year.</p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw4">short</span> daysInYear <span class="sy0">=</span> <span class="nu0">365</span><span class="sy0">;</span>
+</pre></div>
+</div>
+</td>
+</tr></table><p>Here, <code>daysInYear</code> is the name of the variable that holds <code>365</code> as it's value, while <code>short</code> is the data type for that particular value. Other uses of integer data types in Java might see you write code such as this given below.</p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw4">byte</span> maxByte <span class="sy0">=</span> <span class="nu0">127</span><span class="sy0">;</span>
+<span class="kw4">short</span> maxShort <span class="sy0">=</span> <span class="nu0">32767</span><span class="sy0">;</span>
+<span class="kw4">int</span> maxInt <span class="sy0">=</span> <span class="nu0">2147483647</span><span class="sy0">;</span>
+<span class="kw4">long</span> maxLong <span class="sy0">=</span> <span class="nu0">9223372036854775807</span><span class="sy0">;</span>
+</pre></div>
+</div>
+</td>
+</tr></table><h2> <span class="mw-headline" id="Notes">Notes</span></h2>
+<div class="reflist references references-column-count references-column-count-3" style="column-count: 3; -moz-column-count: 3; -webkit-column-count: 3;">
+<ol class="references"><li id="cite_note-note-1-0"><small><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Types/Numeric_Primitives&amp;printable=yes#cite_ref-note-1_0-0">&#8593;</a> As of edit (19 January 2010), the <a href="http://en.wikipedia.org/wiki/Great_Internet_Mersenne_Prime_Search" class="extiw" title="w:Great Internet Mersenne Prime Search">Great Internet Mersenne Prime Search</a> project has so far identified the largest prime number as being 12,978,189 digits long. Prime numbers are valuable to cryptologists as the bigger the number, the securer they can make their data encryption logic using that particular number.</small></li>
+<li id="cite_note-note-2-1"><small><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Types/Numeric_Primitives&amp;printable=yes#cite_ref-note-2_1-0">&#8593;</a> Gemini 5 landed 130 kilometers short of its planned Pacific Ocean landing point due to a software error. The Earth's rotation rate had been programmed as one revolution per <a href="http://en.wikipedia.org/wiki/solar_time" class="extiw" title="w:solar time">solar day</a> instead of the correct value, one revolution per <a href="http://en.wikipedia.org/wiki/sidereal_time" class="extiw" title="w:sidereal time">sidereal day</a>.</small></li>
+<li id="cite_note-note-3-2"><small><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Types/Numeric_Primitives&amp;printable=yes#cite_ref-note-3_2-0">&#8593;</a> A program used in their design used an arithmetic sum of variables when it should have used the sum of their absolute values. (Evars Witt, "<i>The Little Computer and the Big Problem</i>", AP Newswire, 16 March 1979. See also Peter Neumann, "<i>An Editorial on Software Correctness and the Social Process</i>" Software Engineering Notes, Volume 4(2), April 1979, page 3)</small></li>
+</ol></div>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

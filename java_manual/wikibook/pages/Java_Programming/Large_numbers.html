@@ -1,0 +1,58 @@
+<html><head><title>Large numbers</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Large numbers</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><span id="displaytitle" title=""></span></p>
+
+<p>Large numbers are available in the package java.math, and are implemented within two classes: BigInteger, and BigDecimal.</p>
+<h2> <span class="mw-headline" id="BigInteger_class">BigInteger class</span></h2>
+<p>The BigInteger class represents integers of almost any size. As with other objects, they need to be constructed. Unlike regular numbers, the BigInteger represents an immutable object - methods in use by the BigInteger class will return a new copy of a BigInteger.</p>
+<p>To instantiate a BigInteger, you can create it from either byte array, or from a string. For example:</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+   <span class="co1">// 1 quintillion, or 10^18.  Too large to fit in a long.</span>
+   <span class="kw3">BigInteger</span> i <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">BigInteger</span><span class="br0">(</span><span class="st0">"1000000000000000000"</span><span class="br0">)</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<p>Operations with BigInteger are handled through methods, rather than normal Java operators.</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+   <span class="kw3">BigInteger</span> a <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">BigInteger</span><span class="br0">(</span><span class="st0">"3"</span><span class="br0">)</span><span class="sy0">;</span>   
+   <span class="kw3">BigInteger</span> b <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">BigInteger</span><span class="br0">(</span><span class="st0">"4"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+   <span class="co1">// c^2 = a^2 + b^2</span>
+   <span class="kw3">BigInteger</span> c <span class="sy0">=</span> a.<span class="me1">multiply</span><span class="br0">(</span>a<span class="br0">)</span>.<span class="me1">add</span><span class="br0">(</span>b.<span class="me1">multiply</span><span class="br0">(</span>b<span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+</pre></div>
+</div>
+<h2> <span class="mw-headline" id="BigDecimal">BigDecimal</span></h2>
+<p>The BigDecimal class represents a floating point value of arbitrary precision. It is composed of both a BigInteger, and a scale value (represented by a 32-bit integer).</p>
+
+
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

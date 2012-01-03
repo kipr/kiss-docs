@@ -1,0 +1,228 @@
+<html><head><title>Java Programming/API/java.lang.Object</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/API/java.lang.Object</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/API/java.lang.Object&amp;printable=yes#java.lang.Object"><span class="tocnumber">1</span> <span class="toctext">java.lang.Object</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/API/java.lang.Object&amp;printable=yes#equals.28.29_Method"><span class="tocnumber">2</span> <span class="toctext">equals() Method</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/API/java.lang.Object&amp;printable=yes#getClass.28.29_Method"><span class="tocnumber">3</span> <span class="toctext">getClass() Method</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/API/java.lang.Object&amp;printable=yes#hashCode.28.29_Method"><span class="tocnumber">4</span> <span class="toctext">hashCode() Method</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/API/java.lang.Object&amp;printable=yes#toString.28.29_Methods"><span class="tocnumber">5</span> <span class="toctext">toString() Methods</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/API/java.lang.Object&amp;printable=yes#Synchronizing_Threads_Methods"><span class="tocnumber">6</span> <span class="toctext">Synchronizing Threads Methods</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/API/java.lang.Object&amp;printable=yes#See_also:"><span class="tocnumber">7</span> <span class="toctext">See also:</span></a></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="java.lang.Object">java.lang.Object</span></h2>
+<p><code><strong class="selflink">Object</strong></code> class is the superclass of all Java classes. All Java classes inherited from this class. This makes it possible that we can have methods that are available in all Java classes. This simplifies things compared to C++ where this is not the case.</p>
+<table class="wikitable"><tr><th><code><strong class="selflink">Object</strong></code> class methods</th>
+<th>Description</th>
+</tr><tr><td><code><a href="../Keywords/boolean.html" title="Java Programming/Keywords/boolean"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">boolean</font></a></code> equals( <code><strong class="selflink">Object</strong></code> o );</td>
+<td>Gives generic way to compare objects</td>
+</tr><tr><td><code><a href="java.lang.Class.html" title="Java Programming/API/java.lang.Class">Class</a></code> getClass();</td>
+<td>The <code><a href="java.lang.Class.html" title="Java Programming/API/java.lang.Class">Class</a></code> class gives us more information about the object</td>
+</tr><tr><td><code><a href="../Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> hashCode();</td>
+<td>Returns a hash value that is be used to search object in a collection</td>
+</tr><tr><td><code><a href="../Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> notify();</td>
+<td>Used in synchronizing threads</td>
+</tr><tr><td><code><a href="../Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> notifyAll();</td>
+<td>Used in synchronizing threads</td>
+</tr><tr><td><code><a href="java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> toString();</td>
+<td>Can be used to convert the object to String</td>
+</tr><tr><td><code><a href="../Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> wait();</td>
+<td>Used in synchronizing threads</td>
+</tr><tr><td><code><a href="../Keywords/protected.html" title="Java Programming/Keywords/protected"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">protected</font></a></code> <code><strong class="selflink">Object</strong></code> clone() throws CloneNotSupportedException&#160;;</td>
+<td>Return a new object that are exactly the same as the current object</td>
+</tr><tr><td><code><a href="../Keywords/protected.html" title="Java Programming/Keywords/protected"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">protected</font></a></code> <code><a href="../Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> finalize() throws Throwable;</td>
+<td>This method is called just before an object is garbage collected</td>
+</tr></table><h2> <span class="mw-headline" id="equals.28.29_Method">equals() Method</span></h2>
+<ul><li>The <code>'</code><a href="../Keywords/boolean.html" title="Java Programming/Keywords/boolean"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">boolean</font></a> equals( <code><strong class="selflink">Object</strong></code> o );' method gives a generic way to compare objects for equality. You need to override it, in your class. Then you can write:</li>
+</ul><pre>
+<code><a href="../Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="../Keywords/boolean.html" title="Java Programming/Keywords/boolean"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">boolean</font></a></code> isCustomerExsist( Customer newCustomer )
+{
+   <code><a href="../Keywords/boolean.html" title="Java Programming/Keywords/boolean"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">boolean</font></a></code> isRet = <code><a href="../Literals/Boolean_Literals/false.html" title="Java Programming/Literals/Boolean Literals/false"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">false</font></a></code>;
+   Iterator iter = _collAllCustomer.iterator();
+   <code><a href="../Keywords/while.html" title="Java Programming/Keywords/while"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">while</font></a></code> ( iter.hasNext() )
+   {
+      <code><a href="../Keywords/if.html" title="Java Programming/Keywords/if"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">if</font></a></code> ( newCustomer.<b>equals</b>( (Customer) iter.next() )
+      {
+         // -- Customer was found ---
+         isRet = <code><a href="../Literals/Boolean_Literals/true.html" title="Java Programming/Literals/Boolean Literals/true"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">true</font></a></code>;
+      }
+   }
+  return isRet;
+}
+</pre>
+<p>Keep in mind that when you override equals(), you always need to also override hashCode() so the two methods are consistent. If two objects are equal, they must have the same hashcode.</p>
+<p>For more information also see <a href="../Comparing_Objects.html" title="Java Programming/Comparing Objects">Java Programming/Comparing Objects</a></p>
+<h2> <span class="mw-headline" id="getClass.28.29_Method">getClass() Method</span></h2>
+<p>There is a <code><a href="java.lang.Class.html" title="Java Programming/API/java.lang.Class">Class</a></code> object for each class in your program. Every array also belongs to a class that is reflected as a <code><a href="java.lang.Class.html" title="Java Programming/API/java.lang.Class">Class</a></code> object that is shared by all arrays with the same element type and number of dimensions. The <a href="http://en.wikibooks.org/wiki/Java_Programming/Primitive_Types" title="Java Programming/Primitive Types" class="mw-redirect">primitive Java types</a> (<code><a href="../Keywords/boolean.html" title="Java Programming/Keywords/boolean"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">boolean</font></a></code>, <code><a href="../Keywords/byte.html" title="Java Programming/Keywords/byte"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">byte</font></a></code>, <code><a href="../Keywords/char.html" title="Java Programming/Keywords/char"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">char</font></a></code>, <code><a href="../Keywords/short.html" title="Java Programming/Keywords/short"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">short</font></a></code>, <code><a href="../Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code>, <code><a href="../Keywords/long.html" title="Java Programming/Keywords/long"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">long</font></a></code>, <code><a href="../Keywords/float.html" title="Java Programming/Keywords/float"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">float</font></a></code>, and <code><a href="../Keywords/double.html" title="Java Programming/Keywords/double"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">double</font></a></code>), and the keyword <code><a href="../Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> are also represented as <code><a href="java.lang.Class.html" title="Java Programming/API/java.lang.Class">Class</a></code> objects. Class has no public constructor. Instead Class objects are constructed automatically by the Java Virtual Machine as classes are loaded</p>
+<p>For more information see <code><a href="java.lang.Class.html" title="Java Programming/API/java.lang.Class">Class</a></code>.</p>
+<p>The most popular use of the <code><a href="java.lang.Class.html" title="Java Programming/API/java.lang.Class">Class</a></code> is to find out the object's class name during runtime.</p>
+<pre>
+<code><a href="../Keywords/import.html" title="Java Programming/Keywords/import"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">import</font></a></code> com.yourCompany.Customer;
+...
+Object obj = new Customer();
+...
+System.out.println( "Name:" + obj.getClass().getName() );
+</pre>
+<p>The output:</p>
+<pre>
+Name: com.yourCompany.Customer
+</pre>
+<h2> <span class="mw-headline" id="hashCode.28.29_Method">hashCode() Method</span></h2>
+<p>In most cases you should not override this method, since the default implementation of this method returns a unique number for the object. The number is used when the object is put into a <a href="../Collection_Classes.html" title="Java Programming/Collection Classes">collection</a>. Finding an object in a big collection may take a while, if objects are compared one by one sequentially. To speed the search up, objects may be placed in a tree structure, weighted by an integer hash code. Comparing the hash code while navigating through the tree, the number of object comparisons can be reduced.</p>
+<pre>
+   _______ A _____
+   |              |  
+__ B__          __C__
+|     |        |     |
+D     E        F     G
+...  ...      ...   ...
+</pre>
+<p>To give you a general idea of how it may work, see the above diagram. Let's say we are searching object G. If at each 'node' of the tree we can decide which way to go, then by <b>3 steps</b> we reach the object G.</p>
+<p>By constrast in a linear search:</p>
+<pre>
+A --- B  ----- C  ---- C  ---- D  ---- E ---- F ---- G
+</pre>
+<p>We would need <b>8 steps</b> to reach the object G.</p>
+<p>So the search will be faster with the tree structure. Adding a new object however, will be slower because the tree structure needs to be maintained. The place of the new object in the tree has to be found first.</p>
+<h2> <span class="mw-headline" id="toString.28.29_Methods">toString() Methods</span></h2>
+<p>This method can be used to convert an object to a <code><a href="java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code>. It is automatically used in many places to convert objects to String; for example: in PrintStream, in StringBuffer, and for the string concatenation operator when used on objects.</p>
+<p>The default implementation returns a weird string with the class name and the hash code.</p>
+<p>For example:</p>
+<pre>
+<code><a href="java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> str = "This customer is " + objCust;
+</pre>
+<p>The <code>toString()</code> method is called on the <code>objCust</code> object.</p>
+<p>The <code>toString()</code> method can also be used for debugging:</p>
+<pre>
+<code><a href="../Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="../Keywords/class.html" title="Java Programming/Keywords/class"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">class</font></a></code> Customer
+{
+   <code><a href="../Keywords/private.html" title="Java Programming/Keywords/private"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">private</font></a></code> <code><a href="java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> _name;
+   <code><a href="../Keywords/private.html" title="Java Programming/Keywords/private"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">private</font></a></code> <code><a href="java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> _address;
+   <code><a href="../Keywords/private.html" title="Java Programming/Keywords/private"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">private</font></a></code> <code><a href="java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> _age;
+...
+   <code><a href="../Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> <b>toString</b>()
+   {
+       StringBuffer buf = StringBuffer();
+       buf.append( "Name   = " );  buf.append( _name );     buf.append( "\n" );
+       buf.append( "Address= " );  buf.append( _address );  buf.append( "\n" );
+       buf.append( "Age    = " );  buf.append( _age );      buf.append( "\n" );
+    ...
+       return buf.toString();
+   }
+...
+}
+</pre>
+<p>After that whenever in your code, you want to see what a customer object is, just call:</p>
+<pre>
+System.out.println( objCustomer );
+</pre>
+<h2> <span class="mw-headline" id="Synchronizing_Threads_Methods">Synchronizing Threads Methods</span></h2>
+<p><b>Concurrent Programming</b> topics</p>
+<ul><li><a href="../Threads_and_Runnables.html" title="Java Programming/Threads and Runnables">Threads and Runnables</a> </li>
+<li><a href="../Basic_Synchronization.html" title="Java Programming/Basic Synchronization">Basic Synchronization</a> </li>
+<li><a href="../Client_Server.html" title="Java Programming/Client Server">Client Server Programming</a> </li>
+<li><a href="../Remote_Method_Invocation.html" title="Java Programming/Remote Method Invocation">Remote Method Invocation(RMI)</a> </li>
+<li><a href="../EJB.html" title="Java Programming/EJB">Enterprise JavaBean Programming</a> </li>
+<li><a href="../Jini.html" title="Java Programming/Jini">Jini-Java Spaces Programming</a> </li>
+</ul><p>In a multi-threaded environment, when more then one thread can access and modify a resource, the outcome could be unpredictable. For example, let's have a counter variable that is incremented by more than one thread.</p>
+<pre>
+<code><a href="../Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> counter = 0;
+...
+counter += 1;
+</pre>
+<p>The above code is built up by the following sub-operations:</p>
+<ul><li><b>Read</b>&#160;; read variable 'counter'</li>
+<li><b>Add</b>&#160;; add 1 to the value</li>
+<li><b>Save</b>&#160;; save the new value to variable 'counter'</li>
+</ul><p>Let's say that two threads need to execute that code, and if the initial value of the 'counter' variable is zero, we expect after the operations the value to be 2.</p>
+<table class="wikitable"><tr><th>Thread 1</th>
+<th>Thread 2</th>
+</tr><tr><td><b>Read</b> 0</td>
+<td><b>Read</b> 0</td>
+</tr><tr><td><b>Add</b> 1</td>
+<td><b>Add</b> 1</td>
+</tr><tr><td><b>Save</b> 1</td>
+<td><b>Save</b> 1</td>
+</tr></table><p>In the above case Thread 1 operation is lost, because Thread 2 overwrites its value. We'd like Thread 2 to wait until Thread 1 finishes the operation. See below:</p>
+<table class="wikitable"><tr><th>Thread 1</th>
+<th>Thread 2</th>
+</tr><tr><td><b>Read</b> 0</td>
+<td>blocked</td>
+</tr><tr><td><b>Add</b> 1</td>
+<td>blocked</td>
+</tr><tr><td><b>Save</b> 1</td>
+<td>blocked</td>
+</tr><tr><td></td>
+<td><b>Read</b> 1</td>
+</tr><tr><td></td>
+<td><b>Add</b> 1</td>
+</tr><tr><td></td>
+<td><b>Save</b> 2</td>
+</tr></table><p><br></p>
+<dl><dt>Critical Section&#160;</dt>
+<dd>In the above example the code <code>counter+=1</code> must be executed by one and only one Thread at any given time. That is called <b>critical section</b>. During programming, in a multi-threading environment we have to identify all those pieces of code that belongs to a critical section, and make sure that only one Thread can execute those codes at any given time. That is called synchronization.</dd>
+</dl><dl><dt>Synchronizing threads&#160;</dt>
+<dd>The Thread access to a critical section code must be <b>synchronized</b> among the Threads, that is to make sure that only one Thread can execute them at any given time.</dd>
+</dl><dl><dt>Object monitor&#160;</dt>
+<dd>Each object has an 'Object monitor'. Basically it is a 'semaphore', indicating if a critical section code is being executed by a thread or not. Before a critical section can be executed, the Thread must obtain an 'Object monitor'. Only one Thread at a time can own <b>that</b> object's monitor.</dd>
+</dl><dl><dt>A thread becomes the owner of the object's monitor in one of three ways&#160;</dt>
+<dd>
+<ul><li>By executing a synchronized instance method of that object. See <code><a href="../Keywords/synchronized.html" title="Java Programming/Keywords/synchronized"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">synchronized</font></a></code> keyword.</li>
+<li>By executing the body of a synchronized statement that synchronizes on the object. See <code><a href="../Keywords/synchronized.html" title="Java Programming/Keywords/synchronized"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">synchronized</font></a></code> keyword.</li>
+<li>For objects of type Class, by executing a synchronized static method of that class.</li>
+</ul></dd>
+</dl><dl><dt>The Object Monitor takes care of the synchronization, so why do we need the "wait() and notify() methods"?&#160;</dt>
+<dd>For synchronization we don't really need them, however for certain situations it is nice to use them. A nice and considerate thread will use them. It can happen that during executing a critical section, the thread is stuck, cannot continue. It can be because it's waiting for an IO and other resources. In any case, the thread may need to wait a relatively long time. It would be selfish for the thread to hold on to the object monitor and blocking other threads to do their work. So the thread goes to a 'wait' state, by calling the <code>wait()</code> method on the object. It has to be the same object the thread obtained its object monitor from.</dd>
+<dd>In the other hand though, a thread should call the <code>wait()</code> method only if there is at least one other thread out there who will call the <code>notify()</code> method when the resource is available, otherwise the tread will wait for ever, unless a time interval is specified as parameter.</dd>
+</dl><dl><dt>Let's have an analogy</dt>
+<dd>You go in a shop to buy some items. You line up at the counter, you obtain the attention of the sale-clerk - you get her "object-monitor". You ask for the item you want. One item needs to be brought in from a warehouse. It'll take more than five minutes, so you release the sales-clerk (give her back her "object-monitor") so she can serve other customers. You go into a <b>wait</b> state. Let's say there are five other customers already waiting. There is a sale-clerk, who brings in the items from the warehouse. As she does that, she gets the attention of the first sales-clerk, getting her object-monitor and <b>notifies</b> one or all waiting customer(s), so the waited customer(s) <b>woke</b> up and line up again to get the attention of the first sales-clerk.</dd>
+</dl><dl><dd>Note the synchronization between the waiting customer and the sale-clerk who brings in the items. This is kind of produce-consume synchronization.</dd>
+<dd>Also note that there is only one object-monitor, belonging to the first sales-clerk. That object-monitor/the attention of clerk needs to be obtained first before a <b>wait</b> and a <b>notify</b> can happen.</dd>
+</dl><p><br></p>
+<dl><dt><code><code><a href="../Keywords/final.html" title="Java Programming/Keywords/final"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">final</font></a></code> void wait()</code> method&#160;</dt>
+<dd>The current thread must own this object's monitor. The thread releases ownership of this monitor and waits until another thread notifies threads waiting on this object's monitor to wake up either through a call to the notify method or the notifyAll method. The thread then waits until it can re-obtain ownership of the monitor and resume execution</dd>
+</dl><dl><dt><code><code><a href="../Keywords/final.html" title="Java Programming/Keywords/final"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">final</font></a></code> void wait( long time )</code>&#160;</dt>
+<dd>The same as wait, but the thread wakes after the specified time passes, regardless of whether there was a notify or not.</dd>
+</dl><dl><dt><code><code><a href="../Keywords/final.html" title="Java Programming/Keywords/final"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">final</font></a></code> void notify()</code>&#160;</dt>
+<dd>This method should only be called by a thread that is the owner of this object's monitor. Wakes up a single thread that is waiting on this object's monitor. If any threads are waiting on this object, one of them is chosen to be awakened. The choice is arbitrary and occurs at the discretion of the implementation. A thread waits on an object's monitor by calling one of the wait methods.</dd>
+<dd>The awakened thread will not be able to proceed until the current thread relinquishes the lock on this object. The awakened thread will compete in the usual manner with any other threads that might be actively competing to synchronize on this object; for example, the awakened thread enjoys no reliable privilege or disadvantage in being the next thread to lock this object.</dd>
+</dl><dl><dt><code><code><a href="../Keywords/final.html" title="Java Programming/Keywords/final"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">final</font></a></code> void notifyAll()</code>&#160;</dt>
+<dd>Same as notify(), but it wakes up all threads that are waiting on this object's monitor.</dd>
+</dl><p><br></p>
+<dl><dt>What are the differences between the sleep() and wait() methods?&#160;</dt>
+</dl><dl><dd>
+<dl><dt><code>Thread.sleep(millis)</code> &#160;</dt>
+<dd>This is a static method of the Thread class. Causes the currently executing thread to sleep (temporarily cease execution) for the specified number of milliseconds. The thread does not lose ownership of any monitors. It means that if the thread has an object-monitor, all other threads that need that monitor are blocked. This method can be called regardless whether the thread has any monitor or not.</dd>
+</dl></dd>
+</dl><dl><dd>
+<dl><dt><code>wait()</code> &#160;</dt>
+<dd>This method is inherited from the <code><strong class="selflink">Object</strong></code> class. The thread must obtain the object-monitor of that object first before calling the wait() method. The object monitor is returned by the wait() method, so it does not block other threads wanting this object-monitor, while waiting.</dd>
+</dl></dd>
+</dl><h2> <span class="mw-headline" id="See_also:">See also:</span></h2>
+<ul><li><a href="java.lang.Class.html" title="Java Programming/API/java.lang.Class">Java Programming/API/java.lang.Class</a></li>
+<li><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/API/java.lang.Thread&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/API/java.lang.Thread (does not exist)">Java Programming/API/java.lang.Thread</a></li>
+</ul></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

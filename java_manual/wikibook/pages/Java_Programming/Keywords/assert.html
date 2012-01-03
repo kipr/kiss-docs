@@ -1,0 +1,55 @@
+<html><head><title>Java Programming/Keywords/assert</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Keywords/assert</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">assert</strong></font></code> is a Java <a href="../Keywords.html" title="Java Programming/Keywords">keyword</a> used to define an <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Statements/assert&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Statements/assert (does not exist)"><i>assert statement</i></a>. An assert statement is used to declare an expected boolean condition in a program. If the program is running with assertions enabled, then the condition is checked at runtime. If the condition is false, the Java runtime system <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Statements/throw&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Statements/throw (does not exist)">throws</a> a <code><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/API/java.lang.AssertionError&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/API/java.lang.AssertionError (does not exist)">AssertionError</a></code>.</p>
+<p>Assertions may be declared using the following syntax:</p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">assert</span> expression1 <span class="br0">[</span><span class="sy0">:</span> expression2<span class="br0">]</span><span class="sy0">;</span>
+</pre></div>
+</div>
+</td>
+</tr></table><p><tt>expression1</tt> is a boolean that will throw the assertion if it is false. When it is thrown, the assertion error exception is created with the parameter <tt>expression2</tt> (if applicable).</p>
+<p>An example:</p>
+<table style="padding:2px; margin:2px; width:100%;"><tr valign="top"><td style="width:32px;"><img alt="Computer code" src="../../../thumbs/0a23a_32px-Nuvola_apps_display.png" width="32" height="32"></td>
+<td style="background-color:#f0f0ff; border-left: 4px solid blue; padding-left: 6px; font-family: Monaco, Consolas, 'Courier New', Courier; font-size:1.0em; line-height:1.5 !important;">
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">assert</span> list <span class="sy0">!=</span> <span class="kw2">null</span> <span class="sy0">&amp;&amp;</span> list.<span class="me1">size</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">&gt;</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="kw3">Object</span> value <span class="sy0">=</span> list.<span class="me1">get</span><span class="br0">(</span><span class="nu0">0</span><span class="br0">)</span><span class="sy0">;</span>
+</pre></div>
+</div>
+</td>
+</tr></table><p>Assertions are usually used as a debugging aid. They should not be used instead of validating arguments to public methods, or in place of a more precise runtime error exception.</p>
+<p>Assertions are enabled with the Java <code>-ea</code> or <code>-enableassertions</code> runtime option. See your Java environment documentation for additional options for controlling assertions.</p>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

@@ -1,0 +1,232 @@
+<html><head><title>Java Programming/Java Beans</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Java Beans</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><h2> <span class="mw-headline" id="What_is_a_Java_Bean.3F">What is a Java Bean?</span></h2>
+<p>A <i>Java Bean</i> is a Java class that follows the <a rel="nofollow" class="external text" href="http://java.sun.com/products/javabeans/index.jsp">Sun Java Beans Standard</a>. (The term <i>Java Bean</i> or simply <i>bean</i> also refers to the instances of a Java Bean class.) The Java Beans standard provides a framework for creating objects to be used by GUI tools, including Java development environments. But in more common usage, a bean is a <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Serializable&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Serializable (does not exist)">serializable</a> class that follows the Java Beans naming conventions for its properties. These naming standards make it easy to use Java <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Introspection&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Introspection (does not exist)">Introspection</a></p>
+<p>To follow these standards, the bean needs one or more <i>properties</i> abstractions which represent different state values of an object. A property has a name (a valid Java identifier) and a type (either a <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Reference_Types&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Reference Types (does not exist)">reference type</a>, a <a href="http://en.wikibooks.org/wiki/Java_Programming/Primitive_Types" title="Java Programming/Primitive Types" class="mw-redirect">primitive type</a> or an <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Array_Types&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Array Types (does not exist)">array type</a>). By default, the properties of a Java Bean class are inferred by the presense of either a getter method, a setter method, or both:</p>
+<ul><li>A getter method which is used to obtain the value of the property from a bean. The name is usually of the form <code>get<i>PropertyName</i></code>. For example, the getter method for the String property <code>whiskey</code> is <code>public String getWhiskey()</code>. For boolean properties (those whose type is <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Primitive_Types/boolean&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Primitive Types/boolean (does not exist)">boolean</a>, the convention is to use the naming pattern <code>is<i>PropertyName</i></code>.</li>
+</ul><p><code>isDiscounted()</code> would be the getter method for a boolean property named <code>discounted</code>. Thus, the method signature of most getters is <code>public <i>PropertyType</i> get<i>PropertyName</i>()</code> or <code>public boolean is<i>PropertyName</i>()</code></p>
+<ul><li>A setter method which is used to assign a value to a bean's property. A setter method is a method of the form <code>public void set<i>PropertyName</i>(<i>PropertyType</i> value)</code>. For the previous example, the setter could be invoked as <code>setWhiskey("bourbon");</code>.</li>
+</ul><p>As per the Java Beans standard, getters and setters defined as described above automatically determine the properties of the class. However, by creating <code>java.beans.PropertyDescriptor</code> classes, you can specify alternate implemenations by explicitly declaring the property names and the getter and/or setter methods for each property.</p>
+<p>Properties are often implemented with <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Access_Modifiers/private&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Access Modifiers/private (does not exist)">private</a> <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Instance_Variables&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Instance Variables (does not exist)">instance variables</a>, but this is not required.</p>
+<h2> <span class="mw-headline" id="A_Simple_Java_Bean">A Simple Java Bean</span></h2>
+<p>This is an example of a simple Java Bean type named <code>Puppy</code> with the properties <code>int age</code> and <code>String color</code>.</p>
+<pre>
+class Puppy implements java.io.Serializable
+{
+  private static final long serialVersionUID = 2006L;
+  private String color;
+  private int age;
+
+  public String getColor()
+  {
+   return color;
+  }
+
+  public void setColor(String color)
+  {
+   this.color = color;
+  }
+
+  public int getAge()
+  {
+   return age;
+  }
+
+  public void setAge(int age)
+  {
+   this.age = age;
+  }
+}
+</pre>
+<h2> <span class="mw-headline" id="Uses">Uses</span></h2>
+<p>In Java and J2EE programming, the structured definition of bean properties is very useful for comparing a single common property across several objects that are not and should not be related by <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Inheritance&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Inheritance (does not exist)">inheritance</a>.</p>
+<p>For example, a program may contain both a bean representing a company's employees, and another containing a list of buildings that a company occupies. A programmer writing a function called listAssetNames() wants to write a simple way of getting the field "name" from several beans that can get the field from both Employee and Building beans, and that can be easily adapted to get the same field from other types of beans that may not be written yet.</p>
+<p>While this could be done by rewriting both Employee and Building so that they each inherit from one class named NamedObject, or by creating a NamedObject interface, both methods have their own problems. Using inheritence is limiting, as each child class can only inherit from one parent class, which limits the number of different classes that can share properties, as well as the number of common properties that can be shared. Furthermore, using inheritace to express relationships other than a simple "is-a" relationship can be confusing, as can looking through dozens of class definitions to find where a single "dumb" getter function is implemented. Creating an interface fixes the problems caused by the multiple inheritance rule, as a class can use any number of interfaces, but it still requires every shared property to be explicitly spelled out.</p>
+<p>The simplest,most elegant way to deal with this type of relationship is by reading the bean properties using introspection. The jakarta <a rel="nofollow" class="external text" href="http://jakarta.apache.org/commons/beanutils/">BeanUtils</a> package is a common way of handling objects that need to be related in this way, as it takes advantage of the regularity of JavaBean naming conventions.</p>
+<h2> <span class="mw-headline" id="Get_property_from_a_java_bean">Get property from a java bean</span></h2>
+<p>Use <a rel="nofollow" class="external text" href="http://commons.apache.org/beanutils/">Apache Commons BeanUtils</a></p>
+<pre>
+<code><a href="Keywords/import.html" title="Java Programming/Keywords/import"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">import</font></a></code> org.apache.commons.beanutils.PropertyUtils;
+<code><a href="Keywords/try.html" title="Java Programming/Keywords/try"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">try</font></a></code> {
+  <code><a href="API/java.lang.Object.html" title="Java Programming/API/java.lang.Object">Object</a></code> myValue = PropertyUtils.getSimpleProperty(o, propertyName);
+} <code><a href="Keywords/catch.html" title="Java Programming/Keywords/catch"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">catch</font></a></code> (IllegalAccessException e) {
+  // --- Handle exception --
+} <code><a href="Keywords/catch.html" title="Java Programming/Keywords/catch"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">catch</font></a></code> (InvocationTargetException e) {
+  // --- Handle exception --
+} <code><a href="Keywords/catch.html" title="Java Programming/Keywords/catch"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">catch</font></a></code> (NoSuchMethodException e) {
+  // --- Handle exception --
+}
+</pre>
+<p>or</p>
+<pre>
+<code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/static.html" title="Java Programming/Keywords/static"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">static</font></a></code> <code><a href="API/java.lang.Object.html" title="Java Programming/API/java.lang.Object">Object</a></code> getProperty(<code><a href="API/java.lang.Object.html" title="Java Programming/API/java.lang.Object">Object</a></code> o, <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> propertyName)
+{
+   <code><a href="Keywords/if.html" title="Java Programming/Keywords/if"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">if</font></a></code> (o == <code><a href="Literals/null.html" title="Java Programming/Literals/null"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">null</font></a></code> ||
+       propertyName == <code><a href="Literals/null.html" title="Java Programming/Literals/null"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">null</font></a></code> ||
+       propertyName.length() &lt; 1)
+   {
+      <code><a href="Keywords/return.html" title="Java Programming/Keywords/return"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">return</font></a></code> <code><a href="Literals/null.html" title="Java Programming/Literals/null"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">null</font></a></code>;
+   }
+   // --- Based on the property name build the getter method name ---
+   <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> methodName = "get" +
+                      propertyName.substring(0,1).toUpperCase() +
+                      propertyName.substring(1);
+   <code><a href="API/java.lang.Object.html" title="Java Programming/API/java.lang.Object">Object</a></code> property = <code><a href="Literals/null.html" title="Java Programming/Literals/null"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">null</font></a></code>;
+   <code><a href="Keywords/try.html" title="Java Programming/Keywords/try"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">try</font></a></code> {
+      java.lang.Class c = o.getClass();
+      java.lang.reflect.Method m = c.getMethod(methodName, <code><a href="Literals/null.html" title="Java Programming/Literals/null"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">null</font></a></code>);
+      property = m.invoke(o, <code><a href="Literals/null.html" title="Java Programming/Literals/null"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">null</font></a></code>);
+   } <code><a href="Keywords/catch.html" title="Java Programming/Keywords/catch"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">catch</font></a></code> (NoSuchMethodException e) {
+     // --- Handle exception --
+   }  <code><a href="Keywords/catch.html" title="Java Programming/Keywords/catch"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">catch</font></a></code> (SecurityException e) {
+     // --- No permission; Handle exception --
+   }
+<code><a href="Keywords/return.html" title="Java Programming/Keywords/return"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">return</font></a></code> property;
+}
+</pre>
+<p><br></p>
+<h3> <span class="mw-headline" id="Preface">Preface</span></h3>
+<ul><li> <a href="Introduction.html" title="Java Programming/Introduction">Introduction</a></li>
+<li> <a href="About_This_Book.html" title="Java Programming/About This Book">About this book</a>
+<ul><li> <a href="About_This_Book.html" title="Java Programming/About This Book">Installing the Java platform</a></li>
+</ul></li>
+<li> <a href="History.html" title="Java Programming/History">History of Java</a></li>
+<li> <a href="The_Java_Platform.html" title="Java Programming/The Java Platform">The Java platform</a>
+<ul><li> <a href="The_Java_Platform.html" title="Java Programming/The Java Platform">Java Runtime Environment (JRE)</a></li>
+<li> <a href="The_Java_Platform.html" title="Java Programming/The Java Platform">Java Development Kit (JDK)</a></li>
+<li> <a href="The_Java_Platform.html" title="Java Programming/The Java Platform">Similar concepts</a></li>
+</ul></li>
+</ul><h3> <span class="mw-headline" id="Getting_started"> <a href="Getting_started.html" title="Java Programming/Getting started">Getting started</a></span></h3>
+<ul><li> <a href="Getting_started.html" title="Java Programming/Getting started">Understanding systems</a></li>
+<li> <a href="Getting_started.html" title="Java Programming/Getting started">The process of abstraction</a>
+<ul><li> <a href="Getting_started.html" title="Java Programming/Getting started">Thinking in objects</a></li>
+<li> <a href="Getting_started.html" title="Java Programming/Getting started">Understanding class definitions and types</a></li>
+<li> <a href="Getting_started.html" title="Java Programming/Getting started">Expanding your class definitions</a></li>
+<li> <a href="Getting_started.html" title="Java Programming/Getting started">Adding behavior to objects</a></li>
+</ul></li>
+<li> <a href="Getting_started.html" title="Java Programming/Getting started">The process of encapsulation</a>
+<ul><li> <a href="Getting_started.html" title="Java Programming/Getting started">Using access modifiers</a></li>
+</ul></li>
+<li> <a href="Getting_started.html" title="Java Programming/Getting started">Exercise 1: Writing your first Java program</a>
+<ul><li> <a href="Getting_started.html" title="Java Programming/Getting started">Analysis of your first Java program</a></li>
+</ul></li>
+</ul><h3> <span class="mw-headline" id="Language_fundamentals"><a href="Language_Fundamentals.html" title="Java Programming/Language Fundamentals">Language fundamentals</a></span></h3>
+<ul><li> <a href="Variables.html" title="Java Programming/Variables">Variables</a>
+<ul><li> <a href="Variables.html" title="Java Programming/Variables">Kinds of variables</a></li>
+<li> <a href="Variables.html" title="Java Programming/Variables">Variable declaration</a></li>
+<li> <a href="Variables.html" title="Java Programming/Variables">Assignment operation</a></li>
+<li> <a href="Variables.html" title="Java Programming/Variables">Understanding data types</a></li>
+<li> <a href="Variables.html" title="Java Programming/Variables">Whole numbers and floating point numbers</a></li>
+<li> <a href="Variables.html" title="Java Programming/Variables">Identifiers</a>
+<ul><li> <a href="Variables.html" title="Java Programming/Variables">Naming conventions for dentifiers</a></li>
+</ul></li>
+<li> <a href="Variables.html" title="Java Programming/Variables">Literals</a></li>
+</ul></li>
+<li> <a href="Arrays.html" title="Java Programming/Arrays">Arrays</a></li>
+<li> <a href="Basic_arithmetic.html" title="Java Programming/Basic arithmetic">Basic arithmetic</a>
+<ul><li> <a href="Mathematical_functions.html" title="Java Programming/Mathematical functions">Mathematical functions</a></li>
+<li> <a href="Large_numbers.html" title="Java Programming/Large numbers">Large numbers</a></li>
+<li> <a href="Random_numbers.html" title="Java Programming/Random numbers">Random numbers</a></li>
+</ul></li>
+<li> <a href="Flow_control.html" title="Java Programming/Flow control">Flow control</a></li>
+<li> <a href="Methods.html" title="Java Programming/Methods">Methods</a></li>
+<li> <a href="Statements.html" title="Java Programming/Statements">Statements</a></li>
+<li> <a href="Types.html" title="Java Programming/Types">Types</a></li>
+<li> <a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></li>
+<li> <a href="Classes,_Objects_and_Types.html" title="Java Programming/Classes, Objects and Types">Classes, objects and data types</a></li>
+<li> <a href="Syntax.html" title="Java Programming/Syntax">Syntax</a></li>
+<li> <a href="Keywords.html" title="Java Programming/Keywords">Keywords</a></li>
+<li> <a href="Packages.html" title="Java Programming/Packages">Packages</a></li>
+<li> <a href="Nested_Classes.html" title="Java Programming/Nested Classes">Nested classes</a></li>
+<li> <a href="Access_Modifiers.html" title="Java Programming/Access Modifiers">Access modifiers</a></li>
+<li> <a href="Data_and_Variables.html" title="Java Programming/Data and Variables">Data and variables</a></li>
+<li> <a href="Generics.html" title="Java Programming/Generics">Generics</a></li>
+<li> <a href="Java_Security.html" title="Java Programming/Java Security">Java security</a></li>
+</ul><h3> <span class="mw-headline" id="Classes_and_objects"><a href="Classes_and_Objects.html" title="Java Programming/Classes and Objects">Classes and objects</a></span></h3>
+<ul><li> <a href="Defining_Classes.html" title="Java Programming/Defining Classes">Defining classes</a></li>
+<li> <a href="Creating_Objects.html" title="Java Programming/Creating Objects">Creating objects</a></li>
+<li> <a href="Interfaces.html" title="Java Programming/Interfaces">Interfaces</a></li>
+<li> <a href="Using_Static_Members.html" title="Java Programming/Using Static Members">Using static members</a></li>
+<li> <a href="Destroying_Objects.html" title="Java Programming/Destroying Objects">Destroying objects</a></li>
+<li> <a href="Overloading_Methods_and_Constructors.html" title="Java Programming/Overloading Methods and Constructors">Overloading methods and constructors</a></li>
+<li> <a href="Class_Loading.html" title="Java Programming/Class Loading">Class loading</a></li>
+</ul><h3> <span class="mw-headline" id="Collections"><a href="Collections.html" title="Java Programming/Collections">Collections</a></span></h3>
+<ul><li> <a href="Collection_Classes.html" title="Java Programming/Collection Classes">Introduction</a></li>
+<li> <a href="Collection_Classes.html" title="Java Programming/Collection Classes">Arrays</a></li>
+<li> <a href="Collection_Classes.html" title="Java Programming/Collection Classes">Collection Classes</a>
+<ul><li> <a href="Collection_Classes.html" title="Java Programming/Collection Classes">Collections and maps</a></li>
+<li> <a href="Collection_Classes.html" title="Java Programming/Collection Classes">Sets, lists and queues</a></li>
+<li> <a href="Collection_Classes.html" title="Java Programming/Collection Classes">Thread Safe Collections</a></li>
+</ul></li>
+<li> <a href="Comparing_Objects.html" title="Java Programming/Comparing Objects">Comparing Objects</a></li>
+</ul><h3> <span class="mw-headline" id="Exceptions"><a href="Exceptions.html" title="Java Programming/Exceptions">Exceptions</a></span></h3>
+<ul><li> <a href="Throwing_and_Catching_Exceptions.html" title="Java Programming/Throwing and Catching Exceptions">Throwing and catching exceptions</a>
+<ul><li> <a href="Throwing_and_Catching_Exceptions.html" title="Java Programming/Throwing and Catching Exceptions">Application exceptions</a></li>
+<li> <a href="Throwing_and_Catching_Exceptions.html" title="Java Programming/Throwing and Catching Exceptions">Runtime exceptions</a></li>
+<li> <a href="Throwing_and_Catching_Exceptions.html" title="Java Programming/Throwing and Catching Exceptions">NullPointerException</a></li>
+<li> <a href="Throwing_and_Catching_Exceptions.html" title="Java Programming/Throwing and Catching Exceptions">Main Exception classes</a></li>
+</ul></li>
+<li> <a href="http://en.wikibooks.org/wiki/Java_Programming/StackTrace" title="Java Programming/StackTrace" class="mw-redirect">Stack trace</a></li>
+<li> <a href="Checked_Exceptions.html" title="Java Programming/Checked Exceptions">Checked exceptions</a></li>
+<li> <a href="Unchecked_Exceptions.html" title="Java Programming/Unchecked Exceptions">Unchecked exceptions</a></li>
+<li> <a href="Preventing_NullPointerException.html" title="Java Programming/Preventing NullPointerException">Preventing NullPointerException</a></li>
+<li> <a href="Nesting_Exceptions.html" title="Java Programming/Nesting Exceptions">Chained exceptions(Nesting Exceptions)</a></li>
+</ul><h3> <span class="mw-headline" id="Annotations"><a href="Annotations.html" title="Java Programming/Annotations">Annotations</a></span></h3>
+<h3> <span class="mw-headline" id="Designing_user_interfaces">Designing user interfaces</span></h3>
+<ul><li> <a href="Basic_IO.html" title="Java Programming/Basic IO">Basic I/O</a></li>
+<li> <a href="Event_Handling.html" title="Java Programming/Event Handling">Event handling</a></li>
+<li> <a href="Graphics.html" title="Java Programming/Graphics">Graphics</a></li>
+<li> <a href="Applets.html" title="Java Programming/Applets">Applets</a></li>
+</ul><h3> <span class="mw-headline" id="Swing_programming"><a href="Swing.html" title="Java Programming/Swing">Swing programming</a></span></h3>
+<ul><li> <a href="FirstExamples.html" title="Java Programming/FirstExamples">First Example: Frames and Labels</a></li>
+<li> <a href="Events_and_Buttons.html" title="Java Programming/Events and Buttons">Events and Buttons</a></li>
+<li> <a href="Responsive_Swing_Application.html" title="Java Programming/Responsive Swing Application">A Responsive Application</a></li>
+<li> <a href="SwingLayouts.html" title="Java Programming/SwingLayouts">Layouts</a></li>
+<li> <a href="SwingLargeExamples.html" title="Java Programming/SwingLargeExamples">Building a calculator</a></li>
+</ul><h3> <span class="mw-headline" id="Advanced_topics">Advanced topics</span></h3>
+<ul><li> <a href="Byte_Code.html" title="Java Programming/Byte Code">Byte code</a></li>
+<li> <a href="Concurrent_Programming.html" title="Java Programming/Concurrent Programming">Concurrent programming</a></li>
+<li> <a href="Networking.html" title="Java Programming/Networking">Networking</a></li>
+<li> <a href="Database_Programming.html" title="Java Programming/Database Programming">Database programming</a></li>
+<li> <a href="Reflection.html" title="Java Programming/Reflection">Reflection</a></li>
+<li> <a href="JavaBeans.html" title="Java Programming/JavaBeans">JavaBeans</a></li>
+<li> <a href="Design_Patterns.html" title="Java Programming/Design Patterns">Design patterns</a></li>
+<li> <a href="Libraries.html" title="Java Programming/Libraries">Libraries, extensions and frameworks</a></li>
+<li> <a href="http://en.wikibooks.org/wiki/Java_Programming/3D_Programming" title="Java Programming/3D Programming">3D programming</a></li>
+<li> <a href="Threads.html" title="Java Programming/Threads">Threads</a></li>
+<li> <a href="RMI-IIOP.html" title="Java Programming/RMI-IIOP">Remote Method Invocation (RMI) and Internet Inter-Orb Protocol (IIOP)</a></li>
+<li> <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Profiling&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Profiling (does not exist)">Profiling</a></li>
+<li> <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Monitoring&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Monitoring (does not exist)">Monitoring</a></li>
+</ul><h3> <span class="mw-headline" id="Associated_reading_references">Associated reading references</span></h3>
+<ul><li> <a href="Java_Overview.html" title="Java Programming/Java Overview">Overview of the Java programming language</a></li>
+<li> <a href="Compilation.html" title="Java Programming/Compilation">Compiling programs</a></li>
+<li> <a href="Execution.html" title="Java Programming/Execution">Running programs</a></li>
+<li> <a href="Understanding_a_Java_Program.html" title="Java Programming/Understanding a Java Program">Anatomy of a Java program</a></li>
+<li> <a href="Java_IDEs.html" title="Java Programming/Java IDEs">Java IDEs</a></li>
+</ul><h3> <span class="mw-headline" id="Appendices">Appendices</span></h3>
+<ul><li> <a href="Links.html" title="Java Programming/Links">Links</a></li>
+<li> <a href="Glossary.html" title="Java Programming/Glossary">Glossary</a></li>
+<li> <a href="Index.html" title="Java Programming/Index">Index</a></li>
+</ul></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

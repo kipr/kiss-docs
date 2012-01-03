@@ -1,0 +1,39 @@
+<html><head><title>Java Programming/Keywords/native</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Keywords/native</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p><code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">native</strong></font></code> is a java keyword.</p>
+<p>It marks a method, that it will be implemented in other languages, not in Java. It works together with JNI(Java Native Interface)</p>
+<p>Syntax:</p>
+<pre>
+[<code><a href="public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code>|<code><a href="protected.html" title="Java Programming/Keywords/protected"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">protected</font></a></code>|<code><a href="private.html" title="Java Programming/Keywords/private"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">private</font></a></code>] <code><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;"><strong class="selflink">native</strong></font></code> method();
+</pre>
+<p>Native methods were used in the past to write performance critical sections but with java getting faster this is now less common. Native methods are currently needed when</p>
+<ul><li>You need to call from java a library, written in other language.</li>
+<li>You need to access system or hardware resources that are only reachable from the other language (typically C). Actually, many system functions that interact with real computer (disk and network IO, for instance) can only do this because they call native code.</li>
+</ul><p>To complete writing native method, you need to process your class with <code>javah</code> tool that will generate a header code in C. You then need to provide implementation of the header code, produce dynamically loadable library (.so under Linux, .dll under Windows) and load it (in the simplest case with <code>System.load(library_file_name)</code> . The code completion is trivial if only primitive types like integers are passed but gets more complex if it is needed to exchange strings or objects from the C code. In general, everything can be on C level, including creation of the new objects and calling back methods, written in java.</p>
+<p>To call the code in some other language (including C++), you need to write a bridge from C to that language. This is usually trivial as most of languages are callable from C.</p>
+<h2> <span class="mw-headline" id="See_also">See also</span></h2>
+<ul><li><a rel="nofollow" class="external autonumber" href="http://java.sun.com/developer/onlineTraining/Programming/JDCBook/jni.html">[1]</a> - JNI programming tutorial.</li>
+<li><a rel="nofollow" class="external autonumber" href="http://java.sun.com/j2se/1.3/docs/guide/jni/spec/jniTOC.doc.html">[2]</a> - JNI specification.</li>
+</ul></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

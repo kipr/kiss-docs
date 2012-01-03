@@ -1,0 +1,112 @@
+<html><head><title>Java Programming/Canvas</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Canvas</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><h1> <span class="mw-headline" id="Preparing_a_canvas_to_draw">Preparing a canvas to draw</span></h1>
+<table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Canvas&amp;printable=yes#Preparing_a_canvas_to_draw"><span class="tocnumber">1</span> <span class="toctext">Preparing a canvas to draw</span></a>
+<ul><li class="toclevel-2 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Canvas&amp;printable=yes#Overriding_the_paint.28Graphics.29_method"><span class="tocnumber">1.1</span> <span class="toctext">Overriding the paint(Graphics) method</span></a></li>
+<li class="toclevel-2 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Canvas&amp;printable=yes#Understanding_the_Canvas_class"><span class="tocnumber">1.2</span> <span class="toctext">Understanding the Canvas class</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Canvas&amp;printable=yes#Get.2C_set.2C_draw.21"><span class="tocnumber">1.3</span> <span class="toctext">Get, set, draw!</span></a></li>
+</ul></li>
+</ul></td>
+</tr></table><p>An essential part of programming in Java requires you build exciting new user interfaces for yourselves. Components that come built into the Java framework are regular UI elements, however for a more rich experience, you need controls of your own. Take, for instance, a charting application. No charting tool comes built into a Java API. You need to manually draw the chart yourself.</p>
+<p>Coding drawing, to begin with, is pretty daunting but once you know the basics of Graphics programming in Java, you would be able to create elegant graphics and art in no time. But the question that arises in one's mind is what to draw on. The answer to this question is simpler than it seems. You can start drawing on any component in the Java framework. Whether it be a panel, window or even a button.</p>
+<p>Let me break it down for you. A component in the Java language is a class that has been derived from the <code style="border-bottom:dashed red 1px;">Component</code> class. Each component has a method with a signature <code style="border-bottom:dashed green 1px;">paint(Graphics)</code> which can be overridden to manually draw something atop it.</p>
+<h2> <span class="mw-headline" id="Overriding_the_paint.28Graphics.29_method">Overriding the <code>paint(Graphics)</code> method</span></h2>
+<p>Below is an example on how you need to override the above method. For this very example, the component class that we would be using would be the <code style="border-bottom:dashed red 1px;">Canvas</code> class. For more information about the <code style="border-bottom:dashed red 1px;">Canvas</code> class, <i>see the section on <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Canvas&amp;printable=yes#Understanding_the_Canvas_class">Understanding the Canvas class</a></i></p>
+<p><span style="color:#878787;border-bottom:solid 1px #dedede;">Listing 9.1: Initializing a Canvas class</span></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">import</span> <span class="co2">java.awt.*</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">class</span> MyCanvas <span class="kw1">extends</span> <span class="kw3">Canvas</span>
+<span class="br0">{</span>
+    <span class="kw1">public</span> MyCanvas<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="co1">//...</span>
+    <span class="br0">}</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> paint<span class="br0">(</span><span class="kw3">Graphics</span> graphics<span class="br0">)</span>
+    <span class="br0">{</span>
+        <span class="coMULTI">/* We override the method here. The graphics
+         * code comes here within the method body. */</span>
+    <span class="br0">}</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<h2> <span class="mw-headline" id="Understanding_the_Canvas_class">Understanding the <code>Canvas</code> class</span></h2>
+<p><b>Listing 9.1</b> shows the simplicity and power of the syntax for enabling the graphics functions within Java. Lets begin by understanding what a <code style="border-bottom:dashed red 1px;">Canvas</code> class does. A <code style="border-bottom:dashed red 1px;">Canvas</code> class is a derivative or a sub-class of the <code style="border-bottom:dashed red 1px;">Component</code> class and when placed over a <code style="border-bottom:dashed red 1px;">Frame</code>, displays as a blank area.</p>
+<p>For the purpose of drawing graphics, you may use any other class derived from the <code style="border-bottom:dashed red 1px;">Component</code> class, for instance, <code style="border-bottom:dashed red 1px;">JPanel</code> or even <code style="border-bottom:dashed red 1px;">JTextField</code> or <code style="border-bottom:dashed red 1px;">JButton</code>. Why we use the <code style="border-bottom:dashed red 1px;">Canvas</code> class is purely to grasp the idea of drawing in Java.</p>
+<p>Let us refine the above code for the class to be executable and the Canvas to be displayed. For this we will add an entry-point method namely the <code style="border-bottom:dashed green 1px">main(String[])</code> method in its body and calling a <code style="border-bottom:dashed red 1px;">JFrame</code> class to load the canvas on.</p>
+<p><span style="color:#878787;border-bottom:solid 1px #dedede;">Listing 9.2: Displaying a Canvas class atop a JFrame</span></p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">import</span> <span class="co2">java.awt.*</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">javax.swing.*</span><span class="sy0">;</span>
+<span class="kw1">public</span> <span class="kw1">class</span> MyCanvas <span class="kw1">extends</span> <span class="kw3">Canvas</span>
+<span class="br0">{</span>
+    <span class="kw1">public</span> MyCanvas<span class="br0">(</span><span class="br0">)</span>
+    <span class="br0">{</span>
+    <span class="br0">}</span>
+    <span class="kw1">public</span> <span class="kw4">void</span> paint<span class="br0">(</span><span class="kw3">Graphics</span> graphics<span class="br0">)</span>
+    <span class="br0">{</span>
+    <span class="br0">}</span>
+    <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span><span class="br0">[</span><span class="br0">]</span> args<span class="br0">)</span>
+    <span class="br0">{</span>
+        MyCanvas canvas <span class="sy0">=</span> <span class="kw1">new</span> MyCanvas<span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>                      <span class="co1">// We initialize our class here</span>
+        <span class="kw3">JFrame</span> frame <span class="sy0">=</span> <span class="kw1">new</span> <span class="kw3">JFrame</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+        frame.<span class="me1">setSize</span><span class="br0">(</span><span class="nu0">400</span>, <span class="nu0">400</span><span class="br0">)</span><span class="sy0">;</span>
+        frame.<span class="me1">setDefaultCloseOperation</span><span class="br0">(</span><span class="kw3">JFrame</span>.<span class="me1">EXIT_ON_CLOSE</span><span class="br0">)</span><span class="sy0">;</span>
+        frame.<span class="me1">getContentPane</span><span class="br0">(</span><span class="br0">)</span>.<span class="me1">add</span><span class="br0">(</span>canvas<span class="br0">)</span><span class="sy0">;</span>                    <span class="co1">// Here we add it to the frame</span>
+        frame.<span class="me1">setVisible</span><span class="br0">(</span><span class="kw2">true</span><span class="br0">)</span><span class="sy0">;</span>
+    <span class="br0">}</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<p>The following code now helps our class to be executable and displays the canvas on top of the frame as it displays. Running this class would result in an empty frame, however it should be clear that the canvas is sitting atop it and is merely not displaying any drawings yet.</p>
+<p><span style="color:#878787;border-bottom:solid 1px #dedede;">Figure 9.1: A blank canvas atop a JFrame</span></p>
+<p><a href="http://en.wikibooks.org/wiki/File:Java_programming_graphics_09_01.PNG" class="image"><img alt="Java programming graphics 09 01.PNG" src="../../misc/7bf0c_Java_programming_graphics_09_01.PNG" width="400" height="400"></a></p>
+<h2> <span class="mw-headline" id="Get.2C_set.2C_draw.21">Get, set, draw!</span></h2>
+<p>Now that the basic structure of our program has been laid out, we need to explore how drawing is actually done by writing Java code. Move to the next section and try your hand at drawing basic shapes and lines. But whilst you are still fresh to the concept of a Canvas, why not test your knowledge. Try answering these questions below. Answers will be revealed in the next section.</p>
+<div style="background: #f2fff2; border: solid 1px #bfffbf; padding: 0.5em; width: 95%; margin: auto;">
+<p><b>Question 9.1: What classes are used to draw in Java?</b></p>
+<ol><li>Any class that is derived from the <code style="border-bottom:dashed red 1px;">Object</code> class.</li>
+<li>Any class that is derived from the <code style="border-bottom:dashed red 1px;">Component</code> class.</li>
+<li>None of the above.</li>
+</ol><p><b>Question 9.2: What is the method that needs to be overridden in order to enable drawing?</b></p>
+<ol><li>The <code style="border-bottom:dashed green 1px;">main(String[])</code> method.</li>
+<li>The <code style="border-bottom:dashed green 1px;">MyCanvas()</code> method.</li>
+<li>The <code style="border-bottom:dashed green 1px;">paint(Graphics)</code> method.</li>
+<li>None of the above.</li>
+</ol></div>
+<p>If you have any questions regarding the content provided here, please feel free to comment in this page's <a href="http://en.wikibooks.org/w/index.php?title=Talk:Java_Programming/Canvas&amp;action=edit&amp;redlink=1" class="new" title="Talk:Java Programming/Canvas (does not exist)">discussion</a>.</p>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

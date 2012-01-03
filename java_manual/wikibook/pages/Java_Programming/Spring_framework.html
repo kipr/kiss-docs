@@ -1,0 +1,261 @@
+<html><head><title>Java Programming/Spring framework</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Spring framework</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p>This is intended to be a short, simple tutorial on writing a Java application that using the Spring framework. Please note, this tutorial is intended for those with a moderate amount of background with <a href="http://en.wikibooks.org/wiki/Java" title="Java" class="mw-redirect">Java</a>, and a basic working knowledge of <a href="http://en.wikibooks.org/wiki/XML" title="XML" class="mw-redirect">XML</a>.</p>
+<p>For this tutorial, we will be making an application that reads short stories from a Spring bean configuration file. (For the sake of this example, these short stories are <i>real short</i> stories.) There will be three Java classes, and one Spring config file. So let's begin...</p>
+<table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Spring_framework&amp;printable=yes#Step_1:_Setting_up_your_environment"><span class="tocnumber">1</span> <span class="toctext">Step 1: Setting up your environment</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Spring_framework&amp;printable=yes#Step_2:_Creating_a_Spring_beans_configuration_file"><span class="tocnumber">2</span> <span class="toctext">Step 2: Creating a Spring beans configuration file</span></a>
+<ul><li class="toclevel-2 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Spring_framework&amp;printable=yes#story_configuration.xml"><span class="tocnumber">2.1</span> <span class="toctext">story_configuration.xml</span></a></li>
+<li class="toclevel-2 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Spring_framework&amp;printable=yes#Explanation"><span class="tocnumber">2.2</span> <span class="toctext">Explanation</span></a></li>
+</ul></li>
+<li class="toclevel-1 tocsection-5"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Spring_framework&amp;printable=yes#Step_3:_Making_JavaBean_classes"><span class="tocnumber">3</span> <span class="toctext">Step 3: Making JavaBean classes</span></a>
+<ul><li class="toclevel-2 tocsection-6"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Spring_framework&amp;printable=yes#Story.java"><span class="tocnumber">3.1</span> <span class="toctext">Story.java</span></a></li>
+<li class="toclevel-2 tocsection-7"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Spring_framework&amp;printable=yes#StoryList.java"><span class="tocnumber">3.2</span> <span class="toctext">StoryList.java</span></a></li>
+<li class="toclevel-2 tocsection-8"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Spring_framework&amp;printable=yes#Explanation_2"><span class="tocnumber">3.3</span> <span class="toctext">Explanation</span></a></li>
+</ul></li>
+<li class="toclevel-1 tocsection-9"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Spring_framework&amp;printable=yes#Step_4:_A_main_method_to_put_it_all_together"><span class="tocnumber">4</span> <span class="toctext">Step 4: A main method to put it all together</span></a>
+<ul><li class="toclevel-2 tocsection-10"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Spring_framework&amp;printable=yes#StoryReader.java"><span class="tocnumber">4.1</span> <span class="toctext">StoryReader.java</span></a></li>
+<li class="toclevel-2 tocsection-11"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Spring_framework&amp;printable=yes#Explanation_3"><span class="tocnumber">4.2</span> <span class="toctext">Explanation</span></a></li>
+</ul></li>
+<li class="toclevel-1 tocsection-12"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Spring_framework&amp;printable=yes#Step_5:_Running_your_program"><span class="tocnumber">5</span> <span class="toctext">Step 5: Running your program</span></a></li>
+<li class="toclevel-1 tocsection-13"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Spring_framework&amp;printable=yes#Afterthoughts"><span class="tocnumber">6</span> <span class="toctext">Afterthoughts</span></a>
+<ul><li class="toclevel-2 tocsection-14"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Spring_framework&amp;printable=yes#Things_to_remember"><span class="tocnumber">6.1</span> <span class="toctext">Things to remember</span></a></li>
+<li class="toclevel-2 tocsection-15"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Spring_framework&amp;printable=yes#Try_it_yourself"><span class="tocnumber">6.2</span> <span class="toctext">Try it yourself</span></a></li>
+<li class="toclevel-2 tocsection-16"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Spring_framework&amp;printable=yes#About_the_author"><span class="tocnumber">6.3</span> <span class="toctext">About the author</span></a></li>
+</ul></li>
+<li class="toclevel-1 tocsection-17"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Spring_framework&amp;printable=yes#References"><span class="tocnumber">7</span> <span class="toctext">References</span></a></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="Step_1:_Setting_up_your_environment">Step 1: Setting up your environment</span></h2>
+<p>Before we can directly make the files, we first need to setup Spring. I'm assuming you already have the latest version of Java installed. If not, you can download Java Development Kit <a rel="nofollow" class="external text" href="http://java.sun.com/javase/downloads/index.jsp">here</a>. To download Spring, go to <a rel="nofollow" class="external free" href="http://www.springsource.com/download/community">http://www.springsource.com/download/community</a> and click on "spring-framework-3.0.2.RELEASE-dependencies (1).zip". This will bring you to the download page. We want the latest version of Spring with all its dependencies; at the time of this writing it's <b>spring-framework-1.2.7-with-dependencies.zip</b>. Download it and unzip it.</p>
+<p>Next we want to add <b>spring.jar</b> and <b>commons-logging.jar</b> to our classpath. Their locations are <b>spring-framework-1.2.7\dist\spring.jar</b> and <b>spring-framework-1.2.7\lib\jakarta-commons\commons-logging.jar</b>. Since this varies from platform to platform, I'm not going to cover how to add libraries to your build path. However, if you use an <a href="http://en.wikibooks.org/w/index.php?title=IDE&amp;action=edit&amp;redlink=1" class="new" title="IDE (does not exist)">IDE</a> such as <a href="http://en.wikibooks.org/wiki/Eclipse" title="Eclipse">Eclipse</a>, then it shouldn't be too difficult. We will need spring.jar for the classes it uses to read the configuration file, and the classes in spring.jar depend on the logging utilities in commons-logging.jar for recording any errors.</p>
+<p>From here on out, you can just copy and paste the text into the files for Steps 2, 3, and 4; skip the explanations; and run the program yourself. The explanations are only there to provide you with a background of the way Spring puts it all together. Ok, now on to the meat and potatoes, story_configuration.xml.</p>
+<h2> <span class="mw-headline" id="Step_2:_Creating_a_Spring_beans_configuration_file"><b>Step 2</b>: Creating a Spring beans configuration file</span></h2>
+<p>Create a new XML file in the directory where you are planning to put your java files. Call it story_configuration.xml. Then copy and paste the text below into the file and save it:</p>
+<h3> <span class="mw-headline" id="story_configuration.xml">story_configuration.xml</span></h3>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">"1.0"</span> <span class="re0">encoding</span>=<span class="st0">"UTF-8"</span><span class="re2">?&gt;</span></span>
+<span class="sc0">&lt;!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" </span>
+<span class="sc0">      "http://www.springframework.org/dtd/spring-beans.dtd"&gt;</span>
+<span class="sc3"><span class="re1">&lt;beans<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"StoryList"</span> <span class="re0">class</span>=<span class="st0">"StoryList"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"stories"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;list<span class="re2">&gt;</span></span></span>
+           <span class="sc3"><span class="re1">&lt;ref</span> <span class="re0">bean</span>=<span class="st0">"HelloWorld"</span><span class="re2">/&gt;</span></span>
+           <span class="sc3"><span class="re1">&lt;ref</span> <span class="re0">bean</span>=<span class="st0">"OnceUpon"</span><span class="re2">/&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;/list<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
+ 
+   <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"HelloWorld"</span> <span class="re0">class</span>=<span class="st0">"Story"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"title"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;value<span class="re2">&gt;</span></span></span>Hello World!<span class="sc3"><span class="re1">&lt;/value<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"author"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;value<span class="re2">&gt;</span></span></span>User:Hyad<span class="sc3"><span class="re1">&lt;/value<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"content"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;value<span class="re2">&gt;</span></span></span>This is a simple story.
+This is a story about a man who said, "Hello, World."
+See, now wasn't that simple.<span class="sc3"><span class="re1">&lt;/value<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
+ 
+   <span class="sc3"><span class="re1">&lt;bean</span> <span class="re0">id</span>=<span class="st0">"OnceUpon"</span> <span class="re0">class</span>=<span class="st0">"Story"</span><span class="re2">&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"title"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;value<span class="re2">&gt;</span></span></span>Once Upon a Time<span class="sc3"><span class="re1">&lt;/value<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"author"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;value<span class="re2">&gt;</span></span></span>Rob Yates<span class="sc3"><span class="re1">&lt;/value<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;property</span> <span class="re0">name</span>=<span class="st0">"content"</span><span class="re2">&gt;</span></span>
+         <span class="sc3"><span class="re1">&lt;value<span class="re2">&gt;</span></span></span>Once upon a time there were some interesting things going on.
+The end.<span class="sc3"><span class="re1">&lt;/value<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;/property<span class="re2">&gt;</span></span></span>
+   <span class="sc3"><span class="re1">&lt;/bean<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/beans<span class="re2">&gt;</span></span></span>
+</pre></div>
+</div>
+<h3> <span class="mw-headline" id="Explanation">Explanation</span></h3>
+<p>The first two lines are just standard XML declarations. Technically we don't really need them, but we'll put them in anyway. Next, you'll see the &lt;beans&gt; tag, this is where all the Java beans go.</p>
+<p>Below that you'll see &lt;bean class="StoryList"&gt;. This will be a bean for our Java class, StoryList.java. This class is simply a placeholder for the List where we will be holding our stories. Note the attributes of the bean element: there must always be a class attribute to represent the Java Class the bean is using. The id attribute is optional; it is used by the XMLBeanFactory class, to tell it what bean to get with the getBean method: ex. getBean("My id attribute name here"). If no id attribute is provided, like with &lt;bean class="StoryList"&gt;, then the class name is used as if it were the id attribute. Think: &lt;bean id="StoryList" class="StoryList"&gt;. Also note a bean's id value must not have any spaces, ex. don't write id="Story List".</p>
+<p>Next we have &lt;property name="stories"&gt;. The property tag just specifies what property variable in the Java bean file we want to specify with a bean property. The &lt;list&gt; tag is used next to tell Spring that we're dealing with a List of things, not just one. Next we have &lt;ref bean="HelloWorld"/&gt;, this tells Spring to return the &lt;bean id="HelloWorld" class="Story"&gt; bean inside this List. In a different example, you might simply need a list of values like Strings. For a grocery list you might have something like,</p>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="xml source-xml">
+<pre class="de1">
+<span class="sc3"><span class="re1">&lt;list<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;value<span class="re2">&gt;</span></span></span>milk<span class="sc3"><span class="re1">&lt;/value<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;value<span class="re2">&gt;</span></span></span>eggs<span class="sc3"><span class="re1">&lt;/value<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;value<span class="re2">&gt;</span></span></span>bread<span class="sc3"><span class="re1">&lt;/value<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;/list<span class="re2">&gt;</span></span></span>
+</pre></div>
+</div>
+<p>Either way your property is mapped to a LIST</p>
+<p>For our HelloWorld story, we have &lt;bean id="HelloWorld" class="Story"&gt;. Hopefully, nothing too surprising here. There are three properties of this bean, &lt;property name="title"&gt;, &lt;property name="author"&gt;, &lt;property name="content"&gt;. These are again mapping to property variables: title, author, content in the Story class. Within each value we have: &lt;value&gt;Hello World!&lt;/value&gt;, &lt;value&gt;User:Hyad&lt;/value&gt;, &lt;value&gt;This is a simple story.</p>
+<p>This is a story about a man who said, "Hello, World."</p>
+<p>See, now wasn't that simple.&lt;/value&gt; Since we are dealing with Strings, everything between the start and end value tags is converted into a String. Hence to add a newline, we must actually put text on separate lines without any indentation. Be aware that values don't have to be mapped to Strings, they can be primitives like int or char, or objects like Integer or Float. Spring automatically knows how to convert them.</p>
+<p>We won't be covering the OnceUpon bean, it's essentially the same thing as HelloWorld, only with different values. In fact, that is the main purpose for using Spring, storing different sets of values for a Java class as a bean instead of making a new class. Up next are the Java Bean classes themselves.</p>
+<h2> <span class="mw-headline" id="Step_3:_Making_JavaBean_classes">Step 3: Making JavaBean classes</span></h2>
+<p>There are two JavaBean classes: Story.java and StoryList.java. Copy and paste the following text into their respective classes.</p>
+<h3> <span class="mw-headline" id="Story.java">Story.java</span></h3>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">public</span> <span class="kw1">class</span> Story <span class="br0">{</span>
+ 
+        <span class="kw1">private</span> <span class="kw3">String</span> title<span class="sy0">;</span>
+        <span class="kw1">private</span> <span class="kw3">String</span> author<span class="sy0">;</span>
+        <span class="kw1">private</span> <span class="kw3">String</span> content<span class="sy0">;</span>
+ 
+        <span class="kw1">public</span> Story <span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+        <span class="br0">}</span> 
+        <span class="kw1">public</span> <span class="kw4">void</span> setTitle<span class="br0">(</span><span class="kw3">String</span> title<span class="br0">)</span> <span class="br0">{</span>
+                <span class="kw1">this</span>.<span class="me1">title</span> <span class="sy0">=</span> title<span class="sy0">;</span>
+        <span class="br0">}</span>
+        <span class="kw1">public</span> <span class="kw3">String</span> getTitle<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+                <span class="kw1">return</span> title<span class="sy0">;</span>
+        <span class="br0">}</span>
+        <span class="kw1">public</span> <span class="kw4">void</span> setAuthor<span class="br0">(</span><span class="kw3">String</span> author<span class="br0">)</span> <span class="br0">{</span>
+                <span class="kw1">this</span>.<span class="me1">author</span> <span class="sy0">=</span> author<span class="sy0">;</span>
+        <span class="br0">}</span>
+        <span class="kw1">public</span> <span class="kw3">String</span> getAuthor<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+                <span class="kw1">return</span> author<span class="sy0">;</span>
+        <span class="br0">}</span>
+        <span class="kw1">public</span> <span class="kw4">void</span> setContent<span class="br0">(</span><span class="kw3">String</span> content<span class="br0">)</span> <span class="br0">{</span>
+                <span class="kw1">this</span>.<span class="me1">content</span> <span class="sy0">=</span> content<span class="sy0">;</span>
+        <span class="br0">}</span>
+        <span class="kw1">public</span> <span class="kw3">String</span> getContent<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+                <span class="kw1">return</span> content<span class="sy0">;</span>
+        <span class="br0">}</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<h3> <span class="mw-headline" id="StoryList.java">StoryList.java</span></h3>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">import</span> <span class="co2">java.util.List</span><span class="sy0">;</span>
+ 
+<span class="kw1">public</span> <span class="kw1">class</span> StoryList <span class="br0">{</span>
+ 
+        <span class="kw1">private</span> <span class="kw3">List</span> stories<span class="sy0">;</span>
+ 
+        <span class="kw1">public</span> StoryList <span class="br0">(</span><span class="br0">)</span><span class="br0">{</span>
+        <span class="br0">}</span>
+        <span class="kw1">public</span> <span class="kw4">void</span> setStories<span class="br0">(</span><span class="kw3">List</span> stories<span class="br0">)</span> <span class="br0">{</span>
+                <span class="kw1">this</span>.<span class="me1">stories</span> <span class="sy0">=</span> stories<span class="sy0">;</span>
+        <span class="br0">}</span>
+        <span class="kw1">public</span> <span class="kw3">List</span> getStories<span class="br0">(</span><span class="br0">)</span> <span class="br0">{</span>
+                <span class="kw1">return</span> stories<span class="sy0">;</span>
+        <span class="br0">}</span>
+<span class="br0">}</span>
+</pre></div>
+</div>
+<h3> <span class="mw-headline" id="Explanation_2">Explanation</span></h3>
+<p>Not too complicated, right? These are JavaBeans; simple classes with getters and setters for property variables a constructor without any parameters. For a more in-depth discussion of JavaBeans visit <a href="http://en.wikipedia.org/wiki/JavaBeans" class="extiw" title="wikipedia:JavaBeans">Wikipedia:JavaBeans</a>. The setters, like setTitle(String title), are what Spring uses to create the beans in the XmlBeanFactory. The setters must follow specific bean naming conventions. For example, settitle(String title) with a lowercase "t" won't work. However, as an example setURL(String url) with property name "URL" will work because the second letter "R" is also capitalized in addition to the first "U". Getters aren't actually used by Spring in this example, however StoryReader needs them as we'll see later on. In addition, we don't actually have to specify a no-argument constructor, we could just leave it out and the Java compiler will automatically put one in the class when it's compiled. However, writing a constructor with one or more arguments without a no-argument constructor would invalidate the class as a bean.</p>
+<h2> <span class="mw-headline" id="Step_4:_A_main_method_to_put_it_all_together">Step 4: A main method to put it all together</span></h2>
+<p>As we have before, copy and paste the text. And save your class as StoryReader.java.</p>
+<h3> <span class="mw-headline" id="StoryReader.java">StoryReader.java</span></h3>
+<div dir="ltr" class="mw-geshi" style="text-align: left;">
+<div class="java source-java">
+<pre class="de1">
+<span class="kw1">import</span> <span class="co2">java.util.List</span><span class="sy0">;</span>
+ 
+<span class="kw1">import</span> <span class="co2">org.springframework.beans.factory.xml.XmlBeanFactory</span><span class="sy0">;</span>
+<span class="kw1">import</span> <span class="co2">org.springframework.core.io.ClassPathResource</span><span class="sy0">;</span>
+ 
+<span class="kw1">public</span> <span class="kw1">class</span> StoryReader <span class="br0">{</span>
+ 
+        <span class="kw1">public</span> <span class="kw1">static</span> <span class="kw4">void</span> main<span class="br0">(</span><span class="kw3">String</span> args<span class="br0">[</span><span class="br0">]</span><span class="br0">)</span> <span class="br0">{</span>
+                XmlBeanFactory beanFactory <span class="sy0">=</span> <span class="kw1">new</span> XmlBeanFactory<span class="br0">(</span>
+                                <span class="kw1">new</span> ClassPathResource<span class="br0">(</span><span class="st0">"story_configuration.xml"</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+                StoryList storyList <span class="sy0">=</span> <span class="br0">(</span>StoryList<span class="br0">)</span> beanFactory.<span class="me1">getBean</span><span class="br0">(</span><span class="st0">"StoryList"</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+                <span class="kw3">List</span> myStories <span class="sy0">=</span> storyList.<span class="me1">getStories</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+ 
+                <span class="kw1">for</span> <span class="br0">(</span><span class="kw4">int</span> i <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span> i <span class="sy0">&lt;</span> myStories.<span class="me1">size</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span> i<span class="sy0">++</span><span class="br0">)</span> <span class="br0">{</span>
+                        Story currentStory <span class="sy0">=</span> <span class="br0">(</span>Story<span class="br0">)</span> myStories.<span class="me1">get</span><span class="br0">(</span>i<span class="br0">)</span><span class="sy0">;</span>
+                        <span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="st0">"<span class="es0">\"</span>"</span> <span class="sy0">+</span> currentStory.<span class="me1">getTitle</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">+</span> <span class="st0">"<span class="es0">\"</span> by "</span>
+                                        <span class="sy0">+</span> currentStory.<span class="me1">getAuthor</span><span class="br0">(</span><span class="br0">)</span> <span class="sy0">+</span> <span class="st0">":"</span><span class="br0">)</span><span class="sy0">;</span>
+                        <span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span>currentStory.<span class="me1">getContent</span><span class="br0">(</span><span class="br0">)</span><span class="br0">)</span><span class="sy0">;</span>
+                        <span class="kw3">System</span>.<span class="me1">out</span>.<span class="me1">println</span><span class="br0">(</span><span class="br0">)</span><span class="sy0">;</span>
+                <span class="br0">}</span>
+        <span class="br0">}</span><span class="co1">//end main</span>
+ 
+<span class="br0">}</span><span class="co1">//end StoryReader</span>
+</pre></div>
+</div>
+<h3> <span class="mw-headline" id="Explanation_3">Explanation</span></h3>
+<p>Here is our main class, StoryReader.java. First we have to import two Spring classes, XmlBeanFactory and ClassPathResource. XmlBeanFactory is essentially a Java class representation of the Spring XML configuation file, story_configuration.xml. However, before we can get the XML file, we have to tell Spring to look in our class path for that file. That's where ClassPathResource comes in. It searchs the class path, which is where our .class files are stored, for the file specified in its constructor, story_configuration.xml. Any other class that implements the Resource interface may be used, such as org.springframework.core.io.FileSystemResource. Therefore, we see XmlBeanFactory beanFactory = new XmlBeanFactory(new ClassPathResource("story_configuration.xml")); creates a new bean factory from story_configuration.xml.</p>
+<p>The next line, StoryList storyList = (StoryList) beanFactory.getBean("StoryList");, tells us which bean we want to get next. The getBean("StoryList") tells the bean factory to return an object corresponding to the bean with the id "StoryList", since it is the class name. Since it is an Object, we have to cast it into a StoryList class.</p>
+<p>Next, we get the list of stories from the StoryList class, and loop through them. Since this is a bean, the Stories are already there in the list, within the values already in the stories. All we have to do is print them out; which we do. Note: \" is used to escape quotes within the String.</p>
+<h2> <span class="mw-headline" id="Step_5:_Running_your_program">Step 5: Running your program</span></h2>
+<p>So now that we're done creating our classes and files, lets run the program! Fix any errors you get by making sure you copied everything correctly. When you run the main method of StoryReader, your output should be as follows:</p>
+<pre>
+Mar 12, 2006 5:42:30 PM org.springframework.core.CollectionFactory &lt;clinit&gt;
+INFO: JDK 1.4+ collections available
+Mar 12, 2006 5:42:30 PM org.springframework.beans.factory.xml.XmlBeanDefinitionReader loadBeanDefinitions
+INFO: Loading XML bean definitions from class path resource [story_configuration.xml]
+"Hello World!" by User:Hyad:
+This is a simple story.
+This is a story about a man who said, "Hello, World."
+See, now wasn't that simple.
+
+"Once Upon a Time" by Rob Yates:
+Once upon a time there were some interesting things going on.
+The end.
+
+</pre>
+<p>The dates will obviously be different when you run it yourself. Also, the four lines that begin with either a date or the word "INFO" are printed to System.err and may be above, or below, or even in between the rest of the output. This is because some operating systems may print to System.out and System.err at different times. Check that your output matches the one shown, disregarding the dates and order of the four lines that Spring prints. Now, you have a fully functioning Spring application, but what next?</p>
+<h2> <span class="mw-headline" id="Afterthoughts">Afterthoughts</span></h2>
+<h3> <span class="mw-headline" id="Things_to_remember">Things to remember</span></h3>
+<p>As I mentioned earlier, Spring performs automatic conversion of values to both primitives and Objects; int, float, char, Double, boolean, Byte, you name it. Also note that &lt;list&gt;, which is simply a list of values, can be mapped to a List object, an Array object, or a primitive array (the two square brackets kind). There are even &lt;set&gt; and &lt;map&gt; tags which can be mapped to Sets and Maps, respectively. And at any point you can replace a value with a reference to a bean, like replace &lt;value&gt;myValue&lt;/value&gt; with &lt;ref bean="myBeanId"/&gt;. This reference will return the corresponding JavaBean and Spring will store it as that variable.</p>
+<p>In addition, Spring can also serve as a replacement for properties files. An advantage is that Spring is XML based, so any XML parser can read it. And multiple beans can be stored for the same class within the same file. However, you may also place beans across multiple files, and use &lt;import resource="myOtherBeanConfigFile.xml"/&gt; to "import" other beans, just like importing Java classes.</p>
+<p>The last thing you may want to know is that Spring is most helpful when you use one bean to reference to other beans, classes, files, etc. You may have one bean contain a list of beans, which contain a list of beans, each of which contain another list of beans, ... This way only the file name and location of most top level bean is "hard-coded" in the Java class, and everything else is specified by the XML configuration files.</p>
+<h3> <span class="mw-headline" id="Try_it_yourself">Try it yourself</span></h3>
+<p>Here are a few tasks you might do to make your Spring application more robust. Do as many, or as little, as you like:</p>
+<ul><li>Separate the StoryList bean into another XML file, using &lt;import resource="story_configuration.xml"/&gt; in your new file.</li>
+<li>Add publication date to each of your stories. How will you store the date?</li>
+<li>Make a separate class for the author. What attributes might an author have?</li>
+<li>Put additional functionality into StoryList. How about a printStories() method that can be called by StoryReader's main method?</li>
+<li>Create a writer so all output will be written to a file. And store that file name as a bean.</li>
+<li>Add more stories. (Mine suck, I know.)</li>
+<li>Instead of stories, how about TV shows, or video games?</li>
+<li>Change random code around until it breaks. Have fun!&#160;:)</li>
+</ul><h3> <span class="mw-headline" id="About_the_author">About the author</span></h3>
+<p>I go by <a href="http://en.wikibooks.org/w/index.php?title=User:Hyad&amp;action=edit&amp;redlink=1" class="new" title="User:Hyad (does not exist)">User:Hyad</a> on Wikipedia and Wikibooks. Having been frustrated by other Spring tutorials that were too long, I decided after actually learning (and using) Spring at work that I would actually create my own. <a rel="nofollow" class="external text" href="http://www.drrockit.com/space/Java/Simple+Spring+Demo">This tutorial</a> came the closest to what I was looking for in a good tutorial, but it was a little too short. So I figured, why not give an example that could be used in the real world. And I figured Wikibooks would be the best place for it, considering if I put it on my website, 1. It would be too cumbersome to edit, and 2. Other people wouldn't be able to edit and update it easily. So drop me a line at <a href="http://en.wikipedia.org/wiki/User_talk:Hyad" class="extiw" title="wikipedia:User talk:Hyad">my Wikipedia talk page</a> and tell me what you think.</p>
+<h2> <span class="mw-headline" id="References">References</span></h2>
+<div class="reflist references" style=""></div>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

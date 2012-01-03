@@ -1,0 +1,35 @@
+<html><head><title>Java Programming/API/java.lang.Class</title><link media="all" href="../../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/API/java.lang.Class</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><p>The <code><strong class="selflink">Class</strong></code><b>&lt;T&gt;</b> is defined in the <code>java.lang</code> package.</p>
+<p>There is a <code><strong class="selflink">Class</strong></code><b>&lt;T&gt;</b> object for each class in your program. The <code><strong class="selflink">Class</strong></code> object is loaded from &lt;class-name&gt;.class file once when the object of that type is referenced from the first time. After that it stays in memory. The <code><strong class="selflink">Class</strong></code> object is responsible to creat all the object instances that belong to that class.</p>
+<p>Every array also belongs to a class that is reflected as a <code><strong class="selflink">Class</strong></code> object that is shared by all arrays with the same element type and number of dimensions. The <a href="http://en.wikibooks.org/wiki/Java_Programming/Primitive_Types" title="Java Programming/Primitive Types" class="mw-redirect">primitive types</a> (<code><a href="../Keywords/boolean.html" title="Java Programming/Keywords/boolean"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">boolean</font></a></code>, <code><a href="../Keywords/byte.html" title="Java Programming/Keywords/byte"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">byte</font></a></code>, <code><a href="../Keywords/char.html" title="Java Programming/Keywords/char"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">char</font></a></code>, <code><a href="../Keywords/short.html" title="Java Programming/Keywords/short"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">short</font></a></code>, <code><a href="../Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code>, <code><a href="../Keywords/long.html" title="Java Programming/Keywords/long"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">long</font></a></code>, <code><a href="../Keywords/float.html" title="Java Programming/Keywords/float"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">float</font></a></code>, and <code><a href="../Keywords/double.html" title="Java Programming/Keywords/double"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">double</font></a></code>), and the keyword <code><a href="../Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> are also represented as <code><strong class="selflink">Class</strong></code> objects. Class has no public constructor. Instead Class objects are constructed automatically by the Java Virtual Machine as classes are loaded</p>
+<p>Since JDK 1.5 the class <b>java.lang.Class&lt;T&gt;</b> is generic. It's an interesting example of using genericity for something other than a container/collection class.</p>
+<p>For example, the type of String.class is Class&lt;String&gt;, and the type of Serializable.class is Class&lt;Serializable&gt;. This can be used to improve the type safety of your reflection code.</p>
+
+
+
+
+
+</div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>

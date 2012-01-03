@@ -1,0 +1,391 @@
+<html><head><title>Java Programming/Methods</title><link media="all" href="../../misc/modern.css" type="text/css" rel="stylesheet"></head><body class="mediawiki"><div id="content"><h1 class="firstHeading" id="firstHeading">Java Programming/Methods</h1><div id="bodyContent">
+								
+				
+				
+								
+				
+				
+																
+				
+				
+								
+				<div lang="en" dir="ltr" class="mw-content-ltr"><table class="wikitable" style="float: right;"><tr><td>Navigate <b><a href="Language_Fundamentals.html" title="Java Programming/Language Fundamentals">Language Fundamentals</a></b> topic: 
+<ul><li> <a href="Variables.html" title="Java Programming/Variables">Variables</a></li>
+<li> <a href="Flow_control.html" title="Java Programming/Flow control">Flow control</a></li>
+<li> <a href="Arrays.html" title="Java Programming/Arrays">Arrays</a></li>
+<li> <strong class="selflink">Methods</strong></li>
+<li> <a href="Statements.html" title="Java Programming/Statements">Statements</a></li>
+<li> <a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Identifiers,_literals_and_expressions&amp;action=edit&amp;redlink=1" class="new" title="Java Programming/Identifiers, literals and expressions (does not exist)">Identifiers, literals and expressions</a></li>
+<li> <a href="Types.html" title="Java Programming/Types">Types</a></li>
+<li> <a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></li>
+<li> <a href="Classes,_Objects_and_Types.html" title="Java Programming/Classes, Objects and Types">Classes, Objects and Types</a></li>
+<li> <a href="Syntax.html" title="Java Programming/Syntax">Syntax</a></li>
+<li> <a href="Keywords/assert.html" title="Java Programming/Keywords/assert">Assertions</a></li>
+<li> <a href="Keywords.html" title="Java Programming/Keywords">Keywords</a></li>
+<li> <a href="Packages.html" title="Java Programming/Packages">Packages</a></li>
+<li> <a href="Nested_Classes.html" title="Java Programming/Nested Classes">Nested classes</a></li>
+<li> <a href="Access_Modifiers.html" title="Java Programming/Access Modifiers">Access modifiers</a></li>
+<li> <a href="Data_and_Variables.html" title="Java Programming/Data and Variables">Data and variables</a></li>
+<li> <a href="Generics.html" title="Java Programming/Generics">Generics</a></li>
+<li> <a href="Java_Security.html" title="Java Programming/Java Security">Java Security</a></li>
+</ul></td>
+</tr></table><table id="toc" class="toc"><tr><td>
+<div id="toctitle">
+<h2>Contents</h2>
+</div>
+<ul><li class="toclevel-1 tocsection-1"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Methods&amp;printable=yes#Method_Definition"><span class="tocnumber">1</span> <span class="toctext">Method Definition</span></a></li>
+<li class="toclevel-1 tocsection-2"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Methods&amp;printable=yes#Method_Overloading"><span class="tocnumber">2</span> <span class="toctext">Method Overloading</span></a></li>
+<li class="toclevel-1 tocsection-3"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Methods&amp;printable=yes#Method_Overriding"><span class="tocnumber">3</span> <span class="toctext">Method Overriding</span></a></li>
+<li class="toclevel-1 tocsection-4"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Methods&amp;printable=yes#Parameter_Passing"><span class="tocnumber">4</span> <span class="toctext">Parameter Passing</span></a></li>
+<li class="toclevel-1 tocsection-5"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Methods&amp;printable=yes#Functions"><span class="tocnumber">5</span> <span class="toctext">Functions</span></a></li>
+<li class="toclevel-1 tocsection-6"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Methods&amp;printable=yes#Return_Parameter"><span class="tocnumber">6</span> <span class="toctext">Return Parameter</span></a></li>
+<li class="toclevel-1 tocsection-7"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Methods&amp;printable=yes#Special_method.2C_the_Constructor"><span class="tocnumber">7</span> <span class="toctext">Special method, the Constructor</span></a></li>
+<li class="toclevel-1 tocsection-8"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Methods&amp;printable=yes#Static_Method"><span class="tocnumber">8</span> <span class="toctext">Static Method</span></a></li>
+<li class="toclevel-1 tocsection-9"><a href="http://en.wikibooks.org/w/index.php?title=Java_Programming/Methods&amp;printable=yes#External_links"><span class="tocnumber">9</span> <span class="toctext">External links</span></a></li>
+</ul></td>
+</tr></table><h2> <span class="mw-headline" id="Method_Definition">Method Definition</span></h2>
+<p>A method is an operation on a particular object. An object is an instance of a class. When we define a class we define its member variables and its methods. For each method we need to give a name, we need to define its input parameters and we need to define its return type. We also need to set its visibility(private, package, or public). If the method throws an Exception, that needs to be declared as well. The syntax of method definition is:</p>
+<pre>
+<code><a href="Keywords/class.html" title="Java Programming/Keywords/class"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">class</font></a></code> MyClass
+{
+ ...
+    <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> ReturnType <b>methodName</b>( ParamOneType param1, ParamTwoType param2 ) <code><a href="Keywords/throws.html" title="Java Programming/Keywords/throws"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">throws</font></a></code> ExceptionName
+    {
+      ReturnType retType;
+      ...
+      <code><a href="Keywords/return.html" title="Java Programming/Keywords/return"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">return</font></a></code> retType;
+    }
+ ...
+}
+</pre>
+<p>We can declare that the method does not return anything using the <code><a href="Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> java keyword. For example:</p>
+<pre>
+<code><a href="Keywords/private.html" title="Java Programming/Keywords/private"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">private</font></a></code> <code><a href="Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> <b>methodName</b>( <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> param1, <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> param2 )
+{
+ ...
+  <code><a href="Keywords/return.html" title="Java Programming/Keywords/return"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">return</font></a></code>;
+}
+</pre>
+<p>When the method returns nothing, the <code><a href="Keywords/return.html" title="Java Programming/Keywords/return"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">return</font></a></code> keyword at the end of the method is optional. The <code><a href="Keywords/return.html" title="Java Programming/Keywords/return"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">return</font></a></code> keyword can be used anywhere in the method, when the executation flow reach the <code><a href="Keywords/return.html" title="Java Programming/Keywords/return"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">return</font></a></code> keyword, the method execution is stopped and the execution flow returns to the caller method.</p>
+<h2> <span class="mw-headline" id="Method_Overloading">Method Overloading</span></h2>
+<p>For the same class we can define two methods with the same name. However the parameter types and/or the number of parameters must be different for those two methods. In the java terminology, this is called <b>method overloading</b>. It is useful to use method overloading when we need to do something different based on a parameter type. For example we may have the operation&#160;: runAroundThe. We can define two methods with the same name, but different input parameter type:</p>
+<pre>
+<code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> runAroundThe( Building block )
+{
+  ...
+}
+<code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> runAroundThe( Park park )
+{
+  ...
+}
+</pre>
+<p>Related terminology is the <b>method signature</b>. In java the method signature contains method name and the input parameter types. The java compiler takes the signature for each method and makes sure that each method signature is unique for a class. For example the following two method definitions are valid:</p>
+<pre>
+<code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> logIt( <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> param, Error err )
+{
+  ...
+}
+<code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> logIt( Error err, <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> param )
+{
+  ...
+}
+</pre>
+<p>Because the type order is different. If both input parameters were type String, that would be a problem since the compiler would not be able to distinguish between the two:</p>
+<pre>
+<code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> logIt( <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> param, <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> err )
+{
+  ...
+}
+<code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> logIt( <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> err, <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> param )
+{
+  ...
+}
+ 
+</pre>
+<p>The compiler would give an error for the following method definitions as well:</p>
+<pre>
+<code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> logIt( <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> param )
+{
+  ...
+}
+<code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> logIt( <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> param )
+{
+  <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> retType;
+  ...
+  <code><a href="Keywords/return.html" title="Java Programming/Keywords/return"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">return</font></a></code> retValue;
+}
+</pre>
+<p>Note, the return type is not part of the unique signature. Why not? The reason is that a method can be called without assigning its return value to a variable. This feature came from C and C++. So for the call:</p>
+<pre>
+{
+  logIt( msg );
+}
+</pre>
+<p>the compiler would not know which method to call.</p>
+<h2> <span class="mw-headline" id="Method_Overriding">Method Overriding</span></h2>
+<p>Obviously a method signature has to be unique inside a class. The same method signature can be defined in different classes. If we define a method that exist in the super class then we override the super class method. The terminology for this is <b>method overriding</b>. This is different from method overloading. Method overloading happens with methods with the same name different signature. Method overriding happens with same name, same signature between inherited classes.</p>
+<p>The return type can cause the same problem we saw above. When we override a super class method the return type also must be the same. In fact if that is not the same, the compiler will give you an error.</p>
+<p>Method overriding is related dynamic linking, or runtime binding. In order for the Method Overriding to work, the method call that is going to be called can not be determined at compilation time. It will be decided at runtime, and will be looked up in a table.</p>
+<pre>
+{
+1  MyClass obj = <code><a href="Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> SubOfMyClass();
+2
+3  MyClass obj = <code><a href="Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> MyClass();
+4 
+5  obj.myMethod(); // -- During compilation, it is not known what reference the 'obj' has, MyClass or SubOfMyClass 
+}
+</pre>
+<p>In the above example 'obj' reference has the type MyClass on both line 1 and line 3. However the 'obj' reference points two different objects. On line 1 it references SubOfMyClass object, on line 3 it references MyClass object. So on line 5 which method will be called, method define in MyClass, or the method that defined in its subclasses. Because the 'obj' reference can point to object and all its sub object, and that will be known only at runtime, a table needs to be kept with all the possible method address to be called.</p>
+<p><br>
+Also another rule is that when you do an override, the visibility of the new method that overrides the super class method can not be reduced. The visibility can be increased, however. So if the super class method visibility is public, the override method can not be package, or private.</p>
+<p>In the case of the exception the override method may throw can be the same as the super class or it can be one of that exception inherited class. So the common rule is that the override method must throw the same exception or it is any of its subclasses.</p>
+<p>NOTE: A common mistake to think that if we can override methods, we could also override member variables. This is not the case, as member variables are not overriden.</p>
+<pre>
+{
+1  MyClass obj = <code><a href="Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> SubOfMyClass();
+2
+3  MyClass obj = <code><a href="Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> MyClass();
+4 
+5  String var = obj.myMemberVar;  // -- The myMemberVar is defined in the MyClass object 
+}
+</pre>
+<p>In the above example, it does not count what object the 'obj' reference points to, because it was declared MyClass type on both line 1 and line 3, the variable in the MyClass object will be referenced. In real examples we rarely use public variables, but if you do keep in mind that Java does not support variable overriding.</p>
+<h2> <span class="mw-headline" id="Parameter_Passing">Parameter Passing</span></h2>
+<p>We can pass in all the primitive data types or any object references to a method. An object cannot be passed to a method, only its references. All parameters (those are primitive types and object references) are passed by value. In other words if you change the passed in parameter values inside the method, that will have no effect on the original variable that was passed in. When you pass in an object reference to a method and then you change that inside the method, that will have no effect on the original object reference. However if you modify the object itself, that will stay after the method returns. Think about the object reference as a pointer to an object. If you change the object the reference points at, that will be permanent. For example:</p>
+<pre>
+1 {
+2   <code><a href="Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> var1 = 10;
+3   <code><a href="Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> var2 = 20;
+4   ...
+5   myMethod( var1, var2 );
+6   ...
+7   System.out.println( "var1="+var1 +"var2="+var2 );  // -- The variable values did not change
+8 }
+9 ...
+10 <code><a href="Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> myMethod( <code><a href="Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> var1, <code><a href="Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> var2 )
+11 { 
+12    ...
+13    var1 = 0;
+14    var2 = 0;
+15    ...
+16 }
+</pre>
+<p>On line 7 the value of var1 is 10 and the value of var2 is 20. When the variables were passed in to the methods their values were copied. This is called passing the parameter by value. In java we do not represent an object directly, we represent an object throught an <b>object reference</b>. You can think of an object reference as a variable having the address of the object. So the object reference passed in by value, but the object itself is not. For example:</p>
+<pre>
+1  { 
+2    MyObjOne obj = new MyObjOne();
+3    obj.setName("Christin");
+4    ...
+5    myMethod( obj );
+6    String name = obj.getName();  // --- The name attribute was changed to 'Susan' inside the method
+7  }
+8  <code><a href="Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> myMethod( MyObjOne obj )
+9  {
+10   obj.setName("Susan");
+11   ...
+12   obj = new MyObjOne();
+13   obj.setName("Sonya");
+14   ...
+15 }
+</pre>
+<p>On line 2, we created an object, on line 3 we set its name property to 'Christin'. On line 5 we called the <code>myMethod( obj )</code>. Inside the method, we changed the name to 'Susan' through the passed in object reference. So that change will stay. Note however that after we reassigned the obj reference to a new object, that is no effect whatsoever on the passed in object.</p>
+<h2> <span class="mw-headline" id="Functions">Functions</span></h2>
+<p>In java, functions (methods really) are just like in C++ except that they must be declared inside a class and objects are passed by reference automatically. You cannot create pointers to a function but Java has events which really are function pointers under the hood for when you need that type of functionality.</p>
+<pre>
+int a_function(double d)
+{
+    return (int)d;
+}
+</pre>
+<h2> <span class="mw-headline" id="Return_Parameter">Return Parameter</span></h2>
+<p>So as we can see, a method may or may not return a value. If the method does not return a value we use the <code><a href="Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> java keyword. Same as the parameter passing, the method can return a primitive type or an object reference. So a method can return only one value. What if you want to return more than one value from a method. You can always pass in an object reference to the method, and let the method modify the object properties. The modified values can be considered as an output value from the method. However better option, and cleaner if you create an Object array inside the method, assign the return values and return the array to the caller. You could have a problem however, if you want to mix primitive data types and object references as the output values from the method. There is a better approach. Defines special return object with the needed return values. Create that object inside the method, assign the values and return the reference to this object. This special object is "bound" to this method and used only for returning values, so do not use a public class. The best way is to use a nested class, see example below:</p>
+<pre>
+<code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/class.html" title="Java Programming/Keywords/class"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">class</font></a></code> MyObject
+{
+  ...
+ 
+  /** Nested object is for return values from 'getPersonInfoById' method */
+  <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/static.html" title="Java Programming/Keywords/static"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">static</font></a></code> <code><a href="Keywords/class.html" title="Java Programming/Keywords/class"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">class</font></a></code>  ReturnObj 
+  {
+      <code><a href="Keywords/private.html" title="Java Programming/Keywords/private"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">private</font></a></code> <code><a href="Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code>    age;
+      <code><a href="Keywords/private.html" title="Java Programming/Keywords/private"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">private</font></a></code> <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> name;
+
+      <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> setAge( <code><a href="Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> val )
+      {
+          <code><a href="Keywords/this.html" title="Java Programming/Keywords/this"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">this</font></a></code>.age = val;
+      }
+      <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> getAge()
+      {
+          <code><a href="Keywords/return.html" title="Java Programming/Keywords/return"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">return</font></a></code> age;
+      }
+
+      <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/void.html" title="Java Programming/Keywords/void"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">void</font></a></code> setName( <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> val )
+      {
+          name = val;
+      }
+      <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> getName()
+      {
+          <code><a href="Keywords/return.html" title="Java Programming/Keywords/return"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">return</font></a></code> name;
+      }
+  } // --- End of nested class defination ---
+
+  /** Method using the nested class to return values */
+  <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> ReturnObj getPersonInfoById( <code><a href="Keywords/int.html" title="Java Programming/Keywords/int"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">int</font></a></code> ID ) 
+  {
+     int    age;
+     String name;
+   ...
+     // --- Get the name and age based on the ID from the database --- 
+   ...
+     ReturnObj ret = new ReturnObj();
+     ret.setAge( age );
+     ret.setName( name );
+
+   <code><a href="Keywords/return.html" title="Java Programming/Keywords/return"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">return</font></a></code> ret;
+  } 
+}
+</pre>
+<p>In the above example the 'getPersonInfoById' method returns an object reference that contains both values the name and age. See below how you may use that object:</p>
+<pre>
+{
+ ...
+   MyObject obj = new MyObject();
+   MyObject.ReturnObj person = obj.getPersonInfoById( 102 );
+
+   System.out.println( "Person Name=" + person.getName() );
+   System.out.println( "Person Age =" + person.getAge() );
+ ...
+}
+</pre>
+<h2> <span class="mw-headline" id="Special_method.2C_the_Constructor">Special method, the Constructor</span></h2>
+<p>There is a special method for each class that will be executed each time an object is created from that class. That is the <b>Constructor</b>. Constructor does not have a return value and its name is the same as the class name. The Constructor can be overloaded; you can define more than one constructor with different parameters. For example:</p>
+<pre>
+<code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/class.html" title="Java Programming/Keywords/class"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">class</font></a></code> MyClass
+{
+  private String memberField;
+  
+  /**
+   * MyClass Constructor, there is no input parameter  
+   */
+  <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> MyClass()
+  {
+     ...
+  }
+  
+  /**
+   * MyClass Constructor, there is one input parameter  
+   */
+  <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> MyClass( String param1 )
+  {
+     memberField = param1;
+     ...
+  }
+}
+</pre>
+<p>In the above example we defined two constructors, one with no input parameter, and one with one input parameter. You may ask which constructor will be called. Its depends how the object is created with the <code><a href="Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> keyword. See below:</p>
+<pre>
+{ 
+   ...
+   MyClass obj1 = <code><a href="Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> MyClass();              // The constructor with no input parameter will be called
+   MyClass obj2 = <code><a href="Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> MyClass("Init Value");  // The constructor with one input param. will be called
+   ...
+ }
+</pre>
+<p>In the above example we created two objects from the same class, or we can also say that obj1 and obj2 both have the same type. The difference between the two is that in the first one the <code>memberVar</code> field is not initialized, in the second one that is initialized to 'Init Value'. obj1, and obj2 contains the reference to the object. Each class must have a constructor. If we do not define one, the compiler will create a default so called <b>empty constructor</b> automatically.</p>
+<pre>
+<code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/class.html" title="Java Programming/Keywords/class"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">class</font></a></code> MyClass
+{
+  /**
+   * MyClass Empty Constructor  
+   */
+  <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> MyClass()
+  { 
+  }
+}
+</pre>
+<p>The Constructor is called automatically when an object is created with the <code><a href="Keywords/new.html" title="Java Programming/Keywords/new"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">new</font></a></code> keyword. A constructor may also be called from an other constructor, see below:</p>
+<pre>
+<code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/class.html" title="Java Programming/Keywords/class"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">class</font></a></code> MyClass
+{
+  private String memberField;
+  
+  /**
+   * MyClass Constructor, there is no input parameter  
+   */
+  <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> MyClass()
+  {
+     MyClass("Default Value");
+  }
+  
+  /**
+   * MyClass Constructor, there is one input parameter  
+   */
+  <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> MyClass( String param1 )
+  {
+     memberField = param1;
+     ...
+  }
+}
+</pre>
+<p>In the above example, the constructor with no input parameter calls the other constructor with the default initial value. This gives an option to the user, to create the object with the default value or create the object with a specified value.</p>
+<h2> <span class="mw-headline" id="Static_Method">Static Method</span></h2>
+<p>We defined method above as an operation on an object. Static Methods are defined inside a class, but they are not an operation on an object. No object needs to be created to execute a Static Method, they are simply global functions, with input parameters and a return value.</p>
+<pre>
+<code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/class.html" title="Java Programming/Keywords/class"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">class</font></a></code> MyObject
+{
+   <code><a href="Keywords/static.html" title="Java Programming/Keywords/static"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">static</font></a></code> <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> myStaticMethod()
+   {
+      ...
+     return("I am a Static Method");
+   }
+
+ }
+</pre>
+<p>Static Methods can be referenced anywhere prefixed by the class name. See below:</p>
+<pre>
+{
+...
+   // --- Call myStaticMethod  ---
+   System.out.println( "Output from the myStaticMethod:" + <b>MyObject.myStaticMethod()</b> );
+...
+}
+</pre>
+<p>You can write a non object oriented program by using only Static Methods in java. Because java evolved from the C programming language, Static Method is a left over from a non object oriented language.</p>
+<p>You write Static Method the same way as normal method, the only difference is that you can not reference any member variables and any object methods. Static Methods can reference only Static variables and call only other Static Methods. However you can create an object an use it inside a Static Method.</p>
+<pre>
+<code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="Keywords/class.html" title="Java Programming/Keywords/class"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">class</font></a></code> MyObject
+{
+   <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> memberVar;
+
+   <code><a href="Keywords/static.html" title="Java Programming/Keywords/static"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">static</font></a></code> <code><a href="Keywords/private.html" title="Java Programming/Keywords/private"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">private</font></a></code> <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> memberStaticVar;
+
+   <code><a href="Keywords/static.html" title="Java Programming/Keywords/static"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">static</font></a></code> <code><a href="Keywords/public.html" title="Java Programming/Keywords/public"><font style="color:DodgerBlue4; text-decoration: none; font-weight: bold;">public</font></a></code> <code><a href="API/java.lang.String.html" title="Java Programming/API/java.lang.String">String</a></code> myStaticMethod()
+   {
+     memberVar = "Value"; --&gt;  <b>ERROR Cannot reference member var.</b>
+
+     memberStaticVar = "Value";  <b>// --- This is okay, static vars. can be used</b>
+
+     // --- Create an object ---
+     MyObject obj = new MyObject();
+     obj.memberVar = "Value";  <b>// --- This is okay since an object is created --</b>
+      ...
+     return("I am a Static Method");
+   }    
+ }
+</pre>
+<h2> <span class="mw-headline" id="External_links">External links</span></h2>
+<ul><li><a rel="nofollow" class="external text" href="http://javalessons.com/cgi-bin/fun/java-tutorials-main.cgi?ses=ao789&amp;code=abs&amp;sub=fun">Abstract methods, interactive Java Lesson</a></li>
+</ul></div>				
+								
+				
+				
+												
+								
+												
+				
+				
+								<div class="visualClear"></div>
+				
+								
+			</div>
+			</div></body></html>
