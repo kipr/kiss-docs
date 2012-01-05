@@ -150,7 +150,7 @@
 		</pygments>
 		<p>
 			This may seem like a lot of code to do something trivial, but this is accepted convention in Java.
-			<i>Sigh</i>. Let's update our <pygm>main</pygm> method to print the X value after walking three times.
+			&lt;<i>Sigh.</i>&gt;. Let's update our <pygm>main</pygm> method to print the X value after walking three times.
 		</p>
 		<pygments>
 			class Main {
@@ -170,10 +170,10 @@
 		<h3>Abstraction</h3>
 		<p>
 			So we have a dog that can walk in the positive x direction, but what if we want a
-			cat to do the same? Why not just rename <pygm>Dog</pygm> to something more generic, like
-			<pygm>Pet</pygm>? This might be an excellent idea, but let's modify the requirements a bit.
-			A cat has a property called <pygm>lives</pygm>, and methods to mutate that value, so we need a class.
-			specific to it. I'm sure you're tempted to create a new class and copy + paste our old walking code 
+			cat to do the same? We could just rename <pygm>Dog</pygm> to something more generic, like
+			<pygm>Pet</pygm>. This might be an excellent idea, but let's modify the requirements a bit.
+			A cat has a property called <pygm>lives</pygm>, while a dog does not, so we need a class
+			specific to the cat. I'm sure you're tempted to create a new class and copy + paste our old walking code 
 			into it, but Java provides us with a better way. This is called abstraction. Let's introduce a new 
 			class called <pygm>WalkingPet</pygm>. This class is going to have all of the walking and position 
 			code from <pygm>Dog</pygm>.

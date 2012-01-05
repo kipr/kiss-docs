@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+		<link rel="icon" href="images/botball.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="images/botball.ico" type="image/x-icon">
+		<style type="text/css">
+			@import "style.css";
+		</style>
+		<title>CBCJVM Programmers Manual</title>
+	</head>
+	<body>
+		Version 0.1, by Braden McDorman (<a href="mailto:bmcdorman@kipr.org">bmcdorman@kipr.org</a>)
+		<br />
+		<h1>C++ CBC Programmers Manual</h1>
+		<br/>
+		<p>
+			This document covers usage of the cbc2cxx.h header, which is a lightweight c++ wrapper for libcbc.
+			C++ is almost completely backwards compatible with C, so almost all regular C code for the CBC will
+			work in C++, including regular libcbc calls such as <pygm>motor(int motor, int speed);</pygm> and 
+			<pygm>digital(int port);</pygm>
+		</p>
+		<h2>Motors (<code>Motor</code>)</h2>
+		<p>
+			Individual motors are creating instances of the
+			<pygm>Motor</pygm> class. The <pygm>Motor</pygm>
+			class has a significant amount of similarity to libcbc. For example,
+			if we wished to move motor on port 0 at a specific velocity for 1
+			second, we could use the <pygm>moveAtVelocity</pygm> method in
+			<pygm>Motor</pygm>.
+		</p>
+		<pygments>
+			int main() {
+				Motor test(0);
+				test.moveAtVelocity(150);
+				msleep(1500);
+				test.off();
+				
+				return 0;
+			}
+		</pygments>
+		<p>
+			If you've programmed a CBC in C before, the method
+			<pygm>moveAtVelocity</pygm> should look somewhat familiar. In C, we
+			can use the <pygm>move_at_velocity</pygm> or <pygm>mav</pygm>
+			functions to achieve a similar effect. In C++, though, we don't
+			have to supply a port to the method. The <pygm>Motor</pygm> class
+			stores the port we supplied to it in the constructor, cleaning our
+			code both syntactically and conceptually.
+		</p>
+		<h2>Servos (<code>Servo</code>)</h2>
+		<p>
+			Servos are also very simple to use in C++. In the following
+			example, we will quickly move a servo on port 1 to position 500,
+			then smoothly move it to 1000 over a period of 5 seconds. CBCJVM
+			does quite a bit of work behind the scenes to accomplish this for
+			us.
+		</p>
+		<pygments>
+			using namespace std;
+			
+			int main()
+			{
+				Servo a(1);
+				a.setPosition(500);
+				
+				msleep(500);
+				
+				cout << "Servo 1 is now at " << a.getPosition() << endl;
+				
+				return 0;
+			}
+		</pygments>
+		<p>
+			Since both scenarios have their obvious uses, CBCJVM allows the
+			programmer to pick. In our example, we block. Otherwise, we would be
+			disabling the servo before the servo finished moving, which wouldn't
+			produce the desired behavior.
+		</p>
+		<h2>Sensors</h2>
+		<p>
+			All sensors extend the 
+		</p>
+		<h3>
+			Buttons (<code>namespace Button</code>)
+		</h3>
+		<p>
+			Wrappers for the virtual and physical CBC buttons are found under the <code>Button</code> namespace.
+			Buttons implement the <pygm>BooleanSensor</pygm> interface, so you can retrieve the button's
+			value using <pygm>getValue</pygm>. 
+			
+		</p>
+		<pygments>
+			int main() {
+				Button::A a;
+				while(!a.getValue());
+				
+				return 0;
+			}
+		</pygments>
+		<h3>
+			Boolean Sensors (<code>cbccore.sensors.digital.IBooleanSensor</code>)
+		</h3>
+		<p>
+			A Boolean sensor can be defined very simply: Anything that can
+			return a true or a false value. The method we call to determine this state
+			is called <pygm>getValue</pygm> All digital sensors fall under this
+			category, so we will discuss them first. In the following example,
+			we will wait for a touch sensor on port 15 to be pressed before
+			printing a message.
+		</p>
+		<pygments>
+			import cbccore.sensors.digital.*;
+			
+			public class TouchSensors {
+				public static void main(String[] args) {
+					Touch sensor = new Touch(15);
+					while(!sensor.getValue()) Thread.yield(); // Wait until sensor is pressed
+					System.out.println("Touched!");
+				}
+			}
+		</pygments>
+	</body>
+</html>

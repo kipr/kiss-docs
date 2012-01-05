@@ -34,7 +34,7 @@
 			didn't warn you! That said, we'll try to keep major changes to a
 			minimum and documentation up-to-date.</i>
 		</p>
-		<h2>Things That Move (<code>cbccore.motors.*</code>)</h2>
+		<center><h2>Things That Move (<code>cbccore.motors.*</code>)</h2></center>
 		<h3>Motors (<code>cbccore.motors.Motor</code>)</h3>
 		<p>
 			Individual motors are creating instances of the
@@ -46,7 +46,7 @@
 		</p>
 		<pygments>
 			import cbccore.motors.Motor;
-			public class MotorTest {
+			class MotorTest {
 				public static void main(String[] args) {
 					Motor test = new Motor(0);
 					test.moveAtVelocity(150);
@@ -100,7 +100,7 @@
 		<pygments>
 			import cbccore.motors.Servo;
 			
-			public class ServoTest {
+			class ServoTest {
 				public static void msleep(long ms) {
 					try {
 						Thread.sleep(ms);
@@ -139,7 +139,7 @@
 			may write the following:
 		</p>
 		<pygments>
-			public class ComputePi {
+			class ComputePi {
 				public static void main(String[] args) {
 					System.out.println("Computing Pi...");
 					computePi();
@@ -163,7 +163,7 @@
 			disabling the servo before the servo finished moving, which wouldn't
 			produce the desired behavior.
 		</p>
-		<h2>Sensors (<code>cbccore.sensors.*</code>)</h2>
+		<center><h2>Sensors (<code>cbccore.sensors.*</code>)</h2></center>
 		<p>
 			CBCJVM sensors are slightly less straightforward than what we've
 			learned so far. Sensors are based off of two core abstractions, that
@@ -187,7 +187,7 @@
 		<pygments>
 			import cbccore.sensors.digital.*;
 			
-			public class TouchSensors {
+			class TouchSensors {
 				public static void main(String[] args) {
 					Touch sensor = new Touch(15);
 					while(!sensor.getValue()) Thread.yield(); // Wait until sensor is pressed
@@ -328,7 +328,7 @@
 		<pygments>
 			import cbccore.sensors.analog.ETSensor;
 			
-			public class SimpleETDistanceFinder {
+			class SimpleETDistanceFinder {
 				public static void main(String[] args) {
 					ETSensor sensor = new ETSensor(6); // Let's say it's in port 6
 					// Make five readings averaged together, waiting 10ms between each one:
@@ -469,7 +469,7 @@
 			import cbccore.events.EventListenerAdapter;
 			import cbccore.sensors.buttons.ButtonEmitter;
 			
-			public class EventingButtonHandler {
+			class Main {
 				
 				public void run() {
 					EventManager manager = EventManager.get();
@@ -560,7 +560,7 @@
 			import cbccore.create.Create;
 			import cbccore.create.CreateConnectException;
 			
-			public class CreateMovementPluginConstructionTest {
+			class CreateMovementPluginConstructionTest {
 				public static void main(String[] args) {
 					MovementPlugin plugin = null;
 					try {
@@ -603,7 +603,7 @@
 			import cbccore.movement.plugins.motor.Wheel;
 			import cbccore.movement.plugins.motor.MotorMovementPlugin;
 			
-			public class MotorMovementPluginConstructionTest {
+			class MotorMovementPluginConstructionTest {
 				public static void main(String[] args) {
 					// Let's pretend we have a robot with a left wheel motor plugged into
 					// port 0, and a right wheel motor plugged into port 1. The

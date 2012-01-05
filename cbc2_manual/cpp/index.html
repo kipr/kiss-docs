@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+		<link rel="icon" href="images/botball.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="images/botball.ico" type="image/x-icon">
+		<style type="text/css">
+			@import "style.css";
+		</style>
+		<title>CBCJVM Programmers Manual</title>
+	</head>
+	<body>
+		Version 0.1, by Braden McDorman (<a href="mailto:bmcdorman@kipr.org">bmcdorman@kipr.org</a>)
+		<br />
+		<h1>C++ CBC Programmers Manual</h1>
+		<br/>
+		<p>
+			This document covers usage of the cbc2cxx.h header, which is a lightweight c++ wrapper for libcbc.
+			C++ is almost completely backwards compatible with C, so almost all regular C code for the CBC will
+			work in C++, including regular libcbc calls such as <span class="pygments"><code><span class="n">motor</span><span class="o">(</span><span class="kt">int</span> <span class="n">motor</span><span class="o">,</span> <span class="kt">int</span> <span class="n">speed</span><span class="o">);</span></code></span> and 
+			<span class="pygments"><code><span class="n">digital</span><span class="o">(</span><span class="kt">int</span> <span class="n">port</span><span class="o">);</span></code></span>
+		</p>
+		<h2>Motors (<code>Motor</code>)</h2>
+		<p>
+			Individual motors are creating instances of the
+			<span class="pygments"><code><span class="n">Motor</span></code></span> class. The <span class="pygments"><code><span class="n">Motor</span></code></span>
+			class has a significant amount of similarity to libcbc. For example,
+			if we wished to move motor on port 0 at a specific velocity for 1
+			second, we could use the <span class="pygments"><code><span class="n">moveAtVelocity</span></code></span> method in
+			<span class="pygments"><code><span class="n">Motor</span></code></span>.
+		</p>
+		<div class="pygments"><pre><span class="kt">int</span> <span class="nf">main</span><span class="o">()</span> <span class="o">{</span>
+	<span class="n">Motor</span> <span class="nf">test</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+	<span class="n">test</span><span class="o">.</span><span class="na">moveAtVelocity</span><span class="o">(</span><span class="mi">150</span><span class="o">);</span>
+	<span class="n">msleep</span><span class="o">(</span><span class="mi">1500</span><span class="o">);</span>
+	<span class="n">test</span><span class="o">.</span><span class="na">off</span><span class="o">();</span>
+	
+	<span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+		<p>
+			If you've programmed a CBC in C before, the method
+			<span class="pygments"><code><span class="n">moveAtVelocity</span></code></span> should look somewhat familiar. In C, we
+			can use the <span class="pygments"><code><span class="n">move_at_velocity</span></code></span> or <span class="pygments"><code><span class="n">mav</span></code></span>
+			functions to achieve a similar effect. In C++, though, we don't
+			have to supply a port to the method. The <span class="pygments"><code><span class="n">Motor</span></code></span> class
+			stores the port we supplied to it in the constructor, cleaning our
+			code both syntactically and conceptually.
+		</p>
+		<h2>Servos (<code>Servo</code>)</h2>
+		<p>
+			Servos are also very simple to use in C++. In the following
+			example, we will quickly move a servo on port 1 to position 500,
+			then smoothly move it to 1000 over a period of 5 seconds. CBCJVM
+			does quite a bit of work behind the scenes to accomplish this for
+			us.
+		</p>
+		<div class="pygments"><pre><span class="n">using</span> <span class="n">namespace</span> <span class="n">std</span><span class="o">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="o">()</span>
+<span class="o">{</span>
+	<span class="n">Servo</span> <span class="nf">a</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+	<span class="n">a</span><span class="o">.</span><span class="na">setPosition</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span>
+	
+	<span class="n">msleep</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span>
+	
+	<span class="n">cout</span>
+</pre></div>
+
+		<p>
+			Since both scenarios have their obvious uses, CBCJVM allows the
+			programmer to pick. In our example, we block. Otherwise, we would be
+			disabling the servo before the servo finished moving, which wouldn't
+			produce the desired behavior.
+		</p>
+		<h2>Sensors</h2>
+		<p>
+			All sensors extend the 
+		</p>
+		<h3>
+			Buttons (<code>namespace Button</code>)
+		</h3>
+		<p>
+			Wrappers for the virtual and physical CBC buttons are found under the <code>Button</code> namespace.
+			Buttons implement the <span class="pygments"><code><span class="n">BooleanSensor</span></code></span> interface, so you can retrieve the button's
+			value using <span class="pygments"><code><span class="n">getValue</span></code></span>. 
+			
+		</p>
+		<div class="pygments"><pre><span class="kt">int</span> <span class="nf">main</span><span class="o">()</span> <span class="o">{</span>
+	<span class="nl">Button:</span><span class="o">:</span><span class="n">A</span> <span class="n">a</span><span class="o">;</span>
+	<span class="k">while</span><span class="o">(!</span><span class="n">a</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+	
+	<span class="k">return</span> <span class="mi">0</span><span class="o">;</span>
+<span class="o">}</span>
+</pre></div>
+
+		<h3>
+			Boolean Sensors (<code>cbccore.sensors.digital.IBooleanSensor</code>)
+		</h3>
+		<p>
+			A Boolean sensor can be defined very simply: Anything that can
+			return a true or a false value. The method we call to determine this state
+			is called <span class="pygments"><code><span class="n">getValue</span></code></span> All digital sensors fall under this
+			category, so we will discuss them first. In the following example,
+			we will wait for a touch sensor on port 15 to be pressed before
+			printing a message.
+		</p>
+		<div class="pygments"><pre><span class="kn">import</span> <span class="nn">cbccore.sensors.digital.*</span><span class="o">;</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">TouchSensors</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">Touch</span> <span class="n">sensor</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Touch</span><span class="o">(</span><span class="mi">15</span><span class="o">);</span>
+		<span class="k">while</span><span class="o">(!</span><span class="n">sensor</span><span class="o">.</span><span class="na">getValue</span><span class="o">())</span> <span class="n">Thread</span><span class="o">.</span><span class="na">yield</span><span class="o">();</span> <span class="c1">// Wait until sensor is pressed</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&quot;Touched!&quot;</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+
+	</body>
+</html>
+
